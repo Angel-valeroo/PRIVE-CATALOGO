@@ -1,17 +1,31 @@
-# PRIVÉ Catálogo v1.2
+# PRIVÉ Catálogo v1.3
 
-Sprint de descubrimiento:
+Primera base de la versión **Inteligencia del Catálogo**, construida sobre v1.2.1.
 
-- Diseñadores clicables en cada tarjeta.
-- Filtro activo removible y regreso a todos los perfumes.
-- Ficha individual en ventana elegante para cada fragancia.
-- URL compartible mediante `#perfume=ID`.
-- Sección de perfumes del mismo diseñador.
-- Base preparada para familia olfativa, notas y descripciones futuras.
-- Catálogo neutral: sin contacto, compra, WhatsApp ni carrito.
+## Cambios principales
 
+- Diseño mobile-first y soporte para áreas seguras de iPhone.
+- Ficha de perfume de pantalla completa en teléfonos y modal premium en escritorio.
+- Nueva estructura para familia olfativa, acordes, intensidad, ocasiones, temporadas y pirámide de notas.
+- Recomendaciones que priorizan coincidencias de perfil; cuando aún no hay metadatos, utiliza el mismo diseñador.
+- Búsqueda preparada para consultar metadatos olfativos.
+- Filtro de familia olfativa que aparece automáticamente cuando existan datos.
+- La aplicación funciona aunque falten imágenes o fichas olfativas.
 
-## Versión 1.2.1
-- Corrige la carga inicial de imágenes.
-- Corrige la limpieza visual del filtro por diseñador.
-- Mantiene las fichas individuales y la navegación de la v1.2.
+## Campos opcionales admitidos en perfumes.json
+
+```json
+{
+  "description": "Descripción original PRIVÉ",
+  "family": "Amaderada aromática",
+  "accords": ["Fresco", "Cítrico", "Amaderado"],
+  "topNotes": ["Bergamota"],
+  "heartNotes": ["Lavanda"],
+  "baseNotes": ["Cedro"],
+  "intensity": "Intenso",
+  "occasions": ["Noche", "Evento"],
+  "seasons": ["Otoño", "Invierno"]
+}
+```
+
+Los campos pueden agregarse progresivamente sin modificar el código del sitio.
