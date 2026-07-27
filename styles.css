@@ -240,8 +240,11 @@ select {
   display: block;
   object-fit: contain;
   padding: 10%;
-  transition: transform .35s ease;
+  opacity: 1;
+  transition: opacity .2s ease, transform .35s ease;
 }
+
+.perfume-image.is-loading { opacity: 0; }
 
 .perfume-card:hover .perfume-image { transform: scale(1.035); }
 
@@ -380,6 +383,8 @@ footer {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
+.active-filter[hidden] { display: none !important; }
+
 .active-filter {
   margin: -8px 0 30px;
   padding: 14px 16px;

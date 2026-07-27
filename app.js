@@ -59,21 +59,31 @@ function loadImage(image, fallback, monogram, perfume) {
   let extensionIndex = 0;
   monogram.textContent = initials(perfume.designer);
   image.alt = `${perfume.name} de ${perfume.designer}`;
-  image.hidden = true;
+
+  // La imagen debe permanecer en el flujo para que el navegador inicie la
+  // carga, incluso cuando usa loading="lazy". Se oculta visualmente con
+  // opacidad, no con display:none.
+  image.hidden = false;
+  image.classList.add("is-loading");
   fallback.hidden = false;
 
   const tryNextExtension = () => {
     if (extensionIndex >= IMAGE_EXTENSIONS.length) {
+      image.onload = null;
+      image.onerror = null;
       image.removeAttribute("src");
       image.hidden = true;
+      image.classList.remove("is-loading");
       fallback.hidden = false;
       return;
     }
-    image.src = `${IMAGE_BASE_PATH}/${encodeURIComponent(perfume.code)}.${IMAGE_EXTENSIONS[extensionIndex++]}`;
+
+    const extension = IMAGE_EXTENSIONS[extensionIndex++];
+    image.src = `${IMAGE_BASE_PATH}/${encodeURIComponent(perfume.code)}.${extension}`;
   };
 
   image.onload = () => {
-    image.hidden = false;
+    image.classList.remove("is-loading");
     fallback.hidden = true;
   };
   image.onerror = tryNextExtension;
@@ -90,8 +100,8 @@ function configureImage(card, perfume) {
 }
 
 function setDesignerFilter(designer) {
-  state.designer = designer;
-  elements.designerFilter.value = designer;
+  state.designer = designer || "";
+  elements.designerFilter.value = state.designer;
   closePerfume(false);
   render();
   document.querySelector(".catalog-shell").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -163,8 +173,10 @@ function render() {
   elements.resultLabel.textContent = results.length === 1 ? "fragancia" : "fragancias";
   elements.emptyState.hidden = results.length !== 0;
   elements.clearSearch.classList.toggle("visible", Boolean(state.query));
-  elements.activeFilter.hidden = !state.designer;
-  elements.activeDesigner.textContent = state.designer;
+  const hasDesignerFilter = Boolean(state.designer);
+  elements.activeFilter.hidden = !hasDesignerFilter;
+  elements.activeFilter.setAttribute("aria-hidden", String(!hasDesignerFilter));
+  elements.activeDesigner.textContent = hasDesignerFilter ? state.designer : "";
 }
 
 function populateDesigners() {
@@ -186,7 +198,7 @@ function openFromHash() {
 
 elements.search.addEventListener("input", event => { state.query = event.target.value; render(); });
 elements.clearSearch.addEventListener("click", () => { state.query = ""; elements.search.value = ""; elements.search.focus(); render(); });
-elements.designerFilter.addEventListener("change", event => { state.designer = event.target.value; render(); });
+elements.designerFilter.addEventListener("change", event => setDesignerFilter(event.target.value));
 elements.removeDesignerFilter.addEventListener("click", () => setDesignerFilter(""));
 elements.resetFilters.addEventListener("click", () => {
   state.query = "";
