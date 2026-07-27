@@ -14,7 +14,7 @@
 <body>
   <header class="site-header">
     <a class="brand" href="#inicio" aria-label="PRIVÉ, inicio">PRIVÉ</a>
-    <span class="edition">CATÁLOGO INTELIGENTE · V1.3.4</span>
+    <span class="edition">CATÁLOGO INTELIGENTE · V1.3.5 EXPERIMENTAL</span>
   </header>
 
   <main>
@@ -22,14 +22,26 @@
       <div class="hero-inner">
         <p class="eyebrow">FRAGANCIAS CON CARÁCTER</p>
         <h1>Encuentra la esencia que habla por ti.</h1>
-        <p class="intro">Busca por nombre o descubre una fragancia según el momento, el clima y el estilo que necesitas.</p>
+        <p class="intro">Explora el catálogo o deja que el Asesor PRIVÉ encuentre las opciones que mejor coinciden contigo.</p>
+
+        <div class="entry-paths" aria-label="Formas de encontrar un perfume">
+          <button id="openAdvisor" class="entry-card entry-card--primary" type="button">
+            <span class="entry-icon" aria-hidden="true">✦</span>
+            <strong>Ayúdame a elegir</strong>
+            <small>Recibe hasta tres recomendaciones explicadas.</small>
+          </button>
+          <a class="entry-card" href="#descubrimiento">
+            <span class="entry-icon" aria-hidden="true">⌕</span>
+            <strong>Explorar catálogo</strong>
+            <small>Busca por nombre o combina filtros.</small>
+          </a>
+        </div>
 
         <label class="search-box" for="search">
           <span class="search-icon" aria-hidden="true">⌕</span>
           <input id="search" type="search" autocomplete="off" placeholder="Buscar perfume, nota o clave…">
           <button id="clearSearch" type="button" aria-label="Limpiar búsqueda">×</button>
         </label>
-
         <div class="summary" aria-live="polite">
           <strong id="resultCount">0</strong>
           <span id="resultLabel">fragancias</span>
@@ -37,8 +49,7 @@
       </div>
     </section>
 
-
-    <section class="discovery" aria-labelledby="discoveryTitle">
+    <section id="descubrimiento" class="discovery" aria-labelledby="discoveryTitle">
       <div class="discovery-inner">
         <div class="discovery-heading">
           <div>
@@ -59,26 +70,19 @@
         </div>
         <p>Selecciona una fragancia para conocer su perfil o toca el diseñador para explorar su colección.</p>
       </div>
-
       <div class="toolbar">
         <div class="filter-field">
           <label class="toolbar-label" for="designerFilter">Diseñador</label>
-          <select id="designerFilter">
-            <option value="">Todos los diseñadores</option>
-          </select>
+          <select id="designerFilter"><option value="">Todos los diseñadores</option></select>
         </div>
         <div id="familyFilterField" class="filter-field" hidden>
           <label class="toolbar-label" for="familyFilter">Familia olfativa</label>
-          <select id="familyFilter">
-            <option value="">Todas las familias</option>
-          </select>
+          <select id="familyFilter"><option value="">Todas las familias</option></select>
         </div>
         <button id="resetFilters" class="text-button" type="button">Restablecer filtros</button>
       </div>
-
       <div id="activeFilters" class="active-filters" hidden aria-live="polite"></div>
       <div id="catalog" class="catalog-grid" aria-live="polite"></div>
-
       <div id="emptyState" class="empty-state" hidden>
         <p class="empty-title">No encontramos esa fragancia.</p>
         <p>Prueba con otro nombre, diseñador, nota o clave.</p>
@@ -86,10 +90,7 @@
     </section>
   </main>
 
-  <footer>
-    <span>PRIVÉ</span>
-    <span>Catálogo de fragancias</span>
-  </footer>
+  <footer><span>PRIVÉ</span><span>Catálogo de fragancias</span></footer>
 
   <template id="perfumeCardTemplate">
     <article class="perfume-card">
@@ -109,6 +110,58 @@
     </article>
   </template>
 
+  <dialog id="advisorDialog" class="advisor-dialog" aria-labelledby="advisorTitle">
+    <div class="advisor-shell">
+      <button id="closeAdvisor" class="dialog-close advisor-close" type="button" aria-label="Cerrar asesor">×</button>
+      <div class="advisor-head">
+        <p class="detail-eyebrow">ASESOR PRIVÉ · EXPERIMENTAL</p>
+        <h2 id="advisorTitle">Vamos a encontrar tu perfume.</h2>
+        <p>Responde solo lo que quieras. Entre más datos nos des, más precisa será la recomendación.</p>
+        <div class="advisor-progress" aria-hidden="true"><span id="advisorProgressBar"></span></div>
+        <p id="advisorProgressText" class="advisor-progress-text">Paso 1 de 4</p>
+      </div>
+
+      <div id="advisorSteps" class="advisor-steps">
+        <section class="advisor-step is-active" data-step="0">
+          <p class="advisor-question">¿Para quién buscas el perfume?</p>
+          <div class="advisor-options" data-field="category"></div>
+        </section>
+        <section class="advisor-step" data-step="1">
+          <p class="advisor-question">¿Cuándo lo usarás?</p>
+          <div class="advisor-options" data-field="occasion"></div>
+        </section>
+        <section class="advisor-step" data-step="2">
+          <p class="advisor-question">¿Qué estilo aromático prefieres?</p>
+          <div class="advisor-options advisor-options--profiles" data-field="profile"></div>
+        </section>
+        <section class="advisor-step" data-step="3">
+          <p class="advisor-question">¿En qué clima lo usarás?</p>
+          <div class="advisor-options" data-field="climate"></div>
+        </section>
+      </div>
+
+      <section id="advisorResults" class="advisor-results" hidden>
+        <div class="advisor-results-heading">
+          <p class="detail-eyebrow">RESULTADO</p>
+          <h3>Tus mejores coincidencias</h3>
+          <p id="advisorResultsIntro"></p>
+        </div>
+        <div id="advisorRecommendations" class="advisor-recommendations"></div>
+        <div id="advisorNoMatch" class="advisor-no-match" hidden>
+          <strong>No encontramos una coincidencia suficientemente cercana.</strong>
+          <p>Preferimos no recomendarte algo que no encaje. Cambia uno de los criterios e inténtalo de nuevo.</p>
+        </div>
+      </section>
+
+      <div class="advisor-actions">
+        <button id="advisorBack" class="advisor-secondary" type="button" disabled>Anterior</button>
+        <button id="advisorSkip" class="advisor-secondary" type="button">Omitir</button>
+        <button id="advisorNext" class="advisor-primary" type="button">Continuar</button>
+        <button id="advisorRestart" class="advisor-secondary" type="button" hidden>Volver a intentar</button>
+      </div>
+    </div>
+  </dialog>
+
   <dialog id="perfumeDialog" class="perfume-dialog" aria-labelledby="detailName">
     <button id="closeDialog" class="dialog-close" type="button" aria-label="Cerrar detalles">×</button>
     <div class="detail-layout">
@@ -122,18 +175,15 @@
         <h2 id="detailName"></h2>
         <p id="detailCode" class="detail-code"></p>
         <p id="detailDescription" class="detail-description"></p>
-
         <section id="useSection" class="detail-section use-section" hidden>
           <p class="detail-label">Ideal para</p>
           <p class="use-hint">Toca una opción para ver fragancias similares.</p>
           <div id="profileChips" class="profile-chips" hidden></div>
         </section>
-
         <section id="familySection" class="detail-section" hidden>
           <p class="detail-label">Familia olfativa</p>
           <button id="detailFamily" class="family-link" type="button"></button>
         </section>
-
         <section id="notesSection" class="detail-section" hidden>
           <p class="detail-label">Pirámide olfativa</p>
           <div class="notes-grid">
@@ -142,12 +192,10 @@
             <div id="baseNotesGroup"><span>Fondo</span><p id="detailBaseNotes"></p></div>
           </div>
         </section>
-
         <div id="pendingData" class="pending-data">
           <strong>Perfil en preparación</strong>
           <span>Esta fragancia ya forma parte del catálogo. Sus datos olfativos se incorporarán progresivamente.</span>
         </div>
-
         <section id="relatedSection" class="related-section">
           <div class="related-heading">
             <div><p class="detail-label">También te puede gustar</p><p id="relatedReason" class="related-reason"></p></div>
