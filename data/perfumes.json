@@ -4,14 +4,75 @@
     "designer": "AFNAN",
     "name": "9PM",
     "code": "CP02446",
-    "category": "Caballero"
+    "category": "Caballero",
+    "family": "Ámbar vainilla",
+    "topNotes": [
+      "Bergamota",
+      "Lavandín",
+      "Canela",
+      "Manzana"
+    ],
+    "heartNotes": [
+      "Muguete",
+      "Flor de azahar"
+    ],
+    "baseNotes": [
+      "Pachulí",
+      "Ámbar",
+      "Vainilla",
+      "Haba tonka"
+    ],
+    "accords": [
+      "Dulce",
+      "Especiado",
+      "Vainilla"
+    ],
+    "intensity": "Intenso",
+    "occasions": [
+      "Noche",
+      "Evento"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "description": "Una fragancia dulce, cálida y especiada, con una salida frutal que evoluciona hacia un fondo cremoso de vainilla y haba tonka. Una opción de presencia marcada para la noche."
   },
   {
     "id": "cp02518-afnan-turathi-blue",
     "designer": "AFNAN",
     "name": "TURATHI BLUE",
     "code": "CP02518",
-    "category": "Caballero"
+    "category": "Caballero",
+    "family": "Aromática acuática",
+    "topNotes": [
+      "Bergamota",
+      "Mandarina"
+    ],
+    "heartNotes": [
+      "Ámbar",
+      "Notas amaderadas"
+    ],
+    "baseNotes": [
+      "Almizcle",
+      "Pachulí",
+      "Especias frescas"
+    ],
+    "accords": [
+      "Cítrico",
+      "Amaderado",
+      "Fresco"
+    ],
+    "intensity": "Moderado",
+    "occasions": [
+      "Diario",
+      "Oficina"
+    ],
+    "seasons": [
+      "Primavera",
+      "Verano"
+    ],
+    "description": "Un perfil cítrico, fresco y amaderado que combina luminosidad con un fondo limpio de almizcle y pachulí. Versátil para el día y climas cálidos."
   },
   {
     "id": "cp02494-al-haramain-perfumes-amber-oud-aqua-dubai",
@@ -46,7 +107,40 @@
     "designer": "ARMAF",
     "name": "CLUB DE NUIT INTENSE MAN",
     "code": "CP02438",
-    "category": "Caballero"
+    "category": "Caballero",
+    "family": "Amaderada especiada",
+    "topNotes": [
+      "Manzana",
+      "Bergamota",
+      "Grosella negra",
+      "Piña",
+      "Limón"
+    ],
+    "heartNotes": [
+      "Rosa",
+      "Abedul",
+      "Jazmín"
+    ],
+    "baseNotes": [
+      "Almizcle",
+      "Ámbar gris",
+      "Pachulí",
+      "Vainilla"
+    ],
+    "accords": [
+      "Cítrico",
+      "Ahumado",
+      "Amaderado"
+    ],
+    "intensity": "Intenso",
+    "occasions": [
+      "Evento",
+      "Noche"
+    ],
+    "seasons": [
+      "Todo el año"
+    ],
+    "description": "Una apertura cítrica y frutal da paso a un corazón elegante con matices ahumados, sobre una base profunda de almizcle, pachulí y vainilla."
   },
   {
     "id": "cp02478-armaf-hunter-intense",
@@ -95,7 +189,36 @@
     "designer": "ARMANI",
     "name": "AQUA DI GIO",
     "code": "CP00725",
-    "category": "Caballero"
+    "category": "Caballero",
+    "family": "Aromática acuática",
+    "topNotes": [
+      "Bergamota",
+      "Neroli",
+      "Matices marinos"
+    ],
+    "heartNotes": [
+      "Romero",
+      "Caqui"
+    ],
+    "baseNotes": [
+      "Cedro",
+      "Pachulí"
+    ],
+    "accords": [
+      "Acuático",
+      "Cítrico",
+      "Fresco"
+    ],
+    "intensity": "Ligero",
+    "occasions": [
+      "Diario",
+      "Oficina"
+    ],
+    "seasons": [
+      "Primavera",
+      "Verano"
+    ],
+    "description": "Una composición fresca y acuática de carácter mediterráneo, con cítricos luminosos, hierbas aromáticas y un fondo limpio de maderas."
   },
   {
     "id": "cp02232-armani-aqua-di-gio-absolu",
@@ -109,14 +232,68 @@
     "designer": "ARMANI",
     "name": "AQUA DI GIO PARFUM",
     "code": "CP02414",
-    "category": "Caballero"
+    "category": "Caballero",
+    "family": "Amaderada acuática",
+    "topNotes": [
+      "Bergamota"
+    ],
+    "heartNotes": [
+      "Romero"
+    ],
+    "baseNotes": [
+      "Incienso",
+      "Maderas"
+    ],
+    "accords": [
+      "Acuático",
+      "Amaderado",
+      "Aromático"
+    ],
+    "intensity": "Moderado",
+    "occasions": [
+      "Diario",
+      "Evento"
+    ],
+    "seasons": [
+      "Todo el año"
+    ],
+    "description": "Frescura acuática con un carácter más profundo y refinado. La bergamota y el romero se apoyan en incienso y maderas para crear una estela elegante."
   },
   {
     "id": "cp02310-armani-aqua-di-gio-profondo",
     "designer": "ARMANI",
     "name": "AQUA DI GIO PROFONDO",
     "code": "CP02310",
-    "category": "Caballero"
+    "category": "Caballero",
+    "family": "Aromática acuática",
+    "topNotes": [
+      "Notas marinas",
+      "Cítricos"
+    ],
+    "heartNotes": [
+      "Ciprés",
+      "Lavanda",
+      "Romero"
+    ],
+    "baseNotes": [
+      "Notas minerales",
+      "Maderas"
+    ],
+    "accords": [
+      "Marino",
+      "Aromático",
+      "Amaderado"
+    ],
+    "intensity": "Moderado",
+    "occasions": [
+      "Diario",
+      "Oficina"
+    ],
+    "seasons": [
+      "Primavera",
+      "Verano"
+    ],
+    "description": "Una interpretación profunda y moderna de la frescura marina, reforzada por ciprés, lavanda y romero sobre un fondo mineral y amaderado."
   },
   {
     "id": "cp02306-armani-aqua-di-gio-profumo",

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Catálogo móvil de fragancias PRIVÉ — Colección Caballero">
+  <meta name="description" content="Catálogo de fragancias PRIVÉ — Colección Caballero">
   <meta name="theme-color" content="#171512">
   <title>PRIVÉ — Colección Caballero</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,7 @@
 <body>
   <header class="site-header">
     <a class="brand" href="#inicio" aria-label="PRIVÉ, inicio">PRIVÉ</a>
-    <span class="edition">COLECCIÓN CABALLERO · V1.3</span>
+    <span class="edition">COLECCIÓN CABALLERO · V1.3.1</span>
   </header>
 
   <main>
@@ -22,11 +22,11 @@
       <div class="hero-inner">
         <p class="eyebrow">FRAGANCIAS CON CARÁCTER</p>
         <h1>Encuentra la esencia que habla por ti.</h1>
-        <p class="intro">Explora la colección por nombre, diseñador o clave PRIVÉ.</p>
+        <p class="intro">Busca por nombre, diseñador, clave, familia olfativa o nota.</p>
 
         <label class="search-box" for="search">
           <span class="search-icon" aria-hidden="true">⌕</span>
-          <input id="search" type="search" autocomplete="off" enterkeyhint="search" placeholder="Buscar fragancia…">
+          <input id="search" type="search" autocomplete="off" placeholder="Buscar perfume, nota o clave…">
           <button id="clearSearch" type="button" aria-label="Limpiar búsqueda">×</button>
         </label>
 
@@ -43,32 +43,31 @@
           <p class="section-kicker">CATÁLOGO PRIVÉ</p>
           <h2 id="catalogTitle">Colección Caballero</h2>
         </div>
-        <p>Abre una fragancia para conocer su perfil y descubrir alternativas relacionadas.</p>
+        <p>Selecciona una fragancia para conocer su perfil o toca el diseñador para explorar su colección.</p>
       </div>
 
       <div class="toolbar">
-        <label class="filter-field">
-          <span class="toolbar-label">Diseñador</span>
-          <select id="designerFilter" aria-label="Filtrar por diseñador">
+        <div class="filter-field">
+          <label class="toolbar-label" for="designerFilter">Diseñador</label>
+          <select id="designerFilter">
             <option value="">Todos los diseñadores</option>
           </select>
-        </label>
-        <label class="filter-field" id="familyFilterField" hidden>
-          <span class="toolbar-label">Familia olfativa</span>
-          <select id="familyFilter" aria-label="Filtrar por familia olfativa">
+        </div>
+        <div id="familyFilterField" class="filter-field" hidden>
+          <label class="toolbar-label" for="familyFilter">Familia olfativa</label>
+          <select id="familyFilter">
             <option value="">Todas las familias</option>
           </select>
-        </label>
-        <button id="resetFilters" class="text-button" type="button">Restablecer</button>
+        </div>
+        <button id="resetFilters" class="text-button" type="button">Restablecer filtros</button>
       </div>
 
       <div id="activeFilters" class="active-filters" hidden aria-live="polite"></div>
-
       <div id="catalog" class="catalog-grid" aria-live="polite"></div>
 
       <div id="emptyState" class="empty-state" hidden>
         <p class="empty-title">No encontramos esa fragancia.</p>
-        <p>Prueba con otro nombre, diseñador, familia o clave.</p>
+        <p>Prueba con otro nombre, diseñador, nota o clave.</p>
       </div>
     </section>
   </main>
@@ -90,64 +89,50 @@
         <button class="designer designer-link" type="button"></button>
         <button class="name-button" type="button"><h3 class="perfume-name"></h3></button>
         <p class="product-code"></p>
-        <div class="card-meta" hidden></div>
-        <button class="details-link" type="button">Ver ficha <span aria-hidden="true">→</span></button>
+        <p class="card-meta" hidden></p>
+        <button class="details-link" type="button">Ver perfil <span aria-hidden="true">→</span></button>
       </div>
     </article>
   </template>
 
   <dialog id="perfumeDialog" class="perfume-dialog" aria-labelledby="detailName">
-    <div class="dialog-handle" aria-hidden="true"></div>
     <button id="closeDialog" class="dialog-close" type="button" aria-label="Cerrar detalles">×</button>
     <div class="detail-layout">
       <div class="detail-media">
         <img id="detailImage" class="detail-image" src="" alt="">
         <div id="detailFallback" class="detail-fallback" aria-hidden="true"><span id="detailMonogram" class="monogram"></span></div>
       </div>
-
       <div class="detail-copy">
         <p class="detail-eyebrow">COLECCIÓN CABALLERO</p>
         <button id="detailDesigner" class="detail-designer" type="button"></button>
         <h2 id="detailName"></h2>
         <p id="detailCode" class="detail-code"></p>
+        <p id="detailDescription" class="detail-description"></p>
 
         <div id="profileChips" class="profile-chips" hidden></div>
-        <p id="detailDescription" class="detail-description"></p>
 
         <section id="familySection" class="detail-section" hidden>
           <p class="detail-label">Familia olfativa</p>
           <button id="detailFamily" class="family-link" type="button"></button>
         </section>
 
-        <section id="notesSection" class="detail-section notes-section" hidden>
+        <section id="notesSection" class="detail-section" hidden>
           <p class="detail-label">Pirámide olfativa</p>
           <div class="notes-grid">
-            <div id="topNotesGroup" hidden>
-              <span>Salida</span>
-              <p id="detailTopNotes"></p>
-            </div>
-            <div id="heartNotesGroup" hidden>
-              <span>Corazón</span>
-              <p id="detailHeartNotes"></p>
-            </div>
-            <div id="baseNotesGroup" hidden>
-              <span>Fondo</span>
-              <p id="detailBaseNotes"></p>
-            </div>
+            <div id="topNotesGroup"><span>Salida</span><p id="detailTopNotes"></p></div>
+            <div id="heartNotesGroup"><span>Corazón</span><p id="detailHeartNotes"></p></div>
+            <div id="baseNotesGroup"><span>Fondo</span><p id="detailBaseNotes"></p></div>
           </div>
         </section>
 
-        <div id="pendingData" class="pending-data" hidden>
-          <strong>Ficha olfativa en preparación</strong>
-          <span>La información se incorporará progresivamente sin detener el catálogo.</span>
+        <div id="pendingData" class="pending-data">
+          <strong>Perfil en preparación</strong>
+          <span>Esta fragancia ya forma parte del catálogo. Sus datos olfativos se incorporarán progresivamente.</span>
         </div>
 
         <section id="relatedSection" class="related-section">
           <div class="related-heading">
-            <div>
-              <p class="detail-label">También te puede gustar</p>
-              <p id="relatedReason" class="related-reason"></p>
-            </div>
+            <div><p class="detail-label">También te puede gustar</p><p id="relatedReason" class="related-reason"></p></div>
             <button id="viewDesigner" type="button">Ver diseñador →</button>
           </div>
           <div id="relatedPerfumes" class="related-grid"></div>
