@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Catálogo de fragancias PRIVÉ">
+  <title>PRIVÉ — Catálogo de fragancias</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="PRIVÉ, página principal">PRIVÉ</a>
+    <span class="edition">CATÁLOGO</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">COLECCIÓN CABALLERO</p>
+      <h1>Encuentra tu próxima fragancia.</h1>
+      <p class="intro">Explora el catálogo por nombre, diseñador o clave de producto.</p>
+
+      <label class="search-box" for="search">
+        <span aria-hidden="true">⌕</span>
+        <input id="search" type="search" autocomplete="off"
+               placeholder="Buscar perfume, diseñador o clave…">
+        <button id="clearSearch" type="button" aria-label="Limpiar búsqueda">×</button>
+      </label>
+
+      <div class="summary" aria-live="polite">
+        <strong id="resultCount">0</strong>
+        <span id="resultLabel">fragancias</span>
+      </div>
+    </section>
+
+    <section class="catalog-shell">
+      <div class="toolbar">
+        <div>
+          <p class="toolbar-label">Diseñador</p>
+          <select id="designerFilter" aria-label="Filtrar por diseñador">
+            <option value="">Todos los diseñadores</option>
+          </select>
+        </div>
+        <button id="resetFilters" class="text-button" type="button">Restablecer</button>
+      </div>
+
+      <div id="catalog" class="catalog-grid" aria-live="polite"></div>
+
+      <div id="emptyState" class="empty-state" hidden>
+        <p class="empty-title">No encontramos esa fragancia.</p>
+        <p>Prueba con otra palabra, diseñador o clave.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>PRIVÉ</span>
+    <span>Catálogo de fragancias</span>
+  </footer>
+
+  <template id="perfumeCardTemplate">
+    <article class="perfume-card">
+      <div class="image-placeholder" aria-hidden="true">
+        <span class="monogram"></span>
+      </div>
+      <div class="card-copy">
+        <p class="designer"></p>
+        <h2 class="perfume-name"></h2>
+        <p class="product-code"></p>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
