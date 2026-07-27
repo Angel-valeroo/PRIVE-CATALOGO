@@ -36,7 +36,17 @@
       "Otoño",
       "Invierno"
     ],
-    "description": "Una fragancia dulce, cálida y especiada, con una salida frutal que evoluciona hacia un fondo cremoso de vainilla y haba tonka. Una opción de presencia marcada para la noche."
+    "description": "Una fragancia dulce, cálida y especiada, con una salida frutal que evoluciona hacia un fondo cremoso de vainilla y haba tonka. Una opción de presencia marcada para la noche.",
+    "contexts": [
+      "Noche",
+      "Cita",
+      "Fiesta",
+      "Evento"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ]
   },
   {
     "id": "cp02518-afnan-turathi-blue",
@@ -72,7 +82,17 @@
       "Primavera",
       "Verano"
     ],
-    "description": "Un perfil cítrico, fresco y amaderado que combina luminosidad con un fondo limpio de almizcle y pachulí. Versátil para el día y climas cálidos."
+    "description": "Un perfil cítrico, fresco y amaderado que combina luminosidad con un fondo limpio de almizcle y pachulí. Versátil para el día y climas cálidos.",
+    "contexts": [
+      "Diario",
+      "Oficina",
+      "Viaje",
+      "Playa"
+    ],
+    "climates": [
+      "Calor",
+      "Templado"
+    ]
   },
   {
     "id": "cp02494-al-haramain-perfumes-amber-oud-aqua-dubai",
@@ -140,7 +160,17 @@
     "seasons": [
       "Todo el año"
     ],
-    "description": "Una apertura cítrica y frutal da paso a un corazón elegante con matices ahumados, sobre una base profunda de almizcle, pachulí y vainilla."
+    "description": "Una apertura cítrica y frutal da paso a un corazón elegante con matices ahumados, sobre una base profunda de almizcle, pachulí y vainilla.",
+    "contexts": [
+      "Noche",
+      "Evento",
+      "Cita",
+      "Oficina"
+    ],
+    "climates": [
+      "Templado",
+      "Frío"
+    ]
   },
   {
     "id": "cp02478-armaf-hunter-intense",
@@ -218,7 +248,18 @@
       "Primavera",
       "Verano"
     ],
-    "description": "Una composición fresca y acuática de carácter mediterráneo, con cítricos luminosos, hierbas aromáticas y un fondo limpio de maderas."
+    "description": "Una composición fresca y acuática de carácter mediterráneo, con cítricos luminosos, hierbas aromáticas y un fondo limpio de maderas.",
+    "contexts": [
+      "Diario",
+      "Oficina",
+      "Escuela",
+      "Gimnasio",
+      "Playa"
+    ],
+    "climates": [
+      "Calor",
+      "Templado"
+    ]
   },
   {
     "id": "cp02232-armani-aqua-di-gio-absolu",
@@ -257,7 +298,17 @@
     "seasons": [
       "Todo el año"
     ],
-    "description": "Frescura acuática con un carácter más profundo y refinado. La bergamota y el romero se apoyan en incienso y maderas para crear una estela elegante."
+    "description": "Frescura acuática con un carácter más profundo y refinado. La bergamota y el romero se apoyan en incienso y maderas para crear una estela elegante.",
+    "contexts": [
+      "Diario",
+      "Oficina",
+      "Evento",
+      "Cita"
+    ],
+    "climates": [
+      "Templado",
+      "Calor"
+    ]
   },
   {
     "id": "cp02310-armani-aqua-di-gio-profondo",
@@ -293,7 +344,18 @@
       "Primavera",
       "Verano"
     ],
-    "description": "Una interpretación profunda y moderna de la frescura marina, reforzada por ciprés, lavanda y romero sobre un fondo mineral y amaderado."
+    "description": "Una interpretación profunda y moderna de la frescura marina, reforzada por ciprés, lavanda y romero sobre un fondo mineral y amaderado.",
+    "contexts": [
+      "Diario",
+      "Oficina",
+      "Gimnasio",
+      "Playa",
+      "Viaje"
+    ],
+    "climates": [
+      "Calor",
+      "Templado"
+    ]
   },
   {
     "id": "cp02306-armani-aqua-di-gio-profumo",
