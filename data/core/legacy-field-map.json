@@ -1,0 +1,17 @@
+{
+  "designer": "identity.brand",
+  "name": "identity.name",
+  "code": "identity.priveCode",
+  "category": "identity.audience",
+  "family": "classification.family",
+  "accords": "classification.accords",
+  "topNotes": "olfactory.topNotes",
+  "heartNotes": "olfactory.heartNotes",
+  "baseNotes": "olfactory.baseNotes",
+  "intensity": "performance.intensity",
+  "occasions": "recommendation.occasions",
+  "contexts": "recommendation.occasions (requiere normalización semántica a recommendation.contexts)",
+  "climates": "recommendation.climates",
+  "seasons": "recommendation.seasons",
+  "description": "content.shortDescription"
+}

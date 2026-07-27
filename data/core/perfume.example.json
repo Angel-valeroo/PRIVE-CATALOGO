@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp02446-afnan-9pm",
+  "status": "review",
+  "identity": {
+    "brand": "AFNAN",
+    "name": "9PM",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP02446",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Eau de Parfum",
+    "launchYear": null,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Ámbar vainilla",
+    "subfamily": null,
+    "accords": ["Dulce", "Especiado", "Afrutado"],
+    "styleTags": ["Cálido", "Nocturno", "Envolvente"]
+  },
+  "olfactory": {
+    "topNotes": ["Bergamota", "Lavandín", "Canela", "Manzana"],
+    "heartNotes": ["Muguete", "Flor de azahar"],
+    "baseNotes": ["Pachulí", "Ámbar", "Vainilla", "Haba tonka"],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": { "min": null, "max": null }
+  },
+  "sensoryProfile": {
+    "freshness": 1,
+    "sweetness": 5,
+    "warmth": 5,
+    "woodiness": 2,
+    "spiciness": 3,
+    "floral": 1,
+    "citrus": 1,
+    "fruitiness": 3,
+    "aquatic": 0,
+    "powdery": 1,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": ["Noche", "Cita", "Fiesta", "Evento"],
+    "contexts": ["Romántico", "Social", "Especial"],
+    "climates": ["Frío", "Templado"],
+    "seasons": ["Otoño", "Invierno"],
+    "dayParts": ["Noche"],
+    "formality": 3,
+    "versatility": 2,
+    "distinctiveness": 4,
+    "recommendedAge": { "min": null, "max": null }
+  },
+  "content": {
+    "shortDescription": "Una fragancia dulce, cálida y especiada, con una salida frutal que evoluciona hacia un fondo cremoso de vainilla y haba tonka. Una opción de presencia marcada para la noche.",
+    "advisorSummary": "Ideal para noches frescas, citas y eventos cuando buscas una presencia dulce, cálida y marcada.",
+    "wearingTips": ["Funciona mejor con clima fresco.", "Aplicar con moderación en espacios cerrados."],
+    "image": { "path": "IMAGES/Caballero/CP02446.avif", "alt": "Afnan 9PM" }
+  },
+  "provenance": {
+    "lastReviewedAt": null,
+    "reviewedBy": null,
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo PRIVÉ actual",
+        "url": null,
+        "accessedAt": null,
+        "supports": ["identity", "classification", "olfactory", "recommendation", "content"]
+      }
+    ],
+    "notes": "Ejemplo de migración. Los campos no verificados permanecen en null o Desconocida."
+  }
+}
