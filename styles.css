@@ -266,3 +266,24 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px s
   .gender-card:hover { transform: translateY(-3px); border-color: rgba(183,150,93,.45); box-shadow: 0 12px 28px rgba(18,15,11,.1); }
   .gender-card.is-active:hover { transform: translateY(-3px); }
 }
+
+/* v1.3.4 · Refinamiento visual y lenguaje del cliente */
+.discovery-chip span,
+.profile-chip span {
+  min-width: 22px;
+  font-family: system-ui, "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+.gender-card .gender-icon {
+  font-family: system-ui, sans-serif;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.gender-card[aria-pressed="true"] .gender-icon {
+  transform: scale(1.06);
+}
+@media (max-width: 380px) {
+  .discovery-chip { padding-inline: 12px; }
+  .discovery-chip span { min-width: 20px; }
+}

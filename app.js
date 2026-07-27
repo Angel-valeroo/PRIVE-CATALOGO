@@ -12,18 +12,19 @@ const IMAGE_BASE_PATH = "IMAGES/Caballero";
 const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
 const DISCOVERY_GROUPS = [
   { label: "Género", type: "category", featured: true, values: ["Caballero", "Dama", "Unisex"] },
-  { label: "Ocasión", values: ["Diario", "Oficina", "Noche", "Cita", "Fiesta", "Evento", "Playa", "Gimnasio", "Escuela", "Viaje"] },
+  { label: "Ocasión", values: ["Día", "Noche", "Diario", "Oficina", "Cita", "Fiesta", "Evento", "Playa", "Gimnasio", "Escuela", "Viaje"] },
   { label: "Clima", values: ["Calor", "Templado", "Frío"] },
   { label: "Estación", values: ["Primavera", "Verano", "Otoño", "Invierno"] },
-  { label: "Perfil", values: ["Fresco", "Dulce", "Amaderado", "Acuático", "Cítrico", "Aromático", "Especiado", "Vainilla"] }
+  { label: "Perfil aromático", values: ["Fresco", "Acuático", "Dulce", "Amaderado", "Aromático", "Cítrico", "Afrutado", "Floral", "Especiado"] }
 ];
 const TAG_ICONS = {
-  Caballero: "◆", Dama: "◇", Unisex: "○",
-  Diario: "◷", Oficina: "▣", Noche: "☾", Cita: "♡", Fiesta: "✦", Evento: "◆",
-  Playa: "≈", Gimnasio: "↗", Escuela: "▤", Viaje: "✈", Calor: "☀", Templado: "◐",
-  Frío: "❄", Primavera: "✿", Verano: "☀", Otoño: "⌁", Invierno: "❄",
-  Fresco: "◇", Dulce: "●", Amaderado: "▥", Acuático: "≈", Cítrico: "◉",
-  Aromático: "♧", Especiado: "✧", Vainilla: "○"
+  Caballero: "■", Dama: "◆", Unisex: "●",
+  Día: "☀️", Noche: "🌙", Diario: "📅", Oficina: "☕", Cita: "❤️", Fiesta: "🎉", Evento: "🎆",
+  Playa: "🌴", Gimnasio: "🏋️", Escuela: "📚", Viaje: "✈️",
+  Calor: "🔥", Templado: "☁️", Frío: "❄️",
+  Primavera: "🌸", Verano: "☀️", Otoño: "🍁", Invierno: "☃️",
+  Fresco: "🍃", Acuático: "🌊", Dulce: "🍬", Amaderado: "🪵", Aromático: "🌿",
+  Cítrico: "🍊", Afrutado: "🍎", Floral: "🌸", Especiado: "🌶️"
 };
 
 const $ = selector => document.querySelector(selector);

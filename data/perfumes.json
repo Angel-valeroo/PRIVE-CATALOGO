@@ -25,7 +25,7 @@
     "accords": [
       "Dulce",
       "Especiado",
-      "Vainilla"
+      "Afrutado"
     ],
     "intensity": "Intenso",
     "occasions": [
@@ -75,6 +75,7 @@
     ],
     "intensity": "Moderado",
     "occasions": [
+      "Día",
       "Diario",
       "Oficina"
     ],
@@ -84,6 +85,7 @@
     ],
     "description": "Un perfil cítrico, fresco y amaderado que combina luminosidad con un fondo limpio de almizcle y pachulí. Versátil para el día y climas cálidos.",
     "contexts": [
+      "Día",
       "Diario",
       "Oficina",
       "Viaje",
@@ -150,7 +152,8 @@
     "accords": [
       "Cítrico",
       "Ahumado",
-      "Amaderado"
+      "Amaderado",
+      "Afrutado"
     ],
     "intensity": "Intenso",
     "occasions": [
@@ -241,6 +244,7 @@
     ],
     "intensity": "Ligero",
     "occasions": [
+      "Día",
       "Diario",
       "Oficina"
     ],
@@ -250,6 +254,7 @@
     ],
     "description": "Una composición fresca y acuática de carácter mediterráneo, con cítricos luminosos, hierbas aromáticas y un fondo limpio de maderas.",
     "contexts": [
+      "Día",
       "Diario",
       "Oficina",
       "Escuela",
@@ -292,6 +297,7 @@
     ],
     "intensity": "Moderado",
     "occasions": [
+      "Día",
       "Diario",
       "Evento"
     ],
@@ -300,6 +306,7 @@
     ],
     "description": "Frescura acuática con un carácter más profundo y refinado. La bergamota y el romero se apoyan en incienso y maderas para crear una estela elegante.",
     "contexts": [
+      "Día",
       "Diario",
       "Oficina",
       "Evento",
@@ -337,6 +344,7 @@
     ],
     "intensity": "Moderado",
     "occasions": [
+      "Día",
       "Diario",
       "Oficina"
     ],
@@ -346,6 +354,7 @@
     ],
     "description": "Una interpretación profunda y moderna de la frescura marina, reforzada por ciprés, lavanda y romero sobre un fondo mineral y amaderado.",
     "contexts": [
+      "Día",
       "Diario",
       "Oficina",
       "Gimnasio",
