@@ -189,3 +189,80 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px s
   .discovery-heading > p { max-width:390px; margin:0; }
   .discovery-groups { grid-template-columns: repeat(4,minmax(0,1fr)); }
 }
+
+/* v1.3.3 · Filtro principal por género */
+.discovery-group--featured {
+  padding-bottom: 2px;
+}
+.gender-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+.gender-card {
+  min-width: 0;
+  min-height: 112px;
+  padding: 16px 8px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid rgba(23,21,18,.13);
+  border-radius: 13px;
+  background: rgba(255,255,255,.68);
+  color: var(--ink);
+  box-shadow: 0 7px 20px rgba(18,15,11,.055);
+  transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.gender-card .gender-icon {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(183,150,93,.42);
+  border-radius: 50%;
+  color: var(--accent);
+  font-size: 1rem;
+}
+.gender-card strong {
+  max-width: 100%;
+  overflow: hidden;
+  font-family: "Playfair Display", serif;
+  font-size: .93rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+}
+.gender-card small {
+  color: var(--muted);
+  font-size: .56rem;
+  line-height: 1.2;
+  letter-spacing: .04em;
+}
+.gender-card.is-active {
+  color: #fff;
+  background: var(--dark);
+  border-color: var(--dark);
+  box-shadow: 0 10px 25px rgba(23,21,18,.2);
+  transform: translateY(-2px);
+}
+.gender-card.is-active .gender-icon {
+  color: #e1c68f;
+  border-color: rgba(225,198,143,.58);
+}
+.gender-card.is-active small { color: rgba(255,255,255,.66); }
+.gender-card.is-unavailable:not(.is-active) { opacity: .68; }
+.gender-card:active { transform: scale(.98); }
+
+@media (min-width:600px) {
+  .discovery-group--featured { grid-column: 1 / -1; }
+  .gender-grid { max-width: 680px; gap: 12px; }
+  .gender-card { min-height: 126px; padding: 18px 14px; }
+  .gender-card strong { font-size: 1.08rem; }
+}
+@media (min-width:820px) {
+  .discovery-group--featured { grid-column: 1 / -1; }
+  .gender-grid { max-width: 760px; }
+  .gender-card:hover { transform: translateY(-3px); border-color: rgba(183,150,93,.45); box-shadow: 0 12px 28px rgba(18,15,11,.1); }
+  .gender-card.is-active:hover { transform: translateY(-3px); }
+}

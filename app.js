@@ -3,6 +3,7 @@ const state = {
   query: "",
   designer: "",
   family: "",
+  category: "",
   tags: new Set(),
   selectedPerfume: null
 };
@@ -10,12 +11,14 @@ const state = {
 const IMAGE_BASE_PATH = "IMAGES/Caballero";
 const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
 const DISCOVERY_GROUPS = [
+  { label: "Género", type: "category", featured: true, values: ["Caballero", "Dama", "Unisex"] },
   { label: "Ocasión", values: ["Diario", "Oficina", "Noche", "Cita", "Fiesta", "Evento", "Playa", "Gimnasio", "Escuela", "Viaje"] },
   { label: "Clima", values: ["Calor", "Templado", "Frío"] },
   { label: "Estación", values: ["Primavera", "Verano", "Otoño", "Invierno"] },
   { label: "Perfil", values: ["Fresco", "Dulce", "Amaderado", "Acuático", "Cítrico", "Aromático", "Especiado", "Vainilla"] }
 ];
 const TAG_ICONS = {
+  Caballero: "◆", Dama: "◇", Unisex: "○",
   Diario: "◷", Oficina: "▣", Noche: "☾", Cita: "♡", Fiesta: "✦", Evento: "◆",
   Playa: "≈", Gimnasio: "↗", Escuela: "▤", Viaje: "✈", Calor: "☀", Templado: "◐",
   Frío: "❄", Primavera: "✿", Verano: "☀", Otoño: "⌁", Invierno: "❄",
@@ -33,7 +36,7 @@ const elements = {
   dialog: $("#perfumeDialog"), closeDialog: $("#closeDialog"),
   detailImage: $("#detailImage"), detailFallback: $("#detailFallback"), detailMonogram: $("#detailMonogram"),
   detailDesigner: $("#detailDesigner"), detailName: $("#detailName"), detailCode: $("#detailCode"),
-  detailDescription: $("#detailDescription"), profileChips: $("#profileChips"), useSection: $("#useSection"),
+  detailDescription: $("#detailDescription"), detailCategory: $("#detailCategory"), profileChips: $("#profileChips"), useSection: $("#useSection"),
   familySection: $("#familySection"), detailFamily: $("#detailFamily"), notesSection: $("#notesSection"),
   topNotesGroup: $("#topNotesGroup"), heartNotesGroup: $("#heartNotesGroup"), baseNotesGroup: $("#baseNotesGroup"),
   detailTopNotes: $("#detailTopNotes"), detailHeartNotes: $("#detailHeartNotes"), detailBaseNotes: $("#detailBaseNotes"),
@@ -70,7 +73,8 @@ function filteredPerfumes() {
   const selectedTags = [...state.tags].map(normalize);
   return state.perfumes.filter(perfume => {
     const values = perfumeTags(perfume).map(normalize);
-    return (!state.designer || perfume.designer === state.designer)
+    return (!state.category || perfume.category === state.category)
+      && (!state.designer || perfume.designer === state.designer)
       && (!state.family || perfume.family === state.family)
       && selectedTags.every(tag => values.includes(tag))
       && (!query || searchableText(perfume).includes(query));
@@ -123,6 +127,7 @@ function createFilterChip(label, removeAction) {
 }
 function renderActiveFilters() {
   const chips = [];
+  if (state.category) chips.push(createFilterChip(state.category, () => setFilter("category", "", false)));
   if (state.designer) chips.push(createFilterChip(state.designer, () => setFilter("designer", "", false)));
   if (state.family) chips.push(createFilterChip(state.family, () => setFilter("family", "", false)));
   [...state.tags].forEach(tag => chips.push(createFilterChip(tag, () => toggleTag(tag, false))));
@@ -130,21 +135,36 @@ function renderActiveFilters() {
   elements.activeFilters.hidden = chips.length === 0;
 }
 function renderDiscovery() {
-  const available = new Set(state.perfumes.flatMap(perfumeTags));
+  const availableTags = new Set(state.perfumes.flatMap(perfumeTags));
+  const availableCategories = new Set(state.perfumes.map(item => item.category).filter(Boolean));
   const groups = DISCOVERY_GROUPS.map(group => {
-    const values = group.values.filter(value => available.has(value));
+    const values = group.type === "category"
+      ? group.values
+      : group.values.filter(value => availableTags.has(value));
     if (!values.length) return null;
     const section = document.createElement("section");
-    section.className = "discovery-group";
+    section.className = `discovery-group${group.featured ? " discovery-group--featured" : ""}`;
     const title = document.createElement("p"); title.className = "discovery-label"; title.textContent = group.label;
-    const rail = document.createElement("div"); rail.className = "discovery-rail";
+    const rail = document.createElement("div"); rail.className = group.featured ? "gender-grid" : "discovery-rail";
     values.forEach(value => {
       const button = document.createElement("button");
-      button.type = "button"; button.className = "discovery-chip";
-      button.classList.toggle("is-active", state.tags.has(value));
-      button.setAttribute("aria-pressed", String(state.tags.has(value)));
-      button.innerHTML = `<span aria-hidden="true">${TAG_ICONS[value] || "•"}</span>${value}`;
-      button.addEventListener("click", () => toggleTag(value));
+      const isCategory = group.type === "category";
+      const isActive = isCategory ? state.category === value : state.tags.has(value);
+      button.type = "button";
+      button.className = isCategory ? "gender-card" : "discovery-chip";
+      button.classList.toggle("is-active", isActive);
+      button.classList.toggle("is-unavailable", isCategory && !availableCategories.has(value));
+      button.setAttribute("aria-pressed", String(isActive));
+      if (isCategory && !availableCategories.has(value)) {
+        button.setAttribute("aria-description", "Categoría lista para futuras fragancias");
+      }
+      button.innerHTML = isCategory
+        ? `<span class="gender-icon" aria-hidden="true">${TAG_ICONS[value] || "•"}</span><strong>${value}</strong><small>${availableCategories.has(value) ? "Explorar colección" : "Próximamente"}</small>`
+        : `<span aria-hidden="true">${TAG_ICONS[value] || "•"}</span>${value}`;
+      button.addEventListener("click", () => {
+        if (isCategory) setFilter("category", state.category === value ? "" : value);
+        else toggleTag(value);
+      });
       rail.appendChild(button);
     });
     section.append(title, rail); return section;
@@ -190,6 +210,7 @@ function openPerfume(perfume, updateHash = true) {
   state.selectedPerfume = perfume;
   elements.detailDesigner.textContent = perfume.designer; elements.detailName.textContent = perfume.name;
   elements.detailCode.textContent = `CLAVE ${perfume.code}`;
+  elements.detailCategory.textContent = `COLECCIÓN ${String(perfume.category || "PRIVÉ").toUpperCase()}`;
   elements.detailDescription.textContent = perfume.description || "Una fragancia de la colección PRIVÉ. Su información olfativa se incorporará progresivamente a la base de datos.";
   loadImage(elements.detailImage, elements.detailFallback, elements.detailMonogram, perfume);
   const chips = profileValues(perfume).map(createProfileChip);
@@ -245,7 +266,7 @@ elements.search.addEventListener("input",event=>{state.query=event.target.value;
 elements.clearSearch.addEventListener("click",()=>{state.query="";elements.search.value="";elements.search.focus();render();});
 elements.designerFilter.addEventListener("change",event=>setFilter("designer",event.target.value));
 elements.familyFilter.addEventListener("change",event=>setFilter("family",event.target.value));
-elements.resetFilters.addEventListener("click",()=>{state.query="";state.designer="";state.family="";state.tags.clear();elements.search.value="";elements.designerFilter.value="";elements.familyFilter.value="";render();});
+elements.resetFilters.addEventListener("click",()=>{state.query="";state.category="";state.designer="";state.family="";state.tags.clear();elements.search.value="";elements.designerFilter.value="";elements.familyFilter.value="";render();});
 elements.closeDialog.addEventListener("click",()=>closePerfume());
 elements.dialog.addEventListener("click",event=>{if(event.target===elements.dialog)closePerfume();});
 elements.dialog.addEventListener("cancel",event=>{event.preventDefault();closePerfume();});
