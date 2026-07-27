@@ -94,3 +94,5 @@ button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{ou
   .advisor-dialog{width:min(820px,calc(100vw - 40px));height:auto;max-height:calc(100vh - 40px);margin:auto;border-radius:16px;box-shadow:0 35px 100px rgba(0,0,0,.34)}.advisor-shell{min-height:min(760px,calc(100vh - 40px));padding:44px 46px 0}.advisor-actions{margin:auto -46px 0;padding:14px 46px 18px}.advisor-options--profiles{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+#catalogo{scroll-margin-top:76px}
+@media(max-width:380px){.advisor-options,.advisor-options--profiles{grid-template-columns:1fr}.entry-card{grid-template-columns:38px 1fr}.advisor-shell{padding-left:14px;padding-right:14px}.advisor-actions{margin-left:-14px;margin-right:-14px;padding-left:14px;padding-right:14px}}

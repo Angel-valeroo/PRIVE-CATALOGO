@@ -41,7 +41,7 @@ const elements = {
   clearSearch: $("#clearSearch"), designerFilter: $("#designerFilter"), familyFilter: $("#familyFilter"),
   familyFilterField: $("#familyFilterField"), resetFilters: $("#resetFilters"),
   resultCount: $("#resultCount"), resultLabel: $("#resultLabel"), emptyState: $("#emptyState"),
-  activeFilters: $("#activeFilters"), discoveryGroups: $("#discoveryGroups"),
+  activeFilters: $("#activeFilters"),
   dialog: $("#perfumeDialog"), closeDialog: $("#closeDialog"),
   detailImage: $("#detailImage"), detailFallback: $("#detailFallback"), detailMonogram: $("#detailMonogram"),
   detailDesigner: $("#detailDesigner"), detailName: $("#detailName"), detailCode: $("#detailCode"),
@@ -112,7 +112,7 @@ function loadImage(image, fallback, monogram, perfume) {
 function configureImage(card, perfume) {
   loadImage(card.querySelector(".perfume-image"), card.querySelector(".image-fallback"), card.querySelector(".monogram"), perfume);
 }
-function scrollToCatalog() { $(".catalog-shell").scrollIntoView({ behavior: "smooth", block: "start" }); }
+function scrollToCatalog() { $("#catalogo").scrollIntoView({ behavior: "smooth", block: "start" }); }
 function setFilter(type, value, shouldScroll = true) {
   state[type] = value || "";
   if (type === "designer") elements.designerFilter.value = state.designer;
@@ -138,36 +138,7 @@ function renderActiveFilters() {
   [...state.tags].forEach(tag => chips.push(createFilterChip(tag, () => toggleTag(tag, false))));
   elements.activeFilters.replaceChildren(...chips); elements.activeFilters.hidden = chips.length === 0;
 }
-function renderDiscovery() {
-  const availableTags = new Set(state.perfumes.flatMap(perfumeTags));
-  const availableCategories = new Set(state.perfumes.map(item => item.category).filter(Boolean));
-  const groups = DISCOVERY_GROUPS.map(group => {
-    const values = group.type === "category" ? group.values : group.values.filter(value => availableTags.has(value));
-    if (!values.length) return null;
-    const section = document.createElement("section");
-    section.className = `discovery-group${group.featured ? " discovery-group--featured" : ""}`;
-    const title = document.createElement("p"); title.className = "discovery-label"; title.textContent = group.label;
-    const rail = document.createElement("div"); rail.className = group.featured ? "gender-grid" : "discovery-rail";
-    values.forEach(value => {
-      const button = document.createElement("button");
-      const isCategory = group.type === "category";
-      const isActive = isCategory ? state.category === value : state.tags.has(value);
-      button.type = "button"; button.className = isCategory ? "gender-card" : "discovery-chip";
-      button.classList.toggle("is-active", isActive);
-      button.classList.toggle("is-unavailable", isCategory && !availableCategories.has(value));
-      button.setAttribute("aria-pressed", String(isActive));
-      button.innerHTML = isCategory
-        ? `<span class="gender-icon" aria-hidden="true">${TAG_ICONS[value] || "•"}</span><strong>${value}</strong><small>${availableCategories.has(value) ? "Explorar colección" : "Próximamente"}</small>`
-        : `<span aria-hidden="true">${TAG_ICONS[value] || "•"}</span>${value}`;
-      button.addEventListener("click", () => isCategory
-        ? setFilter("category", state.category === value ? "" : value)
-        : toggleTag(value));
-      rail.appendChild(button);
-    });
-    section.append(title, rail); return section;
-  }).filter(Boolean);
-  elements.discoveryGroups.replaceChildren(...groups);
-}
+
 function profileValues(perfume) {
   return [...new Set([...asList(perfume.contexts), ...asList(perfume.climates), ...asList(perfume.seasons), ...asList(perfume.accords)])].slice(0, 12);
 }
@@ -253,7 +224,7 @@ function render() {
   elements.resultLabel.textContent = results.length === 1 ? "fragancia" : "fragancias";
   elements.emptyState.hidden = results.length !== 0;
   elements.clearSearch.classList.toggle("visible", Boolean(state.query));
-  renderActiveFilters(); renderDiscovery();
+  renderActiveFilters();
 }
 function populateSelect(select, values) {
   values.forEach(value => { const option=document.createElement("option"); option.value=value; option.textContent=value; select.appendChild(option); });
