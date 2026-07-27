@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Catálogo de fragancias PRIVÉ">
-  <title>PRIVÉ — Catálogo de fragancias</title>
+  <meta name="description" content="Catálogo de fragancias PRIVÉ — Colección Caballero">
+  <meta name="theme-color" content="#171512">
+  <title>PRIVÉ — Colección Caballero</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
@@ -12,30 +13,40 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="#" aria-label="PRIVÉ, página principal">PRIVÉ</a>
-    <span class="edition">CATÁLOGO</span>
+    <a class="brand" href="#inicio" aria-label="PRIVÉ, inicio">PRIVÉ</a>
+    <span class="edition">COLECCIÓN CABALLERO</span>
   </header>
 
   <main>
-    <section class="hero">
-      <p class="eyebrow">COLECCIÓN CABALLERO</p>
-      <h1>Encuentra tu próxima fragancia.</h1>
-      <p class="intro">Explora el catálogo por nombre, diseñador o clave de producto.</p>
+    <section id="inicio" class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">FRAGANCIAS CON CARÁCTER</p>
+        <h1>Encuentra la esencia que habla por ti.</h1>
+        <p class="intro">Explora la colección de caballero por nombre, diseñador o clave de producto.</p>
 
-      <label class="search-box" for="search">
-        <span aria-hidden="true">⌕</span>
-        <input id="search" type="search" autocomplete="off"
-               placeholder="Buscar perfume, diseñador o clave…">
-        <button id="clearSearch" type="button" aria-label="Limpiar búsqueda">×</button>
-      </label>
+        <label class="search-box" for="search">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="search" type="search" autocomplete="off"
+                 placeholder="Buscar perfume, diseñador o clave…">
+          <button id="clearSearch" type="button" aria-label="Limpiar búsqueda">×</button>
+        </label>
 
-      <div class="summary" aria-live="polite">
-        <strong id="resultCount">0</strong>
-        <span id="resultLabel">fragancias</span>
+        <div class="summary" aria-live="polite">
+          <strong id="resultCount">0</strong>
+          <span id="resultLabel">fragancias</span>
+        </div>
       </div>
     </section>
 
-    <section class="catalog-shell">
+    <section class="catalog-shell" aria-labelledby="catalogTitle">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">CATÁLOGO PRIVÉ</p>
+          <h2 id="catalogTitle">Colección Caballero</h2>
+        </div>
+        <p>Una selección pensada para descubrir, comparar y compartir.</p>
+      </div>
+
       <div class="toolbar">
         <div>
           <p class="toolbar-label">Diseñador</p>
@@ -43,14 +54,14 @@
             <option value="">Todos los diseñadores</option>
           </select>
         </div>
-        <button id="resetFilters" class="text-button" type="button">Restablecer</button>
+        <button id="resetFilters" class="text-button" type="button">Restablecer filtros</button>
       </div>
 
       <div id="catalog" class="catalog-grid" aria-live="polite"></div>
 
       <div id="emptyState" class="empty-state" hidden>
         <p class="empty-title">No encontramos esa fragancia.</p>
-        <p>Prueba con otra palabra, diseñador o clave.</p>
+        <p>Prueba con otro nombre, diseñador o clave.</p>
       </div>
     </section>
   </main>
@@ -60,22 +71,21 @@
     <span>Catálogo de fragancias</span>
   </footer>
 
- <template id="perfumeCardTemplate">
-  <article class="perfume-card">
-
-    <div class="image-placeholder">
-      <img class="perfume-image" src="" alt="">
-      <span class="monogram"></span>
-    </div>
-
-    <div class="card-copy">
-      <p class="designer"></p>
-      <h2 class="perfume-name"></h2>
-      <p class="product-code"></p>
-    </div>
-
-  </article>
-</template>
+  <template id="perfumeCardTemplate">
+    <article class="perfume-card">
+      <div class="image-stage">
+        <img class="perfume-image" src="" alt="" loading="lazy" decoding="async">
+        <div class="image-fallback" aria-hidden="true">
+          <span class="monogram"></span>
+        </div>
+      </div>
+      <div class="card-copy">
+        <p class="designer"></p>
+        <h3 class="perfume-name"></h3>
+        <p class="product-code"></p>
+      </div>
+    </article>
+  </template>
 
   <script src="app.js" defer></script>
 </body>

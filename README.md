@@ -1,46 +1,30 @@
-# PRIVÉ Catalog — Prototipo Caballero
+# PRIVÉ Catálogo v1.1
 
-Primera versión funcional del catálogo neutral de PRIVÉ.
+Catálogo web neutral de fragancias para compartir con revendedores y clientes.
 
-## Incluye
+## Esta versión incluye
 
-- 325 perfumes de la hoja **CABALLERO**.
-- Buscador por nombre, diseñador y clave.
+- Colección Caballero con 325 fragancias.
+- Buscador por nombre, diseñador o clave.
 - Filtro por diseñador.
+- Imágenes automáticas según la clave del perfume.
+- Compatibilidad con AVIF, WEBP, JPG, JPEG y PNG.
+- Respaldo visual elegante para perfumes que todavía no tienen fotografía.
 - Diseño responsivo para celular y computadora.
-- Sin precios, WhatsApp, compras ni datos de contacto.
-- Espacios provisionales para las fotografías.
+- Sin precios, carrito, compra, WhatsApp ni datos de contacto.
 
-## Cómo verlo en tu computadora
+## Cómo agregar una imagen
 
-Debido a que el catálogo carga un archivo JSON, no conviene abrir `index.html`
-con doble clic. Usa uno de estos métodos:
+Guarda la fotografía dentro de:
 
-### Visual Studio Code
-1. Instala la extensión **Live Server**.
-2. Abre esta carpeta.
-3. Haz clic derecho en `index.html`.
-4. Selecciona **Open with Live Server**.
+`IMAGES/Caballero/`
 
-### Python
-Desde esta carpeta ejecuta:
+El nombre debe coincidir exactamente con la clave del perfume. Ejemplo:
 
-```bash
-python -m http.server 8000
-```
+`CP02446.avif`
 
-Después abre `http://localhost:8000`.
+No es necesario modificar el código. Al actualizar GitHub Pages, el catálogo intentará encontrar automáticamente la imagen.
 
-## Publicarlo gratis con GitHub Pages
+## Publicación
 
-1. Sube todos los archivos de esta carpeta a tu repositorio `prive-catalog`.
-2. En GitHub entra a **Settings → Pages**.
-3. En **Build and deployment**, elige **Deploy from a branch**.
-4. Selecciona la rama `main` y la carpeta `/ (root)`.
-5. Guarda. GitHub mostrará la dirección pública cuando termine la publicación.
-
-## Próxima etapa
-
-- Sustituir los espacios provisionales por fotos reales.
-- Añadir Dama y Unisex.
-- Crear Novedades, Top ventas y Recomendados.
+Sube todos los archivos a la raíz del repositorio de GitHub Pages y conserva la estructura de carpetas.

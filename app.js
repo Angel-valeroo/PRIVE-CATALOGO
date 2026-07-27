@@ -4,6 +4,9 @@ const state = {
   designer: ""
 };
 
+const IMAGE_BASE_PATH = "IMAGES/Caballero";
+const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
+
 const elements = {
   catalog: document.querySelector("#catalog"),
   template: document.querySelector("#perfumeCardTemplate"),
@@ -25,18 +28,48 @@ function normalize(value) {
 }
 
 function initials(designer) {
-  const words = designer.split(/\s+/).filter(Boolean);
-  if (!words.length) return "P";
-  return words.slice(0, 2).map(word => word[0]).join("").toUpperCase();
+  const words = String(designer || "PRIVÉ").split(/\s+/).filter(Boolean);
+  return words.slice(0, 2).map(word => word[0]).join("").toUpperCase() || "P";
 }
 
 function filteredPerfumes() {
   const query = normalize(state.query);
+
   return state.perfumes.filter(perfume => {
     const matchesDesigner = !state.designer || perfume.designer === state.designer;
     const searchable = normalize(`${perfume.name} ${perfume.designer} ${perfume.code}`);
     return matchesDesigner && (!query || searchable.includes(query));
   });
+}
+
+function configureImage(card, perfume) {
+  const image = card.querySelector(".perfume-image");
+  const fallback = card.querySelector(".image-fallback");
+  const monogram = card.querySelector(".monogram");
+  let extensionIndex = 0;
+
+  monogram.textContent = initials(perfume.designer);
+  image.alt = `${perfume.name} de ${perfume.designer}`;
+
+  const tryNextExtension = () => {
+    if (extensionIndex >= IMAGE_EXTENSIONS.length) {
+      image.removeAttribute("src");
+      image.hidden = true;
+      fallback.hidden = false;
+      return;
+    }
+
+    const extension = IMAGE_EXTENSIONS[extensionIndex++];
+    image.src = `${IMAGE_BASE_PATH}/${encodeURIComponent(perfume.code)}.${extension}`;
+  };
+
+  image.addEventListener("load", () => {
+    image.hidden = false;
+    fallback.hidden = true;
+  }, { once: true });
+
+  image.addEventListener("error", tryNextExtension);
+  tryNextExtension();
 }
 
 function render() {
@@ -48,8 +81,8 @@ function render() {
     const card = elements.template.content.cloneNode(true);
     card.querySelector(".designer").textContent = perfume.designer;
     card.querySelector(".perfume-name").textContent = perfume.name;
-    card.querySelector(".product-code").textContent = `Clave ${perfume.code}`;
-    card.querySelector(".monogram").textContent = initials(perfume.designer);
+    card.querySelector(".product-code").textContent = `CLAVE ${perfume.code}`;
+    configureImage(card, perfume);
     fragment.appendChild(card);
   });
 
@@ -63,6 +96,7 @@ function render() {
 function populateDesigners() {
   const designers = [...new Set(state.perfumes.map(item => item.designer))]
     .sort((a, b) => a.localeCompare(b, "es"));
+
   designers.forEach(designer => {
     const option = document.createElement("option");
     option.value = designer;
@@ -100,11 +134,12 @@ async function init() {
   try {
     const response = await fetch("data/perfumes.json");
     if (!response.ok) throw new Error("No fue posible cargar el catálogo.");
+
     state.perfumes = await response.json();
     populateDesigners();
     render();
   } catch (error) {
-    elements.catalog.innerHTML = `<p>No se pudo cargar el catálogo. Abre el proyecto mediante un servidor local o GitHub Pages.</p>`;
+    elements.catalog.innerHTML = `<p class="load-error">No se pudo cargar el catálogo. Intenta actualizar la página.</p>`;
     console.error(error);
   }
 }
