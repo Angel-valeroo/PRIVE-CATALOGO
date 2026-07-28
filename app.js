@@ -406,11 +406,37 @@ elements.advisorNext.addEventListener("click", () => {
 elements.advisorRestart.addEventListener("click", restartAdvisor);
 window.addEventListener("popstate",()=>location.hash.startsWith("#perfume=")?openFromHash():closePerfume(false));
 
+async function fetchJson(path) {
+  const response = await fetch(path);
+  if (!response.ok) throw new Error(`No fue posible cargar ${path}.`);
+  return response.json();
+}
+
+async function loadCorePerfumes() {
+  if (!window.PriveCoreAdapter) {
+    console.warn("PRIVÉ Core Adapter no está disponible; se usará el catálogo heredado.");
+    return [];
+  }
+  try {
+    const manifest = await fetchJson("data/core/catalog.json");
+    const files = Array.isArray(manifest.perfumes) ? manifest.perfumes : [];
+    return await Promise.all(files.map(file => fetchJson(`data/core/${file}`)));
+  } catch (error) {
+    console.warn("No fue posible cargar PRIVÉ Core; se usará el catálogo heredado.", error);
+    return [];
+  }
+}
+
 async function init(){
   try{
-    const response=await fetch("data/perfumes.json");
-    if(!response.ok) throw new Error("No fue posible cargar el catálogo.");
-    state.perfumes=await response.json();
+    const [legacyPerfumes, corePerfumes] = await Promise.all([
+      fetchJson("data/perfumes.json"),
+      loadCorePerfumes()
+    ]);
+    state.perfumes = window.PriveCoreAdapter
+      ? window.PriveCoreAdapter.mergeCatalogs(legacyPerfumes, corePerfumes)
+      : legacyPerfumes;
+    console.info(`PRIVÉ: ${state.perfumes.length} fragancias cargadas (${corePerfumes.length} desde Core).`);
     populateFilters(); render(); renderAdvisorOptions(); openFromHash();
   }catch(error){
     elements.catalog.innerHTML='<p class="load-error">No se pudo cargar el catálogo. Intenta actualizar la página.</p>';
