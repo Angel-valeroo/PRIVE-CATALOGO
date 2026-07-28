@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp02518-afnan-turathi-blue",
+  "status": "review",
+  "identity": {
+    "brand": "AFNAN",
+    "name": "TURATHI BLUE",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP02518",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Desconocida",
+    "launchYear": null,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Aromática acuática",
+    "subfamily": null,
+    "accords": [
+      "Cítrico",
+      "Amaderado",
+      "Fresco"
+    ],
+    "styleTags": [
+      "Fresco",
+      "Amaderado",
+      "Versátil"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Bergamota",
+      "Mandarina"
+    ],
+    "heartNotes": [
+      "Ámbar",
+      "Notas amaderadas"
+    ],
+    "baseNotes": [
+      "Almizcle",
+      "Pachulí",
+      "Especias frescas"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Moderada",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 5,
+    "sweetness": 2,
+    "warmth": 5,
+    "woodiness": 4,
+    "spiciness": 1,
+    "floral": 1,
+    "citrus": 5,
+    "fruitiness": 1,
+    "aquatic": 0,
+    "powdery": 2,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Diario",
+      "Oficina",
+      "Viaje",
+      "Playa"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Vacaciones"
+    ],
+    "climates": [
+      "Calor",
+      "Templado"
+    ],
+    "seasons": [
+      "Primavera",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde"
+    ],
+    "formality": 3,
+    "versatility": 4,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": null,
+      "max": null
+    }
+  },
+  "content": {
+    "shortDescription": "Un perfil cítrico, fresco y amaderado que combina luminosidad con un fondo limpio de almizcle y pachulí. Versátil para el día y climas cálidos.",
+    "advisorSummary": "Un perfil cítrico, fresco y amaderado que combina luminosidad con un fondo limpio de almizcle y pachulí. Versátil para el día y climas cálidos.",
+    "wearingTips": [],
+    "image": {
+      "path": "IMAGES/Caballero/CP02518.avif",
+      "alt": "Afnan Turathi Blue"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": null,
+    "reviewedBy": null,
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo PRIVÉ actual",
+        "url": null,
+        "accessedAt": null,
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory",
+          "recommendation",
+          "content"
+        ]
+      }
+    ],
+    "notes": "Migración inicial desde el catálogo heredado. Los campos no verificados permanecen en null o Desconocida."
+  }
+}

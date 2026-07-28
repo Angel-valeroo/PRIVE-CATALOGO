@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp02446-afnan-9pm",
+  "status": "review",
+  "identity": {
+    "brand": "AFNAN",
+    "name": "9PM",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP02446",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Desconocida",
+    "launchYear": null,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Ámbar vainilla",
+    "subfamily": null,
+    "accords": [
+      "Dulce",
+      "Especiado",
+      "Afrutado"
+    ],
+    "styleTags": [
+      "Dulce",
+      "Nocturno"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Bergamota",
+      "Lavandín",
+      "Canela",
+      "Manzana"
+    ],
+    "heartNotes": [
+      "Muguete",
+      "Flor de azahar"
+    ],
+    "baseNotes": [
+      "Pachulí",
+      "Ámbar",
+      "Vainilla",
+      "Haba tonka"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 4,
+    "sweetness": 5,
+    "warmth": 5,
+    "woodiness": 4,
+    "spiciness": 4,
+    "floral": 3,
+    "citrus": 5,
+    "fruitiness": 4,
+    "aquatic": 0,
+    "powdery": 0,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Noche",
+      "Evento",
+      "Cita",
+      "Fiesta"
+    ],
+    "contexts": [
+      "Social",
+      "Romántico",
+      "Especial"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "dayParts": [
+      "Noche"
+    ],
+    "formality": 3,
+    "versatility": 4,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": null,
+      "max": null
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia dulce, cálida y especiada, con una salida frutal que evoluciona hacia un fondo cremoso de vainilla y haba tonka. Una opción de presencia marcada para la noche.",
+    "advisorSummary": "Una fragancia dulce, cálida y especiada, con una salida frutal que evoluciona hacia un fondo cremoso de vainilla y haba tonka. Una opción de presencia marcada para la noche.",
+    "wearingTips": [],
+    "image": {
+      "path": "IMAGES/Caballero/CP02446.avif",
+      "alt": "Afnan 9Pm"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": null,
+    "reviewedBy": null,
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo PRIVÉ actual",
+        "url": null,
+        "accessedAt": null,
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory",
+          "recommendation",
+          "content"
+        ]
+      }
+    ],
+    "notes": "Migración inicial desde el catálogo heredado. Los campos no verificados permanecen en null o Desconocida."
+  }
+}

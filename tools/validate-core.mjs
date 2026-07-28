@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const file = process.argv[2] || "data/core/perfume.example.json";
+const file = process.argv[2] || "data/core/cp02446-afnan-9pm.json";
 const absolute = path.resolve(process.cwd(), file);
 const perfume = JSON.parse(fs.readFileSync(absolute, "utf8"));
 const errors = [];

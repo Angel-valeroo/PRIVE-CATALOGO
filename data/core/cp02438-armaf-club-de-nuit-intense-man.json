@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp02438-armaf-club-de-nuit-intense-man",
+  "status": "review",
+  "identity": {
+    "brand": "ARMAF",
+    "name": "CLUB DE NUIT INTENSE MAN",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP02438",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Desconocida",
+    "launchYear": null,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Amaderada especiada",
+    "subfamily": null,
+    "accords": [
+      "Cítrico",
+      "Ahumado",
+      "Amaderado",
+      "Afrutado"
+    ],
+    "styleTags": [
+      "Fresco",
+      "Amaderado",
+      "Nocturno",
+      "Versátil"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Manzana",
+      "Bergamota",
+      "Grosella negra",
+      "Piña",
+      "Limón"
+    ],
+    "heartNotes": [
+      "Rosa",
+      "Abedul",
+      "Jazmín"
+    ],
+    "baseNotes": [
+      "Almizcle",
+      "Ámbar gris",
+      "Pachulí",
+      "Vainilla"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 4,
+    "sweetness": 5,
+    "warmth": 5,
+    "woodiness": 4,
+    "spiciness": 1,
+    "floral": 3,
+    "citrus": 5,
+    "fruitiness": 4,
+    "aquatic": 0,
+    "powdery": 2,
+    "smoky": 3,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Evento",
+      "Noche",
+      "Cita",
+      "Oficina"
+    ],
+    "contexts": [
+      "Social",
+      "Especial",
+      "Romántico",
+      "Profesional"
+    ],
+    "climates": [
+      "Templado",
+      "Frío"
+    ],
+    "seasons": [
+      "Todo el año"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 3,
+    "versatility": 4,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": null,
+      "max": null
+    }
+  },
+  "content": {
+    "shortDescription": "Una apertura cítrica y frutal da paso a un corazón elegante con matices ahumados, sobre una base profunda de almizcle, pachulí y vainilla.",
+    "advisorSummary": "Una apertura cítrica y frutal da paso a un corazón elegante con matices ahumados, sobre una base profunda de almizcle, pachulí y vainilla.",
+    "wearingTips": [],
+    "image": {
+      "path": "IMAGES/Caballero/CP02438.avif",
+      "alt": "Armaf Club De Nuit Intense Man"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": null,
+    "reviewedBy": null,
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo PRIVÉ actual",
+        "url": null,
+        "accessedAt": null,
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory",
+          "recommendation",
+          "content"
+        ]
+      }
+    ],
+    "notes": "Migración inicial desde el catálogo heredado. Los campos no verificados permanecen en null o Desconocida."
+  }
+}

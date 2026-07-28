@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp00725-armani-aqua-di-gio",
+  "status": "review",
+  "identity": {
+    "brand": "ARMANI",
+    "name": "AQUA DI GIO",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP00725",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Desconocida",
+    "launchYear": null,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Aromática acuática",
+    "subfamily": null,
+    "accords": [
+      "Acuático",
+      "Cítrico",
+      "Fresco"
+    ],
+    "styleTags": [
+      "Fresco",
+      "Versátil"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Bergamota",
+      "Neroli",
+      "Matices marinos"
+    ],
+    "heartNotes": [
+      "Romero",
+      "Caqui"
+    ],
+    "baseNotes": [
+      "Cedro",
+      "Pachulí"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Desconocida",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 5,
+    "sweetness": 2,
+    "warmth": 2,
+    "woodiness": 4,
+    "spiciness": 1,
+    "floral": 1,
+    "citrus": 5,
+    "fruitiness": 1,
+    "aquatic": 5,
+    "powdery": 0,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Diario",
+      "Oficina",
+      "Escuela",
+      "Gimnasio",
+      "Playa"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Deportivo",
+      "Vacaciones"
+    ],
+    "climates": [
+      "Calor",
+      "Templado"
+    ],
+    "seasons": [
+      "Primavera",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde"
+    ],
+    "formality": 3,
+    "versatility": 4,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": null,
+      "max": null
+    }
+  },
+  "content": {
+    "shortDescription": "Una composición fresca y acuática de carácter mediterráneo, con cítricos luminosos, hierbas aromáticas y un fondo limpio de maderas.",
+    "advisorSummary": "Una composición fresca y acuática de carácter mediterráneo, con cítricos luminosos, hierbas aromáticas y un fondo limpio de maderas.",
+    "wearingTips": [],
+    "image": {
+      "path": "IMAGES/Caballero/CP00725.avif",
+      "alt": "Armani Aqua Di Gio"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": null,
+    "reviewedBy": null,
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo PRIVÉ actual",
+        "url": null,
+        "accessedAt": null,
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory",
+          "recommendation",
+          "content"
+        ]
+      }
+    ],
+    "notes": "Migración inicial desde el catálogo heredado. Los campos no verificados permanecen en null o Desconocida."
+  }
+}
