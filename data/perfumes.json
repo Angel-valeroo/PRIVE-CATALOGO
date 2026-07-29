@@ -1246,9 +1246,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02244-lacoste-12-12-eau-fraiche",
+    "id": "cp02244-lacoste-eau-de-lacoste-l-12-12-eau-fraiche",
     "designer": "LACOSTE",
-    "name": "12.12. EAU FRAICHE",
+    "name": "EAU DE LACOSTE L.12.12 EAU FRAÎCHE",
     "code": "CP02244",
     "category": "Caballero"
   },
@@ -1701,16 +1701,16 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00863-paris-hilton-just-me-for-man",
+    "id": "cp00863-paris-hilton-just-me-for-men",
     "designer": "PARIS HILTON",
-    "name": "JUST ME FOR MAN",
+    "name": "JUST ME FOR MEN",
     "code": "CP00863",
     "category": "Caballero"
   },
   {
-    "id": "cp00914-paris-hilton-paris-hilton",
+    "id": "cp00914-paris-hilton-paris-hilton-for-men",
     "designer": "PARIS HILTON",
-    "name": "PARIS HILTON",
+    "name": "PARIS HILTON FOR MEN",
     "code": "CP00914",
     "category": "Caballero"
   },
@@ -3724,9 +3724,9 @@
     "category": "Unisex"
   },
   {
-    "id": "up01030-tom-ford-fucking-fabulous",
+    "id": "up01030-tom-ford-fabulous",
     "designer": "TOM FORD",
-    "name": "FUCKING FABULOUS",
+    "name": "FABULOUS",
     "code": "UP01030",
     "category": "Unisex"
   },
