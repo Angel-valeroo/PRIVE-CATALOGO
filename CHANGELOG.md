@@ -1,19 +1,25 @@
-# PRIVÉ — Sprint 2.1
+# PRIVÉ — Sprint 3
 
-## Catálogo vitrina y ficha protagonista
+## Experiencia premium de la ficha del perfume
 
-### Cambios visibles
-- Se eliminó por completo el texto **“Ver fragancia”** de las tarjetas.
-- Se sustituyó **“La Boutique PRIVÉ”** por **“Colección PRIVÉ / Colección de perfumes”**.
-- Se conservó la distribución exterior aprobada del catálogo.
-- Se integraron sombras de apoyo, reflejos y profundidad tipo vitrina para que las botellas no parezcan imágenes flotantes.
-- Se reforzó el hover sin agregar botones innecesarios.
-- La vista interna ahora muestra la botella completa en gran formato, sin recortes.
-- La botella reduce sutilmente su escala conforme se hace scroll y guía hacia la información.
-- Se agregó una indicación discreta de desplazamiento.
-- Se refinó la ficha para escritorio y móvil.
+- Rediseño completo de la vista interna de cada fragancia.
+- Botella protagonista en un escenario oscuro de lujo, completamente visible.
+- Nueva atmósfera neutra premium que no depende todavía de notas olfativas.
+- Efecto de vitrina, reflejo, profundidad y sombra realista.
+- Animación guiada por scroll: la botella se retrae suavemente mientras aparece la historia y la información.
+- Nuevo bloque editorial de introducción y panel de información tipo cristal.
+- Mejor jerarquía tipográfica y espaciado para lectura.
+- Transiciones, microanimaciones y señales de scroll más elegantes.
+- Comportamiento específico para escritorio y móvil.
+- Respeto a `prefers-reduced-motion` para accesibilidad.
 
-### Archivos modificados
+## Archivos modificados
+
 - `index.html`
 - `styles.css`
 - `app.js`
+- `CHANGELOG.md`
+
+## Pendiente para una fase futura
+
+La atmósfera dinámica por familia o notas olfativas queda aplazada hasta contar con la base maestra completa.

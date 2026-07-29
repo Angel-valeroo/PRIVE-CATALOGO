@@ -184,12 +184,25 @@
     <button id="closeDialog" class="dialog-close" type="button" aria-label="Cerrar detalles">×</button>
     <div class="detail-layout">
       <div class="detail-media">
+        <div class="detail-atmosphere" aria-hidden="true"></div>
         <div class="detail-media-frame" aria-hidden="true"></div>
-        <img id="detailImage" class="detail-image" src="" alt="">
-        <div id="detailFallback" class="detail-fallback" aria-hidden="true"><span id="detailMonogram" class="monogram"></span></div>
+        <div class="detail-brand-mark" aria-hidden="true">PRIVÉ</div>
+        <div class="detail-bottle-stage">
+          <img id="detailImage" class="detail-image" src="" alt="">
+          <div id="detailFallback" class="detail-fallback" aria-hidden="true"><span id="detailMonogram" class="monogram"></span></div>
+          <div class="detail-reflection" aria-hidden="true"></div>
+        </div>
+        <div class="detail-stage-caption" aria-hidden="true">
+          <span>EAU DE PARFUM</span><span>COLECCIÓN PRIVÉ</span>
+        </div>
         <p class="detail-scroll-cue" aria-hidden="true"><span></span> Desliza para descubrir</p>
       </div>
       <div class="detail-copy">
+        <div class="detail-intro">
+          <p class="detail-intro-kicker">UNA FRAGANCIA, UNA PRESENCIA</p>
+          <p class="detail-intro-text">Conoce su carácter, su inspiración y la forma en que puede acompañarte.</p>
+        </div>
+        <div class="detail-glass-panel">
         <p id="detailCategory" class="detail-eyebrow">COLECCIÓN PRIVÉ</p>
         <button id="detailDesigner" class="detail-designer" type="button"></button>
         <h2 id="detailName"></h2>
@@ -215,6 +228,7 @@
         <div id="pendingData" class="pending-data">
           <strong>Perfil en preparación</strong>
           <span>Esta fragancia ya forma parte del catálogo. Sus datos olfativos se incorporarán progresivamente.</span>
+        </div>
         </div>
         <section id="relatedSection" class="related-section">
           <div class="related-heading">

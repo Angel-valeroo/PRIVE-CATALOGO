@@ -524,3 +524,88 @@ body.search-active .entry-paths{opacity:.62;transition:opacity .45s ease}
 @media(prefers-reduced-motion:reduce){
   .detail-image{transform:none!important}.detail-scroll-cue span{animation:none}
 }
+
+/* =========================================================
+   PRIVÉ · SPRINT 3 — EXPERIENCIA DEL PERFUME
+   Atmósfera neutra premium, sin depender todavía de notas.
+   ========================================================= */
+.perfume-dialog{
+  --detail-progress:0;
+  --detail-ease:cubic-bezier(.22,.74,.18,1);
+  color:#1c1915;
+  background:#0f0e0c;
+  overscroll-behavior:contain;
+}
+.perfume-dialog::backdrop{background:rgba(7,6,5,.86);backdrop-filter:blur(14px) saturate(.85)}
+.detail-layout{background:#11100e}
+.detail-media{
+  isolation:isolate;
+  min-height:100dvh;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.09),transparent 28% 72%,rgba(255,255,255,.04)),
+    radial-gradient(circle at 50% 31%,rgba(244,226,190,.19),transparent 34%),
+    radial-gradient(circle at 50% 75%,rgba(195,154,89,.10),transparent 42%),
+    linear-gradient(160deg,#1a1814 0%,#0f0e0c 56%,#090806 100%);
+}
+.detail-atmosphere{position:absolute;inset:-18%;z-index:-3;pointer-events:none;background:radial-gradient(circle at 50% 40%,rgba(230,202,151,.17),transparent 32%),radial-gradient(circle at 20% 16%,rgba(255,255,255,.08),transparent 23%);filter:blur(18px);transform:translateY(calc(var(--detail-progress) * -26px)) scale(calc(1 + var(--detail-progress) * .06));opacity:calc(1 - var(--detail-progress) * .3)}
+.detail-media::after{content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 88%)}
+.detail-media::before{left:16%;right:16%;bottom:9%;height:8%;z-index:0;background:radial-gradient(ellipse,rgba(0,0,0,.68),rgba(0,0,0,.18) 43%,transparent 72%);filter:blur(18px);transform:scale(calc(1 - var(--detail-progress) * .12));opacity:calc(1 - var(--detail-progress) * .18)}
+.detail-media-frame{inset:18px;z-index:1;border:1px solid rgba(224,199,151,.18);box-shadow:inset 0 0 90px rgba(255,255,255,.025),0 0 0 1px rgba(0,0,0,.24);pointer-events:none}
+.detail-brand-mark{position:absolute;left:50%;top:9%;z-index:0;color:rgba(235,213,170,.045);font-family:"Playfair Display",serif;font-size:clamp(5rem,18vw,13rem);letter-spacing:.08em;line-height:1;transform:translateX(-50%) translateY(calc(var(--detail-progress) * -36px));white-space:nowrap;user-select:none}
+.detail-bottle-stage{position:absolute;inset:5.5rem 2rem 5.5rem;display:grid;place-items:center;z-index:2;transform:translateY(calc(var(--detail-progress) * -16px)) scale(calc(1 - var(--detail-progress) * .12));transform-origin:center 42%;will-change:transform}
+.detail-image{position:relative;z-index:2;width:100%;height:100%;padding:0;object-fit:contain;object-position:center;transform:none;filter:drop-shadow(0 48px 38px rgba(0,0,0,.56)) drop-shadow(0 12px 10px rgba(0,0,0,.35));transition:filter .5s var(--detail-ease),opacity .35s ease}
+.detail-fallback{z-index:1;color:#d9c49b;background:transparent}
+.detail-reflection{position:absolute;left:23%;right:23%;bottom:-4%;height:24%;z-index:1;opacity:calc(.34 - var(--detail-progress) * .22);background:linear-gradient(to bottom,rgba(255,255,255,.13),transparent 68%);filter:blur(10px);transform:perspective(220px) rotateX(72deg);mask-image:linear-gradient(to bottom,black,transparent)}
+.detail-stage-caption{position:absolute;left:38px;right:38px;bottom:34px;z-index:3;display:flex;justify-content:space-between;color:rgba(235,220,191,.5);font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;opacity:calc(1 - var(--detail-progress) * 1.8)}
+.detail-scroll-cue{z-index:4;bottom:74px;color:rgba(235,220,191,.56)}
+.detail-scroll-cue span{background:linear-gradient(#c6a66b,transparent)}
+.detail-copy{position:relative;min-height:1100px;padding:0 18px 64px;background:linear-gradient(180deg,#efe9df 0%,#f7f4ee 18%,#fbfaf7 100%)}
+.detail-copy::before{display:none}
+.detail-intro{min-height:52dvh;display:flex;flex-direction:column;justify-content:flex-end;padding:80px 10px 42px;opacity:calc(.25 + var(--detail-progress) * .75);transform:translateY(calc((1 - var(--detail-progress)) * 28px));transition:opacity .15s linear}
+.detail-intro-kicker{margin:0;color:#9a7843;font-size:.6rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
+.detail-intro-text{max-width:17ch;margin:16px 0 0;font-family:"Playfair Display",serif;font-size:clamp(2rem,8vw,4.7rem);font-weight:500;line-height:1.03;letter-spacing:-.04em;color:#201d18}
+.detail-glass-panel{position:relative;padding:34px 22px 44px;border:1px solid rgba(255,255,255,.72);background:linear-gradient(135deg,rgba(255,255,255,.78),rgba(255,255,255,.48));box-shadow:0 30px 80px rgba(50,39,24,.12),inset 0 1px rgba(255,255,255,.84);backdrop-filter:blur(22px);transform:translateY(calc((1 - var(--detail-progress)) * 18px));opacity:calc(.25 + var(--detail-progress) * .75)}
+.detail-glass-panel::before{content:"";position:absolute;top:0;left:22px;width:72px;height:1px;background:#b8965b}
+.detail-eyebrow{color:#997641}
+.detail-designer{margin-top:14px;color:#8b6a37}
+.detail-copy h2{max-width:10ch;margin-top:12px;font-size:clamp(3rem,11vw,6.5rem);line-height:.9;letter-spacing:-.055em;text-wrap:balance}
+.detail-code{margin-top:22px}
+.detail-description{margin-top:30px;color:#5f584f;font-size:1rem;line-height:1.9}
+.pending-data{border-color:rgba(153,118,65,.2);background:rgba(255,255,255,.44)}
+.related-section{margin:56px 4px 0;padding:34px 4px 0;border-top:1px solid rgba(101,82,54,.15)}
+.dialog-close{top:max(18px,env(safe-area-inset-top));right:18px;z-index:20;width:46px;height:46px;color:#eee3cf;background:rgba(19,17,14,.54);border:1px solid rgba(229,208,167,.22);box-shadow:0 10px 30px rgba(0,0,0,.24)}
+.dialog-close:hover{background:rgba(19,17,14,.78);border-color:rgba(229,208,167,.38)}
+
+@media(min-width:900px){
+  .perfume-dialog{width:min(1380px,calc(100vw - 24px));height:calc(100dvh - 24px);max-height:none;border-radius:8px;border:1px solid rgba(211,183,129,.18)}
+  .detail-layout{grid-template-columns:minmax(0,1.18fr) minmax(430px,.82fr);min-height:1500px}
+  .detail-media{position:sticky;top:0;height:calc(100dvh - 24px);min-height:700px}
+  .detail-bottle-stage{inset:6.5rem clamp(3rem,7vw,8rem) 5.5rem}
+  .detail-copy{min-height:1500px;padding:0 clamp(32px,4.2vw,70px) 90px}
+  .detail-intro{min-height:72dvh;padding:110px 10px 64px}
+  .detail-intro-text{font-size:clamp(2.7rem,4.8vw,5.6rem)}
+  .detail-glass-panel{padding:clamp(45px,5vw,74px);border-radius:2px}
+  .detail-glass-panel::before{left:clamp(45px,5vw,74px);width:92px}
+  .detail-stage-caption{left:52px;right:52px}
+}
+@media(max-width:899px){
+  .detail-media{height:78dvh;min-height:560px}
+  .detail-copy{margin-top:-1px}
+  .detail-intro{min-height:42dvh}
+}
+@media(max-width:520px){
+  .detail-media{height:74dvh;min-height:520px}
+  .detail-media-frame{inset:10px}
+  .detail-bottle-stage{inset:5.4rem 1.2rem 5.5rem}
+  .detail-brand-mark{top:12%;font-size:22vw}
+  .detail-stage-caption{left:22px;right:22px;bottom:24px;font-size:.46rem}
+  .detail-scroll-cue{bottom:58px}
+  .detail-copy{padding:0 12px 46px}
+  .detail-intro{padding:56px 8px 32px}
+  .detail-intro-text{font-size:clamp(2rem,11vw,3.1rem)}
+  .detail-glass-panel{padding:32px 18px 38px}
+  .detail-copy h2{font-size:clamp(2.65rem,14vw,4.2rem)}
+}
+@media(prefers-reduced-motion:reduce){
+  .detail-bottle-stage,.detail-atmosphere,.detail-brand-mark,.detail-intro,.detail-glass-panel{transform:none!important}
+}

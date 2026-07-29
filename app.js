@@ -175,9 +175,12 @@ function createProfileChip(value) {
 }
 
 function updateDetailScrollProgress() {
-  const maxDistance = Math.max(220, Math.min(520, elements.dialog.clientHeight * 0.55));
+  const viewport = Math.max(1, elements.dialog.clientHeight);
+  const maxDistance = Math.max(320, Math.min(760, viewport * 0.78));
   const progress = Math.max(0, Math.min(1, elements.dialog.scrollTop / maxDistance));
   elements.dialog.style.setProperty("--detail-progress", progress.toFixed(3));
+  elements.dialog.classList.toggle("detail-is-discovering", progress > 0.08);
+  elements.dialog.classList.toggle("detail-is-reading", progress > 0.62);
 }
 
 function openPerfume(perfume, updateHash = true) {
@@ -204,7 +207,11 @@ function openPerfume(perfume, updateHash = true) {
   elements.viewDesigner.onclick = () => setFilter("designer", perfume.designer);
   elements.detailDesigner.onclick = () => setFilter("designer", perfume.designer);
   if (!elements.dialog.open) elements.dialog.showModal();
-  elements.dialog.scrollTop = 0; elements.dialog.style.setProperty("--detail-progress", "0"); document.body.classList.add("dialog-open");
+  elements.dialog.scrollTop = 0;
+  elements.dialog.style.setProperty("--detail-progress", "0");
+  elements.dialog.classList.remove("detail-is-discovering", "detail-is-reading");
+  requestAnimationFrame(updateDetailScrollProgress);
+  document.body.classList.add("dialog-open");
   if (updateHash) history.pushState({ perfume: perfume.id }, "", `#perfume=${encodeURIComponent(perfume.id)}`);
 }
 function closePerfume(updateHash = true) {
