@@ -173,6 +173,13 @@ function createProfileChip(value) {
   button.innerHTML = `<span aria-hidden="true">${TAG_ICONS[value] || "•"}</span>${value}`;
   button.addEventListener("click", () => toggleTag(value)); return button;
 }
+
+function updateDetailScrollProgress() {
+  const maxDistance = Math.max(220, Math.min(520, elements.dialog.clientHeight * 0.55));
+  const progress = Math.max(0, Math.min(1, elements.dialog.scrollTop / maxDistance));
+  elements.dialog.style.setProperty("--detail-progress", progress.toFixed(3));
+}
+
 function openPerfume(perfume, updateHash = true) {
   state.selectedPerfume = perfume;
   elements.detailDesigner.textContent = perfume.designer; elements.detailName.textContent = perfume.name;
@@ -197,7 +204,7 @@ function openPerfume(perfume, updateHash = true) {
   elements.viewDesigner.onclick = () => setFilter("designer", perfume.designer);
   elements.detailDesigner.onclick = () => setFilter("designer", perfume.designer);
   if (!elements.dialog.open) elements.dialog.showModal();
-  elements.dialog.scrollTop = 0; document.body.classList.add("dialog-open");
+  elements.dialog.scrollTop = 0; elements.dialog.style.setProperty("--detail-progress", "0"); document.body.classList.add("dialog-open");
   if (updateHash) history.pushState({ perfume: perfume.id }, "", `#perfume=${encodeURIComponent(perfume.id)}`);
 }
 function closePerfume(updateHash = true) {
@@ -421,6 +428,7 @@ elements.resetFilters.addEventListener("click",()=>{state.query="";state.categor
 elements.closeDialog.addEventListener("click",()=>closePerfume());
 elements.dialog.addEventListener("click",event=>{if(event.target===elements.dialog)closePerfume();});
 elements.dialog.addEventListener("cancel",event=>{event.preventDefault();closePerfume();});
+elements.dialog.addEventListener("scroll", updateDetailScrollProgress, { passive: true });
 elements.openAdvisor.addEventListener("click", openAdvisor);
 elements.closeAdvisor.addEventListener("click", closeAdvisor);
 elements.advisorDialog.addEventListener("click", event => { if (event.target === elements.advisorDialog) closeAdvisor(); });

@@ -75,10 +75,10 @@
     <section id="catalogo" class="catalog-shell" aria-labelledby="catalogTitle">
       <div class="section-heading">
         <div>
-          <p class="section-kicker">LA BOUTIQUE PRIVÉ</p>
-          <h2 id="catalogTitle">Descubre tu próxima fragancia</h2>
+          <p class="section-kicker">COLECCIÓN PRIVÉ</p>
+          <h2 id="catalogTitle">Colección de perfumes</h2>
         </div>
-        <p>Explora con calma. Cada fragancia fue presentada para ayudarte a encontrar la que mejor se adapta a ti.</p>
+        <p>Explora nuestra selección y abre cada fragancia para conocer su carácter, ocasión y perfil olfativo.</p>
       </div>
       <div class="toolbar">
         <div class="filter-field">
@@ -111,7 +111,6 @@
       <button class="card-open" type="button" aria-label="Ver detalles del perfume">
         <div class="image-stage">
           <span class="card-number" aria-hidden="true"></span>
-          <span class="card-view" aria-hidden="true">Ver fragancia ↗</span>
           <img class="perfume-image" src="" alt="" loading="lazy" decoding="async">
           <div class="image-fallback" aria-hidden="true"><span class="monogram"></span></div>
         </div>
@@ -185,8 +184,10 @@
     <button id="closeDialog" class="dialog-close" type="button" aria-label="Cerrar detalles">×</button>
     <div class="detail-layout">
       <div class="detail-media">
+        <div class="detail-media-frame" aria-hidden="true"></div>
         <img id="detailImage" class="detail-image" src="" alt="">
         <div id="detailFallback" class="detail-fallback" aria-hidden="true"><span id="detailMonogram" class="monogram"></span></div>
+        <p class="detail-scroll-cue" aria-hidden="true"><span></span> Desliza para descubrir</p>
       </div>
       <div class="detail-copy">
         <p id="detailCategory" class="detail-eyebrow">COLECCIÓN PRIVÉ</p>

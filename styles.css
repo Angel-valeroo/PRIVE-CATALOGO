@@ -409,3 +409,118 @@ body.search-active .entry-paths{opacity:.62;transition:opacity .45s ease}
 @media(prefers-reduced-motion:reduce){
   .perfume-card{opacity:1;transform:none;animation:none}
 }
+
+
+/* =========================================================
+   SPRINT 2.1 · CATÁLOGO VITRINA + FICHA PROTAGONISTA
+   Corrección visible sobre la base aprobada del Home.
+   ========================================================= */
+.catalog-shell{width:min(1380px,100%);padding-top:104px;background:transparent}
+.section-heading{align-items:end}
+.section-kicker{color:#8f7142}
+.section-heading h2{max-width:820px;letter-spacing:-.045em}
+
+.perfume-card{
+  isolation:isolate;
+  overflow:visible;
+  background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(246,242,234,.96));
+  border:1px solid rgba(77,62,42,.12);
+  box-shadow:0 14px 38px rgba(31,25,18,.07),inset 0 1px 0 rgba(255,255,255,.92);
+}
+.perfume-card::before{
+  content:"";
+  position:absolute;
+  inset:7px;
+  z-index:0;
+  pointer-events:none;
+  border:1px solid rgba(255,255,255,.66);
+  box-shadow:inset 0 0 34px rgba(255,255,255,.28);
+}
+.perfume-card:hover{transform:translateY(-7px);box-shadow:0 30px 70px rgba(29,23,16,.15),0 4px 12px rgba(29,23,16,.05)}
+.card-open,.card-copy{position:relative;z-index:1}
+.image-stage{
+  aspect-ratio:4/5.15;
+  overflow:hidden;
+  background:
+    linear-gradient(110deg,rgba(255,255,255,.78) 0 9%,transparent 19% 79%,rgba(255,255,255,.52) 90% 100%),
+    radial-gradient(ellipse at 50% 18%,rgba(255,255,255,1),rgba(251,248,242,.92) 43%,rgba(224,215,201,.86) 100%);
+}
+.image-stage::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(90deg,rgba(255,255,255,.24),transparent 25% 72%,rgba(255,255,255,.2));
+  border-bottom:1px solid rgba(93,72,40,.09);
+}
+.image-stage::before{
+  width:58%;height:12%;left:21%;bottom:5%;
+  background:radial-gradient(ellipse,rgba(25,19,13,.23),rgba(25,19,13,.08) 40%,transparent 72%);
+  filter:blur(7px);opacity:.76;
+}
+.perfume-image{
+  padding:8% 8% 6%;
+  transform:scale(1.015);
+  filter:drop-shadow(0 22px 18px rgba(31,24,17,.16));
+}
+.perfume-card:hover .perfume-image{transform:scale(1.065) translateY(-5px);filter:drop-shadow(0 29px 24px rgba(31,24,17,.23))}
+.card-number{color:rgba(31,24,17,.3)}
+.card-copy{background:linear-gradient(180deg,rgba(250,248,244,.92),rgba(246,242,234,.98))}
+.card-footer{border-top-color:rgba(74,57,35,.1)}
+
+/* Ficha: botella completa, gran formato y transición guiada por scroll */
+.perfume-dialog{--detail-progress:0;scroll-behavior:smooth;background:#f5f1e9}
+.detail-layout{position:relative;background:#f5f1e9}
+.detail-media{
+  isolation:isolate;
+  height:min(68dvh,670px);
+  min-height:480px;
+  overflow:hidden;
+  background:
+    linear-gradient(115deg,rgba(255,255,255,.74),transparent 28% 74%,rgba(255,255,255,.42)),
+    radial-gradient(circle at 50% 28%,#fff 0%,#f3eee5 48%,#d8cdbc 100%);
+}
+.detail-media::before{
+  content:"";position:absolute;left:22%;right:22%;bottom:7%;height:9%;z-index:-1;
+  border-radius:50%;background:radial-gradient(ellipse,rgba(26,20,14,.25),transparent 70%);filter:blur(12px);
+}
+.detail-media-frame{position:absolute;inset:22px;z-index:-1;border:1px solid rgba(255,255,255,.65);box-shadow:inset 0 0 70px rgba(255,255,255,.25)}
+.detail-image{
+  width:100%;height:100%;padding:clamp(28px,6vh,72px) clamp(22px,7vw,86px);
+  object-fit:contain;object-position:center;
+  transform:translateY(calc(var(--detail-progress) * -18px)) scale(calc(1 - var(--detail-progress) * .14));
+  filter:drop-shadow(0 32px 27px rgba(28,21,14,.2));
+  transition:filter .35s ease;will-change:transform;
+}
+.detail-scroll-cue{position:absolute;left:50%;bottom:18px;display:flex;align-items:center;gap:9px;margin:0;color:rgba(23,21,18,.48);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;transform:translateX(-50%);opacity:calc(1 - var(--detail-progress) * 2);white-space:nowrap}
+.detail-scroll-cue span{width:1px;height:24px;background:linear-gradient(var(--accent),transparent);animation:scrollCue 1.8s ease-in-out infinite}
+@keyframes scrollCue{0%,100%{transform:scaleY(.45);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+.detail-copy{position:relative;background:#fbfaf7;padding:42px 22px 60px}
+.detail-copy::before{content:"";position:absolute;left:22px;right:22px;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(183,150,93,.45),transparent)}
+.detail-designer{color:#92713d}
+.detail-copy h2{font-size:clamp(2.3rem,9vw,4.6rem);line-height:.98;letter-spacing:-.045em}
+.detail-description{max-width:60ch;font-size:.91rem;line-height:1.85}
+.detail-section{padding-top:28px;margin-top:28px}
+.dialog-close{backdrop-filter:blur(12px)}
+
+@media(min-width:900px){
+  .perfume-dialog{width:min(1220px,calc(100vw - 28px));max-height:calc(100dvh - 28px);border-radius:3px}
+  .detail-layout{grid-template-columns:minmax(0,1.08fr) minmax(430px,.92fr);min-height:780px}
+  .detail-media{position:sticky;top:0;height:calc(100dvh - 28px);min-height:720px;align-self:start}
+  .detail-copy{min-height:1050px;padding:clamp(82px,8vw,116px) clamp(44px,5vw,76px) 80px}
+  .detail-copy::before{left:clamp(44px,5vw,76px);right:clamp(44px,5vw,76px)}
+  .detail-scroll-cue{bottom:28px}
+}
+@media(max-width:520px){
+  .catalog-grid{gap:14px 9px}
+  .perfume-card{box-shadow:0 10px 26px rgba(31,25,18,.07)}
+  .image-stage{aspect-ratio:4/5.05}
+  .perfume-image{padding:7% 6% 5%}
+  .detail-media{height:62dvh;min-height:430px}
+  .detail-media-frame{inset:12px}
+  .detail-image{padding:42px 18px 54px}
+  .detail-copy{padding:36px 20px 54px}
+}
+@media(prefers-reduced-motion:reduce){
+  .detail-image{transform:none!important}.detail-scroll-cue span{animation:none}
+}
