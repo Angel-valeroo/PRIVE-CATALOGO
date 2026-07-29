@@ -21,9 +21,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00723-animale-animal",
+    "id": "cp00723-animale-animale-animale-for-men",
     "designer": "ANIMALE",
-    "name": "ANIMAL",
+    "name": "ANIMALE ANIMALE FOR MEN",
     "code": "CP00723",
     "category": "Caballero"
   },
@@ -56,13 +56,6 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02521-armaf-oddysey-mandarin-sky-elixir",
-    "designer": "ARMAF",
-    "name": "ODDYSEY MANDARIN SKY ELIXIR",
-    "code": "CP02521",
-    "category": "Caballero"
-  },
-  {
     "id": "cp02524-armaf-odyssey-aoud",
     "designer": "ARMAF",
     "name": "ODYSSEY AOUD",
@@ -84,6 +77,13 @@
     "category": "Caballero"
   },
   {
+    "id": "cp02521-armaf-odyssey-mandarin-sky-elixir",
+    "designer": "ARMAF",
+    "name": "ODYSSEY MANDARIN SKY ELIXIR",
+    "code": "CP02521",
+    "category": "Caballero"
+  },
+  {
     "id": "cp02501-armaf-odyssey-mega-man",
     "designer": "ARMAF",
     "name": "ODYSSEY MEGA MAN",
@@ -91,52 +91,38 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00725-armani-aqua-di-gio",
+    "id": "cp00725-armani-acqua-di-gio",
     "designer": "ARMANI",
-    "name": "AQUA DI GIO",
+    "name": "ACQUA DI GIO",
     "code": "CP00725",
     "category": "Caballero"
   },
   {
-    "id": "cp02232-armani-aqua-di-gio-absolu",
+    "id": "cp02232-armani-acqua-di-gio-absolu",
     "designer": "ARMANI",
-    "name": "AQUA DI GIO ABSOLU",
+    "name": "ACQUA DI GIÒ ABSOLU",
     "code": "CP02232",
     "category": "Caballero"
   },
   {
-    "id": "cp02414-armani-aqua-di-gio-parfum",
+    "id": "cp02414-armani-acqua-di-gio-parfum",
     "designer": "ARMANI",
-    "name": "AQUA DI GIO PARFUM",
+    "name": "ACQUA DI GIÒ PARFUM",
     "code": "CP02414",
     "category": "Caballero"
   },
   {
-    "id": "cp02310-armani-aqua-di-gio-profondo",
+    "id": "cp02310-armani-acqua-di-gio-profondo",
     "designer": "ARMANI",
-    "name": "AQUA DI GIO PROFONDO",
+    "name": "ACQUA DI GIÒ PROFONDO",
     "code": "CP02310",
     "category": "Caballero"
   },
   {
-    "id": "cp02306-armani-aqua-di-gio-profumo",
+    "id": "cp02306-armani-acqua-di-gio-profumo",
     "designer": "ARMANI",
-    "name": "AQUA DI GIO PROFUMO",
+    "name": "ACQUA DI GIÒ PROFUMO",
     "code": "CP02306",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp00735-armani-armani",
-    "designer": "ARMANI",
-    "name": "ARMANI",
-    "code": "CP00735",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp00734-armani-armani-blacck-code",
-    "designer": "ARMANI",
-    "name": "ARMANI BLACCK CODE",
-    "code": "CP00734",
     "category": "Caballero"
   },
   {
@@ -154,9 +140,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02393-armani-armani-code-perfum",
+    "id": "cp02393-armani-armani-code-parfum",
     "designer": "ARMANI",
-    "name": "ARMANI CODE PERFUM",
+    "name": "ARMANI CODE PARFUM",
     "code": "CP02393",
     "category": "Caballero"
   },
@@ -168,9 +154,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp01004-armani-diamonds-man",
+    "id": "cp01004-armani-emporio-armani-diamonds-for-men",
     "designer": "ARMANI",
-    "name": "DIAMONDS MAN",
+    "name": "EMPORIO ARMANI DIAMONDS FOR MEN",
     "code": "CP01004",
     "category": "Caballero"
   },
@@ -182,51 +168,37 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00806-armani-emporio-armani",
+    "id": "cp02417-armani-emporio-armani-stronger-with-you-amber",
     "designer": "ARMANI",
-    "name": "EMPORIO ARMANI",
-    "code": "CP00806",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02417-armani-stronger-whit-you-amber",
-    "designer": "ARMANI",
-    "name": "STRONGER WHIT YOU AMBER",
+    "name": "EMPORIO ARMANI STRONGER WITH YOU AMBER",
     "code": "CP02417",
     "category": "Caballero"
   },
   {
-    "id": "cp02316-armani-stronger-whit-you-oud",
+    "id": "cp02316-armani-emporio-armani-stronger-with-you-oud",
     "designer": "ARMANI",
-    "name": "STRONGER WHIT YOU OUD",
+    "name": "EMPORIO ARMANI STRONGER WITH YOU OUD",
     "code": "CP02316",
     "category": "Caballero"
   },
   {
-    "id": "cp02365-armani-stronger-with-you",
+    "id": "cp02365-armani-emporio-armani-stronger-with-you",
     "designer": "ARMANI",
-    "name": "STRONGER WITH YOU",
+    "name": "EMPORIO ARMANI STRONGER WITH YOU",
     "code": "CP02365",
     "category": "Caballero"
   },
   {
-    "id": "cp02361-axe-collision",
-    "designer": "AXE",
-    "name": "COLLISION",
-    "code": "CP02361",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp00738-azzaro-azzaro",
+    "id": "cp00738-azzaro-azzaro-pour-homme",
     "designer": "AZZARO",
-    "name": "AZZARO",
+    "name": "AZZARO POUR HOMME",
     "code": "CP00738",
     "category": "Caballero"
   },
   {
-    "id": "cp00775-azzaro-chrome-parfum",
+    "id": "cp00775-azzaro-azzaro-chrome-parfum",
     "designer": "AZZARO",
-    "name": "CHROME PARFUM",
+    "name": "AZZARO CHROME PARFUM",
     "code": "CP00775",
     "category": "Caballero"
   },
@@ -254,7 +226,7 @@
   {
     "id": "cp02423-benetton-we-are-tribe",
     "designer": "BENETTON",
-    "name": "WE ARE TRIBE",
+    "name": "WE  ARE TRIBE",
     "code": "CP02423",
     "category": "Caballero"
   },
@@ -399,17 +371,17 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00703-carolina-herrera-212-men-nyc",
-    "designer": "CAROLINA HERRERA",
-    "name": "212 MEN NYC",
-    "code": "CP00703",
-    "category": "Caballero"
-  },
-  {
     "id": "cp02368-carolina-herrera-212-men-aqua",
     "designer": "CAROLINA HERRERA",
     "name": "212 MEN AQUA",
     "code": "CP02368",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp00703-carolina-herrera-212-men-nyc",
+    "designer": "CAROLINA HERRERA",
+    "name": "212 MEN NYC",
+    "code": "CP00703",
     "category": "Caballero"
   },
   {
@@ -466,13 +438,6 @@
     "designer": "CAROLINA HERRERA",
     "name": "212 VIP BLACK SMILEY",
     "code": "CP02392",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp0-carolina-herrera-212-vip-men",
-    "designer": "CAROLINA HERRERA",
-    "name": "212 VIP MEN",
-    "code": "CP0",
     "category": "Caballero"
   },
   {
@@ -625,7 +590,7 @@
   {
     "id": "cp00484-chanel-allure-homme-sport-superleggera",
     "designer": "CHANEL",
-    "name": "ALLURE HOMME SPORT SUPERLEGGERA",
+    "name": "ALLURE HOMME SPORT  SUPERLEGGERA",
     "code": "CP00484",
     "category": "Caballero"
   },
@@ -737,7 +702,7 @@
   {
     "id": "cp02496-davidoff-cool-water-reborn-eau-de-parfum",
     "designer": "DAVIDOFF",
-    "name": "COOL WATER REBORN EAU DE PARFUM",
+    "name": "COOL WATER  REBORN EAU DE PARFUM",
     "code": "CP02496",
     "category": "Caballero"
   },
@@ -826,42 +791,42 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00795-dolce-gabbana-dolce-gabbana",
+    "id": "cp00795-dolce-and-gabbana-dolce-and-gabbana",
     "designer": "DOLCE & GABBANA",
     "name": "DOLCE & GABBANA",
     "code": "CP00795",
     "category": "Caballero"
   },
   {
-    "id": "cp02328-dolce-gabbana-k-by-dolce",
+    "id": "cp02328-dolce-and-gabbana-k-by-dolce",
     "designer": "DOLCE & GABBANA",
     "name": "K BY DOLCE",
     "code": "CP02328",
     "category": "Caballero"
   },
   {
-    "id": "cp00881-dolce-gabbana-light-blue",
+    "id": "cp00881-dolce-and-gabbana-light-blue",
     "designer": "DOLCE & GABBANA",
     "name": "LIGHT BLUE",
     "code": "CP00881",
     "category": "Caballero"
   },
   {
-    "id": "cp01031-dolce-gabbana-the-one",
+    "id": "cp01031-dolce-and-gabbana-the-one",
     "designer": "DOLCE & GABBANA",
     "name": "THE ONE",
     "code": "CP01031",
     "category": "Caballero"
   },
   {
-    "id": "cp02378-dolce-gabbana-the-one-gold",
+    "id": "cp02378-dolce-and-gabbana-the-one-gold",
     "designer": "DOLCE & GABBANA",
     "name": "THE ONE GOLD",
     "code": "CP02378",
     "category": "Caballero"
   },
   {
-    "id": "cp02113-dolce-gabbana-the-one-sport",
+    "id": "cp02113-dolce-and-gabbana-the-one-sport",
     "designer": "DOLCE & GABBANA",
     "name": "THE ONE SPORT",
     "code": "CP02113",
@@ -1162,6 +1127,13 @@
     "category": "Caballero"
   },
   {
+    "id": "cp00850-hugo-boss-hugo",
+    "designer": "HUGO BOSS",
+    "name": "HUGO",
+    "code": "CP00850",
+    "category": "Caballero"
+  },
+  {
     "id": "cp00848-hugo-boss-hugo-dark-blue",
     "designer": "HUGO BOSS",
     "name": "HUGO DARK BLUE",
@@ -1208,13 +1180,6 @@
     "designer": "HUGO BOSS",
     "name": "HUGO JUST DIFERENT",
     "code": "CP00849",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp00850-hugo-boss-hugo-man",
-    "designer": "HUGO BOSS",
-    "name": "HUGO MAN",
-    "code": "CP00850",
     "category": "Caballero"
   },
   {
@@ -1820,17 +1785,17 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00707-perry-ellis-360",
-    "designer": "PERRY ELLIS",
-    "name": "360",
-    "code": "CP00707",
-    "category": "Caballero"
-  },
-  {
     "id": "cp01024-perry-ellis-18-man",
     "designer": "PERRY ELLIS",
     "name": "18 MAN",
     "code": "CP01024",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp00707-perry-ellis-360",
+    "designer": "PERRY ELLIS",
+    "name": "360",
+    "code": "CP00707",
     "category": "Caballero"
   },
   {
@@ -1974,7 +1939,7 @@
     "category": "Caballero"
   },
   {
-    "id": "cp01042-ralph-lauren-polo-red-white-blue",
+    "id": "cp01042-ralph-lauren-polo-red-white-and-blue",
     "designer": "RALPH LAUREN",
     "name": "POLO RED WHITE & BLUE",
     "code": "CP01042",
@@ -2177,28 +2142,28 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02134-viktor-rolf-spice-bomb-extreme",
+    "id": "cp02134-viktor-and-rolf-spice-bomb-extreme",
     "designer": "VIKTOR & ROLF",
     "name": "SPICE BOMB EXTREME",
     "code": "CP02134",
     "category": "Caballero"
   },
   {
-    "id": "cp02437-viktor-rolf-spice-bomb-infrared",
+    "id": "cp02437-viktor-and-rolf-spice-bomb-infrared",
     "designer": "VIKTOR & ROLF",
     "name": "SPICE BOMB INFRARED",
     "code": "CP02437",
     "category": "Caballero"
   },
   {
-    "id": "cp02472-viktor-rolf-spicebomb-dark-leather",
+    "id": "cp02472-viktor-and-rolf-spicebomb-dark-leather",
     "designer": "VIKTOR & ROLF",
     "name": "SPICEBOMB DARK LEATHER",
     "code": "CP02472",
     "category": "Caballero"
   },
   {
-    "id": "cp02460-viktor-rolf-spicebomb-night-vision-eau-de-parfum",
+    "id": "cp02460-viktor-and-rolf-spicebomb-night-vision-eau-de-parfum",
     "designer": "VIKTOR & ROLF",
     "name": "SPICEBOMB NIGHT VISION EAU DE PARFUM",
     "code": "CP02460",
@@ -2212,17 +2177,17 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02338-yves-saint-laurent-la-nuit-de-l-homme-bleu-elictrique",
-    "designer": "YVES SAINT LAURENT",
-    "name": "LA NUIT DE L'HOMME BLEU ELICTRIQUE",
-    "code": "CP02338",
-    "category": "Caballero"
-  },
-  {
     "id": "cp01066-yves-saint-laurent-l-homme-libre",
     "designer": "YVES SAINT LAURENT",
     "name": "L'HOMME LIBRE",
     "code": "CP01066",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02338-yves-saint-laurent-la-nuit-de-l-homme-bleu-elictrique",
+    "designer": "YVES SAINT LAURENT",
+    "name": "LA NUIT DE L'HOMME BLEU ELICTRIQUE",
+    "code": "CP02338",
     "category": "Caballero"
   },
   {
@@ -2259,5 +2224,1706 @@
     "name": "Y EAU FRAICHE",
     "code": "CP02383",
     "category": "Caballero"
+  },
+  {
+    "id": "dp02889-afnan-9am",
+    "designer": "AFNAN",
+    "name": "9AM",
+    "code": "DP02889",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02558-aquolina-pink-sugar",
+    "designer": "AQUOLINA",
+    "name": "PINK SUGAR",
+    "code": "DP02558",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02331-ariana-grande-ari",
+    "designer": "ARIANA GRANDE",
+    "name": "ARI",
+    "code": "DP02331",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02522-ariana-grande-cloud",
+    "designer": "ARIANA GRANDE",
+    "name": "CLOUD",
+    "code": "DP02522",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02782-ariana-grande-cloud-pink",
+    "designer": "ARIANA GRANDE",
+    "name": "CLOUD PINK",
+    "code": "DP02782",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02628-ariana-grande-god-is-woman",
+    "designer": "ARIANA GRANDE",
+    "name": "GOD IS WOMAN",
+    "code": "DP02628",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02738-ariana-grande-mod-blush",
+    "designer": "ARIANA GRANDE",
+    "name": "MOD BLUSH",
+    "code": "DP02738",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02711-ariana-grande-mod-vanilla",
+    "designer": "ARIANA GRANDE",
+    "name": "MOD VANILLA",
+    "code": "DP02711",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02460-ariana-grande-moonlight",
+    "designer": "ARIANA GRANDE",
+    "name": "MOONLIGHT",
+    "code": "DP02460",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02874-ariana-grande-pink-woods",
+    "designer": "ARIANA GRANDE",
+    "name": "PINK WOODS",
+    "code": "DP02874",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02566-ariana-grande-r-e-m",
+    "designer": "ARIANA GRANDE",
+    "name": "R.E.M.",
+    "code": "DP02566",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02885-ariana-grande-r-e-m-cherry-eclipse",
+    "designer": "ARIANA GRANDE",
+    "name": "R.E.M. CHERRY ECLIPSE",
+    "code": "DP02885",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02632-ariana-grande-sweet-like-candy",
+    "designer": "ARIANA GRANDE",
+    "name": "SWEET LIKE CANDY",
+    "code": "DP02632",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02524-ariana-grande-thank-u-next",
+    "designer": "ARIANA GRANDE",
+    "name": "THANK U, NEXT",
+    "code": "DP02524",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02894-armaf-odyssey-candee",
+    "designer": "ARMAF",
+    "name": "ODYSSEY CANDEE",
+    "code": "DP02894",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02893-armaf-yum-yum",
+    "designer": "ARMAF",
+    "name": "YUM YUM",
+    "code": "DP02893",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02206-armani-acqua-di-gioia",
+    "designer": "ARMANI",
+    "name": "ACQUA DI GIOIA",
+    "code": "DP02206",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02572-armani-my-way",
+    "designer": "ARMANI",
+    "name": "MY WAY",
+    "code": "DP02572",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02760-armani-my-way-parfum",
+    "designer": "ARMANI",
+    "name": "MY WAY PARFUM",
+    "code": "DP02760",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02269-armani-si",
+    "designer": "ARMANI",
+    "name": "SI",
+    "code": "DP02269",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02693-billie-eilish-eilish",
+    "designer": "BILLIE EILISH",
+    "name": "EILISH",
+    "code": "DP02693",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02534-bond-no-9-nolita",
+    "designer": "BOND NO 9",
+    "name": "NOLITA",
+    "code": "DP02534",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02333-britney-spears-fantasy",
+    "designer": "BRITNEY SPEARS",
+    "name": "FANTASY",
+    "code": "DP02333",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02785-britney-spears-fantasy-jungle",
+    "designer": "BRITNEY SPEARS",
+    "name": "FANTASY JUNGLE",
+    "code": "DP02785",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02495-burberry-burberry-her",
+    "designer": "BURBERRY",
+    "name": "BURBERRY HER",
+    "code": "DP02495",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02719-burberry-burberry-her-elixir-de-parfum",
+    "designer": "BURBERRY",
+    "name": "BURBERRY HER ELIXIR DE PARFUM",
+    "code": "DP02719",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02789-burberry-goddess",
+    "designer": "BURBERRY",
+    "name": "GODDESS",
+    "code": "DP02789",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02859-bvlgari-chill-and-sole",
+    "designer": "BVLGARI",
+    "name": "CHILL & SOLE",
+    "code": "DP02859",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02414-bvlgari-omnia-coral",
+    "designer": "BVLGARI",
+    "name": "OMNIA CORAL",
+    "code": "DP02414",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02371-bvlgari-omnia-crystalline",
+    "designer": "BVLGARI",
+    "name": "OMNIA CRYSTALLINE",
+    "code": "DP02371",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01116-calvin-klein-eternity",
+    "designer": "CALVIN KLEIN",
+    "name": "ETERNITY",
+    "code": "DP01116",
+    "category": "Dama"
+  },
+  {
+    "id": "dp00987-carolina-herrera-212",
+    "designer": "CAROLINA HERRERA",
+    "name": "212",
+    "code": "DP00987",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02644-carolina-herrera-212-heroes-for-her-collector-edition",
+    "designer": "CAROLINA HERRERA",
+    "name": "212 HEROES FOR HER COLLECTOR EDITION",
+    "code": "DP02644",
+    "category": "Dama"
+  },
+  {
+    "id": "dp00991-carolina-herrera-212-sexy",
+    "designer": "CAROLINA HERRERA",
+    "name": "212 SEXY",
+    "code": "DP00991",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02200-carolina-herrera-212-vip",
+    "designer": "CAROLINA HERRERA",
+    "name": "212 VIP",
+    "code": "DP02200",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02283-carolina-herrera-212-vip-rose",
+    "designer": "CAROLINA HERRERA",
+    "name": "212 VIP ROSÉ",
+    "code": "DP02283",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02140-carolina-herrera-ch-2015",
+    "designer": "CAROLINA HERRERA",
+    "name": "CH (2015)",
+    "code": "DP02140",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02404-carolina-herrera-good-girl",
+    "designer": "CAROLINA HERRERA",
+    "name": "GOOD GIRL",
+    "code": "DP02404",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02754-carolina-herrera-good-girl-blush",
+    "designer": "CAROLINA HERRERA",
+    "name": "GOOD GIRL BLUSH",
+    "code": "DP02754",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02852-carolina-herrera-good-girl-blush-elixir-eau-de-parfum",
+    "designer": "CAROLINA HERRERA",
+    "name": "GOOD GIRL BLUSH ELIXIR EAU DE PARFUM",
+    "code": "DP02852",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02787-carolina-herrera-good-girl-dazzling-garden",
+    "designer": "CAROLINA HERRERA",
+    "name": "GOOD GIRL DAZZLING GARDEN",
+    "code": "DP02787",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02732-carolina-herrera-good-girl-legere",
+    "designer": "CAROLINA HERRERA",
+    "name": "GOOD GIRL LÉGÈRE",
+    "code": "DP02732",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02716-carolina-herrera-good-girl-midnight",
+    "designer": "CAROLINA HERRERA",
+    "name": "GOOD GIRL MIDNIGHT",
+    "code": "DP02716",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02623-carolina-herrera-good-girl-superstars-collector-edition-2021",
+    "designer": "CAROLINA HERRERA",
+    "name": "GOOD GIRL SUPERSTARS COLLECTOR EDITION 2021",
+    "code": "DP02623",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02592-carolina-herrera-good-girl-supreme",
+    "designer": "CAROLINA HERRERA",
+    "name": "GOOD GIRL SUPRÊME",
+    "code": "DP02592",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02556-carolina-herrera-good-girl-velvet-fatale",
+    "designer": "CAROLINA HERRERA",
+    "name": "GOOD GIRL VELVET FATALE",
+    "code": "DP02556",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02884-carolina-herrera-la-bomba",
+    "designer": "CAROLINA HERRERA",
+    "name": "LA BOMBA",
+    "code": "DP02884",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02598-carolina-herrera-very-good-girl",
+    "designer": "CAROLINA HERRERA",
+    "name": "VERY GOOD GIRL",
+    "code": "DP02598",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02733-carolina-herrera-very-good-girl-glam",
+    "designer": "CAROLINA HERRERA",
+    "name": "VERY GOOD GIRL GLAM",
+    "code": "DP02733",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01054-chanel-chance-eau-de-parfum",
+    "designer": "CHANEL",
+    "name": "CHANCE EAU DE PARFUM",
+    "code": "DP01054",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02620-chanel-chance-eau-fraiche",
+    "designer": "CHANEL",
+    "name": "CHANCE EAU FRAICHE",
+    "code": "DP02620",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02622-chanel-chance-eau-tendre",
+    "designer": "CHANEL",
+    "name": "CHANCE EAU TENDRE",
+    "code": "DP02622",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01068-chanel-coco-chanel",
+    "designer": "CHANEL",
+    "name": "COCO CHANEL",
+    "code": "DP01068",
+    "category": "Dama"
+  },
+  {
+    "id": "do01067-chanel-coco-mademoisselle",
+    "designer": "CHANEL",
+    "name": "COCO MADEMOISSELLE",
+    "code": "DO01067",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02444-chanel-gabrielle",
+    "designer": "CHANEL",
+    "name": "GABRIELLE",
+    "code": "DP02444",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01057-chanel-no-5-eau-de-parfum",
+    "designer": "CHANEL",
+    "name": "NO. 5 EAU DE PARFUM",
+    "code": "DP01057",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02559-coach-coach-dreams-sunset",
+    "designer": "COACH",
+    "name": "COACH DREAMS SUNSET",
+    "code": "DP02559",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01073-davidoff-cool-water",
+    "designer": "DAVIDOFF",
+    "name": "COOL WATER",
+    "code": "DP01073",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01163-dior-hypnotic-poison",
+    "designer": "DIOR",
+    "name": "HYPNOTIC POISON",
+    "code": "DP01163",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01176-dior-j-adore",
+    "designer": "DIOR",
+    "name": "J'ADORE",
+    "code": "DP01176",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02357-dior-miss-dior-blooming-bouquet",
+    "designer": "DIOR",
+    "name": "MISS DIOR BLOOMING BOUQUET",
+    "code": "DP02357",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02523-dior-miss-dior-parfum-2021",
+    "designer": "DIOR",
+    "name": "MISS DIOR PARFUM 2021",
+    "code": "DP02523",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02815-dior-miss-dior-parfum-2024",
+    "designer": "DIOR",
+    "name": "MISS DIOR PARFUM 2024",
+    "code": "DP02815",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01265-dior-poison",
+    "designer": "DIOR",
+    "name": "POISON",
+    "code": "DP01265",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02792-dolce-and-gabbana-devotion",
+    "designer": "DOLCE & GABBANA",
+    "name": "DEVOTION",
+    "code": "DP02792",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01197-dolce-and-gabbana-light-blue",
+    "designer": "DOLCE & GABBANA",
+    "name": "LIGHT BLUE",
+    "code": "DP01197",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02768-dolce-and-gabbana-light-blue-summer-vibes",
+    "designer": "DOLCE & GABBANA",
+    "name": "LIGHT BLUE SUMMER VIBES",
+    "code": "DP02768",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02717-dolce-and-gabbana-q-by-dolce-gabanna",
+    "designer": "DOLCE & GABBANA",
+    "name": "Q BY DOLCE GABANNA",
+    "code": "DP02717",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02174-dolce-and-gabbana-the-one",
+    "designer": "DOLCE & GABBANA",
+    "name": "THE ONE",
+    "code": "DP02174",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01029-donna-karam-be-delicious",
+    "designer": "DONNA KARAM",
+    "name": "BE DELICIOUS",
+    "code": "DP01029",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02636-donna-karam-be-delicious-fresh-blossom",
+    "designer": "DONNA KARAM",
+    "name": "BE DELICIOUS FRESH BLOSSOM",
+    "code": "DP02636",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01282-donna-karam-red-delicious",
+    "designer": "DONNA KARAM",
+    "name": "RED DELICIOUS",
+    "code": "DP01282",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01283-elizabeth-arden-red-door",
+    "designer": "ELIZABETH ARDEN",
+    "name": "RED DOOR",
+    "code": "DP01283",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01346-elizabeth-taylor-white-diamonds",
+    "designer": "ELIZABETH TAYLOR",
+    "name": "WHITE DIAMONDS",
+    "code": "DP01346",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02873-escada-bali-paradise",
+    "designer": "ESCADA",
+    "name": "BALI PARADISE",
+    "code": "DP02873",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02573-escada-candy-love",
+    "designer": "ESCADA",
+    "name": "CANDY LOVE",
+    "code": "DP02573",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01175-escada-island-kiss",
+    "designer": "ESCADA",
+    "name": "ISLAND KISS",
+    "code": "DP01175",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02508-escada-miami-blossom",
+    "designer": "ESCADA",
+    "name": "MIAMI BLOSSOM",
+    "code": "DP02508",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02824-escada-pacific-paradise",
+    "designer": "ESCADA",
+    "name": "PACIFIC PARADISE",
+    "code": "DP02824",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02468-escada-sorbetto-rosso",
+    "designer": "ESCADA",
+    "name": "SORBETTO ROSSO",
+    "code": "DP02468",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01007-givenchy-amarige",
+    "designer": "GIVENCHY",
+    "name": "AMARIGE",
+    "code": "DP01007",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02133-givenchy-ange-ou-demon",
+    "designer": "GIVENCHY",
+    "name": "ANGE OU DEMON",
+    "code": "DP02133",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02567-givenchy-irresistible",
+    "designer": "GIVENCHY",
+    "name": "IRRESISTIBLE",
+    "code": "DP02567",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01148-gloria-vanderbilt-vanderbilt",
+    "designer": "GLORIA VANDERBILT",
+    "name": "VANDERBILT",
+    "code": "DP01148",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02320-gucci-bamboo",
+    "designer": "GUCCI",
+    "name": "BAMBOO",
+    "code": "DP02320",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02624-gucci-flora-georgous-gardenia",
+    "designer": "GUCCI",
+    "name": "FLORA GEORGOUS GARDENIA",
+    "code": "DP02624",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02701-gucci-flora-georgous-jazmin",
+    "designer": "GUCCI",
+    "name": "FLORA GEORGOUS JAZMIN",
+    "code": "DP02701",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02788-gucci-flora-georgous-magnolia",
+    "designer": "GUCCI",
+    "name": "FLORA GEORGOUS MAGNOLIA",
+    "code": "DP02788",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02849-gucci-flora-gorgeous-orchid",
+    "designer": "GUCCI",
+    "name": "FLORA GORGEOUS ORCHID",
+    "code": "DP02849",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02658-gucci-gucci-bloom",
+    "designer": "GUCCI",
+    "name": "GUCCI BLOOM",
+    "code": "DP02658",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02441-guerlain-mon-guerlain",
+    "designer": "GUERLAIN",
+    "name": "MON GUERLAIN",
+    "code": "DP02441",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01290-guerlain-samsara",
+    "designer": "GUERLAIN",
+    "name": "SAMSARA",
+    "code": "DP01290",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02672-guess-bellavitarosa",
+    "designer": "GUESS",
+    "name": "BELLAVITAROSA",
+    "code": "DP02672",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01157-halloween-halloween",
+    "designer": "HALLOWEEN",
+    "name": "HALLOWEEN",
+    "code": "DP01157",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02151-halloween-halloween-kiss",
+    "designer": "HALLOWEEN",
+    "name": "HALLOWEEN KISS",
+    "code": "DP02151",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01241-jean-charles-brosseau-ombre-rose-l-original",
+    "designer": "JEAN CHARLES BROSSEAU",
+    "name": "OMBRE ROSE L´ORIGINAL",
+    "code": "DP01241",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02891-jean-paul-gaultier-gaultier-divine-elixir",
+    "designer": "JEAN PAUL GAULTIER",
+    "name": "GAULTIER DIVINE ELIXIR",
+    "code": "DP02891",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02848-jean-paul-gaultier-gaultier-divine-le-parfum",
+    "designer": "JEAN PAUL GAULTIER",
+    "name": "GAULTIER DIVINE LE PARFUM",
+    "code": "DP02848",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02813-jean-paul-gaultier-la-belle-paradise-garden",
+    "designer": "JEAN PAUL GAULTIER",
+    "name": "LA BELLE PARADISE GARDEN",
+    "code": "DP02813",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02452-jean-paul-gaultier-scandal",
+    "designer": "JEAN PAUL GAULTIER",
+    "name": "SCANDAL",
+    "code": "DP02452",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02700-jean-paul-gaultier-scandal-le-parfum",
+    "designer": "JEAN PAUL GAULTIER",
+    "name": "SCANDAL LE PARFUM",
+    "code": "DP02700",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01225-jovan-musk",
+    "designer": "JOVAN",
+    "name": "MUSK",
+    "code": "DP01225",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02405-katy-perry-mad-love",
+    "designer": "KATY PERRY",
+    "name": "MAD LOVE",
+    "code": "DP02405",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02231-katy-perry-meow",
+    "designer": "KATY PERRY",
+    "name": "MEOW",
+    "code": "DP02231",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02217-katy-perry-purr",
+    "designer": "KATY PERRY",
+    "name": "PURR",
+    "code": "DP02217",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02855-kayali-vainilla-candy-rock-sugar",
+    "designer": "KAYALI",
+    "name": "VAINILLA CANDY ROCK SUGAR",
+    "code": "DP02855",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02879-kayali-yum-boujee-marshmallow",
+    "designer": "KAYALI",
+    "name": "YUM BOUJEE MARSHMALLOW",
+    "code": "DP02879",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01133-kenzo-flower-by-kenzo",
+    "designer": "KENZO",
+    "name": "FLOWER BY KENZO",
+    "code": "DP01133",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02502-kim-kardashian-bff",
+    "designer": "KIM KARDASHIAN",
+    "name": "BFF",
+    "code": "DP02502",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02635-kim-kardashian-kimoji-cherry",
+    "designer": "KIM KARDASHIAN",
+    "name": "KIMOJI CHERRY",
+    "code": "DP02635",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02368-lacoste-l-12-12-rose-sparking-edt",
+    "designer": "LACOSTE",
+    "name": "L.12.12 ROSE SPARKING EDT",
+    "code": "DP02368",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02261-lancome-la-vie-est-belle",
+    "designer": "LANCOME",
+    "name": "LA VIE EST BELLE",
+    "code": "DP02261",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02773-lancome-la-vie-est-belle-extrait",
+    "designer": "LANCOME",
+    "name": "LA VIE EST BELLE EXTRAIT",
+    "code": "DP02773",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02679-lancome-la-vie-est-belle-intensement",
+    "designer": "LANCOME",
+    "name": "LA VIE EST BELLE INTENSEMENT",
+    "code": "DP02679",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02853-lancome-la-vie-est-belle-l-elixir-edp",
+    "designer": "LANCOME",
+    "name": "LA VIE EST BELLE L'ELIXIR EDP",
+    "code": "DP02853",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02713-lancome-la-vie-est-belle-l-eveil",
+    "designer": "LANCOME",
+    "name": "LA VIE EST BELLE L'EVEIL",
+    "code": "DP02713",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02741-lancome-la-vie-est-belle-soleil-cristal",
+    "designer": "LANCOME",
+    "name": "LA VIE EST BELLE SOLEIL CRISTAL",
+    "code": "DP02741",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02694-lancome-oui-la-vie-est-belle",
+    "designer": "LANCOME",
+    "name": "OUI LA VIE EST BELLE",
+    "code": "DP02694",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02901-lattafa-berry-on-top",
+    "designer": "LATTAFA",
+    "name": "BERRY ON TOP",
+    "code": "DP02901",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02867-lattafa-her-confession",
+    "designer": "LATTAFA",
+    "name": "HER CONFESSION",
+    "code": "DP02867",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02793-lattafa-mayar",
+    "designer": "LATTAFA",
+    "name": "MAYAR",
+    "code": "DP02793",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02858-lattafa-mayar-natural-intense",
+    "designer": "LATTAFA",
+    "name": "MAYAR NATURAL INTENSE",
+    "code": "DP02858",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02791-lattafa-yara",
+    "designer": "LATTAFA",
+    "name": "YARA",
+    "code": "DP02791",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02860-lattafa-yara-candy",
+    "designer": "LATTAFA",
+    "name": "YARA CANDY",
+    "code": "DP02860",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02850-lattafa-yara-moi",
+    "designer": "LATTAFA",
+    "name": "YARA MOI",
+    "code": "DP02850",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02851-lattafa-yara-tous",
+    "designer": "LATTAFA",
+    "name": "YARA TOUS",
+    "code": "DP02851",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02489-marc-jacobs-daisy",
+    "designer": "MARC JACOBS",
+    "name": "DAISY",
+    "code": "DP02489",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02652-marc-jacobs-daisy-eau-so-fresh",
+    "designer": "MARC JACOBS",
+    "name": "DAISY EAU SO FRESH",
+    "code": "DP02652",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02892-melanie-martinez-cry-baby",
+    "designer": "MELANIE MARTINEZ",
+    "name": "CRY BABY",
+    "code": "DP02892",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02569-montblac-signature-absolu",
+    "designer": "MONTBLAC",
+    "name": "SIGNATURE ABSOLU",
+    "code": "DP02569",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02149-moschino-glamour",
+    "designer": "MOSCHINO",
+    "name": "GLAMOUR",
+    "code": "DP02149",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02294-moschino-moschino-funny",
+    "designer": "MOSCHINO",
+    "name": "MOSCHINO FUNNY",
+    "code": "DP02294",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02500-moschino-toy-2",
+    "designer": "MOSCHINO",
+    "name": "TOY 2",
+    "code": "DP02500",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02584-moschino-toy-2-bubble-gum",
+    "designer": "MOSCHINO",
+    "name": "TOY 2 BUBBLE GUM",
+    "code": "DP02584",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01013-mugler-angel",
+    "designer": "MUGLER",
+    "name": "ANGEL",
+    "code": "DP01013",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02673-paco-rabanne-fame",
+    "designer": "PACO RABANNE",
+    "name": "FAME",
+    "code": "DP02673",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02868-paco-rabanne-fame-couture",
+    "designer": "PACO RABANNE",
+    "name": "FAME COUTURE",
+    "code": "DP02868",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02210-paco-rabanne-lady-million",
+    "designer": "PACO RABANNE",
+    "name": "LADY MILLION",
+    "code": "DP02210",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02704-paco-rabanne-lady-million-fabulous",
+    "designer": "PACO RABANNE",
+    "name": "LADY MILLION FABULOUS",
+    "code": "DP02704",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02477-paco-rabanne-lady-million-lucky",
+    "designer": "PACO RABANNE",
+    "name": "LADY MILLION LUCKY",
+    "code": "DP02477",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02724-paco-rabanne-lady-million-royal",
+    "designer": "PACO RABANNE",
+    "name": "LADY MILLION ROYAL",
+    "code": "DP02724",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02864-paco-rabanne-million-gold-for-her",
+    "designer": "PACO RABANNE",
+    "name": "MILLION GOLD FOR HER",
+    "code": "DP02864",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02349-paco-rabanne-olympea",
+    "designer": "PACO RABANNE",
+    "name": "OLYMPEA",
+    "code": "DP02349",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02674-paco-rabanne-olympea-solar",
+    "designer": "PACO RABANNE",
+    "name": "OLYMPEA SOLAR",
+    "code": "DP02674",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01334-paco-rabanne-ultraviolet",
+    "designer": "PACO RABANNE",
+    "name": "ULTRAVIOLET",
+    "code": "DP01334",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02843-parfums-de-marly-delina-exclusif",
+    "designer": "PARFUMS DE MARLY",
+    "name": "DELINA EXCLUSIF",
+    "code": "DP02843",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01406-paris-hilton-can-can",
+    "designer": "PARIS HILTON",
+    "name": "CAN-CAN",
+    "code": "DP01406",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02408-paris-hilton-gold-rush",
+    "designer": "PARIS HILTON",
+    "name": "GOLD RUSH",
+    "code": "DP02408",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02152-paris-hilton-heires",
+    "designer": "PARIS HILTON",
+    "name": "HEIRES",
+    "code": "DP02152",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01255-paris-hilton-paris-hilton",
+    "designer": "PARIS HILTON",
+    "name": "PARIS HILTON",
+    "code": "DP01255",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02492-paris-hilton-rose-rush",
+    "designer": "PARIS HILTON",
+    "name": "ROSE RUSH",
+    "code": "DP02492",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02838-phlur-strawberry-letter",
+    "designer": "PHLUR",
+    "name": "STRAWBERRY LETTER",
+    "code": "DP02838",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02802-prada-paradoxe",
+    "designer": "PRADA",
+    "name": "PARADOXE",
+    "code": "DP02802",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02451-prada-prada-candy",
+    "designer": "PRADA",
+    "name": "PRADA CANDY",
+    "code": "DP02451",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01277-ralph-lauren-ralph",
+    "designer": "RALPH LAUREN",
+    "name": "RALPH",
+    "code": "DP01277",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02304-ralph-lauren-ralph-fresh",
+    "designer": "RALPH LAUREN",
+    "name": "RALPH FRESH",
+    "code": "DP02304",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02369-rhiana-riri",
+    "designer": "RHIANA",
+    "name": "RIRI",
+    "code": "DP02369",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02808-sabrina-carpenter-sweet-thooth",
+    "designer": "SABRINA CARPENTER",
+    "name": "SWEET THOOTH",
+    "code": "DP02808",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02880-sabrina-carpenter-sweet-thooth-me-espresso",
+    "designer": "SABRINA CARPENTER",
+    "name": "SWEET THOOTH ME ESPRESSO",
+    "code": "DP02880",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02363-selena-gomez-selena-gomez-eau-de-parfum",
+    "designer": "SELENA GOMEZ",
+    "name": "SELENA GOMEZ EAU DE PARFUM",
+    "code": "DP02363",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02273-selena-gomez-vivamore",
+    "designer": "SELENA GOMEZ",
+    "name": "VIVAMORE",
+    "code": "DP02273",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02863-tommy-hilfiger-tommy-girl-forever",
+    "designer": "TOMMY HILFIGER",
+    "name": "TOMMY GIRL FOREVER",
+    "code": "DP02863",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02643-tous-loveme-the-onyx-parfum",
+    "designer": "TOUS",
+    "name": "LOVEME THE ONYX PARFUM",
+    "code": "DP02643",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01410-tous-tous",
+    "designer": "TOUS",
+    "name": "TOUS",
+    "code": "DP01410",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02753-valentino-born-in-roma-donna",
+    "designer": "VALENTINO",
+    "name": "BORN IN ROMA DONNA",
+    "code": "DP02753",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02882-valentino-born-in-roma-donna-extradose",
+    "designer": "VALENTINO",
+    "name": "BORN IN ROMA DONNA EXTRADOSE",
+    "code": "DP02882",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02839-valentino-born-in-roma-green-stravaganza",
+    "designer": "VALENTINO",
+    "name": "BORN IN ROMA GREEN STRAVAGANZA",
+    "code": "DP02839",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02757-valentino-born-in-roma-intense",
+    "designer": "VALENTINO",
+    "name": "BORN IN ROMA INTENSE",
+    "code": "DP02757",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02226-versace-bright-crystal",
+    "designer": "VERSACE",
+    "name": "BRIGHT CRYSTAL",
+    "code": "DP02226",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02857-versace-crystal-noir-parfum",
+    "designer": "VERSACE",
+    "name": "CRYSTAL NOIR PARFUM",
+    "code": "DP02857",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02600-versace-dylan-turquoise",
+    "designer": "VERSACE",
+    "name": "DYLAN TURQUOISE",
+    "code": "DP02600",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02302-versace-eros",
+    "designer": "VERSACE",
+    "name": "EROS",
+    "code": "DP02302",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02177-versace-versense",
+    "designer": "VERSACE",
+    "name": "VERSENSE",
+    "code": "DP02177",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02262-versace-yellow-diamond",
+    "designer": "VERSACE",
+    "name": "YELLOW DIAMOND",
+    "code": "DP02262",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02833-victoria-s-secret-aqua-kiss",
+    "designer": "VICTORIA´S SECRET",
+    "name": "AQUA KISS",
+    "code": "DP02833",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02736-victoria-s-secret-bare",
+    "designer": "VICTORIA´S SECRET",
+    "name": "BARE",
+    "code": "DP02736",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02661-victoria-s-secret-bombshell",
+    "designer": "VICTORIA´S SECRET",
+    "name": "BOMBSHELL",
+    "code": "DP02661",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02466-victoria-s-secret-bombshell-nights",
+    "designer": "VICTORIA´S SECRET",
+    "name": "BOMBSHELL NIGHTS",
+    "code": "DP02466",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02737-victoria-s-secret-bombshell-sundrenched",
+    "designer": "VICTORIA´S SECRET",
+    "name": "BOMBSHELL SUNDRENCHED",
+    "code": "DP02737",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02780-victoria-s-secret-bombshells-in-bloom",
+    "designer": "VICTORIA´S SECRET",
+    "name": "BOMBSHELLS IN BLOOM",
+    "code": "DP02780",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02514-victoria-s-secret-coconut-passion",
+    "designer": "VICTORIA´S SECRET",
+    "name": "COCONUT PASSION",
+    "code": "DP02514",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02351-victoria-s-secret-eau-so-sexy",
+    "designer": "VICTORIA´S SECRET",
+    "name": "EAU SO SEXY",
+    "code": "DP02351",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02201-victoria-s-secret-life-is-pink-hope-pink",
+    "designer": "VICTORIA´S SECRET",
+    "name": "LIFE IS PINK HOPE PINK",
+    "code": "DP02201",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02205-victoria-s-secret-life-is-pink-live-pink",
+    "designer": "VICTORIA´S SECRET",
+    "name": "LIFE IS PINK LIVE PINK",
+    "code": "DP02205",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02203-victoria-s-secret-life-is-pink-wish-pink",
+    "designer": "VICTORIA´S SECRET",
+    "name": "LIFE IS PINK WISH PINK",
+    "code": "DP02203",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02310-victoria-s-secret-love-me",
+    "designer": "VICTORIA´S SECRET",
+    "name": "LOVE ME",
+    "code": "DP02310",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02834-victoria-s-secret-pink-all-my-heart",
+    "designer": "VICTORIA´S SECRET",
+    "name": "PINK ALL MY HEART",
+    "code": "DP02834",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02814-victoria-s-secret-pink-by-pink",
+    "designer": "VICTORIA´S SECRET",
+    "name": "PINK BY PINK",
+    "code": "DP02814",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02350-victoria-s-secret-scandalous",
+    "designer": "VICTORIA´S SECRET",
+    "name": "SCANDALOUS",
+    "code": "DP02350",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02832-victoria-s-secret-sun-kissed",
+    "designer": "VICTORIA´S SECRET",
+    "name": "SUN KISSED",
+    "code": "DP02832",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02786-victoria-s-secret-tease-cocoa-soiree",
+    "designer": "VICTORIA´S SECRET",
+    "name": "TEASE COCOA SOIRÉE",
+    "code": "DP02786",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02334-viktor-and-rolf-flowerbomb",
+    "designer": "VIKTOR&ROLF",
+    "name": "FLOWERBOMB",
+    "code": "DP02334",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02324-yves-saint-laurent-black-opium",
+    "designer": "YVES SAINT LAURENT",
+    "name": "BLACK OPIUM",
+    "code": "DP02324",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02866-yves-saint-laurent-black-opium-glitter",
+    "designer": "YVES SAINT LAURENT",
+    "name": "BLACK OPIUM GLITTER",
+    "code": "DP02866",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02756-yves-saint-laurent-black-opium-le-parfum",
+    "designer": "YVES SAINT LAURENT",
+    "name": "BLACK OPIUM LE PARFUM",
+    "code": "DP02756",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02816-yves-saint-laurent-black-opium-over-red",
+    "designer": "YVES SAINT LAURENT",
+    "name": "BLACK OPIUM OVER RED",
+    "code": "DP02816",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02515-yves-saint-laurent-libre",
+    "designer": "YVES SAINT LAURENT",
+    "name": "LIBRE",
+    "code": "DP02515",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02800-yves-saint-laurent-libre-l-absolu-platine",
+    "designer": "YVES SAINT LAURENT",
+    "name": "LIBRE L'ABSOLU PLATINE",
+    "code": "DP02800",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02695-yves-saint-laurent-libre-le-parfum",
+    "designer": "YVES SAINT LAURENT",
+    "name": "LIBRE LE PARFUM",
+    "code": "DP02695",
+    "category": "Dama"
+  },
+  {
+    "id": "up01171-afnan-9am-dive",
+    "designer": "AFNAN",
+    "name": "9AM DIVE",
+    "code": "UP01171",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01092-al-haramain-amber-oud",
+    "designer": "AL HARAMAIN",
+    "name": "AMBER OUD",
+    "code": "UP01092",
+    "category": "Unisex"
+  },
+  {
+    "id": "cp02494-al-haramain-amber-oud-aqua-dubai",
+    "designer": "AL HARAMAIN",
+    "name": "AMBER OUD AQUA DUBAI",
+    "code": "CP02494",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01077-amouge-guidance",
+    "designer": "AMOUGE",
+    "name": "GUIDANCE",
+    "code": "UP01077",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01170-armaf-odyssey-dubai-chocolat",
+    "designer": "ARMAF",
+    "name": "ODYSSEY DUBAI CHOCOLAT",
+    "code": "UP01170",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01101-billie-eilish-eilish-no-3",
+    "designer": "BILLIE EILISH",
+    "name": "EILISH NO. 3",
+    "code": "UP01101",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01174-billie-eilish-your-turn",
+    "designer": "BILLIE EILISH",
+    "name": "YOUR TURN",
+    "code": "UP01174",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01042-by-kilian-angel-s-share",
+    "designer": "BY KILIAN",
+    "name": "ANGEL'S SHARE",
+    "code": "UP01042",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01018-by-kilian-black-phantom",
+    "designer": "BY KILIAN",
+    "name": "BLACK PHANTOM",
+    "code": "UP01018",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01017-calvin-klein-ck-be",
+    "designer": "CALVIN KLEIN",
+    "name": "CK BE",
+    "code": "UP01017",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01002-calvin-klein-ck-one",
+    "designer": "CALVIN KLEIN",
+    "name": "CK ONE",
+    "code": "UP01002",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01005-creed-millesime-imperial",
+    "designer": "CREED",
+    "name": "MILLESIME IMPERIAL",
+    "code": "UP01005",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01097-kayali-lovefest-burning-cherry",
+    "designer": "KAYALI",
+    "name": "LOVEFEST BURNING CHERRY",
+    "code": "UP01097",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01164-lataffa-bade-e-al-oud",
+    "designer": "LATAFFA",
+    "name": "BADE´E AL OUD",
+    "code": "UP01164",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01095-lataffa-khamrah",
+    "designer": "LATAFFA",
+    "name": "KHAMRAH",
+    "code": "UP01095",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01111-lataffa-khamrah-qahwa",
+    "designer": "LATAFFA",
+    "name": "KHAMRAH QAHWA",
+    "code": "UP01111",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01000-lelabo-santal-33",
+    "designer": "LELABO",
+    "name": "SANTAL 33",
+    "code": "UP01000",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01090-louis-vuitton-ombre-nomade",
+    "designer": "LOUIS VUITTON",
+    "name": "OMBRE NOMADE",
+    "code": "UP01090",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01099-louis-vuitton-pacific-chill",
+    "designer": "LOUIS VUITTON",
+    "name": "PACIFIC CHILL",
+    "code": "UP01099",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01140-maison-francis-kurkdijan-baccarat-rouge-540-extrait",
+    "designer": "MAISON FRANCIS KURKDIJAN",
+    "name": "BACCARAT ROUGE 540 EXTRAIT",
+    "code": "UP01140",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01100-maison-martin-margiela-coffee-break",
+    "designer": "MAISON MARTIN MARGIELA",
+    "name": "COFFEE BREAK",
+    "code": "UP01100",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01079-montale-intense-cafe",
+    "designer": "MONTALE",
+    "name": "INTENSE CAFÉ",
+    "code": "UP01079",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01087-moschino-toy-2-pearl",
+    "designer": "MOSCHINO",
+    "name": "TOY 2 PEARL",
+    "code": "UP01087",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01136-orientica-amber-noir",
+    "designer": "ORIENTICA",
+    "name": "AMBER NOIR",
+    "code": "UP01136",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01081-parfums-de-marly-layton-exclusif",
+    "designer": "PARFUMS DE MARLY",
+    "name": "LAYTON EXCLUSIF",
+    "code": "UP01081",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01067-tom-ford-bitter-peach",
+    "designer": "TOM FORD",
+    "name": "BITTER PEACH",
+    "code": "UP01067",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01068-tom-ford-bois-marocain",
+    "designer": "TOM FORD",
+    "name": "BOIS MAROCAIN",
+    "code": "UP01068",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01069-tom-ford-costa-azzurra-parfum",
+    "designer": "TOM FORD",
+    "name": "COSTA AZZURRA PARFUM",
+    "code": "UP01069",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01085-tom-ford-electric-cherry",
+    "designer": "TOM FORD",
+    "name": "ELECTRIC CHERRY",
+    "code": "UP01085",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01030-tom-ford-fucking-fabulous",
+    "designer": "TOM FORD",
+    "name": "FUCKING FABULOUS",
+    "code": "UP01030",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01007-tom-ford-lost-cherry",
+    "designer": "TOM FORD",
+    "name": "LOST CHERRY",
+    "code": "UP01007",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01031-tom-ford-mandarino-di-amalfi",
+    "designer": "TOM FORD",
+    "name": "MANDARINO DI AMALFI",
+    "code": "UP01031",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01105-tom-ford-myrrhe-mystere",
+    "designer": "TOM FORD",
+    "name": "MYRRHE MYSTERE",
+    "code": "UP01105",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01046-tom-ford-ombre-leather",
+    "designer": "TOM FORD",
+    "name": "OMBRE LEATHER",
+    "code": "UP01046",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01063-tom-ford-oud-minerale",
+    "designer": "TOM FORD",
+    "name": "OUD MINERALE",
+    "code": "UP01063",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01047-tom-ford-oud-wood",
+    "designer": "TOM FORD",
+    "name": "OUD WOOD",
+    "code": "UP01047",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01020-tom-ford-rose-de-chine",
+    "designer": "TOM FORD",
+    "name": "ROSE DE CHINE",
+    "code": "UP01020",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01029-tom-ford-soleil-blanc",
+    "designer": "TOM FORD",
+    "name": "SOLEIL BLANC",
+    "code": "UP01029",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01071-tom-ford-tobacco-oud",
+    "designer": "TOM FORD",
+    "name": "TOBACCO OUD",
+    "code": "UP01071",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01028-tom-ford-tobacco-vanille",
+    "designer": "TOM FORD",
+    "name": "TOBACCO VANILLE",
+    "code": "UP01028",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01116-tom-ford-tuscan-leather",
+    "designer": "TOM FORD",
+    "name": "TUSCAN LEATHER",
+    "code": "UP01116",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01141-tom-ford-vanille-fatale-2024",
+    "designer": "TOM FORD",
+    "name": "VANILLE FATALE 2024",
+    "code": "UP01141",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01147-xerjoff-accento",
+    "designer": "XERJOFF",
+    "name": "ACCENTO",
+    "code": "UP01147",
+    "category": "Unisex"
+  },
+  {
+    "id": "up01129-xerjoff-erba-pura",
+    "designer": "XERJOFF",
+    "name": "ERBA PURA",
+    "code": "UP01129",
+    "category": "Unisex"
   }
 ]

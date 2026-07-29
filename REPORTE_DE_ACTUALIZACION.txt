@@ -1,0 +1,28 @@
+ACTUALIZACIÓN DEL CATÁLOGO PRIVÉ
+Fecha: 28 de julio de 2026
+
+Archivo fuente: CATALOGO WEB.xlsx
+Filas importadas: 561
+- Caballero: 318
+- Dama: 199
+- Unisex: 44
+
+Regla de importación:
+Solo se incluyeron filas con Diseñador, Perfume y Clave completos.
+Las filas vacías o incompletas fueron ignoradas.
+
+Validación:
+- IDs únicos: 561
+- Claves repetidas detectadas: 1
+- CP02494 aparece dos veces:
+  1) Caballero — AL HARAMAIN PERFUMES — AMBER OUD AQUA DUBAI
+  2) Unisex — AL HARAMAIN — AMBER OUD AQUA DUBAI
+
+La duplicación se conservó porque ambas filas aparecen en el Excel oficial.
+Si es un error, corrige una de ellas en el siguiente Excel.
+
+PUBLICACIÓN
+Reemplaza en el repositorio:
+data/perfumes.json
+
+El archivo generar_catalogo.py permite repetir la sincronización en futuras actualizaciones.
