@@ -41,7 +41,7 @@ const elements = {
   clearSearch: $("#clearSearch"), designerFilter: $("#designerFilter"), familyFilter: $("#familyFilter"),
   familyFilterField: $("#familyFilterField"), resetFilters: $("#resetFilters"),
   resultCount: $("#resultCount"), resultLabel: $("#resultLabel"), emptyState: $("#emptyState"),
-  activeFilters: $("#activeFilters"),
+  activeFilters: $("#activeFilters"), categoryFilters: [...document.querySelectorAll(".category-filter")],
   dialog: $("#perfumeDialog"), closeDialog: $("#closeDialog"),
   detailImage: $("#detailImage"), detailFallback: $("#detailFallback"), detailMonogram: $("#detailMonogram"),
   detailDesigner: $("#detailDesigner"), detailName: $("#detailName"), detailCode: $("#detailCode"),
@@ -224,6 +224,11 @@ function render() {
   elements.resultLabel.textContent = results.length === 1 ? "fragancia" : "fragancias";
   elements.emptyState.hidden = results.length !== 0;
   elements.clearSearch.classList.toggle("visible", Boolean(state.query));
+  elements.categoryFilters.forEach(button => {
+    const active = button.dataset.category === state.category;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
   renderActiveFilters();
 }
 function populateSelect(select, values) {
@@ -379,6 +384,26 @@ function restartAdvisor() {
   renderAdvisorOptions(); updateAdvisorStep();
 }
 
+const SEARCH_SUGGESTIONS = ["Dior", "Aventus", "Imagination", "Ariana Grande", "Victoria's Secret", "Baccarat Rouge", "Louis Vuitton"];
+let searchSuggestionIndex = 0;
+let searchPlaceholderTimer;
+function rotateSearchPlaceholder() {
+  if (document.activeElement === elements.search || state.query) return;
+  const suggestion = SEARCH_SUGGESTIONS[searchSuggestionIndex % SEARCH_SUGGESTIONS.length];
+  elements.search.placeholder = `Busca ${suggestion}...`;
+  searchSuggestionIndex += 1;
+}
+function startSearchPlaceholderRotation() {
+  rotateSearchPlaceholder();
+  searchPlaceholderTimer = window.setInterval(rotateSearchPlaceholder, 3200);
+}
+elements.categoryFilters.forEach(button => button.addEventListener("click", () => {
+  state.category = button.dataset.category || "";
+  render();
+  scrollToCatalog();
+}));
+elements.search.addEventListener("focus", () => { elements.search.placeholder = "Busca por nombre, diseñador o clave..."; });
+elements.search.addEventListener("blur", () => { if (!state.query) rotateSearchPlaceholder(); });
 elements.search.addEventListener("input",event=>{state.query=event.target.value;render();});
 elements.clearSearch.addEventListener("click",()=>{state.query="";elements.search.value="";elements.search.focus();render();});
 elements.designerFilter.addEventListener("change",event=>setFilter("designer",event.target.value));
@@ -437,7 +462,7 @@ async function init(){
       ? window.PriveCoreAdapter.mergeCatalogs(legacyPerfumes, corePerfumes)
       : legacyPerfumes;
     console.info(`PRIVÉ: ${state.perfumes.length} fragancias cargadas (${corePerfumes.length} desde Core).`);
-    populateFilters(); render(); renderAdvisorOptions(); openFromHash();
+    populateFilters(); render(); renderAdvisorOptions(); startSearchPlaceholderRotation(); openFromHash();
   }catch(error){
     elements.catalog.innerHTML='<p class="load-error">No se pudo cargar el catálogo. Intenta actualizar la página.</p>';
     console.error(error);
