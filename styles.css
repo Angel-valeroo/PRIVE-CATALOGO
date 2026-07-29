@@ -165,3 +165,40 @@ body{background:#eeeae2}
   .site-footer{grid-template-columns:1fr}.site-footer p{max-width:none}
 }
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;animation:none}.entry-card,.search-box,.perfume-card{transition:none}}
+
+
+/* =========================================================
+   SPRINT 1.1 — REFINAMIENTO DE PRIMERA IMPRESIÓN
+   ========================================================= */
+.site-header{display:none!important}
+.hero::after{
+  background:linear-gradient(90deg,rgba(4,6,9,.78) 0%,rgba(4,6,9,.50) 45%,rgba(4,6,9,.06) 100%);
+  transition:background .55s ease
+}
+.hero-atmosphere{opacity:1;transition:opacity .55s ease,transform .9s cubic-bezier(.2,.75,.2,1)}
+.hero-orb--one{opacity:1;background:radial-gradient(circle at 38% 42%,rgba(91,119,153,.68),rgba(10,16,25,0) 68%)}
+.hero-orb--two{opacity:1;background:radial-gradient(circle,rgba(216,190,137,.30),transparent 69%)}
+.hero-glass{
+  border-color:rgba(255,255,255,.29);
+  background:linear-gradient(135deg,rgba(255,255,255,.17),rgba(255,255,255,.035) 42%,rgba(216,199,159,.13));
+  box-shadow:inset 0 0 95px rgba(255,255,255,.08),0 0 145px rgba(48,76,108,.42)
+}
+.hero-glass::before{border-color:rgba(235,220,187,.28)}
+.hero-flare{background:linear-gradient(transparent,rgba(235,218,176,.92),transparent);box-shadow:0 0 32px rgba(216,199,159,.50)}
+.hero-slogan{color:rgba(255,255,255,.82)}
+.hero-message p{color:rgba(255,255,255,.68)}
+.reveal{animation-duration:1.05s}
+.reveal--one{animation-delay:.20s}
+.reveal--two{animation-delay:.82s}
+.reveal--three{animation-delay:1.34s}
+.reveal--four{animation-delay:1.88s}
+body.search-active .hero::after{background:linear-gradient(90deg,rgba(4,6,9,.90),rgba(4,6,9,.78) 58%,rgba(4,6,9,.48))}
+body.search-active .hero-atmosphere{opacity:.58;transform:scale(1.015)}
+body.search-active .hero-brand-block,
+body.search-active .hero-message,
+body.search-active .entry-paths{opacity:.62;transition:opacity .45s ease}
+@media (max-width:700px){
+  .hero::after{background:linear-gradient(to bottom,rgba(4,6,9,.42),rgba(4,6,9,.78) 57%,rgba(4,6,9,.94) 100%)}
+  .hero-glass{opacity:.94}
+  body.search-active .hero::after{background:linear-gradient(to bottom,rgba(4,6,9,.68),rgba(4,6,9,.91) 68%,rgba(4,6,9,.98))}
+}

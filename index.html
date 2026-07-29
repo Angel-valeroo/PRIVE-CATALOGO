@@ -10,13 +10,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    if (location.hash === "#catalogo" || location.hash === "#inicio") {
+      history.replaceState(null, "", location.pathname + location.search);
+    }
+  </script>
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="#inicio" aria-label="PRIVÉ, inicio">PRIVÉ</a>
-    <a class="header-catalog-link" href="#catalogo">Colección <span aria-hidden="true">↘</span></a>
-  </header>
-
   <main>
     <section id="inicio" class="hero">
       <div class="hero-atmosphere" aria-hidden="true">
@@ -30,11 +30,11 @@
         <div class="hero-brand-block reveal reveal--one">
           <p class="hero-overline">PERFUMERÍA PRIVÉ</p>
           <h1 class="hero-logo">PRIVÉ</h1>
-          <p class="hero-slogan">Huelen mejor de lo que cuestan.</p>
+          <p class="hero-slogan">“Huelen mejor de lo que cuestan.”</p>
         </div>
 
         <div class="hero-message reveal reveal--two">
-          <p>Encuentra una fragancia que se sienta tuya.</p>
+          <p>Encuentra la fragancia ideal para ti.</p>
         </div>
 
         <div class="search-area reveal reveal--three">

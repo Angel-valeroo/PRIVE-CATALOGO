@@ -402,8 +402,14 @@ elements.categoryFilters.forEach(button => button.addEventListener("click", () =
   render();
   scrollToCatalog();
 }));
-elements.search.addEventListener("focus", () => { elements.search.placeholder = "Busca por nombre, diseñador o clave..."; });
-elements.search.addEventListener("blur", () => { if (!state.query) rotateSearchPlaceholder(); });
+elements.search.addEventListener("focus", () => {
+  elements.search.placeholder = "Busca por nombre, diseñador o clave...";
+  document.body.classList.add("search-active");
+});
+elements.search.addEventListener("blur", () => {
+  document.body.classList.remove("search-active");
+  if (!state.query) rotateSearchPlaceholder();
+});
 elements.search.addEventListener("input",event=>{state.query=event.target.value;render();});
 elements.clearSearch.addEventListener("click",()=>{state.query="";elements.search.value="";elements.search.focus();render();});
 elements.designerFilter.addEventListener("change",event=>setFilter("designer",event.target.value));
@@ -453,6 +459,10 @@ async function loadCorePerfumes() {
 }
 
 async function init(){
+  if (!location.hash.startsWith("#perfume=")) {
+    history.scrollRestoration = "manual";
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }
   try{
     const [legacyPerfumes, corePerfumes] = await Promise.all([
       fetchJson("data/perfumes.json"),
@@ -468,4 +478,7 @@ async function init(){
     console.error(error);
   }
 }
+window.addEventListener("pageshow", () => {
+  if (!location.hash.startsWith("#perfume=")) window.scrollTo(0, 0);
+});
 init();
