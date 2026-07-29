@@ -1,0 +1,19 @@
+CORRECCIÓN DE IDENTIDAD — PRIVÉ
+
+Problema corregido:
+Las fichas Core reemplazaban el nombre proveniente del Excel. Por eso los perfumes con notas y familia olfativa conservaban nombres antiguos.
+
+Archivos a reemplazar en GitHub:
+1. core-adapter.js
+2. data/perfumes.json
+3. Los seis archivos incluidos dentro de data/core/
+
+Resultado:
+- El Excel / data/perfumes.json manda en diseñador, nombre, clave y categoría.
+- Core conserva y aporta notas, familia, acordes, recomendaciones y demás datos enriquecidos.
+- Futuras correcciones de nombre hechas en Excel también se reflejarán en perfumes con ficha Core.
+
+Correcciones visibles incluidas:
+- AQUA DI GIO → ACQUA DI GIO
+- AQUA DI GIO PARFUM → ACQUA DI GIÒ PARFUM
+- AQUA DI GIO PROFONDO → ACQUA DI GIÒ PROFONDO

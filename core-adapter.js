@@ -70,9 +70,19 @@
 
       if (index >= 0) {
         const previous = merged[index];
-        // Core es la fuente de verdad; cualquier campo visual heredado que aún
-        // no exista en Core puede sobrevivir hasta completar la migración.
-        merged[index] = { ...previous, ...adapted };
+        // Excel / catálogo operativo es la fuente de verdad para identidad.
+        // Core aporta la información enriquecida (notas, familia, usos, etc.).
+        // Así, una corrección de nombre, diseñador, clave o categoría en Excel
+        // también se refleja en perfumes que ya tienen ficha Core.
+        merged[index] = {
+          ...previous,
+          ...adapted,
+          id: previous.id || adapted.id,
+          designer: previous.designer || adapted.designer,
+          name: previous.name || adapted.name,
+          code: previous.code || adapted.code,
+          category: previous.category || adapted.category
+        };
       } else {
         merged.push(adapted);
       }
