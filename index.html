@@ -75,10 +75,10 @@
     <section id="catalogo" class="catalog-shell" aria-labelledby="catalogTitle">
       <div class="section-heading">
         <div>
-          <p class="section-kicker">CATÁLOGO PRIVÉ</p>
-          <h2 id="catalogTitle">Colección de fragancias</h2>
+          <p class="section-kicker">LA BOUTIQUE PRIVÉ</p>
+          <h2 id="catalogTitle">Descubre tu próxima fragancia</h2>
         </div>
-        <p>Selecciona una fragancia para conocer su perfil o toca el diseñador para explorar su colección.</p>
+        <p>Explora con calma. Cada fragancia fue presentada para ayudarte a encontrar la que mejor se adapta a ti.</p>
       </div>
       <div class="toolbar">
         <div class="filter-field">
@@ -110,6 +110,8 @@
     <article class="perfume-card">
       <button class="card-open" type="button" aria-label="Ver detalles del perfume">
         <div class="image-stage">
+          <span class="card-number" aria-hidden="true"></span>
+          <span class="card-view" aria-hidden="true">Ver fragancia ↗</span>
           <img class="perfume-image" src="" alt="" loading="lazy" decoding="async">
           <div class="image-fallback" aria-hidden="true"><span class="monogram"></span></div>
         </div>
@@ -119,7 +121,10 @@
         <button class="name-button" type="button"><h3 class="perfume-name"></h3></button>
         <p class="product-code"></p>
         <p class="card-meta" hidden></p>
-        <button class="details-link" type="button">Ver perfil <span aria-hidden="true">→</span></button>
+        <div class="card-footer">
+          <span class="card-prompt">Conoce su perfil</span>
+          <button class="details-link" type="button" aria-label="Ver perfil de la fragancia"><span aria-hidden="true">→</span></button>
+        </div>
       </div>
     </article>
   </template>

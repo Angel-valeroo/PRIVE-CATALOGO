@@ -202,3 +202,210 @@ body.search-active .entry-paths{opacity:.62;transition:opacity .45s ease}
   .hero-glass{opacity:.94}
   body.search-active .hero::after{background:linear-gradient(to bottom,rgba(4,6,9,.68),rgba(4,6,9,.91) 68%,rgba(4,6,9,.98))}
 }
+
+/* =========================================================
+   SPRINT 2 · LA BOUTIQUE — CATÁLOGO PREMIUM
+   ========================================================= */
+.catalog-shell{
+  width:min(1360px,100%);
+  padding:106px clamp(14px,3vw,46px) 122px;
+}
+.section-heading{
+  margin-bottom:44px;
+  padding-bottom:30px;
+  border-bottom:1px solid rgba(23,21,18,.13);
+}
+.section-heading h2{
+  max-width:760px;
+  font-size:clamp(2.65rem,6.8vw,5rem);
+  line-height:.98;
+}
+.section-heading>p{max-width:470px;font-size:.79rem;line-height:1.75}
+.toolbar{
+  margin-bottom:34px;
+  padding:20px 0 24px;
+  border-top:0;
+  border-bottom:1px solid rgba(23,21,18,.12);
+}
+.catalog-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px 10px;
+}
+.perfume-card{
+  min-width:0;
+  overflow:hidden;
+  position:relative;
+  background:#f7f4ee;
+  border:1px solid rgba(23,21,18,.09);
+  border-radius:2px;
+  box-shadow:none;
+  opacity:0;
+  transform:translateY(22px);
+  animation:boutiqueCardIn .72s cubic-bezier(.2,.7,.2,1) forwards;
+  animation-delay:calc(min(var(--card-index), 18) * 42ms);
+  transition:transform .48s cubic-bezier(.2,.7,.2,1),box-shadow .48s ease,border-color .35s ease,background .35s ease;
+}
+@keyframes boutiqueCardIn{to{opacity:1;transform:translateY(0)}}
+.perfume-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  border:1px solid transparent;
+  transition:border-color .35s ease;
+}
+.perfume-card:hover{
+  transform:translateY(-8px);
+  background:#fbfaf7;
+  border-color:rgba(183,150,93,.30);
+  box-shadow:0 28px 70px rgba(24,20,15,.13);
+}
+.perfume-card:hover::after{border-color:rgba(189,166,120,.17)}
+.card-open{position:relative;overflow:hidden}
+.image-stage{
+  aspect-ratio:4/5.45;
+  position:relative;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.88),rgba(246,241,232,.62)),
+    radial-gradient(circle at 50% 35%,#fff 0%,#eee7dc 58%,#ded4c5 100%);
+  border-bottom:1px solid rgba(23,21,18,.075);
+}
+.image-stage::before{
+  content:"";
+  width:62%;
+  height:16%;
+  position:absolute;
+  left:19%;
+  bottom:5%;
+  border-radius:50%;
+  background:radial-gradient(ellipse,rgba(22,18,13,.13),transparent 68%);
+  filter:blur(8px);
+  opacity:.62;
+  transition:opacity .4s ease,transform .5s ease;
+}
+.card-number{
+  position:absolute;
+  top:16px;
+  left:16px;
+  z-index:2;
+  color:rgba(23,21,18,.34);
+  font-size:.52rem;
+  letter-spacing:.18em;
+}
+.card-view{
+  position:absolute;
+  right:15px;
+  bottom:14px;
+  z-index:3;
+  color:rgba(23,21,18,.62);
+  font-size:.55rem;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  opacity:0;
+  transform:translateY(6px);
+  transition:opacity .35s ease,transform .35s ease;
+}
+.perfume-image{
+  padding:12% 11% 9%;
+  transform:scale(.96);
+  transform-origin:center 58%;
+  filter:drop-shadow(0 18px 18px rgba(27,22,16,.10));
+  transition:transform .65s cubic-bezier(.2,.7,.2,1),filter .55s ease;
+}
+.perfume-card:hover .perfume-image{transform:scale(1.035) translateY(-4px);filter:drop-shadow(0 25px 22px rgba(27,22,16,.17))}
+.perfume-card:hover .image-stage::before{opacity:.9;transform:scale(1.08)}
+.perfume-card:hover .card-view{opacity:1;transform:translateY(0)}
+.card-copy{
+  min-height:190px;
+  padding:22px 18px 18px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+.designer{
+  min-height:auto;
+  margin:0 0 9px;
+  color:#9a7a45;
+  font-size:.54rem;
+  font-weight:650;
+  letter-spacing:.16em;
+}
+.designer-link{transition:color .25s ease}.designer-link:hover{color:#5e4724}
+.perfume-name{
+  min-height:2.4em;
+  font-size:clamp(1.05rem,2.5vw,1.35rem);
+  line-height:1.18;
+  letter-spacing:-.025em;
+}
+.product-code{
+  margin:13px 0 0;
+  color:rgba(23,21,18,.45);
+  font-size:.52rem;
+  letter-spacing:.15em;
+}
+.card-meta{
+  margin:11px 0 0;
+  color:#746c61;
+  font-size:.64rem;
+  line-height:1.55;
+}
+.card-footer{
+  width:100%;
+  margin-top:auto;
+  padding-top:17px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  border-top:1px solid rgba(23,21,18,.09);
+}
+.card-prompt{
+  color:rgba(23,21,18,.55);
+  font-size:.55rem;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+.details-link{
+  width:34px;
+  height:34px;
+  min-height:34px;
+  margin:0;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(23,21,18,.18);
+  border-radius:50%;
+  font-size:.9rem;
+  transition:background .3s ease,color .3s ease,border-color .3s ease,transform .3s ease;
+}
+.details-link:hover{color:#fff;background:var(--prive-black);border-color:var(--prive-black);transform:translateX(2px)}
+.empty-state{padding:80px 20px;text-align:center}
+
+@media(min-width:600px){
+  .catalog-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px 16px}
+  .card-copy{min-height:205px;padding:24px 20px 20px}
+}
+@media(min-width:980px){
+  .catalog-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:34px 22px}
+  .image-stage{aspect-ratio:4/5.25}
+  .card-copy{min-height:210px;padding:26px 22px 21px}
+}
+@media(min-width:1280px){
+  .catalog-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:42px 28px}
+}
+@media(max-width:480px){
+  .catalog-shell{padding-left:10px;padding-right:10px}
+  .section-heading{padding-left:6px;padding-right:6px}
+  .card-copy{min-height:176px;padding:17px 12px 14px}
+  .perfume-name{font-size:.96rem}
+  .designer{font-size:.49rem;letter-spacing:.12em}
+  .product-code{font-size:.48rem}
+  .card-meta{font-size:.58rem}
+  .card-prompt{display:none}
+  .card-footer{justify-content:flex-end;padding-top:12px}
+  .details-link{width:31px;height:31px;min-height:31px}
+  .card-number{top:11px;left:11px}
+  .card-view{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .perfume-card{opacity:1;transform:none;animation:none}
+}

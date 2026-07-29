@@ -208,12 +208,15 @@ function closePerfume(updateHash = true) {
 }
 function render() {
   const results = filteredPerfumes(); const fragment = document.createDocumentFragment();
-  results.forEach(perfume => {
+  results.forEach((perfume, index) => {
     const card = elements.template.content.cloneNode(true); const article = card.querySelector(".perfume-card");
     const designer = card.querySelector(".designer"); const openButtons = card.querySelectorAll(".card-open, .name-button, .details-link");
     designer.textContent = perfume.designer; designer.addEventListener("click", () => setFilter("designer", perfume.designer));
     card.querySelector(".perfume-name").textContent = perfume.name;
     card.querySelector(".product-code").textContent = `CLAVE ${perfume.code}`; article.dataset.perfumeId = perfume.id;
+    article.style.setProperty("--card-index", Math.min(index, 18));
+    const cardNumber = card.querySelector(".card-number");
+    if (cardNumber) cardNumber.textContent = String(index + 1).padStart(2, "0");
     const meta = card.querySelector(".card-meta");
     const metaValues = [perfume.family, ...asList(perfume.contexts).slice(0,1), ...asList(perfume.accords).slice(0,1)].filter(Boolean);
     meta.textContent = metaValues.join(" · "); meta.hidden = metaValues.length === 0;
