@@ -1,27 +1,47 @@
-# PRIVÉ Catálogo — v1.3.9.1
+# PRIVÉ Catálogo — v2.0
 
-Catálogo inteligente de fragancias con **Asesor Inteligente PRIVÉ** y una arquitectura híbrida de migración hacia **PRIVÉ Core Database**.
+Catálogo web oficial de fragancias PRIVÉ, sincronizado con el Excel operativo normalizado.
 
-## Estado actual
+## Catálogo actual
 
-- Experiencia principal centrada en el Asesor Inteligente PRIVÉ.
-- Catálogo heredado conectado con fichas enriquecidas de PRIVÉ Core Database.
-- Seis fragancias ya migradas a Core.
-- Adaptador Core → Catálogo con prevención de duplicados.
-- Diseño mobile-first y filtros por diseñador, familia, notas y atributos disponibles.
+- 547 fragancias en total.
+- 305 Caballero.
+- 199 Dama.
+- 43 Unisex.
+- Sin claves ni identificadores duplicados.
 
-## v1.3.9.1 — Limpieza de identidad y versión
+## Fuentes de identidad
 
-- Actualiza la versión visible del sitio a **v1.3.9.1**.
-- Elimina dos registros duplicados que compartían código PRIVÉ:
-  - `CP00850`: se conserva **HUGO MAN** y se elimina el alias duplicado **HUGO**.
-  - `CP01079`: se conserva **HALLOWEEN · HALLOWEEN MAN** y se elimina el duplicado bajo **JESUS DEL POZO**.
-- Añade una prueba automática para detectar códigos e identificadores duplicados antes de futuras migraciones.
-- Mantiene intactas las seis fichas Core y la lógica del asesor.
+El archivo `data/perfumes.json` se genera desde el Excel operativo. El Excel es la fuente oficial para:
+
+- diseñador;
+- nombre de la fragancia;
+- clave PRIVÉ;
+- categoría.
+
+Las fichas de `data/core/` enriquecen únicamente los campos olfativos y de recomendación. No sobrescriben la identidad del Excel.
+
+## Imágenes
+
+Las imágenes se organizan por categoría y clave:
+
+```text
+IMAGES/Caballero/CP00000.avif
+IMAGES/Dama/DP00000.avif
+IMAGES/Unisex/UP00000.avif
+```
+
+El sitio también intenta cargar `webp`, `jpg`, `jpeg` y `png` si no encuentra AVIF.
+
+## Actualizar el catálogo
+
+```bash
+python generar_catalogo.py "CATALOGO WEB.xlsx" data/perfumes.json
+```
+
+Solo se importan filas que tengan diseñador, perfume y clave.
 
 ## Validación local
-
-Desde la raíz del proyecto:
 
 ```bash
 node tools/test-identity.mjs
@@ -30,4 +50,4 @@ node tools/test-core-adapter.mjs
 
 ## Publicación
 
-Sube el contenido de esta carpeta a la raíz del repositorio de GitHub Pages y reemplaza los archivos existentes.
+Sube el contenido de esta carpeta a la raíz del repositorio de GitHub Pages, reemplazando los archivos existentes.

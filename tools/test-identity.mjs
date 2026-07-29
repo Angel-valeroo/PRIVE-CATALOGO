@@ -15,28 +15,37 @@ function duplicates(values) {
   return [...repeated];
 }
 
-const duplicateLegacyCodes = duplicates(legacy.map(item => item.code));
-const duplicateLegacyIds = duplicates(legacy.map(item => item.id));
-const duplicateCoreCodes = duplicates(core.map(item => item.identity?.priveCode));
-const duplicateCoreIds = duplicates(core.map(item => item.id));
-const expectedCanonical = [
-  legacy.some(item => item.code === "CP00850" && item.designer === "HUGO BOSS" && item.name === "HUGO MAN"),
-  !legacy.some(item => item.code === "CP00850" && item.name === "HUGO"),
-  legacy.some(item => item.code === "CP01079" && item.designer === "HALLOWEEN" && item.name === "HALLOWEEN MAN"),
-  !legacy.some(item => item.code === "CP01079" && item.designer === "JESUS DEL POZO")
+const errors = [];
+const expectedCategories = new Set(["Caballero", "Dama", "Unisex"]);
+const categoryCounts = Object.fromEntries([...expectedCategories].map(category => [
+  category,
+  legacy.filter(item => item.category === category).length
+]));
+
+const checks = [
+  [legacy.length === 547, `Se esperaban 547 perfumes y se encontraron ${legacy.length}`],
+  [categoryCounts.Caballero === 305, `Caballero: se esperaban 305 y se encontraron ${categoryCounts.Caballero}`],
+  [categoryCounts.Dama === 199, `Dama: se esperaban 199 y se encontraron ${categoryCounts.Dama}`],
+  [categoryCounts.Unisex === 43, `Unisex: se esperaban 43 y se encontraron ${categoryCounts.Unisex}`],
+  [legacy.every(item => item.designer && item.name && item.code && expectedCategories.has(item.category)), "Hay registros incompletos o categorías inválidas"],
+  [core.every(item => legacy.some(perfume => perfume.code === item.identity?.priveCode)), "Core contiene una fragancia eliminada del catálogo operativo"]
 ];
 
-const errors = [];
-if (duplicateLegacyCodes.length) errors.push(`Códigos heredados duplicados: ${duplicateLegacyCodes.join(", ")}`);
-if (duplicateLegacyIds.length) errors.push(`IDs heredados duplicados: ${duplicateLegacyIds.join(", ")}`);
-if (duplicateCoreCodes.length) errors.push(`Códigos Core duplicados: ${duplicateCoreCodes.join(", ")}`);
-if (duplicateCoreIds.length) errors.push(`IDs Core duplicados: ${duplicateCoreIds.join(", ")}`);
-if (!expectedCanonical.every(Boolean)) errors.push("Los registros canónicos CP00850 o CP01079 no quedaron correctamente normalizados");
-if (legacy.length !== 323) errors.push(`Se esperaban 323 registros heredados y se encontraron ${legacy.length}`);
+for (const [values, label] of [
+  [legacy.map(item => item.code), "Códigos del catálogo"],
+  [legacy.map(item => item.id), "IDs del catálogo"],
+  [core.map(item => item.identity?.priveCode), "Códigos Core"],
+  [core.map(item => item.id), "IDs Core"]
+]) {
+  const repeated = duplicates(values);
+  if (repeated.length) errors.push(`${label} duplicados: ${repeated.join(", ")}`);
+}
+
+checks.forEach(([ok, message]) => { if (!ok) errors.push(message); });
 
 if (errors.length) {
   errors.forEach(error => console.error(`❌ ${error}`));
   process.exit(1);
 }
 
-console.log("✅ Identidad v1.3.9.1 validada: 323 perfumes, sin códigos ni IDs duplicados");
+console.log(`✅ Catálogo v2.0 validado: ${legacy.length} perfumes, sin claves ni IDs duplicados`);

@@ -105,10 +105,10 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02414-armani-acqua-di-gio-parfum",
+    "id": "cp02416-armani-acqua-di-gio-parfum",
     "designer": "ARMANI",
     "name": "ACQUA DI GIÒ PARFUM",
-    "code": "CP02414",
+    "code": "CP02416",
     "category": "Caballero"
   },
   {
@@ -154,6 +154,13 @@
     "category": "Caballero"
   },
   {
+    "id": "cp01089-armani-eau-de-nuit",
+    "designer": "ARMANI",
+    "name": "EAU DE NUIT",
+    "code": "CP01089",
+    "category": "Caballero"
+  },
+  {
     "id": "cp01004-armani-emporio-armani-diamonds-for-men",
     "designer": "ARMANI",
     "name": "EMPORIO ARMANI DIAMONDS FOR MEN",
@@ -161,10 +168,10 @@
     "category": "Caballero"
   },
   {
-    "id": "cp01089-armani-eau-de-nuit",
+    "id": "cp02365-armani-emporio-armani-stronger-with-you",
     "designer": "ARMANI",
-    "name": "EAU DE NUIT",
-    "code": "CP01089",
+    "name": "EMPORIO ARMANI STRONGER WITH YOU",
+    "code": "CP02365",
     "category": "Caballero"
   },
   {
@@ -182,10 +189,10 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02365-armani-emporio-armani-stronger-with-you",
-    "designer": "ARMANI",
-    "name": "EMPORIO ARMANI STRONGER WITH YOU",
-    "code": "CP02365",
+    "id": "cp00775-azzaro-azzaro-chrome-parfum",
+    "designer": "AZZARO",
+    "name": "AZZARO CHROME PARFUM",
+    "code": "CP00775",
     "category": "Caballero"
   },
   {
@@ -196,24 +203,10 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00775-azzaro-azzaro-chrome-parfum",
-    "designer": "AZZARO",
-    "name": "AZZARO CHROME PARFUM",
-    "code": "CP00775",
-    "category": "Caballero"
-  },
-  {
     "id": "cp02307-azzaro-wanted-by-night",
     "designer": "AZZARO",
     "name": "WANTED BY NIGHT",
     "code": "CP02307",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp00781-benetton-colors-uomo",
-    "designer": "BENETTON",
-    "name": "COLORS UOMO",
-    "code": "CP00781",
     "category": "Caballero"
   },
   {
@@ -231,24 +224,17 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02453-bharara-king",
+    "id": "cp02453-bharara-king-bharara",
     "designer": "BHARARA",
-    "name": "KING",
+    "name": "KING BHARARA",
     "code": "CP02453",
     "category": "Caballero"
   },
   {
-    "id": "cp00756-burberry-brit-burberry",
+    "id": "cp00756-burberry-burberry-brit-for-men",
     "designer": "BURBERRY",
-    "name": "BRIT BURBERRY",
+    "name": "BURBERRY BRIT FOR MEN",
     "code": "CP00756",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp00760-burberry-burberry-s",
-    "designer": "BURBERRY",
-    "name": "BURBERRY\"S",
-    "code": "CP00760",
     "category": "Caballero"
   },
   {
@@ -301,31 +287,31 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00941-calvin-klein-escape-for-man",
+    "id": "cp00941-calvin-klein-escape-for-men",
     "designer": "CALVIN KLEIN",
-    "name": "ESCAPE FOR MAN",
+    "name": "ESCAPE FOR MEN",
     "code": "CP00941",
     "category": "Caballero"
   },
   {
-    "id": "cp00814-calvin-klein-eternity",
+    "id": "cp02458-calvin-klein-eternity-air-for-men",
     "designer": "CALVIN KLEIN",
-    "name": "ETERNITY",
-    "code": "CP00814",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02458-calvin-klein-eternity-air-men",
-    "designer": "CALVIN KLEIN",
-    "name": "ETERNITY AIR MEN",
+    "name": "ETERNITY AIR FOR MEN",
     "code": "CP02458",
     "category": "Caballero"
   },
   {
-    "id": "cp01043-calvin-klein-eternity-aqua",
+    "id": "cp01043-calvin-klein-eternity-aqua-for-men",
     "designer": "CALVIN KLEIN",
-    "name": "ETERNITY AQUA",
+    "name": "ETERNITY AQUA FOR MEN",
     "code": "CP01043",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp00814-calvin-klein-eternity-for-men",
+    "designer": "CALVIN KLEIN",
+    "name": "ETERNITY FOR MEN",
+    "code": "CP00814",
     "category": "Caballero"
   },
   {
@@ -357,9 +343,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00702-carolina-herrera-212-h2o",
+    "id": "cp00702-carolina-herrera-212-h2o-men",
     "designer": "CAROLINA HERRERA",
-    "name": "212 H2O",
+    "name": "212 H2O MEN",
     "code": "CP00702",
     "category": "Caballero"
   },
@@ -371,17 +357,17 @@
     "category": "Caballero"
   },
   {
+    "id": "cp00703-carolina-herrera-212-men",
+    "designer": "CAROLINA HERRERA",
+    "name": "212 MEN",
+    "code": "CP00703",
+    "category": "Caballero"
+  },
+  {
     "id": "cp02368-carolina-herrera-212-men-aqua",
     "designer": "CAROLINA HERRERA",
     "name": "212 MEN AQUA",
     "code": "CP02368",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp00703-carolina-herrera-212-men-nyc",
-    "designer": "CAROLINA HERRERA",
-    "name": "212 MEN NYC",
-    "code": "CP00703",
     "category": "Caballero"
   },
   {
@@ -392,17 +378,10 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00994-carolina-herrera-212-sexy-man",
+    "id": "cp00994-carolina-herrera-212-sexy-men",
     "designer": "CAROLINA HERRERA",
-    "name": "212 SEXY MAN",
+    "name": "212 SEXY MEN",
     "code": "CP00994",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp01063-carolina-herrera-212-vip",
-    "designer": "CAROLINA HERRERA",
-    "name": "212 VIP",
-    "code": "CP01063",
     "category": "Caballero"
   },
   {
@@ -413,9 +392,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02403-carolina-herrera-212-vip-black-i-love-ny",
+    "id": "cp02403-carolina-herrera-212-vip-black-ny",
     "designer": "CAROLINA HERRERA",
-    "name": "212 VIP BLACK I LOVE NY",
+    "name": "212 VIP BLACK NY",
     "code": "CP02403",
     "category": "Caballero"
   },
@@ -441,16 +420,16 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02126-carolina-herrera-212-vip-men-club-edition",
+    "id": "cp01063-carolina-herrera-212-vip-men",
     "designer": "CAROLINA HERRERA",
-    "name": "212 VIP MEN CLUB EDITION",
-    "code": "CP02126",
+    "name": "212 VIP MEN",
+    "code": "CP01063",
     "category": "Caballero"
   },
   {
-    "id": "cp02337-carolina-herrera-212-vip-wins",
+    "id": "cp02337-carolina-herrera-212-vip-men-wins",
     "designer": "CAROLINA HERRERA",
-    "name": "212 VIP WINS",
+    "name": "212 VIP MEN WINS",
     "code": "CP02337",
     "category": "Caballero"
   },
@@ -490,10 +469,17 @@
     "category": "Caballero"
   },
   {
-    "id": "cp01029-carolina-herrera-bad-boy-superstar-2021",
+    "id": "cp01029-carolina-herrera-bad-boy-superstar-collector-edition-2021",
     "designer": "CAROLINA HERRERA",
-    "name": "BAD BOY SUPERSTAR 2021",
+    "name": "BAD BOY SUPERSTAR COLLECTOR EDITION 2021",
     "code": "CP01029",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02267-carolina-herrera-ch-kings",
+    "designer": "CAROLINA HERRERA",
+    "name": "CH KINGS",
+    "code": "CP02267",
     "category": "Caballero"
   },
   {
@@ -518,23 +504,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02267-carolina-herrera-ch-men-king",
-    "designer": "CAROLINA HERRERA",
-    "name": "CH MEN KING",
-    "code": "CP02267",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02426-carolina-herrera-ch-men-passion",
-    "designer": "CAROLINA HERRERA",
-    "name": "CH MEN PASSION",
-    "code": "CP02426",
-    "category": "Caballero"
-  },
-  {
     "id": "cp02151-carolina-herrera-ch-men-prive",
     "designer": "CAROLINA HERRERA",
-    "name": "CH MEN PRIVÉ",
+    "name": "CH MEN PRIVE",
     "code": "CP02151",
     "category": "Caballero"
   },
@@ -546,10 +518,17 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00844-carolina-herrera-herrera",
+    "id": "cp00844-carolina-herrera-herrera-for-men",
     "designer": "CAROLINA HERRERA",
-    "name": "HERRERA",
+    "name": "HERRERA FOR MEN",
     "code": "CP00844",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02126-carolina-herrera-vip-men-club-edition",
+    "designer": "CAROLINA HERRERA",
+    "name": "VIP MEN CLUB EDITION",
+    "code": "CP02126",
     "category": "Caballero"
   },
   {
@@ -560,16 +539,16 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00915-cartier-pasha",
+    "id": "cp00915-cartier-pasha-cartier",
     "designer": "CARTIER",
-    "name": "PASHA",
+    "name": "PASHA CARTIER",
     "code": "CP00915",
     "category": "Caballero"
   },
   {
-    "id": "cp00940-cartier-santos",
+    "id": "cp00940-cartier-santos-de-cartier",
     "designer": "CARTIER",
-    "name": "SANTOS",
+    "name": "SANTOS DE CARTIER",
     "code": "CP00940",
     "category": "Caballero"
   },
@@ -588,10 +567,10 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00484-chanel-allure-homme-sport-superleggera",
+    "id": "cp02884-chanel-allure-homme-sport-superleggera",
     "designer": "CHANEL",
-    "name": "ALLURE HOMME SPORT  SUPERLEGGERA",
-    "code": "CP00484",
+    "name": "ALLURE HOMME SPORT SUPERLEGGERA",
+    "code": "CP02884",
     "category": "Caballero"
   },
   {
@@ -602,9 +581,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp01059-chanel-bleu",
+    "id": "cp01059-chanel-bleu-de-chanel-eau-de-parfum",
     "designer": "CHANEL",
-    "name": "BLEU",
+    "name": "BLEU DE CHANEL EAU DE PARFUM",
     "code": "CP01059",
     "category": "Caballero"
   },
@@ -616,9 +595,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00840-clinique-happy",
+    "id": "cp00840-clinique-clinique-happy",
     "designer": "CLINIQUE",
-    "name": "HAPPY",
+    "name": "CLINIQUE HAPPY",
     "code": "CP00840",
     "category": "Caballero"
   },
@@ -637,6 +616,13 @@
     "category": "Caballero"
   },
   {
+    "id": "cp02261-cr7-cr7-play-it-cool",
+    "designer": "CR7",
+    "name": "CR7 PLAY IT COOL",
+    "code": "CP02261",
+    "category": "Caballero"
+  },
+  {
     "id": "cp02138-cr7-legacy",
     "designer": "CR7",
     "name": "LEGACY",
@@ -644,16 +630,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02261-cr7-play-it-cool",
-    "designer": "CR7",
-    "name": "PLAY IT COOL",
-    "code": "CP02261",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02471-creed-absolu-aventus",
+    "id": "cp02471-creed-absolu-aventus-2023",
     "designer": "CREED",
-    "name": "ABSOLU AVENTUS",
+    "name": "ABSOLU AVENTUS 2023",
     "code": "CP02471",
     "category": "Caballero"
   },
@@ -674,7 +653,7 @@
   {
     "id": "cp02326-creed-millesime-imperial",
     "designer": "CREED",
-    "name": "MILLESIME IMPERIAL",
+    "name": "MILLÉSIME IMPÉRIAL",
     "code": "CP02326",
     "category": "Caballero"
   },
@@ -693,17 +672,17 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00783-davidoff-cool-water",
-    "designer": "DAVIDOFF",
-    "name": "COOL WATER",
-    "code": "CP00783",
-    "category": "Caballero"
-  },
-  {
     "id": "cp02496-davidoff-cool-water-reborn-eau-de-parfum",
     "designer": "DAVIDOFF",
     "name": "COOL WATER  REBORN EAU DE PARFUM",
     "code": "CP02496",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp00783-davidoff-cool-water-para-hombres",
+    "designer": "DAVIDOFF",
+    "name": "COOL WATER PARA HOMBRES",
+    "code": "CP00783",
     "category": "Caballero"
   },
   {
@@ -728,37 +707,44 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02366-diesel-diesel-plus-plus",
+    "id": "cp01404-diesel-fuel-for-life-homme",
     "designer": "DIESEL",
-    "name": "DIESEL PLUS PLUS",
-    "code": "CP02366",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp01404-diesel-fuel-for-life",
-    "designer": "DIESEL",
-    "name": "FUEL FOR LIFE",
+    "name": "FUEL FOR LIFE HOMME",
     "code": "CP01404",
     "category": "Caballero"
   },
   {
-    "id": "cp02289-dior-dior-homme-intense",
+    "id": "cp02366-diesel-plus-plus-masculine",
+    "designer": "DIESEL",
+    "name": "PLUS PLUS MASCULINE",
+    "code": "CP02366",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02289-dior-dior-homme-intense-2011",
     "designer": "DIOR",
-    "name": "DIOR HOMME INTENSE",
+    "name": "DIOR HOMME INTENSE 2011",
     "code": "CP02289",
     "category": "Caballero"
   },
   {
-    "id": "cp01005-dior-dior-homme-sport-2008",
+    "id": "cp02520-dior-dior-homme-parfum",
     "designer": "DIOR",
-    "name": "DIOR HOMME SPORT 2008",
+    "name": "DIOR HOMME PARFUM",
+    "code": "CP02520",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp01005-dior-dior-homme-sport-2012",
+    "designer": "DIOR",
+    "name": "DIOR HOMME SPORT 2012",
     "code": "CP01005",
     "category": "Caballero"
   },
   {
-    "id": "cp02408-dior-dior-homme-sport-2021",
+    "id": "cp02408-dior-dior-homme-sport-2017",
     "designer": "DIOR",
-    "name": "DIOR HOMME SPORT 2021",
+    "name": "DIOR HOMME SPORT 2017",
     "code": "CP02408",
     "category": "Caballero"
   },
@@ -767,13 +753,6 @@
     "designer": "DIOR",
     "name": "FAHRENHEIT",
     "code": "CP00815",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02520-dior-homme-parfum",
-    "designer": "DIOR",
-    "name": "HOMME PARFUM",
-    "code": "CP02520",
     "category": "Caballero"
   },
   {
@@ -791,37 +770,37 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00795-dolce-and-gabbana-dolce-and-gabbana",
+    "id": "cp00795-dolce-and-gabbana-dolce-and-gabbana-pour-homme-2012",
     "designer": "DOLCE & GABBANA",
-    "name": "DOLCE & GABBANA",
+    "name": "DOLCE&GABBANA POUR HOMME (2012)",
     "code": "CP00795",
     "category": "Caballero"
   },
   {
-    "id": "cp02328-dolce-and-gabbana-k-by-dolce",
+    "id": "cp02328-dolce-and-gabbana-k-by-dolce-and-gabbana",
     "designer": "DOLCE & GABBANA",
-    "name": "K BY DOLCE",
+    "name": "K BY DOLCE & GABBANA",
     "code": "CP02328",
     "category": "Caballero"
   },
   {
-    "id": "cp00881-dolce-and-gabbana-light-blue",
+    "id": "cp00881-dolce-and-gabbana-light-blue-pour-homme",
     "designer": "DOLCE & GABBANA",
-    "name": "LIGHT BLUE",
+    "name": "LIGHT BLUE POUR HOMME",
     "code": "CP00881",
     "category": "Caballero"
   },
   {
-    "id": "cp01031-dolce-and-gabbana-the-one",
+    "id": "cp01031-dolce-and-gabbana-the-one-for-men",
     "designer": "DOLCE & GABBANA",
-    "name": "THE ONE",
+    "name": "THE ONE FOR MEN",
     "code": "CP01031",
     "category": "Caballero"
   },
   {
-    "id": "cp02378-dolce-and-gabbana-the-one-gold",
+    "id": "cp02378-dolce-and-gabbana-the-one-gold-for-men",
     "designer": "DOLCE & GABBANA",
-    "name": "THE ONE GOLD",
+    "name": "THE ONE GOLD FOR MEN",
     "code": "CP02378",
     "category": "Caballero"
   },
@@ -833,16 +812,16 @@
     "category": "Caballero"
   },
   {
-    "id": "cp01020-ed-hardy-love-luck",
+    "id": "cp01020-ed-hardy-ed-hardy-love-and-luck-for-men",
     "designer": "ED HARDY",
-    "name": "LOVE LUCK",
+    "name": "ED HARDY LOVE & LUCK FOR MEN",
     "code": "CP01020",
     "category": "Caballero"
   },
   {
-    "id": "cp00966-emanuel-ungaro-ungaro",
+    "id": "cp00966-emanuel-ungaro-ungaro-for-him",
     "designer": "EMANUEL UNGARO",
-    "name": "UNGARO",
+    "name": "UNGARO FOR HIM",
     "code": "CP00966",
     "category": "Caballero"
   },
@@ -868,24 +847,24 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00817-ferrari-black",
+    "id": "cp00817-ferrari-ferrari-black",
     "designer": "FERRARI",
-    "name": "BLACK",
+    "name": "FERRARI BLACK",
     "code": "CP00817",
     "category": "Caballero"
   },
   {
-    "id": "cp02155-ferrari-red",
+    "id": "cp02214-ferrari-ferrari-yellow",
     "designer": "FERRARI",
-    "name": "RED",
-    "code": "CP02155",
+    "name": "FERRARI YELLOW",
+    "code": "CP02214",
     "category": "Caballero"
   },
   {
-    "id": "cp02214-ferrari-yellow",
+    "id": "cp02155-ferrari-scuderia-ferrari-red",
     "designer": "FERRARI",
-    "name": "YELLOW",
-    "code": "CP02214",
+    "name": "SCUDERIA FERRARI RED",
+    "code": "CP02155",
     "category": "Caballero"
   },
   {
@@ -896,16 +875,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00748-givenchy-blue-label",
+    "id": "cp02409-givenchy-gentleman-2017",
     "designer": "GIVENCHY",
-    "name": "BLUE LABEL",
-    "code": "CP00748",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02409-givenchy-gentleman",
-    "designer": "GIVENCHY",
-    "name": "GENTLEMAN",
+    "name": "GENTLEMAN (2017)",
     "code": "CP02409",
     "category": "Caballero"
   },
@@ -924,30 +896,37 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00967-givenchy-very-irresistible-man",
+    "id": "cp00748-givenchy-givenchy-pour-homme",
     "designer": "GIVENCHY",
-    "name": "VERY IRRESISTIBLE MAN",
+    "name": "GIVENCHY POUR HOMME",
+    "code": "CP00748",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp00967-givenchy-very-irresistible-for-men",
+    "designer": "GIVENCHY",
+    "name": "VERY IRRESISTIBLE FOR MEN",
     "code": "CP00967",
     "category": "Caballero"
   },
   {
-    "id": "cp01055-gucci-gucci-guilty",
+    "id": "cp02150-gucci-gucci-guilty-black-pour-homme",
     "designer": "GUCCI",
-    "name": "GUCCI GUILTY",
-    "code": "CP01055",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02150-gucci-gucci-guilty-black",
-    "designer": "GUCCI",
-    "name": "GUCCI GUILTY BLACK",
+    "name": "GUCCI GUILTY BLACK POUR HOMME",
     "code": "CP02150",
     "category": "Caballero"
   },
   {
-    "id": "cp02445-gucci-guilty-elixir-de-parfum",
+    "id": "cp01055-gucci-gucci-guilty-pour-homme-parfum",
     "designer": "GUCCI",
-    "name": "GUILTY ELIXIR DE PARFUM",
+    "name": "GUCCI GUILTY POUR HOMME PARFUM",
+    "code": "CP01055",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02445-gucci-guilty-elixir-de-parfum-pour-homme",
+    "designer": "GUCCI",
+    "name": "GUILTY ELIXIR DE PARFUM POUR HOMME",
     "code": "CP02445",
     "category": "Caballero"
   },
@@ -956,13 +935,6 @@
     "designer": "GUERLAIN",
     "name": "VETIVER",
     "code": "CP00974",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp00835-guess-guess",
-    "designer": "GUESS",
-    "name": "GUESS",
-    "code": "CP00835",
     "category": "Caballero"
   },
   {
@@ -980,6 +952,13 @@
     "category": "Caballero"
   },
   {
+    "id": "cp02120-halloween-halloween-man-rock-on",
+    "designer": "HALLOWEEN",
+    "name": "HALLOWEEN MAN ROCK ON",
+    "code": "CP02120",
+    "category": "Caballero"
+  },
+  {
     "id": "cp02264-halloween-halloween-man-x",
     "designer": "HALLOWEEN",
     "name": "HALLOWEEN MAN X",
@@ -987,9 +966,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00839-halston-z-14",
+    "id": "cp00839-halston-halston-z-14",
     "designer": "HALSTON",
-    "name": "Z-14",
+    "name": "HALSTON Z-14",
     "code": "CP00839",
     "category": "Caballero"
   },
@@ -1001,9 +980,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02226-hermes-terres-d-hermes",
+    "id": "cp02226-hermes-terre-d-hermes",
     "designer": "HERMES",
-    "name": "TERRES D ́HERMES",
+    "name": "TERRE D'HERMÈS",
     "code": "CP02226",
     "category": "Caballero"
   },
@@ -1015,6 +994,76 @@
     "category": "Caballero"
   },
   {
+    "id": "cp02279-hugo-boss-boss-bottled-absolute",
+    "designer": "HUGO BOSS",
+    "name": "BOSS BOTTLED ABSOLUTE",
+    "code": "CP02279",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02440-hugo-boss-boss-bottled-elixir",
+    "designer": "HUGO BOSS",
+    "name": "BOSS BOTTLED ELIXIR",
+    "code": "CP02440",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02268-hugo-boss-boss-bottled-infinite",
+    "designer": "HUGO BOSS",
+    "name": "BOSS BOTTLED INFINITE",
+    "code": "CP02268",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02129-hugo-boss-boss-bottled-intense",
+    "designer": "HUGO BOSS",
+    "name": "BOSS BOTTLED INTENSE",
+    "code": "CP02129",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02380-hugo-boss-boss-bottled-marine",
+    "designer": "HUGO BOSS",
+    "name": "BOSS BOTTLED MARINE",
+    "code": "CP02380",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp01045-hugo-boss-boss-bottled-night",
+    "designer": "HUGO BOSS",
+    "name": "BOSS BOTTLED NIGHT",
+    "code": "CP01045",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02203-hugo-boss-boss-bottled-tonic",
+    "designer": "HUGO BOSS",
+    "name": "BOSS BOTTLED TONIC",
+    "code": "CP02203",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02340-hugo-boss-boss-bottled-united-eau-de-parfum",
+    "designer": "HUGO BOSS",
+    "name": "BOSS BOTTLED UNITED EAU DE PARFUM",
+    "code": "CP02340",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02317-hugo-boss-boss-bottled-unlimited-mats-hummels-edition",
+    "designer": "HUGO BOSS",
+    "name": "BOSS BOTTLED UNLIMITED MATS HUMMELS EDITION",
+    "code": "CP02317",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp01411-hugo-boss-boss-elements",
+    "designer": "HUGO BOSS",
+    "name": "BOSS ELEMENTS",
+    "code": "CP01411",
+    "category": "Caballero"
+  },
+  {
     "id": "cp00752-hugo-boss-boss-in-motion",
     "designer": "HUGO BOSS",
     "name": "BOSS IN MOTION",
@@ -1022,9 +1071,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp01050-hugo-boss-boss-orange",
+    "id": "cp01050-hugo-boss-boss-orange-for-men",
     "designer": "HUGO BOSS",
-    "name": "BOSS ORANGE",
+    "name": "BOSS ORANGE FOR MEN",
     "code": "CP01050",
     "category": "Caballero"
   },
@@ -1043,17 +1092,10 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02367-hugo-boss-boss-the-scent-le-parfum",
+    "id": "cp02367-hugo-boss-boss-the-scent-le-parfum-for-him",
     "designer": "HUGO BOSS",
-    "name": "BOSS THE SCENT LE PARFUM",
+    "name": "BOSS THE SCENT LE PARFUM FOR HIM",
     "code": "CP02367",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp00751-hugo-boss-bottled-98",
-    "designer": "HUGO BOSS",
-    "name": "BOTTLED 98",
-    "code": "CP00751",
     "category": "Caballero"
   },
   {
@@ -1061,69 +1103,6 @@
     "designer": "HUGO BOSS",
     "name": "BOTTLED ABSOLU",
     "code": "CP02479",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02279-hugo-boss-bottled-absolute",
-    "designer": "HUGO BOSS",
-    "name": "BOTTLED ABSOLUTE",
-    "code": "CP02279",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02440-hugo-boss-bottled-elixir",
-    "designer": "HUGO BOSS",
-    "name": "BOTTLED ELIXIR",
-    "code": "CP02440",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02268-hugo-boss-bottled-infinite",
-    "designer": "HUGO BOSS",
-    "name": "BOTTLED INFINITE",
-    "code": "CP02268",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02129-hugo-boss-bottled-intense",
-    "designer": "HUGO BOSS",
-    "name": "BOTTLED INTENSE",
-    "code": "CP02129",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02380-hugo-boss-bottled-marine",
-    "designer": "HUGO BOSS",
-    "name": "BOTTLED MARINE",
-    "code": "CP02380",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp01045-hugo-boss-bottled-night",
-    "designer": "HUGO BOSS",
-    "name": "BOTTLED NIGHT",
-    "code": "CP01045",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02203-hugo-boss-bottled-tonic",
-    "designer": "HUGO BOSS",
-    "name": "BOTTLED TONIC",
-    "code": "CP02203",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02340-hugo-boss-bottled-united-edp",
-    "designer": "HUGO BOSS",
-    "name": "BOTTLED UNITED EDP",
-    "code": "CP02340",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02317-hugo-boss-bottled-unlimited",
-    "designer": "HUGO BOSS",
-    "name": "BOTTLED UNLIMITED",
-    "code": "CP02317",
     "category": "Caballero"
   },
   {
@@ -1138,13 +1117,6 @@
     "designer": "HUGO BOSS",
     "name": "HUGO DARK BLUE",
     "code": "CP00848",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp01411-hugo-boss-hugo-elements",
-    "designer": "HUGO BOSS",
-    "name": "HUGO ELEMENTS",
-    "code": "CP01411",
     "category": "Caballero"
   },
   {
@@ -1169,9 +1141,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02424-hugo-boss-hugo-jeans",
+    "id": "cp02424-hugo-boss-hugo-jeans-man",
     "designer": "HUGO BOSS",
-    "name": "HUGO JEANS",
+    "name": "HUGO JEANS MAN",
     "code": "CP02424",
     "category": "Caballero"
   },
@@ -1239,17 +1211,10 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02358-jean-paul-gaultier-scandal",
+    "id": "cp02358-jean-paul-gaultier-scandal-pour-homme",
     "designer": "JEAN PAUL GAULTIER",
-    "name": "SCANDAL",
+    "name": "SCANDAL POUR HOMME",
     "code": "CP02358",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02394-jean-paul-gaultier-scandal-le-parfum",
-    "designer": "JEAN PAUL GAULTIER",
-    "name": "SCANDAL LE PARFUM",
-    "code": "CP02394",
     "category": "Caballero"
   },
   {
@@ -1260,59 +1225,24 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02148-jean-paul-gaultier-ultramale",
+    "id": "cp02394-jean-paul-gaultier-scandal-pour-homme-le-parfum",
     "designer": "JEAN PAUL GAULTIER",
-    "name": "ULTRAMALE",
+    "name": "SCANDAL POUR HOMME LE PARFUM",
+    "code": "CP02394",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02148-jean-paul-gaultier-ultra-male",
+    "designer": "JEAN PAUL GAULTIER",
+    "name": "ULTRA MALE",
     "code": "CP02148",
     "category": "Caballero"
   },
   {
-    "id": "cp02120-jesus-del-pozo-halloween-man-rock-on",
-    "designer": "JESUS DEL POZO",
-    "name": "HALLOWEEN MAN ROCK ON",
-    "code": "CP02120",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp00862-jovan-jovan-musk",
+    "id": "cp00862-jovan-jovan-musk-for-men",
     "designer": "JOVAN",
-    "name": "JOVAN MUSK",
+    "name": "JOVAN MUSK FOR MEN",
     "code": "CP00862",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp01082-lacoste-12-12-blanc",
-    "designer": "LACOSTE",
-    "name": "12.12 BLANC",
-    "code": "CP01082",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02406-lacoste-12-12-blanc-eau-intense",
-    "designer": "LACOSTE",
-    "name": "12.12 BLANC EAU INTENSE",
-    "code": "CP02406",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02121-lacoste-12-12-bleu",
-    "designer": "LACOSTE",
-    "name": "12.12 BLEU",
-    "code": "CP02121",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02220-lacoste-12-12-magnetic",
-    "designer": "LACOSTE",
-    "name": "12.12 MAGNETIC",
-    "code": "CP02220",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02112-lacoste-12-12-noir",
-    "designer": "LACOSTE",
-    "name": "12.12 NOIR",
-    "code": "CP02112",
     "category": "Caballero"
   },
   {
@@ -1323,10 +1253,45 @@
     "category": "Caballero"
   },
   {
+    "id": "cp01082-lacoste-eau-de-lacoste-l-12-12-blanc-limited-edition",
+    "designer": "LACOSTE",
+    "name": "EAU DE LACOSTE L.12.12 BLANC LIMITED EDITION",
+    "code": "CP01082",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02112-lacoste-eau-de-lacoste-l-12-12-noir",
+    "designer": "LACOSTE",
+    "name": "EAU DE LACOSTE L.12.12. NOIR",
+    "code": "CP02112",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02220-lacoste-eau-de-lacoste-pour-homme-l-12-12-magnetic",
+    "designer": "LACOSTE",
+    "name": "EAU DE LACOSTE POUR HOMME L.12.12. MAGNETIC",
+    "code": "CP02220",
+    "category": "Caballero"
+  },
+  {
     "id": "cp00813-lacoste-essential",
     "designer": "LACOSTE",
     "name": "ESSENTIAL",
     "code": "CP00813",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02406-lacoste-l-12-12-blanc-eau-intense",
+    "designer": "LACOSTE",
+    "name": "L.12.12. BLANC EAU INTENSE",
+    "code": "CP02406",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02121-lacoste-l12-12-bleu",
+    "designer": "LACOSTE",
+    "name": "L12.12 BLEU",
+    "code": "CP02121",
     "category": "Caballero"
   },
   {
@@ -1337,9 +1302,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00874-lacoste-red",
+    "id": "cp00874-lacoste-red-lacoste-fragrances",
     "designer": "LACOSTE",
-    "name": "RED",
+    "name": "RED LACOSTE FRAGRANCES",
     "code": "CP00874",
     "category": "Caballero"
   },
@@ -1372,16 +1337,16 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00787-liz-claiborne-curve",
+    "id": "cp00787-liz-claiborne-curve-for-men",
     "designer": "LIZ CLAIBORNE",
-    "name": "CURVE",
+    "name": "CURVE FOR MEN",
     "code": "CP00787",
     "category": "Caballero"
   },
   {
-    "id": "cp00888-liz-claiborne-mambo-man",
+    "id": "cp00888-liz-claiborne-mambo-for-men",
     "designer": "LIZ CLAIBORNE",
-    "name": "MAMBO MAN",
+    "name": "MAMBO FOR MEN",
     "code": "CP00888",
     "category": "Caballero"
   },
@@ -1414,24 +1379,17 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02448-maluma-garnet-royalty-edp",
-    "designer": "MALUMA",
-    "name": "GARNET ROYALTY EDP",
-    "code": "CP02448",
+    "id": "cp02398-mercedes-benz-mercedes-benz-sign-your-attitude",
+    "designer": "MERCEDES BENZ",
+    "name": "MERCEDES BENZ SIGN YOUR ATTITUDE",
+    "code": "CP02398",
     "category": "Caballero"
   },
   {
     "id": "cp02170-mercedes-benz-mercedes-benz",
     "designer": "MERCEDES BENZ",
-    "name": "MERCEDES BENZ",
+    "name": "MERCEDES-BENZ",
     "code": "CP02170",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02398-mercedes-benz-mercedes-benz-sing-your",
-    "designer": "MERCEDES BENZ",
-    "name": "MERCEDES BENZ SING YOUR",
-    "code": "CP02398",
     "category": "Caballero"
   },
   {
@@ -1512,13 +1470,6 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00924-montblanc-presence",
-    "designer": "MONTBLANC",
-    "name": "PRESENCE",
-    "code": "CP00924",
-    "category": "Caballero"
-  },
-  {
     "id": "cp00948-montblanc-starwalker",
     "designer": "MONTBLANC",
     "name": "STARWALKER",
@@ -1568,10 +1519,17 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00909-oscar-de-la-renta-oscar-de-la-renta",
-    "designer": "OSCAR DE LA RENTA",
-    "name": "OSCAR DE LA RENTA",
-    "code": "CP00909",
+    "id": "cp01021-paco-rabanne-1-million",
+    "designer": "PACO RABANNE",
+    "name": "1 MILLION",
+    "code": "CP01021",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02370-paco-rabanne-1-million-elixir",
+    "designer": "PACO RABANNE",
+    "name": "1 MILLION ELIXIR",
+    "code": "CP02370",
     "category": "Caballero"
   },
   {
@@ -1579,6 +1537,27 @@
     "designer": "PACO RABANNE",
     "name": "1 MILLION GOLDEN OUD",
     "code": "CP02442",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02242-paco-rabanne-1-million-lucky",
+    "designer": "PACO RABANNE",
+    "name": "1 MILLION LUCKY",
+    "code": "CP02242",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02270-paco-rabanne-1-million-prive",
+    "designer": "PACO RABANNE",
+    "name": "1 MILLION PRIVÉ",
+    "code": "CP02270",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02402-paco-rabanne-1-million-royal",
+    "designer": "PACO RABANNE",
+    "name": "1 MILLION ROYAL",
+    "code": "CP02402",
     "category": "Caballero"
   },
   {
@@ -1605,7 +1584,7 @@
   {
     "id": "cp02246-paco-rabanne-invictus-aqua-2018",
     "designer": "PACO RABANNE",
-    "name": "INVICTUS AQUA 2018",
+    "name": "INVICTUS AQUA (2018)",
     "code": "CP02246",
     "category": "Caballero"
   },
@@ -1617,16 +1596,16 @@
     "category": "Caballero"
   },
   {
-    "id": "cp022665-paco-rabanne-invictus-legend",
+    "id": "cp02265-paco-rabanne-invictus-legend",
     "designer": "PACO RABANNE",
     "name": "INVICTUS LEGEND",
-    "code": "CP022665",
+    "code": "CP02265",
     "category": "Caballero"
   },
   {
-    "id": "cp02342-paco-rabanne-invictus-onyx",
+    "id": "cp02342-paco-rabanne-invictus-onyx-collector-edition",
     "designer": "PACO RABANNE",
-    "name": "INVICTUS ONYX",
+    "name": "INVICTUS ONYX COLLECTOR EDITION",
     "code": "CP02342",
     "category": "Caballero"
   },
@@ -1666,59 +1645,17 @@
     "category": "Caballero"
   },
   {
-    "id": "cp01021-paco-rabanne-one-million",
-    "designer": "PACO RABANNE",
-    "name": "ONE MILLION",
-    "code": "CP01021",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02370-paco-rabanne-one-million-elixir",
-    "designer": "PACO RABANNE",
-    "name": "ONE MILLION ELIXIR",
-    "code": "CP02370",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02242-paco-rabanne-one-million-lucky",
-    "designer": "PACO RABANNE",
-    "name": "ONE MILLION LUCKY",
-    "code": "CP02242",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02270-paco-rabanne-one-million-prive",
-    "designer": "PACO RABANNE",
-    "name": "ONE MILLION PRIVÉ",
-    "code": "CP02270",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02402-paco-rabanne-one-million-royal",
-    "designer": "PACO RABANNE",
-    "name": "ONE MILLION ROYAL",
-    "code": "CP02402",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp00911-paco-rabanne-paco-de-paco",
-    "designer": "PACO RABANNE",
-    "name": "PACO DE PACO",
-    "code": "CP00911",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp00913-paco-rabanne-paco-rabane",
-    "designer": "PACO RABANNE",
-    "name": "PACO RABANE",
-    "code": "CP00913",
-    "category": "Caballero"
-  },
-  {
     "id": "cp02346-paco-rabanne-phantom",
     "designer": "PACO RABANNE",
     "name": "PHANTOM",
     "code": "CP02346",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02510-paco-rabanne-phantom-elixir",
+    "designer": "PACO RABANNE",
+    "name": "PHANTOM ELIXIR",
+    "code": "CP02510",
     "category": "Caballero"
   },
   {
@@ -1736,13 +1673,6 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02510-paco-rabanne-phanton-parfum",
-    "designer": "PACO RABANNE",
-    "name": "PHANTON PARFUM",
-    "code": "CP02510",
-    "category": "Caballero"
-  },
-  {
     "id": "cp00981-paco-rabanne-xs",
     "designer": "PACO RABANNE",
     "name": "XS",
@@ -1750,9 +1680,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00892-paloma-picasso-minotauro",
+    "id": "cp00892-paloma-picasso-minotaure",
     "designer": "PALOMA PICASSO",
-    "name": "MINOTAURO",
+    "name": "MINOTAURE",
     "code": "CP00892",
     "category": "Caballero"
   },
@@ -1764,9 +1694,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02202-paris-hilton-gold-rush",
+    "id": "cp02202-paris-hilton-gold-rush-man",
     "designer": "PARIS HILTON",
-    "name": "GOLD RUSH",
+    "name": "GOLD RUSH MAN",
     "code": "CP02202",
     "category": "Caballero"
   },
@@ -1785,37 +1715,37 @@
     "category": "Caballero"
   },
   {
-    "id": "cp01024-perry-ellis-18-man",
+    "id": "cp01024-perry-ellis-18-for-men",
     "designer": "PERRY ELLIS",
-    "name": "18 MAN",
+    "name": "18 FOR MEN",
     "code": "CP01024",
     "category": "Caballero"
   },
   {
-    "id": "cp00707-perry-ellis-360",
+    "id": "cp00995-perry-ellis-360-black-for-men",
     "designer": "PERRY ELLIS",
-    "name": "360",
-    "code": "CP00707",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp00995-perry-ellis-360-black",
-    "designer": "PERRY ELLIS",
-    "name": "360 BLACK",
+    "name": "360° BLACK FOR MEN",
     "code": "CP00995",
     "category": "Caballero"
   },
   {
-    "id": "cp00709-perry-ellis-360-blue",
+    "id": "cp00709-perry-ellis-360-blue-for-men",
     "designer": "PERRY ELLIS",
-    "name": "360 BLUE",
+    "name": "360° BLUE FOR MEN",
     "code": "CP00709",
     "category": "Caballero"
   },
   {
-    "id": "cp00708-perry-ellis-360-red",
+    "id": "cp00707-perry-ellis-360-for-men",
     "designer": "PERRY ELLIS",
-    "name": "360 RED",
+    "name": "360° FOR MEN",
+    "code": "CP00707",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp00708-perry-ellis-360-red-for-men",
+    "designer": "PERRY ELLIS",
+    "name": "360° RED FOR MEN",
     "code": "CP00708",
     "category": "Caballero"
   },
@@ -1834,23 +1764,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02231-perry-ellis-perry-ellis",
+    "id": "cp02108-perry-ellis-reserve-for-men",
     "designer": "PERRY ELLIS",
-    "name": "PERRY ELLIS",
-    "code": "CP02231",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02172-perry-ellis-red",
-    "designer": "PERRY ELLIS",
-    "name": "RED",
-    "code": "CP02172",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02108-perry-ellis-reserve",
-    "designer": "PERRY ELLIS",
-    "name": "RESERVE",
+    "name": "RESERVE FOR MEN",
     "code": "CP02108",
     "category": "Caballero"
   },
@@ -1862,9 +1778,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02209-prada-luna-rossa-carbon",
+    "id": "cp02209-prada-luna-rossa-carbon-eau-de-toilette",
     "designer": "PRADA",
-    "name": "LUNA ROSSA CARBON",
+    "name": "LUNA ROSSA CARBON EAU DE TOILETTE",
     "code": "CP02209",
     "category": "Caballero"
   },
@@ -1880,20 +1796,6 @@
     "designer": "PRADA",
     "name": "PARADIGME",
     "code": "CP02517",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp00925-puma-puma-white",
-    "designer": "PUMA",
-    "name": "PUMA WHITE",
-    "code": "CP00925",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp00919-ralph-lauren-polo",
-    "designer": "RALPH LAUREN",
-    "name": "POLO",
-    "code": "CP00919",
     "category": "Caballero"
   },
   {
@@ -1932,6 +1834,13 @@
     "category": "Caballero"
   },
   {
+    "id": "cp00919-ralph-lauren-polo-for-men",
+    "designer": "RALPH LAUREN",
+    "name": "POLO FOR MEN",
+    "code": "CP00919",
+    "category": "Caballero"
+  },
+  {
     "id": "cp01091-ralph-lauren-polo-red",
     "designer": "RALPH LAUREN",
     "name": "POLO RED",
@@ -1953,10 +1862,17 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00934-ralph-lauren-safari",
+    "id": "cp00934-ralph-lauren-safari-for-men",
     "designer": "RALPH LAUREN",
-    "name": "SAFARI",
+    "name": "SAFARI FOR MEN",
     "code": "CP00934",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02448-royalty-by-maluma-garnet",
+    "designer": "ROYALTY BY MALUMA",
+    "name": "GARNET",
+    "code": "CP02448",
     "category": "Caballero"
   },
   {
@@ -1974,16 +1890,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp00950-swiss-army-swiss-army",
-    "designer": "SWISS ARMY",
-    "name": "SWISS ARMY",
-    "code": "CP00950",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp00952-ted-lapidus-ted-lapidus",
+    "id": "cp00952-ted-lapidus-lapidus-pour-homme",
     "designer": "TED LAPIDUS",
-    "name": "TED LAPIDUS",
+    "name": "LAPIDUS POUR HOMME",
     "code": "CP00952",
     "category": "Caballero"
   },
@@ -2058,30 +1967,30 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02506-valentino-the-gold",
+    "id": "cp02506-valentino-born-in-roma-the-gold-uomo",
     "designer": "VALENTINO",
-    "name": "THE GOLD",
+    "name": "BORN IN ROMA THE GOLD UOMO",
     "code": "CP02506",
     "category": "Caballero"
   },
   {
-    "id": "cp02513-valentino-uomo",
+    "id": "cp02513-valentino-valentino-uomo-born-in-roma",
     "designer": "VALENTINO",
-    "name": "UOMO",
+    "name": "VALENTINO UOMO BORN IN ROMA",
     "code": "CP02513",
     "category": "Caballero"
   },
   {
-    "id": "cp02422-valentino-uomo-born-in-roma-green-stravaganza",
+    "id": "cp02422-valentino-valentino-uomo-born-in-roma-green-stravaganza",
     "designer": "VALENTINO",
-    "name": "UOMO BORN IN ROMA GREEN STRAVAGANZA",
+    "name": "VALENTINO UOMO BORN IN ROMA GREEN STRAVAGANZA",
     "code": "CP02422",
     "category": "Caballero"
   },
   {
-    "id": "cp02515-valentino-uomo-born-in-roma-intense",
+    "id": "cp02515-valentino-valentino-uomo-born-in-roma-intense",
     "designer": "VALENTINO",
-    "name": "UOMO BORN IN ROMA INTENSE",
+    "name": "VALENTINO UOMO BORN IN ROMA INTENSE",
     "code": "CP02515",
     "category": "Caballero"
   },
@@ -2090,20 +1999,6 @@
     "designer": "VERSACE",
     "name": "BLUE JEANS",
     "code": "CP00747",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp00798-versace-dreamer",
-    "designer": "VERSACE",
-    "name": "DREAMER",
-    "code": "CP00798",
-    "category": "Caballero"
-  },
-  {
-    "id": "cp02187-versace-dylan-blue",
-    "designer": "VERSACE",
-    "name": "DYLAN BLUE",
-    "code": "CP02187",
     "category": "Caballero"
   },
   {
@@ -2128,9 +2023,9 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02373-versace-man-eau-fraiche",
+    "id": "cp02373-versace-versace-man-eau-fraiche",
     "designer": "VERSACE",
-    "name": "MAN EAU FRAICHE",
+    "name": "VERSACE MAN EAU FRAICHE",
     "code": "CP02373",
     "category": "Caballero"
   },
@@ -2139,6 +2034,20 @@
     "designer": "VERSACE",
     "name": "VERSACE POUR HOMME",
     "code": "CP01405",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02187-versace-versace-pour-homme-dylan-blue",
+    "designer": "VERSACE",
+    "name": "VERSACE POUR HOMME DYLAN BLUE",
+    "code": "CP02187",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp00950-victorinox-swiss-army-swiss-army",
+    "designer": "VICTORINOX SWISS ARMY",
+    "name": "SWISS ARMY",
+    "code": "CP00950",
     "category": "Caballero"
   },
   {
@@ -2177,17 +2086,17 @@
     "category": "Caballero"
   },
   {
-    "id": "cp01066-yves-saint-laurent-l-homme-libre",
-    "designer": "YVES SAINT LAURENT",
-    "name": "L'HOMME LIBRE",
-    "code": "CP01066",
-    "category": "Caballero"
-  },
-  {
     "id": "cp02338-yves-saint-laurent-la-nuit-de-l-homme-bleu-elictrique",
     "designer": "YVES SAINT LAURENT",
     "name": "LA NUIT DE L'HOMME BLEU ELICTRIQUE",
     "code": "CP02338",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp01066-yves-saint-laurent-l-homme-libre",
+    "designer": "YVES SAINT LAURENT",
+    "name": "L'HOMME LIBRE",
+    "code": "CP01066",
     "category": "Caballero"
   },
   {
@@ -2205,13 +2114,6 @@
     "category": "Caballero"
   },
   {
-    "id": "cp02227-yves-saint-laurent-y",
-    "designer": "YVES SAINT LAURENT",
-    "name": "Y",
-    "code": "CP02227",
-    "category": "Caballero"
-  },
-  {
     "id": "cp02435-yves-saint-laurent-y-eau-de-parfum-intense",
     "designer": "YVES SAINT LAURENT",
     "name": "Y EAU DE PARFUM INTENSE",
@@ -2223,6 +2125,13 @@
     "designer": "YVES SAINT LAURENT",
     "name": "Y EAU FRAICHE",
     "code": "CP02383",
+    "category": "Caballero"
+  },
+  {
+    "id": "cp02227-yves-saint-laurent-yves-saint-laurent-y",
+    "designer": "YVES SAINT LAURENT",
+    "name": "YVES SAINT LAURENT Y",
+    "code": "CP02227",
     "category": "Caballero"
   },
   {
@@ -2590,9 +2499,16 @@
     "category": "Dama"
   },
   {
-    "id": "dp01068-chanel-coco-chanel",
+    "id": "dp01057-chanel-chanel-no-5-eau-de-parfum",
     "designer": "CHANEL",
-    "name": "COCO CHANEL",
+    "name": "CHANEL NO 5 EAU DE PARFUM",
+    "code": "DP01057",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01068-chanel-coco-eau-de-parfum",
+    "designer": "CHANEL",
+    "name": "COCO EAU DE PARFUM",
     "code": "DP01068",
     "category": "Dama"
   },
@@ -2608,13 +2524,6 @@
     "designer": "CHANEL",
     "name": "GABRIELLE",
     "code": "DP02444",
-    "category": "Dama"
-  },
-  {
-    "id": "dp01057-chanel-no-5-eau-de-parfum",
-    "designer": "CHANEL",
-    "name": "NO. 5 EAU DE PARFUM",
-    "code": "DP01057",
     "category": "Dama"
   },
   {
@@ -2653,9 +2562,9 @@
     "category": "Dama"
   },
   {
-    "id": "dp02523-dior-miss-dior-parfum-2021",
+    "id": "dp02523-dior-miss-dior-eau-de-parfum-2021",
     "designer": "DIOR",
-    "name": "MISS DIOR PARFUM 2021",
+    "name": "MISS DIOR EAU DE PARFUM 2021",
     "code": "DP02523",
     "category": "Dama"
   },
@@ -2695,9 +2604,9 @@
     "category": "Dama"
   },
   {
-    "id": "dp02717-dolce-and-gabbana-q-by-dolce-gabanna",
+    "id": "dp02717-dolce-and-gabbana-q-by-dolce-and-gabanna",
     "designer": "DOLCE & GABBANA",
-    "name": "Q BY DOLCE GABANNA",
+    "name": "Q BY DOLCE & GABANNA",
     "code": "DP02717",
     "category": "Dama"
   },
@@ -2709,23 +2618,23 @@
     "category": "Dama"
   },
   {
-    "id": "dp01029-donna-karam-be-delicious",
+    "id": "dp01029-donna-karam-dkny-be-delicious",
     "designer": "DONNA KARAM",
-    "name": "BE DELICIOUS",
+    "name": "DKNY BE DELICIOUS",
     "code": "DP01029",
     "category": "Dama"
   },
   {
-    "id": "dp02636-donna-karam-be-delicious-fresh-blossom",
+    "id": "dp02636-donna-karam-dkny-be-delicious-fresh-blossom",
     "designer": "DONNA KARAM",
-    "name": "BE DELICIOUS FRESH BLOSSOM",
+    "name": "DKNY BE DELICIOUS FRESH BLOSSOM",
     "code": "DP02636",
     "category": "Dama"
   },
   {
-    "id": "dp01282-donna-karam-red-delicious",
+    "id": "dp01282-donna-karam-dkny-red-delicious",
     "designer": "DONNA KARAM",
-    "name": "RED DELICIOUS",
+    "name": "DKNY RED DELICIOUS",
     "code": "DP01282",
     "category": "Dama"
   },
@@ -2800,9 +2709,9 @@
     "category": "Dama"
   },
   {
-    "id": "dp02567-givenchy-irresistible",
+    "id": "dp02567-givenchy-irresistible-givenchy",
     "designer": "GIVENCHY",
-    "name": "IRRESISTIBLE",
+    "name": "IRRESISTIBLE GIVENCHY",
     "code": "DP02567",
     "category": "Dama"
   },
@@ -2814,30 +2723,23 @@
     "category": "Dama"
   },
   {
-    "id": "dp02320-gucci-bamboo",
+    "id": "dp02624-gucci-flora-gorgeous-gardenia",
     "designer": "GUCCI",
-    "name": "BAMBOO",
-    "code": "DP02320",
-    "category": "Dama"
-  },
-  {
-    "id": "dp02624-gucci-flora-georgous-gardenia",
-    "designer": "GUCCI",
-    "name": "FLORA GEORGOUS GARDENIA",
+    "name": "FLORA GORGEOUS GARDENIA",
     "code": "DP02624",
     "category": "Dama"
   },
   {
-    "id": "dp02701-gucci-flora-georgous-jazmin",
+    "id": "dp02701-gucci-flora-gorgeous-jasmine",
     "designer": "GUCCI",
-    "name": "FLORA GEORGOUS JAZMIN",
+    "name": "FLORA GORGEOUS JASMINE",
     "code": "DP02701",
     "category": "Dama"
   },
   {
-    "id": "dp02788-gucci-flora-georgous-magnolia",
+    "id": "dp02788-gucci-flora-gorgeous-magnolia",
     "designer": "GUCCI",
-    "name": "FLORA GEORGOUS MAGNOLIA",
+    "name": "FLORA GORGEOUS MAGNOLIA",
     "code": "DP02788",
     "category": "Dama"
   },
@@ -2849,6 +2751,13 @@
     "category": "Dama"
   },
   {
+    "id": "dp02320-gucci-gucci-bamboo",
+    "designer": "GUCCI",
+    "name": "GUCCI BAMBOO",
+    "code": "DP02320",
+    "category": "Dama"
+  },
+  {
     "id": "dp02658-gucci-gucci-bloom",
     "designer": "GUCCI",
     "name": "GUCCI BLOOM",
@@ -2856,23 +2765,23 @@
     "category": "Dama"
   },
   {
-    "id": "dp02441-guerlain-mon-guerlain",
+    "id": "dp02421-guerlain-mon-guerlain",
     "designer": "GUERLAIN",
     "name": "MON GUERLAIN",
-    "code": "DP02441",
+    "code": "DP02421",
     "category": "Dama"
   },
   {
-    "id": "dp01290-guerlain-samsara",
+    "id": "dp01290-guerlain-samsara-eau-de-parfum",
     "designer": "GUERLAIN",
-    "name": "SAMSARA",
+    "name": "SAMSARA EAU DE PARFUM",
     "code": "DP01290",
     "category": "Dama"
   },
   {
-    "id": "dp02672-guess-bellavitarosa",
+    "id": "dp02672-guess-bella-vita-rosa",
     "designer": "GUESS",
-    "name": "BELLAVITAROSA",
+    "name": "BELLA VITA ROSA",
     "code": "DP02672",
     "category": "Dama"
   },
@@ -2940,9 +2849,9 @@
     "category": "Dama"
   },
   {
-    "id": "dp02405-katy-perry-mad-love",
+    "id": "dp02405-katy-perry-katy-perry-s-mad-love",
     "designer": "KATY PERRY",
-    "name": "MAD LOVE",
+    "name": "KATY PERRY´S MAD LOVE",
     "code": "DP02405",
     "category": "Dama"
   },
@@ -2961,16 +2870,16 @@
     "category": "Dama"
   },
   {
-    "id": "dp02855-kayali-vainilla-candy-rock-sugar",
+    "id": "dp02855-kayali-vainilla-candy-rock-sugar-42",
     "designer": "KAYALI",
-    "name": "VAINILLA CANDY ROCK SUGAR",
+    "name": "VAINILLA CANDY ROCK SUGAR | 42",
     "code": "DP02855",
     "category": "Dama"
   },
   {
-    "id": "dp02879-kayali-yum-boujee-marshmallow",
+    "id": "dp02879-kayali-yum-boujee-marshmallow-81",
     "designer": "KAYALI",
-    "name": "YUM BOUJEE MARSHMALLOW",
+    "name": "YUM BOUJEE MARSHMALLOW | 81",
     "code": "DP02879",
     "category": "Dama"
   },
@@ -2982,23 +2891,23 @@
     "category": "Dama"
   },
   {
-    "id": "dp02502-kim-kardashian-bff",
+    "id": "dp02502-kim-kardashian-bff-kkw-fragrance",
     "designer": "KIM KARDASHIAN",
-    "name": "BFF",
+    "name": "BFF KKW FRAGRANCE",
     "code": "DP02502",
     "category": "Dama"
   },
   {
-    "id": "dp02635-kim-kardashian-kimoji-cherry",
+    "id": "dp02635-kim-kardashian-kimoji-cherry-kkw-fragrance",
     "designer": "KIM KARDASHIAN",
-    "name": "KIMOJI CHERRY",
+    "name": "KIMOJI CHERRY KKW FRAGRANCE",
     "code": "DP02635",
     "category": "Dama"
   },
   {
-    "id": "dp02368-lacoste-l-12-12-rose-sparking-edt",
+    "id": "dp02368-lacoste-eau-de-lacoste-l-12-12-pour-elle-sparkling",
     "designer": "LACOSTE",
-    "name": "L.12.12 ROSE SPARKING EDT",
+    "name": "EAU DE LACOSTE L.12.12 POUR ELLE SPARKLING",
     "code": "DP02368",
     "category": "Dama"
   },
@@ -3010,30 +2919,30 @@
     "category": "Dama"
   },
   {
-    "id": "dp02773-lancome-la-vie-est-belle-extrait",
-    "designer": "LANCOME",
-    "name": "LA VIE EST BELLE EXTRAIT",
-    "code": "DP02773",
-    "category": "Dama"
-  },
-  {
     "id": "dp02679-lancome-la-vie-est-belle-intensement",
     "designer": "LANCOME",
-    "name": "LA VIE EST BELLE INTENSEMENT",
+    "name": "LA VIE EST BELLE INTENSÉMENT",
     "code": "DP02679",
     "category": "Dama"
   },
   {
-    "id": "dp02853-lancome-la-vie-est-belle-l-elixir-edp",
+    "id": "dp02773-lancome-la-vie-est-belle-l-extrait-de-parfum",
     "designer": "LANCOME",
-    "name": "LA VIE EST BELLE L'ELIXIR EDP",
+    "name": "LA VIE EST BELLE L´EXTRAIT DE PARFUM",
+    "code": "DP02773",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02853-lancome-la-vie-est-belle-l-elixir",
+    "designer": "LANCOME",
+    "name": "LA VIE EST BELLE L'ELIXIR",
     "code": "DP02853",
     "category": "Dama"
   },
   {
     "id": "dp02713-lancome-la-vie-est-belle-l-eveil",
     "designer": "LANCOME",
-    "name": "LA VIE EST BELLE L'EVEIL",
+    "name": "LA VIE EST BELLE L'ÉVEIL",
     "code": "DP02713",
     "category": "Dama"
   },
@@ -3122,16 +3031,16 @@
     "category": "Dama"
   },
   {
-    "id": "dp02892-melanie-martinez-cry-baby",
+    "id": "dp02892-melanie-martinez-cry-baby-perfume-milk",
     "designer": "MELANIE MARTINEZ",
-    "name": "CRY BABY",
+    "name": "CRY BABY PERFUME MILK",
     "code": "DP02892",
     "category": "Dama"
   },
   {
-    "id": "dp02569-montblac-signature-absolu",
+    "id": "dp02569-montblac-signature",
     "designer": "MONTBLAC",
-    "name": "SIGNATURE ABSOLU",
+    "name": "SIGNATURE",
     "code": "DP02569",
     "category": "Dama"
   },
@@ -3145,7 +3054,7 @@
   {
     "id": "dp02294-moschino-moschino-funny",
     "designer": "MOSCHINO",
-    "name": "MOSCHINO FUNNY",
+    "name": "MOSCHINO FUNNY!",
     "code": "DP02294",
     "category": "Dama"
   },
@@ -3171,76 +3080,6 @@
     "category": "Dama"
   },
   {
-    "id": "dp02673-paco-rabanne-fame",
-    "designer": "PACO RABANNE",
-    "name": "FAME",
-    "code": "DP02673",
-    "category": "Dama"
-  },
-  {
-    "id": "dp02868-paco-rabanne-fame-couture",
-    "designer": "PACO RABANNE",
-    "name": "FAME COUTURE",
-    "code": "DP02868",
-    "category": "Dama"
-  },
-  {
-    "id": "dp02210-paco-rabanne-lady-million",
-    "designer": "PACO RABANNE",
-    "name": "LADY MILLION",
-    "code": "DP02210",
-    "category": "Dama"
-  },
-  {
-    "id": "dp02704-paco-rabanne-lady-million-fabulous",
-    "designer": "PACO RABANNE",
-    "name": "LADY MILLION FABULOUS",
-    "code": "DP02704",
-    "category": "Dama"
-  },
-  {
-    "id": "dp02477-paco-rabanne-lady-million-lucky",
-    "designer": "PACO RABANNE",
-    "name": "LADY MILLION LUCKY",
-    "code": "DP02477",
-    "category": "Dama"
-  },
-  {
-    "id": "dp02724-paco-rabanne-lady-million-royal",
-    "designer": "PACO RABANNE",
-    "name": "LADY MILLION ROYAL",
-    "code": "DP02724",
-    "category": "Dama"
-  },
-  {
-    "id": "dp02864-paco-rabanne-million-gold-for-her",
-    "designer": "PACO RABANNE",
-    "name": "MILLION GOLD FOR HER",
-    "code": "DP02864",
-    "category": "Dama"
-  },
-  {
-    "id": "dp02349-paco-rabanne-olympea",
-    "designer": "PACO RABANNE",
-    "name": "OLYMPEA",
-    "code": "DP02349",
-    "category": "Dama"
-  },
-  {
-    "id": "dp02674-paco-rabanne-olympea-solar",
-    "designer": "PACO RABANNE",
-    "name": "OLYMPEA SOLAR",
-    "code": "DP02674",
-    "category": "Dama"
-  },
-  {
-    "id": "dp01334-paco-rabanne-ultraviolet",
-    "designer": "PACO RABANNE",
-    "name": "ULTRAVIOLET",
-    "code": "DP01334",
-    "category": "Dama"
-  },
-  {
     "id": "dp02843-parfums-de-marly-delina-exclusif",
     "designer": "PARFUMS DE MARLY",
     "name": "DELINA EXCLUSIF",
@@ -3250,7 +3089,7 @@
   {
     "id": "dp01406-paris-hilton-can-can",
     "designer": "PARIS HILTON",
-    "name": "CAN-CAN",
+    "name": "CAN CAN",
     "code": "DP01406",
     "category": "Dama"
   },
@@ -3262,9 +3101,9 @@
     "category": "Dama"
   },
   {
-    "id": "dp02152-paris-hilton-heires",
+    "id": "dp02152-paris-hilton-heiress",
     "designer": "PARIS HILTON",
-    "name": "HEIRES",
+    "name": "HEIRESS",
     "code": "DP02152",
     "category": "Dama"
   },
@@ -3278,7 +3117,7 @@
   {
     "id": "dp02492-paris-hilton-rose-rush",
     "designer": "PARIS HILTON",
-    "name": "ROSE RUSH",
+    "name": "ROSÉ RUSH",
     "code": "DP02492",
     "category": "Dama"
   },
@@ -3290,17 +3129,87 @@
     "category": "Dama"
   },
   {
-    "id": "dp02802-prada-paradoxe",
-    "designer": "PRADA",
-    "name": "PARADOXE",
-    "code": "DP02802",
-    "category": "Dama"
-  },
-  {
     "id": "dp02451-prada-prada-candy",
     "designer": "PRADA",
     "name": "PRADA CANDY",
     "code": "DP02451",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02802-prada-prada-paradoxe",
+    "designer": "PRADA",
+    "name": "PRADA PARADOXE",
+    "code": "DP02802",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02673-rabanne-fame",
+    "designer": "RABANNE",
+    "name": "FAME",
+    "code": "DP02673",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02868-rabanne-fame-couture",
+    "designer": "RABANNE",
+    "name": "FAME COUTURE",
+    "code": "DP02868",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02210-rabanne-lady-million",
+    "designer": "RABANNE",
+    "name": "LADY MILLION",
+    "code": "DP02210",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02704-rabanne-lady-million-fabulous",
+    "designer": "RABANNE",
+    "name": "LADY MILLION FABULOUS",
+    "code": "DP02704",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02477-rabanne-lady-million-lucky",
+    "designer": "RABANNE",
+    "name": "LADY MILLION LUCKY",
+    "code": "DP02477",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02724-rabanne-lady-million-royal",
+    "designer": "RABANNE",
+    "name": "LADY MILLION ROYAL",
+    "code": "DP02724",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02864-rabanne-million-gold-for-her",
+    "designer": "RABANNE",
+    "name": "MILLION GOLD FOR HER",
+    "code": "DP02864",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02349-rabanne-olympea",
+    "designer": "RABANNE",
+    "name": "OLYMPÉA",
+    "code": "DP02349",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02674-rabanne-olympea-solar",
+    "designer": "RABANNE",
+    "name": "OLYMPÉA SOLAR",
+    "code": "DP02674",
+    "category": "Dama"
+  },
+  {
+    "id": "dp01334-rabanne-ultraviolet",
+    "designer": "RABANNE",
+    "name": "ULTRAVIOLET",
+    "code": "DP01334",
     "category": "Dama"
   },
   {
@@ -3374,30 +3283,30 @@
     "category": "Dama"
   },
   {
-    "id": "dp02753-valentino-born-in-roma-donna",
+    "id": "dp02882-valentino-born-in-roma-extradose-donna",
     "designer": "VALENTINO",
-    "name": "BORN IN ROMA DONNA",
-    "code": "DP02753",
-    "category": "Dama"
-  },
-  {
-    "id": "dp02882-valentino-born-in-roma-donna-extradose",
-    "designer": "VALENTINO",
-    "name": "BORN IN ROMA DONNA EXTRADOSE",
+    "name": "BORN IN ROMA EXTRADOSE DONNA",
     "code": "DP02882",
     "category": "Dama"
   },
   {
-    "id": "dp02839-valentino-born-in-roma-green-stravaganza",
+    "id": "dp02753-valentino-valentino-donna-born-in-roma",
     "designer": "VALENTINO",
-    "name": "BORN IN ROMA GREEN STRAVAGANZA",
+    "name": "VALENTINO DONNA BORN IN ROMA",
+    "code": "DP02753",
+    "category": "Dama"
+  },
+  {
+    "id": "dp02839-valentino-valentino-donna-born-in-roma-green-stravaganza",
+    "designer": "VALENTINO",
+    "name": "VALENTINO DONNA BORN IN ROMA GREEN STRAVAGANZA",
     "code": "DP02839",
     "category": "Dama"
   },
   {
-    "id": "dp02757-valentino-born-in-roma-intense",
+    "id": "dp02757-valentino-valentino-donna-born-in-roma-intense",
     "designer": "VALENTINO",
-    "name": "BORN IN ROMA INTENSE",
+    "name": "VALENTINO DONNA BORN IN ROMA INTENSE",
     "code": "DP02757",
     "category": "Dama"
   },
@@ -3416,17 +3325,17 @@
     "category": "Dama"
   },
   {
-    "id": "dp02600-versace-dylan-turquoise",
+    "id": "dp02302-versace-eros-pour-femme",
     "designer": "VERSACE",
-    "name": "DYLAN TURQUOISE",
-    "code": "DP02600",
+    "name": "EROS POUR FEMME",
+    "code": "DP02302",
     "category": "Dama"
   },
   {
-    "id": "dp02302-versace-eros",
+    "id": "dp02600-versace-versace-pour-femme-dylan-turquoise",
     "designer": "VERSACE",
-    "name": "EROS",
-    "code": "DP02302",
+    "name": "VERSACE POUR FEMME DYLAN TURQUOISE",
+    "code": "DP02600",
     "category": "Dama"
   },
   {
@@ -3476,13 +3385,6 @@
     "designer": "VICTORIA´S SECRET",
     "name": "BOMBSHELL SUNDRENCHED",
     "code": "DP02737",
-    "category": "Dama"
-  },
-  {
-    "id": "dp02780-victoria-s-secret-bombshells-in-bloom",
-    "designer": "VICTORIA´S SECRET",
-    "name": "BOMBSHELLS IN BLOOM",
-    "code": "DP02780",
     "category": "Dama"
   },
   {
@@ -3563,6 +3465,13 @@
     "category": "Dama"
   },
   {
+    "id": "dp02780-victoria-s-secret-victoria-s-secret-bombshells-in-bloom",
+    "designer": "VICTORIA´S SECRET",
+    "name": "VICTORIA´S SECRET BOMBSHELLS IN BLOOM",
+    "code": "DP02780",
+    "category": "Dama"
+  },
+  {
     "id": "dp02334-viktor-and-rolf-flowerbomb",
     "designer": "VIKTOR&ROLF",
     "name": "FLOWERBOMB",
@@ -3626,17 +3535,10 @@
     "category": "Unisex"
   },
   {
-    "id": "up01092-al-haramain-amber-oud",
+    "id": "up01092-al-haramain-amber-oud-gold-edition",
     "designer": "AL HARAMAIN",
-    "name": "AMBER OUD",
+    "name": "AMBER OUD GOLD EDITION",
     "code": "UP01092",
-    "category": "Unisex"
-  },
-  {
-    "id": "cp02494-al-haramain-amber-oud-aqua-dubai",
-    "designer": "AL HARAMAIN",
-    "name": "AMBER OUD AQUA DUBAI",
-    "code": "CP02494",
     "category": "Unisex"
   },
   {
@@ -3698,7 +3600,7 @@
   {
     "id": "up01005-creed-millesime-imperial",
     "designer": "CREED",
-    "name": "MILLESIME IMPERIAL",
+    "name": "MILLÉSIME IMPÉRIAL",
     "code": "UP01005",
     "category": "Unisex"
   },
@@ -3710,9 +3612,9 @@
     "category": "Unisex"
   },
   {
-    "id": "up01164-lataffa-bade-e-al-oud",
+    "id": "up01164-lataffa-bade-e-al-oud-sublime",
     "designer": "LATAFFA",
-    "name": "BADE´E AL OUD",
+    "name": "BADE´E AL OUD SUBLIME",
     "code": "UP01164",
     "category": "Unisex"
   },
@@ -3752,9 +3654,9 @@
     "category": "Unisex"
   },
   {
-    "id": "up01140-maison-francis-kurkdijan-baccarat-rouge-540-extrait",
+    "id": "up01140-maison-francis-kurkdijan-baccarat-rouge-540-extrait-de-parfum",
     "designer": "MAISON FRANCIS KURKDIJAN",
-    "name": "BACCARAT ROUGE 540 EXTRAIT",
+    "name": "BACCARAT ROUGE 540 EXTRAIT DE PARFUM",
     "code": "UP01140",
     "category": "Unisex"
   },
@@ -3845,14 +3747,14 @@
   {
     "id": "up01105-tom-ford-myrrhe-mystere",
     "designer": "TOM FORD",
-    "name": "MYRRHE MYSTERE",
+    "name": "MYRRHE MYSTÈRE",
     "code": "UP01105",
     "category": "Unisex"
   },
   {
-    "id": "up01046-tom-ford-ombre-leather",
+    "id": "up01046-tom-ford-ombre-leather-2018",
     "designer": "TOM FORD",
-    "name": "OMBRE LEATHER",
+    "name": "OMBRÉ LEATHER (2018)",
     "code": "UP01046",
     "category": "Unisex"
   },
@@ -3908,7 +3810,7 @@
   {
     "id": "up01141-tom-ford-vanille-fatale-2024",
     "designer": "TOM FORD",
-    "name": "VANILLE FATALE 2024",
+    "name": "VANILLE FATALE (2024)",
     "code": "UP01141",
     "category": "Unisex"
   },

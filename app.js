@@ -4,7 +4,7 @@ const state = {
   advisor: { step: 0, answers: { category: "", occasion: "", profile: "", climate: "" } }
 };
 
-const IMAGE_BASE_PATH = "IMAGES/Caballero";
+const IMAGE_BASE_PATH = "IMAGES";
 const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
 const MIN_RECOMMENDATION_SCORE = 85;
 
@@ -104,7 +104,7 @@ function loadImage(image, fallback, monogram, perfume) {
       image.onload = null; image.onerror = null; image.removeAttribute("src"); image.hidden = true;
       image.classList.remove("is-loading"); fallback.hidden = false; return;
     }
-    image.src = `${IMAGE_BASE_PATH}/${encodeURIComponent(perfume.code)}.${IMAGE_EXTENSIONS[extensionIndex++]}`;
+    image.src = `${IMAGE_BASE_PATH}/${encodeURIComponent(perfume.category)}/${encodeURIComponent(perfume.code)}.${IMAGE_EXTENSIONS[extensionIndex++]}`;
   };
   image.onload = () => { image.classList.remove("is-loading"); fallback.hidden = true; };
   image.onerror = tryNextExtension; tryNextExtension();
