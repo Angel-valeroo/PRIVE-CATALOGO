@@ -24,3 +24,6 @@ Si Perfumoteca presenta un nombre impreciso, se conserva el nombre identificado 
 Los estados de revisión son internos y no se muestran a clientes ni revendedores.
 
 Las descripciones y orientaciones son redacción original de PRIVÉ; no son copias textuales. La edad es una tendencia secundaria, amable y no restrictiva. El Asesor debe priorizar gustos, notas, ocasión, clima y la imagen que la persona desea proyectar.
+
+- Lote 004: 100 fichas en `review`.
+- Total activo: 350 fichas.

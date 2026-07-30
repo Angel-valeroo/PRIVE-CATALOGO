@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp02473-yves-saint-laurent-myslf-le-parfum",
+  "status": "review",
+  "identity": {
+    "brand": "YVES SAINT LAURENT",
+    "name": "MYSLF LE PARFUM",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP02473",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Parfum",
+    "launchYear": 2024,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Ámbar amaderada",
+    "subfamily": null,
+    "accords": [
+      "Amaderado",
+      "Ámbar",
+      "Avainillado",
+      "Dulce",
+      "Floral",
+      "Fresco especiado"
+    ],
+    "styleTags": [
+      "Cálido",
+      "Floral y sensual"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Pimienta negra"
+    ],
+    "heartNotes": [
+      "Flor de azahar"
+    ],
+    "baseNotes": [
+      "Vainilla bourbon",
+      "Ámbar",
+      "Pachulí",
+      "Notas amaderadas"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Muy intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 0,
+    "sweetness": 2,
+    "warmth": 4,
+    "woodiness": 4,
+    "spiciness": 4,
+    "floral": 2,
+    "citrus": 0,
+    "fruitiness": 0,
+    "aquatic": 0,
+    "powdery": 0,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Noche",
+      "Cita",
+      "Fiesta",
+      "Evento"
+    ],
+    "contexts": [
+      "Romántico",
+      "Social",
+      "Especial"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "dayParts": [
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 2,
+    "versatility": 3,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 22,
+      "max": 50,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 22 a 50 años por su estilo cálido, floral y sensual. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil amaderado, ámbar, avainillado, con una salida de pimienta negra que evoluciona hacia un fondo de vainilla bourbon, ámbar, pachulí. Su carácter cálido, floral y sensual ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil cálido, floral y sensual. Afinidad orientativa: 22 a 50 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima frío y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP02473.avif",
+      "alt": "YVES SAINT LAURENT MYSLF LE PARFUM"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 004",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=YVES+SAINT+LAURENT+MYSLF+LE+PARFUM",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP02473",
+        "url": "https://perfumoteca.com/catalogo?search=CP02473",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave CP02473",
+        "url": "https://glass-essence.com/?s=CP02473&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 003. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Nombre e imagen conservados desde el catálogo operativo; la clave se utiliza para la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

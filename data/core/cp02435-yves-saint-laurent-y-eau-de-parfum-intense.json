@@ -1,0 +1,176 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp02435-yves-saint-laurent-y-eau-de-parfum-intense",
+  "status": "review",
+  "identity": {
+    "brand": "YVES SAINT LAURENT",
+    "name": "Y EAU DE PARFUM INTENSE",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP02435",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Eau de Parfum",
+    "launchYear": 2023,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Amaderada aromática",
+    "subfamily": null,
+    "accords": [
+      "Amaderado",
+      "Aromático",
+      "Fresco especiado",
+      "Acuático",
+      "Cítrico",
+      "Floral"
+    ],
+    "styleTags": [
+      "Fresco",
+      "Seco y ejecutivo"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Jengibre",
+      "Bayas de enebro",
+      "Bergamota"
+    ],
+    "heartNotes": [
+      "Salvia",
+      "Lavanda",
+      "Geranio"
+    ],
+    "baseNotes": [
+      "Vetiver",
+      "Pachulí",
+      "Cedro"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 5,
+    "sweetness": 0,
+    "warmth": 0,
+    "woodiness": 5,
+    "spiciness": 4,
+    "floral": 4,
+    "citrus": 4,
+    "fruitiness": 0,
+    "aquatic": 4,
+    "powdery": 0,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Noche",
+      "Diario",
+      "Oficina",
+      "Cita"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Social"
+    ],
+    "climates": [
+      "Templado",
+      "Calor",
+      "Frío"
+    ],
+    "seasons": [
+      "Primavera",
+      "Otoño",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 3,
+    "versatility": 5,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 22,
+      "max": 50,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 22 a 50 años por su estilo fresco, seco y ejecutivo. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil amaderado, aromático, fresco especiado, con una salida de jengibre, bayas de enebro, bergamota que evoluciona hacia un fondo de vetiver, pachulí, cedro. Su carácter fresco, seco y ejecutivo ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil fresco, seco y ejecutivo. Afinidad orientativa: 22 a 50 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima templado y calor y frío.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP02435.avif",
+      "alt": "YVES SAINT LAURENT Y EAU DE PARFUM INTENSE"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 004",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=YVES+SAINT+LAURENT+Y+EAU+DE+PARFUM+INTENSE",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP02435",
+        "url": "https://perfumoteca.com/catalogo?search=CP02435",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave CP02435",
+        "url": "https://glass-essence.com/?s=CP02435&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 003. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Nombre e imagen conservados desde el catálogo operativo; la clave se utiliza para la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

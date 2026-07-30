@@ -1,0 +1,173 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp02474-tommy-hilfiger-tommy-forever",
+  "status": "review",
+  "identity": {
+    "brand": "TOMMY HILFIGER",
+    "name": "TOMMY FOREVER",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP02474",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Eau de Toilette",
+    "launchYear": 2024,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Amaderada aromática",
+    "subfamily": null,
+    "accords": [
+      "Aromático",
+      "Amaderado",
+      "Acuático",
+      "Cítrico",
+      "Fresco especiado",
+      "Verde"
+    ],
+    "styleTags": [
+      "Fresco",
+      "Limpio y moderno"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Limón",
+      "Jengibre"
+    ],
+    "heartNotes": [
+      "Lavanda",
+      "Salvia"
+    ],
+    "baseNotes": [
+      "Akigalawood",
+      "Cedro"
+    ],
+    "notePyramidConfidence": "low"
+  },
+  "performance": {
+    "intensity": "Moderada",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 5,
+    "sweetness": 0,
+    "warmth": 0,
+    "woodiness": 4,
+    "spiciness": 4,
+    "floral": 2,
+    "citrus": 4,
+    "fruitiness": 0,
+    "aquatic": 4,
+    "powdery": 0,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Noche",
+      "Diario",
+      "Oficina",
+      "Cita"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Social"
+    ],
+    "climates": [
+      "Templado",
+      "Calor",
+      "Frío"
+    ],
+    "seasons": [
+      "Primavera",
+      "Otoño",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 3,
+    "versatility": 5,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 18,
+      "max": 45,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 45 años por su estilo fresco, limpio y moderno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil aromático, amaderado, acuático, con una salida de limón, jengibre que evoluciona hacia un fondo de akigalawood, cedro. Su carácter fresco, limpio y moderno ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil fresco, limpio y moderno. Afinidad orientativa: 18 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima templado y calor y frío.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP02474.avif",
+      "alt": "TOMMY HILFIGER TOMMY FOREVER"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 004",
+    "confidence": "low",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=TOMMY+HILFIGER+TOMMY+FOREVER",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP02474",
+        "url": "https://perfumoteca.com/catalogo?search=CP02474",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave CP02474",
+        "url": "https://glass-essence.com/?s=CP02474&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 003. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Lanzamiento reciente; identidad confirmada por nombre e imagen y conserva estado review. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

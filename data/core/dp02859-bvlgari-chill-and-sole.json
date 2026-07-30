@@ -1,0 +1,173 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "dp02859-bvlgari-chill-and-sole",
+  "status": "review",
+  "identity": {
+    "brand": "BVLGARI",
+    "name": "CHILL & SOLE",
+    "line": null,
+    "flanker": null,
+    "priveCode": "DP02859",
+    "sku": null,
+    "audience": "Dama",
+    "concentration": "Eau de Parfum",
+    "launchYear": 2024,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Floral frutal",
+    "subfamily": null,
+    "accords": [
+      "Cítrico",
+      "Afrutado",
+      "Almizclado",
+      "Amaderado",
+      "Atalcado",
+      "Floral"
+    ],
+    "styleTags": [
+      "Solar",
+      "Floral y fresco"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Neroli",
+      "Bergamota",
+      "Mandarina"
+    ],
+    "heartNotes": [
+      "Flor de tiaré",
+      "Jazmín",
+      "Peonía"
+    ],
+    "baseNotes": [
+      "Almizcle",
+      "Sándalo",
+      "Ámbar"
+    ],
+    "notePyramidConfidence": "low"
+  },
+  "performance": {
+    "intensity": "Moderada",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 4,
+    "sweetness": 2,
+    "warmth": 2,
+    "woodiness": 4,
+    "spiciness": 0,
+    "floral": 2,
+    "citrus": 5,
+    "fruitiness": 2,
+    "aquatic": 0,
+    "powdery": 4,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Diario",
+      "Oficina",
+      "Viaje",
+      "Playa"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Vacaciones"
+    ],
+    "climates": [
+      "Calor",
+      "Templado"
+    ],
+    "seasons": [
+      "Primavera",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde"
+    ],
+    "formality": 3,
+    "versatility": 4,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 18,
+      "max": 42,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 42 años por su estilo solar, floral y fresco. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil cítrico, afrutado, almizclado, con una salida de neroli, bergamota, mandarina que evoluciona hacia un fondo de almizcle, sándalo, ámbar. Su carácter solar, floral y fresco ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil solar, floral y fresco. Afinidad orientativa: 18 a 42 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima calor y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Dama/DP02859.avif",
+      "alt": "BVLGARI CHILL & SOLE"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 004",
+    "confidence": "low",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=BVLGARI+CHILL+%26+SOLE",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave DP02859",
+        "url": "https://perfumoteca.com/catalogo?search=DP02859",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave DP02859",
+        "url": "https://glass-essence.com/?s=DP02859&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 003. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Chill & Sole: lanzamiento reciente; identidad confirmada por imagen, pirámide en review. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

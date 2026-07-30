@@ -7,7 +7,7 @@ const state = {
 const IMAGE_BASE_PATH = "IMAGES";
 const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
 const MIN_RECOMMENDATION_SCORE = 85;
-const CORE_DATA_VERSION = "master-003";
+const CORE_DATA_VERSION = "master-004";
 
 const DISCOVERY_GROUPS = [
   { label: "Género", type: "category", featured: true, values: ["Caballero", "Dama", "Unisex"] },

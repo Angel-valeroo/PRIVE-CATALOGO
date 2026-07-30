@@ -1,0 +1,175 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "dp02522-ariana-grande-cloud",
+  "status": "review",
+  "identity": {
+    "brand": "ARIANA GRANDE",
+    "name": "CLOUD",
+    "line": null,
+    "flanker": null,
+    "priveCode": "DP02522",
+    "sku": null,
+    "audience": "Dama",
+    "concentration": "Eau de Parfum",
+    "launchYear": 2018,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Floral frutal gourmand",
+    "subfamily": null,
+    "accords": [
+      "Afrutado",
+      "Dulce",
+      "Almizclado",
+      "Amaderado",
+      "Aromático",
+      "Atalcado"
+    ],
+    "styleTags": [
+      "Cremoso",
+      "Dulce y etéreo"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Lavanda",
+      "Pera",
+      "Bergamota"
+    ],
+    "heartNotes": [
+      "Crema de coco",
+      "Praliné",
+      "Orquídea de vainilla"
+    ],
+    "baseNotes": [
+      "Almizcle",
+      "Notas amaderadas"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 4,
+    "sweetness": 5,
+    "warmth": 2,
+    "woodiness": 2,
+    "spiciness": 0,
+    "floral": 2,
+    "citrus": 2,
+    "fruitiness": 4,
+    "aquatic": 0,
+    "powdery": 4,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Noche",
+      "Diario",
+      "Oficina",
+      "Cita"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Social"
+    ],
+    "climates": [
+      "Templado",
+      "Calor",
+      "Frío"
+    ],
+    "seasons": [
+      "Primavera",
+      "Otoño",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 3,
+    "versatility": 5,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 16,
+      "max": 38,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 16 a 38 años por su estilo cremoso, dulce y etéreo. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil afrutado, dulce, almizclado, con una salida de lavanda, pera, bergamota que evoluciona hacia un fondo de almizcle, notas amaderadas. Su carácter cremoso, dulce y etéreo ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil cremoso, dulce y etéreo. Afinidad orientativa: 16 a 38 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima templado y calor y frío.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Dama/DP02522.avif",
+      "alt": "ARIANA GRANDE CLOUD"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 004",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=ARIANA+GRANDE+CLOUD",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave DP02522",
+        "url": "https://perfumoteca.com/catalogo?search=DP02522",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave DP02522",
+        "url": "https://glass-essence.com/?s=DP02522&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 003. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Nombre e imagen conservados desde el catálogo operativo; la clave se utiliza para la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

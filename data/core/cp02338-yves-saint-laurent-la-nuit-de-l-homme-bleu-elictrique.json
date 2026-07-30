@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp02338-yves-saint-laurent-la-nuit-de-l-homme-bleu-elictrique",
+  "status": "review",
+  "identity": {
+    "brand": "YVES SAINT LAURENT",
+    "name": "LA NUIT DE L'HOMME BLEU ELICTRIQUE",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP02338",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Eau de Toilette",
+    "launchYear": 2021,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Amaderada aromática",
+    "subfamily": null,
+    "accords": [
+      "Amaderado",
+      "Aromático",
+      "Fresco especiado",
+      "Cítrico",
+      "Floral"
+    ],
+    "styleTags": [
+      "Eléctrico",
+      "Fresco y nocturno"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Cardamomo",
+      "Jengibre",
+      "Bergamota"
+    ],
+    "heartNotes": [
+      "Lavanda",
+      "Geranio"
+    ],
+    "baseNotes": [
+      "Cedro",
+      "Vetiver"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 4,
+    "sweetness": 0,
+    "warmth": 0,
+    "woodiness": 5,
+    "spiciness": 5,
+    "floral": 4,
+    "citrus": 4,
+    "fruitiness": 0,
+    "aquatic": 0,
+    "powdery": 0,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Noche",
+      "Cita",
+      "Fiesta",
+      "Evento"
+    ],
+    "contexts": [
+      "Romántico",
+      "Social",
+      "Especial"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "dayParts": [
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 2,
+    "versatility": 3,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 20,
+      "max": 46,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 46 años por su estilo eléctrico, fresco y nocturno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil amaderado, aromático, fresco especiado, con una salida de cardamomo, jengibre, bergamota que evoluciona hacia un fondo de cedro, vetiver. Su carácter eléctrico, fresco y nocturno ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil eléctrico, fresco y nocturno. Afinidad orientativa: 20 a 46 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima frío y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP02338.avif",
+      "alt": "YVES SAINT LAURENT LA NUIT DE L'HOMME BLEU ELICTRIQUE"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 004",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=YVES+SAINT+LAURENT+LA+NUIT+DE+L%27HOMME+BLEU+ELICTRIQUE",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP02338",
+        "url": "https://perfumoteca.com/catalogo?search=CP02338",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave CP02338",
+        "url": "https://glass-essence.com/?s=CP02338&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 003. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Nombre e imagen conservados desde el catálogo operativo; la clave se utiliza para la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "dp02404-carolina-herrera-good-girl",
+  "status": "review",
+  "identity": {
+    "brand": "CAROLINA HERRERA",
+    "name": "GOOD GIRL",
+    "line": null,
+    "flanker": null,
+    "priveCode": "DP02404",
+    "sku": null,
+    "audience": "Dama",
+    "concentration": "Eau de Parfum",
+    "launchYear": 2016,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Ámbar floral",
+    "subfamily": null,
+    "accords": [
+      "Dulce",
+      "Floral",
+      "Amaderado",
+      "Atalcado",
+      "Cítrico",
+      "Ámbar"
+    ],
+    "styleTags": [
+      "Gourmand",
+      "Floral y seductor"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Almendra",
+      "Café",
+      "Bergamota",
+      "Limón"
+    ],
+    "heartNotes": [
+      "Tuberosa",
+      "Jazmín sambac",
+      "Flor de azahar",
+      "Rosa",
+      "Raíz de lirio"
+    ],
+    "baseNotes": [
+      "Haba tonka",
+      "Cacao",
+      "Vainilla",
+      "Praliné",
+      "Sándalo",
+      "Almizcle",
+      "Ámbar",
+      "Cachemira",
+      "Canela",
+      "Pachulí",
+      "Cedro"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Muy intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 4,
+    "sweetness": 5,
+    "warmth": 5,
+    "woodiness": 5,
+    "spiciness": 2,
+    "floral": 5,
+    "citrus": 5,
+    "fruitiness": 0,
+    "aquatic": 0,
+    "powdery": 5,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Noche",
+      "Cita",
+      "Fiesta",
+      "Evento"
+    ],
+    "contexts": [
+      "Romántico",
+      "Social",
+      "Especial"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "dayParts": [
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 2,
+    "versatility": 3,
+    "distinctiveness": 4,
+    "recommendedAge": {
+      "min": 20,
+      "max": 48,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 48 años por su estilo gourmand, floral y seductor. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil dulce, floral, amaderado, con una salida de almendra, café, bergamota que evoluciona hacia un fondo de haba tonka, cacao, vainilla. Su carácter gourmand, floral y seductor ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil gourmand, floral y seductor. Afinidad orientativa: 20 a 48 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima frío y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Dama/DP02404.avif",
+      "alt": "CAROLINA HERRERA GOOD GIRL"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 004",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=CAROLINA+HERRERA+GOOD+GIRL",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave DP02404",
+        "url": "https://perfumoteca.com/catalogo?search=DP02404",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave DP02404",
+        "url": "https://glass-essence.com/?s=DP02404&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 003. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Nombre e imagen conservados desde el catálogo operativo; la clave se utiliza para la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp01033-tous-tous-man",
+  "status": "review",
+  "identity": {
+    "brand": "TOUS",
+    "name": "TOUS MAN",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP01033",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Eau de Toilette",
+    "launchYear": 2004,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Ámbar fougère",
+    "subfamily": null,
+    "accords": [
+      "Afrutado",
+      "Atalcado",
+      "Cítrico",
+      "Fresco especiado",
+      "Ámbar",
+      "Almizclado"
+    ],
+    "styleTags": [
+      "Dulce",
+      "Especiado y casual"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Jengibre",
+      "Pimienta de Sichuan",
+      "Naranja",
+      "Toronja"
+    ],
+    "heartNotes": [
+      "Piña",
+      "Manzana",
+      "Camelia"
+    ],
+    "baseNotes": [
+      "Sándalo",
+      "Ámbar",
+      "Almizcle",
+      "Haba tonka"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Moderada",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 2,
+    "sweetness": 5,
+    "warmth": 4,
+    "woodiness": 2,
+    "spiciness": 5,
+    "floral": 0,
+    "citrus": 5,
+    "fruitiness": 5,
+    "aquatic": 0,
+    "powdery": 5,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Noche",
+      "Diario",
+      "Oficina",
+      "Cita"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Social"
+    ],
+    "climates": [
+      "Templado",
+      "Calor",
+      "Frío"
+    ],
+    "seasons": [
+      "Primavera",
+      "Otoño",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 3,
+    "versatility": 5,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 20,
+      "max": 48,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 48 años por su estilo dulce, especiado y casual. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil afrutado, atalcado, cítrico, con una salida de jengibre, pimienta de sichuan, naranja que evoluciona hacia un fondo de sándalo, ámbar, almizcle. Su carácter dulce, especiado y casual ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil dulce, especiado y casual. Afinidad orientativa: 20 a 48 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima templado y calor y frío.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP01033.avif",
+      "alt": "TOUS TOUS MAN"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 004",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=TOUS+TOUS+MAN",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP01033",
+        "url": "https://perfumoteca.com/catalogo?search=CP01033",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave CP01033",
+        "url": "https://glass-essence.com/?s=CP01033&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 003. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Nombre e imagen conservados desde el catálogo operativo; la clave se utiliza para la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

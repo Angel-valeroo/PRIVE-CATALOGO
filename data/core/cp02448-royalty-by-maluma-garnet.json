@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp02448-royalty-by-maluma-garnet",
+  "status": "review",
+  "identity": {
+    "brand": "ROYALTY BY MALUMA",
+    "name": "GARNET",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP02448",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Eau de Parfum",
+    "launchYear": 2022,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Aromática fougère",
+    "subfamily": null,
+    "accords": [
+      "Aromático",
+      "Amaderado",
+      "Floral",
+      "Fresco especiado"
+    ],
+    "styleTags": [
+      "Aromático",
+      "Resinoso y moderno"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Lavanda",
+      "Pimienta rosa"
+    ],
+    "heartNotes": [
+      "Jengibre",
+      "Geranio",
+      "Elemí"
+    ],
+    "baseNotes": [
+      "Vetiver",
+      "Olíbano",
+      "Pachulí"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 2,
+    "sweetness": 0,
+    "warmth": 0,
+    "woodiness": 5,
+    "spiciness": 5,
+    "floral": 5,
+    "citrus": 0,
+    "fruitiness": 0,
+    "aquatic": 0,
+    "powdery": 0,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Noche",
+      "Cita",
+      "Fiesta",
+      "Evento"
+    ],
+    "contexts": [
+      "Romántico",
+      "Social",
+      "Especial"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "dayParts": [
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 2,
+    "versatility": 3,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 20,
+      "max": 45,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 45 años por su estilo aromático, resinoso y moderno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil aromático, amaderado, floral, con una salida de lavanda, pimienta rosa que evoluciona hacia un fondo de vetiver, olíbano, pachulí. Su carácter aromático, resinoso y moderno ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil aromático, resinoso y moderno. Afinidad orientativa: 20 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima frío y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP02448.avif",
+      "alt": "ROYALTY BY MALUMA GARNET"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 004",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=ROYALTY+BY+MALUMA+GARNET",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP02448",
+        "url": "https://perfumoteca.com/catalogo?search=CP02448",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave CP02448",
+        "url": "https://glass-essence.com/?s=CP02448&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 003. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Nombre e imagen conservados desde el catálogo operativo; la clave se utiliza para la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}
