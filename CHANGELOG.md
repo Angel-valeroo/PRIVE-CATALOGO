@@ -45,3 +45,15 @@
 - Se unificaron marco, cuadrícula, marca de agua, botón de cierre, indicadores y contrastes mediante variables de tema.
 - Se añadieron microanimaciones suaves de respiración del halo y deriva ambiental.
 - Se respetó `prefers-reduced-motion` para desactivar las nuevas animaciones cuando el sistema lo solicita.
+
+## Sprint 3.6 — Búsqueda expansible del Home
+
+- La barra de búsqueda ahora inicia en un formato más compacto y refinado.
+- Se incorporaron esquinas redondeadas y un tratamiento visual más discreto.
+- Al recibir foco, la barra se expande suavemente desde el centro sin desplazar el resto del Home.
+- La barra permanece expandida mientras contenga una búsqueda activa.
+- Al perder el foco estando vacía, regresa automáticamente a su tamaño compacto.
+- Se añadió un brillo sutil y mayor profundidad visual durante el estado activo.
+- En dispositivos móviles conserva todo el ancho disponible para mantener la usabilidad.
+- Se respetan las preferencias del sistema para reducir movimiento.
+- Se actualizó la versión de caché de estilos y JavaScript a 3.6.
