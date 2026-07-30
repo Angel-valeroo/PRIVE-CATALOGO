@@ -89,3 +89,11 @@
 - Se añadieron protecciones contra condiciones de carrera cuando el usuario cambia rápidamente entre fragancias.
 - Casos de prueba prioritarios: Acqua di Giò desde recomendaciones y apertura posterior desde “Ver diseñador”.
 - Caché actualizada a la versión 3.9.
+
+## Sprint 4.0 — Identidad Dama y Home centrado
+- Se sustituyó la atmósfera de Dama por una paleta vino/borgoña profunda con degradados sutiles, halo rosado-vino y acentos refinados.
+- Se centró la composición completa del Home: overline, logotipo, eslogan, mensaje, búsqueda, categorías, contador y accesos.
+- Se compactó y reequilibró el espacio superior del Hero para eliminar la sensación de bloque negro vacío.
+- La atmósfera decorativa del Home ahora se organiza alrededor del eje central.
+- “Ayúdame a elegir” ahora presenta al Asesor Inteligente PRIVÉ y usa una estrella como símbolo de descubrimiento.
+- Caché actualizada a la versión 4.0.
