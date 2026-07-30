@@ -1275,3 +1275,12 @@ body.search-has-query .search-svg{
   .toolbar{grid-template-columns:1fr!important}
   #resetFilters{justify-self:end;margin-top:2px}
 }
+
+
+/* Sprint 3.9 — Apertura canónica y reinicio instantáneo de ficha */
+.perfume-dialog.detail-resetting-scroll{
+  scroll-behavior:auto!important;
+}
+.perfume-dialog.detail-resetting-scroll .detail-product-composition{
+  transition:none!important;
+}

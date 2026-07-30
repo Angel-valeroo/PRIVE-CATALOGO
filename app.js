@@ -66,6 +66,7 @@ const elements = {
 
 const detailImageBoundsCache = new Map();
 let detailLayoutFrame = 0;
+let detailOpenSequence = 0;
 
 function categoryFromCode(code) {
   const value = String(code || "").trim().toUpperCase();
@@ -198,9 +199,17 @@ function loadImage(image, fallback, monogram, perfume) {
     image.classList.remove("is-loading");
     fallback.hidden = true;
     if (image === elements.detailImage) {
+      const revealSequence = detailOpenSequence;
       requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (revealSequence !== detailOpenSequence || !elements.dialog.open) return;
+        forceDetailScrollToTop();
         layoutDetailBottle();
-        elements.dialog.classList.remove("detail-switching");
+        requestAnimationFrame(() => {
+          if (revealSequence !== detailOpenSequence || !elements.dialog.open) return;
+          forceDetailScrollToTop();
+          layoutDetailBottle();
+          elements.dialog.classList.remove("detail-switching", "detail-resetting-scroll");
+        });
       }));
     }
   };
@@ -314,17 +323,43 @@ function updateDetailScrollProgress() {
   }
 }
 
+function forceDetailScrollToTop() {
+  if (!elements.dialog) return;
+  elements.dialog.classList.add("detail-resetting-scroll");
+  elements.dialog.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  elements.dialog.scrollTop = 0;
+}
+
+function stabilizeDetailOpening(sequence) {
+  const settle = (remaining) => {
+    if (sequence !== detailOpenSequence || !elements.dialog.open) return;
+    forceDetailScrollToTop();
+    updateDetailScrollProgress();
+    layoutDetailBottle();
+    if (remaining > 0) {
+      requestAnimationFrame(() => settle(remaining - 1));
+    } else {
+      elements.dialog.classList.remove("detail-resetting-scroll");
+    }
+  };
+  requestAnimationFrame(() => settle(3));
+}
+
 function resetDetailRenderState() {
   cancelAnimationFrame(detailLayoutFrame);
   const image = elements.detailImage;
   if (image) {
+    image.dataset.requestId = "";
+    image.onload = null;
+    image.onerror = null;
+    image.removeAttribute("src");
     image.style.removeProperty("width");
     image.style.removeProperty("height");
     image.style.removeProperty("left");
     image.style.removeProperty("top");
     image.classList.add("is-loading");
   }
-  elements.dialog.scrollTop = 0;
+  forceDetailScrollToTop();
   elements.dialog.style.setProperty("--detail-progress", "0");
   elements.dialog.classList.remove("detail-is-discovering", "detail-is-reading", "detail-cue-dismissed", "detail-cue-nudge");
   elements.dialog.classList.add("detail-switching");
@@ -332,6 +367,7 @@ function resetDetailRenderState() {
 
 function openPerfume(perfume, updateHash = true) {
   if (!perfume) return;
+  const openingSequence = ++detailOpenSequence;
   resetDetailRenderState();
   state.selectedPerfume = perfume;
   elements.detailDesigner.textContent = perfume.designer; elements.detailName.textContent = perfume.name;
@@ -359,17 +395,17 @@ function openPerfume(perfume, updateHash = true) {
   elements.viewDesigner.onclick = () => setFilter("designer", perfume.designer);
   elements.detailDesigner.onclick = () => setFilter("designer", perfume.designer);
   if (!elements.dialog.open) elements.dialog.showModal();
+  forceDetailScrollToTop();
   resetDetailScrollCue();
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    updateDetailScrollProgress();
-    if (elements.detailImage.complete && elements.detailImage.naturalWidth) layoutDetailBottle();
-  }));
+  stabilizeDetailOpening(openingSequence);
   document.body.classList.add("dialog-open");
   if (updateHash) history.pushState({ perfume: perfume.id }, "", `#perfume=${encodeURIComponent(perfume.id)}`);
 }
 function closePerfume(updateHash = true) {
+  detailOpenSequence += 1;
   clearTimeout(detailCueTimer);
   state.selectedPerfume = null;
+  elements.dialog.classList.remove("detail-resetting-scroll", "detail-switching");
   if (elements.dialog.open) elements.dialog.close();
   if (!elements.advisorDialog.open) document.body.classList.remove("dialog-open");
   if (updateHash && location.hash.startsWith("#perfume=")) history.pushState({}, "", location.pathname + location.search);

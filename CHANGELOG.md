@@ -78,3 +78,14 @@
 - Se agregó un botón de búsqueda con lupa y soporte para Enter; ambos desplazan suavemente hacia los resultados.
 - “Restablecer filtros” ahora es un botón visible, alineado a la derecha dentro de la barra de filtros.
 - Se asignaron emojis a contextos que antes aparecían con un punto genérico: Casual, Profesional, Vacaciones, Deportivo, Especial, Formal, Romántico y Social.
+
+
+## Sprint 3.9 — Apertura canónica de fichas
+- Todas las rutas de entrada a una fragancia siguen usando `openPerfume`, ahora con un reinicio visual y de scroll reforzado.
+- Al cambiar de perfume desde “También te puede gustar”, “Ver diseñador”, el Asistente o el catálogo, la ficha vuelve siempre al inicio en el primer clic.
+- Se desactiva temporalmente el desplazamiento suave durante el reinicio para impedir que la posición anterior se herede.
+- Se invalida cualquier carga de imagen anterior antes de renderizar la nueva fragancia.
+- La botella se recalcula varias veces durante los primeros fotogramas y después de decodificar la imagen para mantener el centro estable.
+- Se añadieron protecciones contra condiciones de carrera cuando el usuario cambia rápidamente entre fragancias.
+- Casos de prueba prioritarios: Acqua di Giò desde recomendaciones y apertura posterior desde “Ver diseñador”.
+- Caché actualizada a la versión 3.9.
