@@ -1,0 +1,164 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp01055-gucci-gucci-guilty-pour-homme-parfum",
+  "status": "review",
+  "identity": {
+    "brand": "GUCCI",
+    "name": "GUCCI GUILTY POUR HOMME PARFUM",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP01055",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Parfum",
+    "launchYear": 2022,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Ámbar amaderada",
+    "subfamily": null,
+    "accords": [
+      "Aromático",
+      "Amaderado",
+      "Especiado",
+      "Floral"
+    ],
+    "styleTags": [
+      "Profundo",
+      "Pulido y formal"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Enebro",
+      "Limón",
+      "Lavanda"
+    ],
+    "heartNotes": [
+      "Flor de azahar",
+      "Nuez moscada",
+      "Ládano"
+    ],
+    "baseNotes": [
+      "Pachulí",
+      "Maderas secas",
+      "Almizcle"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 4,
+    "sweetness": 0,
+    "warmth": 0,
+    "woodiness": 4,
+    "spiciness": 4,
+    "floral": 4,
+    "citrus": 2,
+    "fruitiness": 0,
+    "aquatic": 0,
+    "powdery": 2,
+    "smoky": 2,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Noche",
+      "Diario",
+      "Oficina",
+      "Cita"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Social"
+    ],
+    "climates": [
+      "Templado",
+      "Calor",
+      "Frío"
+    ],
+    "seasons": [
+      "Primavera",
+      "Otoño",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 3,
+    "versatility": 5,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 25,
+      "max": 55,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 25 a 55 años por su estilo profundo, pulido y formal. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil aromático, amaderado, especiado, con una salida de enebro, limón, lavanda que evoluciona hacia un fondo de pachulí, maderas secas, almizcle. Su carácter profundo, pulido y formal ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil profundo, pulido y formal. Afinidad orientativa: 25 a 55 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima templado y calor y frío.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP01055.avif",
+      "alt": "GUCCI GUCCI GUILTY POUR HOMME PARFUM"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 002",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=GUCCI+GUCCI+GUILTY+POUR+HOMME+PARFUM",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP01055",
+        "url": "https://perfumoteca.com/catalogo",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 002. Fragrantica y Perfumoteca se registran como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca se consulta por clave y representa la referencia olfativa usada por proveedor y pedidos PRIVÉ. Identidad contrastada por nombre e imagen; clave conservada para búsqueda exacta en Perfumoteca. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

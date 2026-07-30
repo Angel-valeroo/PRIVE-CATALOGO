@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp02261-cr7-cr7-play-it-cool",
+  "status": "review",
+  "identity": {
+    "brand": "CR7",
+    "name": "CR7 PLAY IT COOL",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP02261",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Eau de Toilette",
+    "launchYear": 2019,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Aromática acuática",
+    "subfamily": null,
+    "accords": [
+      "Cítrico",
+      "Acuático",
+      "Aromático",
+      "Almizclado"
+    ],
+    "styleTags": [
+      "Refrescante",
+      "Desenfadado y deportivo"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Mandarina",
+      "Pera",
+      "Bergamota"
+    ],
+    "heartNotes": [
+      "Lavanda",
+      "Cardamomo",
+      "Notas marinas"
+    ],
+    "baseNotes": [
+      "Haba tonka",
+      "Amberwood",
+      "Almizcle"
+    ],
+    "notePyramidConfidence": "low"
+  },
+  "performance": {
+    "intensity": "Moderada",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 5,
+    "sweetness": 4,
+    "warmth": 0,
+    "woodiness": 0,
+    "spiciness": 2,
+    "floral": 2,
+    "citrus": 5,
+    "fruitiness": 2,
+    "aquatic": 4,
+    "powdery": 4,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Diario",
+      "Oficina",
+      "Viaje",
+      "Playa"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Vacaciones"
+    ],
+    "climates": [
+      "Calor",
+      "Templado"
+    ],
+    "seasons": [
+      "Primavera",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde"
+    ],
+    "formality": 3,
+    "versatility": 4,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 16,
+      "max": 38,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 16 a 38 años por su estilo refrescante, desenfadado y deportivo. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil cítrico, acuático, aromático, con una salida de mandarina, pera, bergamota que evoluciona hacia un fondo de haba tonka, amberwood, almizcle. Su carácter refrescante, desenfadado y deportivo ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil refrescante, desenfadado y deportivo. Afinidad orientativa: 16 a 38 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima calor y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP02261.avif",
+      "alt": "CR7 CR7 PLAY IT COOL"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 002",
+    "confidence": "low",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=CR7+CR7+PLAY+IT+COOL",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP02261",
+        "url": "https://perfumoteca.com/catalogo",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 002. Fragrantica y Perfumoteca se registran como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca se consulta por clave y representa la referencia olfativa usada por proveedor y pedidos PRIVÉ. Identidad contrastada por nombre e imagen; clave conservada para búsqueda exacta en Perfumoteca. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

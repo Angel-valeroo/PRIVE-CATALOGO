@@ -7,6 +7,7 @@ const state = {
 const IMAGE_BASE_PATH = "IMAGES";
 const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
 const MIN_RECOMMENDATION_SCORE = 85;
+const CORE_DATA_VERSION = "master-002";
 
 const DISCOVERY_GROUPS = [
   { label: "Género", type: "category", featured: true, values: ["Caballero", "Dama", "Unisex"] },
@@ -20,6 +21,7 @@ const TAG_ICONS = {
   Caballero: "■", Dama: "◆", Unisex: "●",
   Día: "☀️", Noche: "🌙", Diario: "📅", Oficina: "☕", Cita: "❤️", Fiesta: "🎉", Evento: "🎆",
   Playa: "🌴", Gimnasio: "🏋️", Escuela: "📚", Viaje: "✈️",
+  Casual: "👕", Profesional: "💼", Vacaciones: "🏖️", Deportivo: "🏃", Especial: "✨", Formal: "🎩", Romántico: "💞", Social: "🥂",
   Calor: "🔥", Templado: "☁️", Frío: "❄️",
   Primavera: "🌸", Verano: "☀️", Otoño: "🍁", Invierno: "☃️",
   Fresco: "🍃", Acuático: "🌊", Dulce: "🍬", Amaderado: "🪵", Aromático: "🌿",
@@ -37,13 +39,16 @@ const ADVISOR_WEIGHTS = { category: 30, occasion: 25, profile: 30, climate: 15 }
 const $ = selector => document.querySelector(selector);
 
 const elements = {
-  catalog: $("#catalog"), template: $("#perfumeCardTemplate"), search: $("#search"),
+  catalog: $("#catalog"), template: $("#perfumeCardTemplate"), search: $("#search"), submitSearch: $("#submitSearch"),
   clearSearch: $("#clearSearch"), designerFilter: $("#designerFilter"), familyFilter: $("#familyFilter"),
   familyFilterField: $("#familyFilterField"), resetFilters: $("#resetFilters"),
   resultCount: $("#resultCount"), resultLabel: $("#resultLabel"), emptyState: $("#emptyState"),
-  activeFilters: $("#activeFilters"),
+  activeFilters: $("#activeFilters"), categoryFilters: [...document.querySelectorAll(".category-filter")],
   dialog: $("#perfumeDialog"), closeDialog: $("#closeDialog"),
   detailImage: $("#detailImage"), detailFallback: $("#detailFallback"), detailMonogram: $("#detailMonogram"),
+  detailBottleStage: $(".detail-bottle-stage"), detailComposition: $(".detail-product-composition"),
+  detailStageName: $("#detailStageName"), detailStageCode: $("#detailStageCode"),
+  detailScrollCue: $(".detail-scroll-cue"),
   detailDesigner: $("#detailDesigner"), detailName: $("#detailName"), detailCode: $("#detailCode"),
   detailDescription: $("#detailDescription"), detailCategory: $("#detailCategory"), profileChips: $("#profileChips"), useSection: $("#useSection"),
   familySection: $("#familySection"), detailFamily: $("#detailFamily"), notesSection: $("#notesSection"),
@@ -58,6 +63,89 @@ const elements = {
   advisorResultsIntro: $("#advisorResultsIntro"), advisorBack: $("#advisorBack"),
   advisorSkip: $("#advisorSkip"), advisorNext: $("#advisorNext"), advisorRestart: $("#advisorRestart")
 };
+
+
+const detailImageBoundsCache = new Map();
+let detailLayoutFrame = 0;
+let detailOpenSequence = 0;
+
+function categoryFromCode(code) {
+  const value = String(code || "").trim().toUpperCase();
+  if (value.startsWith("DP") || value.startsWith("D")) return "dama";
+  if (value.startsWith("UP") || value.startsWith("U")) return "unisex";
+  return "caballero";
+}
+
+function applyDetailCategoryTheme(perfume) {
+  const gender = categoryFromCode(perfume?.code);
+  elements.dialog.classList.remove("detail-gender-caballero", "detail-gender-dama", "detail-gender-unisex");
+  elements.dialog.classList.add(`detail-gender-${gender}`);
+}
+
+function alphaBoundsForImage(image) {
+  const cacheKey = image.currentSrc || image.src;
+  if (detailImageBoundsCache.has(cacheKey)) return detailImageBoundsCache.get(cacheKey);
+  const canvas = document.createElement("canvas");
+  const width = image.naturalWidth;
+  const height = image.naturalHeight;
+  if (!width || !height) return null;
+  const maxSample = 720;
+  const ratio = Math.min(1, maxSample / Math.max(width, height));
+  canvas.width = Math.max(1, Math.round(width * ratio));
+  canvas.height = Math.max(1, Math.round(height * ratio));
+  const context = canvas.getContext("2d", { willReadFrequently: true });
+  if (!context) return null;
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  context.drawImage(image, 0, 0, canvas.width, canvas.height);
+  let pixels;
+  try { pixels = context.getImageData(0, 0, canvas.width, canvas.height).data; }
+  catch (_) { return null; }
+  let minX = canvas.width, minY = canvas.height, maxX = -1, maxY = -1;
+  for (let y = 0; y < canvas.height; y += 1) {
+    for (let x = 0; x < canvas.width; x += 1) {
+      const alpha = pixels[(y * canvas.width + x) * 4 + 3];
+      if (alpha > 12) {
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+      }
+    }
+  }
+  const bounds = maxX < minX || maxY < minY
+    ? { x: 0, y: 0, width, height }
+    : {
+        x: minX / ratio,
+        y: minY / ratio,
+        width: (maxX - minX + 1) / ratio,
+        height: (maxY - minY + 1) / ratio
+      };
+  detailImageBoundsCache.set(cacheKey, bounds);
+  return bounds;
+}
+
+function layoutDetailBottle() {
+  cancelAnimationFrame(detailLayoutFrame);
+  detailLayoutFrame = requestAnimationFrame(() => {
+    const image = elements.detailImage;
+    const stage = elements.detailBottleStage;
+    if (!image || !stage || image.hidden || !image.complete || !image.naturalWidth) return;
+    const stageRect = stage.getBoundingClientRect();
+    if (stageRect.width < 20 || stageRect.height < 20) return;
+    const bounds = alphaBoundsForImage(image) || { x: 0, y: 0, width: image.naturalWidth, height: image.naturalHeight };
+    const safeWidth = stageRect.width * .88;
+    const safeHeight = stageRect.height * .94;
+    const scale = Math.min(safeWidth / bounds.width, safeHeight / bounds.height);
+    const renderedWidth = image.naturalWidth * scale;
+    const renderedHeight = image.naturalHeight * scale;
+    const visibleCenterX = (bounds.x + bounds.width / 2) * scale;
+    const visibleCenterY = (bounds.y + bounds.height / 2) * scale;
+    image.style.width = `${renderedWidth.toFixed(2)}px`;
+    image.style.height = `${renderedHeight.toFixed(2)}px`;
+    image.style.left = `${(stageRect.width / 2 - visibleCenterX).toFixed(2)}px`;
+    image.style.top = `${(stageRect.height / 2 - visibleCenterY).toFixed(2)}px`;
+  });
+}
 
 function normalize(value) {
   return String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
@@ -75,7 +163,7 @@ function includesNormalized(list, value) {
   return asList(list).some(item => normalize(item) === wanted);
 }
 function perfumeTags(perfume) {
-  return [...new Set([...asList(perfume.contexts), ...asList(perfume.occasions), ...asList(perfume.climates), ...asList(perfume.seasons), ...asList(perfume.accords)])];
+  return [...new Set([...asList(perfume.contexts), ...asList(perfume.occasions), ...asList(perfume.climates), ...asList(perfume.seasons), ...asList(perfume.accords), ...asList(perfume.styleTags), ...asList(perfume.dayParts)])];
 }
 function searchableText(perfume) {
   return normalize([perfume.name, perfume.designer, perfume.code, perfume.family,
@@ -96,18 +184,54 @@ function filteredPerfumes() {
 }
 function loadImage(image, fallback, monogram, perfume) {
   let extensionIndex = 0;
+  const requestId = `${perfume.id}-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  image.dataset.requestId = requestId;
   monogram.textContent = initials(perfume.designer);
   image.alt = `${perfume.name} de ${perfume.designer}`;
-  image.hidden = false; image.classList.add("is-loading"); fallback.hidden = false;
-  const tryNextExtension = () => {
-    if (extensionIndex >= IMAGE_EXTENSIONS.length) {
-      image.onload = null; image.onerror = null; image.removeAttribute("src"); image.hidden = true;
-      image.classList.remove("is-loading"); fallback.hidden = false; return;
+  image.hidden = false;
+  image.classList.add("is-loading");
+  fallback.hidden = false;
+
+  const isCurrentRequest = () => image.dataset.requestId === requestId;
+  const revealCurrentImage = async () => {
+    if (!isCurrentRequest()) return;
+    try { if (typeof image.decode === "function") await image.decode(); } catch (_) { /* onload ya confirmó el recurso */ }
+    if (!isCurrentRequest()) return;
+    image.classList.remove("is-loading");
+    fallback.hidden = true;
+    if (image === elements.detailImage) {
+      const revealSequence = detailOpenSequence;
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (revealSequence !== detailOpenSequence || !elements.dialog.open) return;
+        forceDetailScrollToTop();
+        layoutDetailBottle();
+        requestAnimationFrame(() => {
+          if (revealSequence !== detailOpenSequence || !elements.dialog.open) return;
+          forceDetailScrollToTop();
+          layoutDetailBottle();
+          elements.dialog.classList.remove("detail-switching", "detail-resetting-scroll");
+        });
+      }));
     }
-    image.src = `${IMAGE_BASE_PATH}/${encodeURIComponent(perfume.category)}/${encodeURIComponent(perfume.code)}.${IMAGE_EXTENSIONS[extensionIndex++]}`;
   };
-  image.onload = () => { image.classList.remove("is-loading"); fallback.hidden = true; };
-  image.onerror = tryNextExtension; tryNextExtension();
+  const tryNextExtension = () => {
+    if (!isCurrentRequest()) return;
+    if (extensionIndex >= IMAGE_EXTENSIONS.length) {
+      image.onload = null;
+      image.onerror = null;
+      image.removeAttribute("src");
+      image.hidden = true;
+      image.classList.remove("is-loading");
+      fallback.hidden = false;
+      return;
+    }
+    const extension = IMAGE_EXTENSIONS[extensionIndex++];
+    image.src = `${IMAGE_BASE_PATH}/${encodeURIComponent(perfume.category)}/${encodeURIComponent(perfume.code)}.${extension}`;
+  };
+
+  image.onload = revealCurrentImage;
+  image.onerror = tryNextExtension;
+  tryNextExtension();
 }
 function configureImage(card, perfume) {
   loadImage(card.querySelector(".perfume-image"), card.querySelector(".image-fallback"), card.querySelector(".monogram"), perfume);
@@ -140,14 +264,14 @@ function renderActiveFilters() {
 }
 
 function profileValues(perfume) {
-  return [...new Set([...asList(perfume.contexts), ...asList(perfume.climates), ...asList(perfume.seasons), ...asList(perfume.accords)])].slice(0, 12);
+  return [...new Set([...asList(perfume.contexts), ...asList(perfume.climates), ...asList(perfume.seasons), ...asList(perfume.accords), ...asList(perfume.styleTags)])].slice(0, 12);
 }
 function similarityScore(reference, candidate) {
   if (reference.id === candidate.id) return -1;
   let score = 0;
   if (reference.family && reference.family === candidate.family) score += 8;
   const shared = (field, weight) => asList(reference[field]).filter(item => asList(candidate[field]).includes(item)).length * weight;
-  score += shared("accords", 3) + shared("contexts", 3) + shared("climates", 2) + shared("occasions", 2) + shared("seasons", 1);
+  score += shared("accords", 3) + shared("contexts", 3) + shared("climates", 2) + shared("occasions", 2) + shared("styleTags", 2) + shared("dayParts", 1) + shared("seasons", 1);
   if (reference.intensity && reference.intensity === candidate.intensity) score += 2;
   if (reference.designer === candidate.designer) score += 1;
   return score;
@@ -173,10 +297,85 @@ function createProfileChip(value) {
   button.innerHTML = `<span aria-hidden="true">${TAG_ICONS[value] || "•"}</span>${value}`;
   button.addEventListener("click", () => toggleTag(value)); return button;
 }
+
+let detailCueTimer = null;
+
+function resetDetailScrollCue() {
+  clearTimeout(detailCueTimer);
+  elements.dialog.classList.remove("detail-cue-nudge", "detail-cue-dismissed");
+  detailCueTimer = setTimeout(() => {
+    if (elements.dialog.open && elements.dialog.scrollTop < 8) {
+      elements.dialog.classList.add("detail-cue-nudge");
+    }
+  }, 3000);
+}
+
+function updateDetailScrollProgress() {
+  const viewport = Math.max(1, elements.dialog.clientHeight);
+  const maxDistance = Math.max(320, Math.min(760, viewport * 0.78));
+  const progress = Math.max(0, Math.min(1, elements.dialog.scrollTop / maxDistance));
+  elements.dialog.style.setProperty("--detail-progress", progress.toFixed(3));
+  elements.dialog.classList.toggle("detail-is-discovering", progress > 0.08);
+  elements.dialog.classList.toggle("detail-is-reading", progress > 0.62);
+  if (elements.dialog.scrollTop > 10) {
+    clearTimeout(detailCueTimer);
+    elements.dialog.classList.add("detail-cue-dismissed");
+    elements.dialog.classList.remove("detail-cue-nudge");
+  }
+}
+
+function forceDetailScrollToTop() {
+  if (!elements.dialog) return;
+  elements.dialog.classList.add("detail-resetting-scroll");
+  elements.dialog.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  elements.dialog.scrollTop = 0;
+}
+
+function stabilizeDetailOpening(sequence) {
+  const settle = (remaining) => {
+    if (sequence !== detailOpenSequence || !elements.dialog.open) return;
+    forceDetailScrollToTop();
+    updateDetailScrollProgress();
+    layoutDetailBottle();
+    if (remaining > 0) {
+      requestAnimationFrame(() => settle(remaining - 1));
+    } else {
+      elements.dialog.classList.remove("detail-resetting-scroll");
+    }
+  };
+  requestAnimationFrame(() => settle(3));
+}
+
+function resetDetailRenderState() {
+  cancelAnimationFrame(detailLayoutFrame);
+  const image = elements.detailImage;
+  if (image) {
+    image.dataset.requestId = "";
+    image.onload = null;
+    image.onerror = null;
+    image.removeAttribute("src");
+    image.style.removeProperty("width");
+    image.style.removeProperty("height");
+    image.style.removeProperty("left");
+    image.style.removeProperty("top");
+    image.classList.add("is-loading");
+  }
+  forceDetailScrollToTop();
+  elements.dialog.style.setProperty("--detail-progress", "0");
+  elements.dialog.classList.remove("detail-is-discovering", "detail-is-reading", "detail-cue-dismissed", "detail-cue-nudge");
+  elements.dialog.classList.add("detail-switching");
+}
+
 function openPerfume(perfume, updateHash = true) {
+  if (!perfume) return;
+  const openingSequence = ++detailOpenSequence;
+  resetDetailRenderState();
   state.selectedPerfume = perfume;
   elements.detailDesigner.textContent = perfume.designer; elements.detailName.textContent = perfume.name;
   elements.detailCode.textContent = `CLAVE ${perfume.code}`;
+  elements.detailStageName.textContent = perfume.name;
+  elements.detailStageCode.textContent = `Clave ${perfume.code}`;
+  applyDetailCategoryTheme(perfume);
   elements.detailCategory.textContent = `COLECCIÓN ${String(perfume.category || "PRIVÉ").toUpperCase()}`;
   elements.detailDescription.textContent = perfume.description || "Una fragancia de la colección PRIVÉ. Su información olfativa se incorporará progresivamente a la base de datos.";
   loadImage(elements.detailImage, elements.detailFallback, elements.detailMonogram, perfume);
@@ -197,23 +396,32 @@ function openPerfume(perfume, updateHash = true) {
   elements.viewDesigner.onclick = () => setFilter("designer", perfume.designer);
   elements.detailDesigner.onclick = () => setFilter("designer", perfume.designer);
   if (!elements.dialog.open) elements.dialog.showModal();
-  elements.dialog.scrollTop = 0; document.body.classList.add("dialog-open");
+  forceDetailScrollToTop();
+  resetDetailScrollCue();
+  stabilizeDetailOpening(openingSequence);
+  document.body.classList.add("dialog-open");
   if (updateHash) history.pushState({ perfume: perfume.id }, "", `#perfume=${encodeURIComponent(perfume.id)}`);
 }
 function closePerfume(updateHash = true) {
+  detailOpenSequence += 1;
+  clearTimeout(detailCueTimer);
   state.selectedPerfume = null;
+  elements.dialog.classList.remove("detail-resetting-scroll", "detail-switching");
   if (elements.dialog.open) elements.dialog.close();
   if (!elements.advisorDialog.open) document.body.classList.remove("dialog-open");
   if (updateHash && location.hash.startsWith("#perfume=")) history.pushState({}, "", location.pathname + location.search);
 }
 function render() {
   const results = filteredPerfumes(); const fragment = document.createDocumentFragment();
-  results.forEach(perfume => {
+  results.forEach((perfume, index) => {
     const card = elements.template.content.cloneNode(true); const article = card.querySelector(".perfume-card");
     const designer = card.querySelector(".designer"); const openButtons = card.querySelectorAll(".card-open, .name-button, .details-link");
     designer.textContent = perfume.designer; designer.addEventListener("click", () => setFilter("designer", perfume.designer));
     card.querySelector(".perfume-name").textContent = perfume.name;
     card.querySelector(".product-code").textContent = `CLAVE ${perfume.code}`; article.dataset.perfumeId = perfume.id;
+    article.style.setProperty("--card-index", Math.min(index, 18));
+    const cardNumber = card.querySelector(".card-number");
+    if (cardNumber) cardNumber.textContent = String(index + 1).padStart(2, "0");
     const meta = card.querySelector(".card-meta");
     const metaValues = [perfume.family, ...asList(perfume.contexts).slice(0,1), ...asList(perfume.accords).slice(0,1)].filter(Boolean);
     meta.textContent = metaValues.join(" · "); meta.hidden = metaValues.length === 0;
@@ -224,6 +432,11 @@ function render() {
   elements.resultLabel.textContent = results.length === 1 ? "fragancia" : "fragancias";
   elements.emptyState.hidden = results.length !== 0;
   elements.clearSearch.classList.toggle("visible", Boolean(state.query));
+  elements.categoryFilters.forEach(button => {
+    const active = button.dataset.category === state.category;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
   renderActiveFilters();
 }
 function populateSelect(select, values) {
@@ -379,14 +592,65 @@ function restartAdvisor() {
   renderAdvisorOptions(); updateAdvisorStep();
 }
 
-elements.search.addEventListener("input",event=>{state.query=event.target.value;render();});
-elements.clearSearch.addEventListener("click",()=>{state.query="";elements.search.value="";elements.search.focus();render();});
+const SEARCH_SUGGESTIONS = ["Dior", "Aventus", "Imagination", "Ariana Grande", "Victoria's Secret", "Baccarat Rouge", "Louis Vuitton"];
+let searchSuggestionIndex = 0;
+let searchPlaceholderTimer;
+function rotateSearchPlaceholder() {
+  if (document.activeElement === elements.search || state.query) return;
+  const suggestion = SEARCH_SUGGESTIONS[searchSuggestionIndex % SEARCH_SUGGESTIONS.length];
+  elements.search.placeholder = `Busca ${suggestion}...`;
+  searchSuggestionIndex += 1;
+}
+function startSearchPlaceholderRotation() {
+  rotateSearchPlaceholder();
+  searchPlaceholderTimer = window.setInterval(rotateSearchPlaceholder, 3200);
+}
+function executeSearch() {
+  state.query = elements.search.value.trim();
+  document.body.classList.toggle("search-has-query", Boolean(state.query));
+  render();
+  scrollToCatalog();
+}
+
+elements.categoryFilters.forEach(button => button.addEventListener("click", () => {
+  state.category = button.dataset.category || "";
+  render();
+  scrollToCatalog();
+}));
+elements.search.addEventListener("focus", () => {
+  elements.search.placeholder = "Busca por nombre, diseñador o clave...";
+  document.body.classList.add("search-active");
+});
+elements.search.addEventListener("blur", () => {
+  document.body.classList.remove("search-active");
+  if (!state.query) rotateSearchPlaceholder();
+});
+elements.search.addEventListener("input", event => {
+  state.query = event.target.value;
+  document.body.classList.toggle("search-has-query", Boolean(state.query.trim()));
+  render();
+});
+elements.search.addEventListener("keydown", event => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    executeSearch();
+  }
+});
+elements.submitSearch.addEventListener("click", executeSearch);
+elements.clearSearch.addEventListener("click", () => {
+  state.query = "";
+  elements.search.value = "";
+  document.body.classList.remove("search-has-query");
+  elements.search.focus();
+  render();
+});
 elements.designerFilter.addEventListener("change",event=>setFilter("designer",event.target.value));
 elements.familyFilter.addEventListener("change",event=>setFilter("family",event.target.value));
-elements.resetFilters.addEventListener("click",()=>{state.query="";state.category="";state.designer="";state.family="";state.tags.clear();elements.search.value="";elements.designerFilter.value="";elements.familyFilter.value="";render();});
+elements.resetFilters.addEventListener("click",()=>{state.query="";state.category="";state.designer="";state.family="";state.tags.clear();elements.search.value="";document.body.classList.remove("search-has-query");elements.designerFilter.value="";elements.familyFilter.value="";render();});
 elements.closeDialog.addEventListener("click",()=>closePerfume());
 elements.dialog.addEventListener("click",event=>{if(event.target===elements.dialog)closePerfume();});
 elements.dialog.addEventListener("cancel",event=>{event.preventDefault();closePerfume();});
+elements.dialog.addEventListener("scroll", updateDetailScrollProgress, { passive: true });
 elements.openAdvisor.addEventListener("click", openAdvisor);
 elements.closeAdvisor.addEventListener("click", closeAdvisor);
 elements.advisorDialog.addEventListener("click", event => { if (event.target === elements.advisorDialog) closeAdvisor(); });
@@ -418,9 +682,9 @@ async function loadCorePerfumes() {
     return [];
   }
   try {
-    const manifest = await fetchJson("data/core/catalog.json");
+    const manifest = await fetchJson(`data/core/catalog.json?v=${CORE_DATA_VERSION}`);
     const files = Array.isArray(manifest.perfumes) ? manifest.perfumes : [];
-    return await Promise.all(files.map(file => fetchJson(`data/core/${file}`)));
+    return await Promise.all(files.map(file => fetchJson(`data/core/${file}?v=${CORE_DATA_VERSION}`)));
   } catch (error) {
     console.warn("No fue posible cargar PRIVÉ Core; se usará el catálogo heredado.", error);
     return [];
@@ -428,6 +692,10 @@ async function loadCorePerfumes() {
 }
 
 async function init(){
+  if (!location.hash.startsWith("#perfume=")) {
+    history.scrollRestoration = "manual";
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }
   try{
     const [legacyPerfumes, corePerfumes] = await Promise.all([
       fetchJson("data/perfumes.json"),
@@ -437,10 +705,19 @@ async function init(){
       ? window.PriveCoreAdapter.mergeCatalogs(legacyPerfumes, corePerfumes)
       : legacyPerfumes;
     console.info(`PRIVÉ: ${state.perfumes.length} fragancias cargadas (${corePerfumes.length} desde Core).`);
-    populateFilters(); render(); renderAdvisorOptions(); openFromHash();
+    populateFilters(); render(); renderAdvisorOptions(); startSearchPlaceholderRotation(); openFromHash();
   }catch(error){
     elements.catalog.innerHTML='<p class="load-error">No se pudo cargar el catálogo. Intenta actualizar la página.</p>';
     console.error(error);
   }
 }
+window.addEventListener("pageshow", () => {
+  if (!location.hash.startsWith("#perfume=")) window.scrollTo(0, 0);
+});
 init();
+
+if (typeof ResizeObserver !== "undefined" && elements.detailBottleStage) {
+  const detailStageObserver = new ResizeObserver(() => layoutDetailBottle());
+  detailStageObserver.observe(elements.detailBottleStage);
+}
+window.addEventListener("resize", layoutDetailBottle, { passive: true });

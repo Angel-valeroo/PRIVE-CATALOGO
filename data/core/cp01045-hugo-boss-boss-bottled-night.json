@@ -1,0 +1,156 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp01045-hugo-boss-boss-bottled-night",
+  "status": "review",
+  "identity": {
+    "brand": "HUGO BOSS",
+    "name": "BOSS BOTTLED NIGHT",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP01045",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Eau de Toilette",
+    "launchYear": 2010,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Amaderada aromática",
+    "subfamily": null,
+    "accords": [
+      "Aromático",
+      "Violeta",
+      "Amaderado",
+      "Almizclado"
+    ],
+    "styleTags": [
+      "Misterioso",
+      "Limpio y nocturno"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Lavanda",
+      "Abedul"
+    ],
+    "heartNotes": [
+      "Violeta"
+    ],
+    "baseNotes": [
+      "Almizcle",
+      "Notas amaderadas"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Moderada",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 2,
+    "sweetness": 0,
+    "warmth": 0,
+    "woodiness": 4,
+    "spiciness": 0,
+    "floral": 4,
+    "citrus": 0,
+    "fruitiness": 0,
+    "aquatic": 0,
+    "powdery": 4,
+    "smoky": 2,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Noche",
+      "Cita",
+      "Fiesta",
+      "Evento"
+    ],
+    "contexts": [
+      "Romántico",
+      "Social",
+      "Especial"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "dayParts": [
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 2,
+    "versatility": 3,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 20,
+      "max": 48,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 48 años por su estilo misterioso, limpio y nocturno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil aromático, violeta, amaderado, con una salida de lavanda, abedul que evoluciona hacia un fondo de almizcle, notas amaderadas. Su carácter misterioso, limpio y nocturno ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil misterioso, limpio y nocturno. Afinidad orientativa: 20 a 48 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima frío y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP01045.avif",
+      "alt": "HUGO BOSS BOSS BOTTLED NIGHT"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 002",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=HUGO+BOSS+BOSS+BOTTLED+NIGHT",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP01045",
+        "url": "https://perfumoteca.com/catalogo",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 002. Fragrantica y Perfumoteca se registran como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca se consulta por clave y representa la referencia olfativa usada por proveedor y pedidos PRIVÉ. Identidad contrastada por nombre e imagen; clave conservada para búsqueda exacta en Perfumoteca. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

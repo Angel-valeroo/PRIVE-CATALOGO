@@ -1,0 +1,172 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp01059-chanel-bleu-de-chanel-eau-de-parfum",
+  "status": "review",
+  "identity": {
+    "brand": "CHANEL",
+    "name": "BLEU DE CHANEL EAU DE PARFUM",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP01059",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Eau de Parfum",
+    "launchYear": 2014,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Amaderada aromática",
+    "subfamily": null,
+    "accords": [
+      "Cítrico",
+      "Amaderado",
+      "Ahumado",
+      "Especiado"
+    ],
+    "styleTags": [
+      "Pulido",
+      "Magnético y muy versátil"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Toronja",
+      "Limón",
+      "Menta",
+      "Pimienta rosa",
+      "Bergamota",
+      "Aldehídos",
+      "Cilantro"
+    ],
+    "heartNotes": [
+      "Jengibre",
+      "Jazmín",
+      "Nuez moscada",
+      "Melón"
+    ],
+    "baseNotes": [
+      "Incienso",
+      "Ámbar",
+      "Cedro",
+      "Sándalo",
+      "Pachulí",
+      "Ládano"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 5,
+    "sweetness": 0,
+    "warmth": 5,
+    "woodiness": 5,
+    "spiciness": 5,
+    "floral": 4,
+    "citrus": 5,
+    "fruitiness": 2,
+    "aquatic": 0,
+    "powdery": 0,
+    "smoky": 4,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Noche",
+      "Diario",
+      "Oficina",
+      "Cita"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Social"
+    ],
+    "climates": [
+      "Templado",
+      "Calor",
+      "Frío"
+    ],
+    "seasons": [
+      "Primavera",
+      "Otoño",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 3,
+    "versatility": 5,
+    "distinctiveness": 4,
+    "recommendedAge": {
+      "min": 22,
+      "max": 60,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 22 a 60 años por su estilo pulido, magnético y muy versátil. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil cítrico, amaderado, ahumado, con una salida de toronja, limón, menta que evoluciona hacia un fondo de incienso, ámbar, cedro. Su carácter pulido, magnético y muy versátil ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil pulido, magnético y muy versátil. Afinidad orientativa: 22 a 60 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima templado y calor y frío.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP01059.avif",
+      "alt": "CHANEL BLEU DE CHANEL EAU DE PARFUM"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 002",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=CHANEL+BLEU+DE+CHANEL+EAU+DE+PARFUM",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP01059",
+        "url": "https://perfumoteca.com/catalogo",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 002. Fragrantica y Perfumoteca se registran como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca se consulta por clave y representa la referencia olfativa usada por proveedor y pedidos PRIVÉ. Identidad contrastada por nombre e imagen; clave conservada para búsqueda exacta en Perfumoteca. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

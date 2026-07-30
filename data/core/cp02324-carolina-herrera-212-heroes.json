@@ -1,0 +1,159 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp02324-carolina-herrera-212-heroes",
+  "status": "review",
+  "identity": {
+    "brand": "CAROLINA HERRERA",
+    "name": "212 HEROES",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP02324",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Eau de Toilette",
+    "launchYear": 2021,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Aromática frutal",
+    "subfamily": null,
+    "accords": [
+      "Afrutado",
+      "Aromático",
+      "Fresco",
+      "Cuero"
+    ],
+    "styleTags": [
+      "Juvenil",
+      "Urbano y dinámico"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Pera",
+      "Cannabis",
+      "Jengibre"
+    ],
+    "heartNotes": [
+      "Geranio",
+      "Salvia"
+    ],
+    "baseNotes": [
+      "Almizcle",
+      "Cuero"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Moderada",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 0,
+    "sweetness": 4,
+    "warmth": 2,
+    "woodiness": 0,
+    "spiciness": 2,
+    "floral": 2,
+    "citrus": 0,
+    "fruitiness": 4,
+    "aquatic": 2,
+    "powdery": 2,
+    "smoky": 0,
+    "leathery": 2
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Diario",
+      "Oficina",
+      "Viaje",
+      "Playa"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Vacaciones"
+    ],
+    "climates": [
+      "Calor",
+      "Templado"
+    ],
+    "seasons": [
+      "Primavera",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde"
+    ],
+    "formality": 3,
+    "versatility": 4,
+    "distinctiveness": 4,
+    "recommendedAge": {
+      "min": 18,
+      "max": 38,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 38 años por su estilo juvenil, urbano y dinámico. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil afrutado, aromático, fresco, con una salida de pera, cannabis, jengibre que evoluciona hacia un fondo de almizcle, cuero. Su carácter juvenil, urbano y dinámico ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil juvenil, urbano y dinámico. Afinidad orientativa: 18 a 38 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima calor y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP02324.avif",
+      "alt": "CAROLINA HERRERA 212 HEROES"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 002",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=CAROLINA+HERRERA+212+HEROES",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP02324",
+        "url": "https://perfumoteca.com/catalogo",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 002. Fragrantica y Perfumoteca se registran como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca se consulta por clave y representa la referencia olfativa usada por proveedor y pedidos PRIVÉ. Identidad contrastada por nombre e imagen; clave conservada para búsqueda exacta en Perfumoteca. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

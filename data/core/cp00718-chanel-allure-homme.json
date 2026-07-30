@@ -1,0 +1,174 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp00718-chanel-allure-homme",
+  "status": "review",
+  "identity": {
+    "brand": "CHANEL",
+    "name": "ALLURE HOMME",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP00718",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Eau de Toilette",
+    "launchYear": 1999,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Ámbar amaderada",
+    "subfamily": null,
+    "accords": [
+      "Cítrico",
+      "Especiado",
+      "Amaderado",
+      "Vainilla"
+    ],
+    "styleTags": [
+      "Elegante",
+      "Complejo y versátil"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Limón",
+      "Durazno",
+      "Jengibre",
+      "Mandarina",
+      "Lavanda",
+      "Bergamota"
+    ],
+    "heartNotes": [
+      "Pimienta",
+      "Cedro",
+      "Pachulí",
+      "Vetiver",
+      "Rosa",
+      "Jazmín"
+    ],
+    "baseNotes": [
+      "Vainilla",
+      "Haba tonka",
+      "Sándalo",
+      "Ámbar",
+      "Almizcle",
+      "Musgo de roble",
+      "Cuero"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Moderada",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 5,
+    "sweetness": 4,
+    "warmth": 5,
+    "woodiness": 5,
+    "spiciness": 5,
+    "floral": 5,
+    "citrus": 5,
+    "fruitiness": 2,
+    "aquatic": 0,
+    "powdery": 4,
+    "smoky": 0,
+    "leathery": 2
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Noche",
+      "Diario",
+      "Oficina",
+      "Cita"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Social"
+    ],
+    "climates": [
+      "Templado",
+      "Calor",
+      "Frío"
+    ],
+    "seasons": [
+      "Primavera",
+      "Otoño",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 3,
+    "versatility": 5,
+    "distinctiveness": 4,
+    "recommendedAge": {
+      "min": 25,
+      "max": 60,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 25 a 60 años por su estilo elegante, complejo y versátil. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil cítrico, especiado, amaderado, con una salida de limón, durazno, jengibre que evoluciona hacia un fondo de vainilla, haba tonka, sándalo. Su carácter elegante, complejo y versátil ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil elegante, complejo y versátil. Afinidad orientativa: 25 a 60 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima templado y calor y frío.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP00718.avif",
+      "alt": "CHANEL ALLURE HOMME"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 002",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=CHANEL+ALLURE+HOMME",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP00718",
+        "url": "https://perfumoteca.com/catalogo",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 002. Fragrantica y Perfumoteca se registran como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca se consulta por clave y representa la referencia olfativa usada por proveedor y pedidos PRIVÉ. Identidad contrastada por nombre e imagen; clave conservada para búsqueda exacta en Perfumoteca. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

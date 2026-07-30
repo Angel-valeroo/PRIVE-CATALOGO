@@ -1,0 +1,157 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp02492-carolina-herrera-bad-boy-elixir",
+  "status": "review",
+  "identity": {
+    "brand": "CAROLINA HERRERA",
+    "name": "BAD BOY ELIXIR",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP02492",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Parfum",
+    "launchYear": 2025,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Cuero amaderada",
+    "subfamily": null,
+    "accords": [
+      "Aromático",
+      "Cuero",
+      "Iris",
+      "Ahumado"
+    ],
+    "styleTags": [
+      "Profundo",
+      "Elegante y oscuro"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Salvia",
+      "Lavanda"
+    ],
+    "heartNotes": [
+      "Cuero",
+      "Iris"
+    ],
+    "baseNotes": [
+      "Cedro",
+      "Incienso"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Muy intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 2,
+    "sweetness": 0,
+    "warmth": 4,
+    "woodiness": 2,
+    "spiciness": 0,
+    "floral": 4,
+    "citrus": 0,
+    "fruitiness": 0,
+    "aquatic": 2,
+    "powdery": 2,
+    "smoky": 2,
+    "leathery": 2
+  },
+  "recommendation": {
+    "occasions": [
+      "Noche",
+      "Cita",
+      "Fiesta",
+      "Evento"
+    ],
+    "contexts": [
+      "Romántico",
+      "Social",
+      "Especial"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "dayParts": [
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 2,
+    "versatility": 3,
+    "distinctiveness": 4,
+    "recommendedAge": {
+      "min": 25,
+      "max": 52,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 25 a 52 años por su estilo profundo, elegante y oscuro. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil aromático, cuero, iris, con una salida de salvia, lavanda que evoluciona hacia un fondo de cedro, incienso. Su carácter profundo, elegante y oscuro ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil profundo, elegante y oscuro. Afinidad orientativa: 25 a 52 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima frío y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP02492.avif",
+      "alt": "CAROLINA HERRERA BAD BOY ELIXIR"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 002",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=CAROLINA+HERRERA+BAD+BOY+ELIXIR",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP02492",
+        "url": "https://perfumoteca.com/catalogo",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 002. Fragrantica y Perfumoteca se registran como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca se consulta por clave y representa la referencia olfativa usada por proveedor y pedidos PRIVÉ. Identidad contrastada por nombre e imagen; clave conservada para búsqueda exacta en Perfumoteca. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

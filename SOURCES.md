@@ -1,11 +1,22 @@
-# Fuentes del grupo piloto
+# Fuentes y estado de revisión — Base Maestra PRIVÉ
 
-Los datos técnicos del primer grupo de perfumes se estructuraron usando páginas oficiales de Afnan, Armaf y Giorgio Armani Beauty. Las descripciones del catálogo fueron redactadas originalmente para PRIVÉ y no son copias textuales.
+## Fuente de identidad operativa
 
-Perfiles piloto:
-- Afnan 9 PM
-- Afnan Turathi Blue
-- Armaf Club de Nuit Intense Man
-- Giorgio Armani Acqua di Giò
-- Giorgio Armani Acqua di Giò Profondo
-- Giorgio Armani Acqua di Giò Parfum
+El catálogo operativo PRIVÉ conserva la clave, categoría y archivo de imagen local. El nombre y la versión se contrastan con la imagen para evitar confundir perfumes que comparten nombre o tienen varios flankers.
+
+## Fuentes principales complementarias
+
+**Fragrantica** y **Perfumoteca** tienen funciones distintas y ambas son principales:
+
+- **Fragrantica:** nombre correcto, versión/flanker, imagen de referencia y contraste de familia y pirámide olfativa.
+- **Perfumoteca:** búsqueda exacta mediante la clave PRIVÉ; sus notas representan la referencia empleada por el proveedor y por los pedidos de PRIVÉ.
+
+Si Perfumoteca presenta un nombre impreciso, se conserva el nombre identificado por Fragrantica y la imagen. Si las notas difieren, la ficha permanece en `review`, se documenta la diferencia y no se mezclan versiones ni se inventa información.
+
+## Estado de los lotes
+
+- Lote 001: 50 fichas en `review`.
+- Lote 002: 100 fichas en `review`.
+- Total activo: 150 fichas.
+
+Las descripciones y orientaciones son redacción original de PRIVÉ; no son copias textuales. La edad es una tendencia secundaria, amable y no restrictiva. El Asesor debe priorizar gustos, notas, ocasión, clima y la imagen que la persona desea proyectar.

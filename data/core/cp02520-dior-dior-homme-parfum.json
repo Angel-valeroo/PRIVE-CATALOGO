@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp02520-dior-dior-homme-parfum",
+  "status": "review",
+  "identity": {
+    "brand": "DIOR",
+    "name": "DIOR HOMME PARFUM",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP02520",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Parfum",
+    "launchYear": 2014,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Cuero floral",
+    "subfamily": null,
+    "accords": [
+      "Iris",
+      "Cuero",
+      "Amaderado",
+      "Ahumado"
+    ],
+    "styleTags": [
+      "Opulento",
+      "Formal y sofisticado"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Naranja de Italia"
+    ],
+    "heartNotes": [
+      "Iris de Toscana",
+      "Rosa"
+    ],
+    "baseNotes": [
+      "Cuero",
+      "Sándalo",
+      "Ambreta",
+      "Cedro",
+      "Oud"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Muy intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 0,
+    "sweetness": 0,
+    "warmth": 4,
+    "woodiness": 5,
+    "spiciness": 0,
+    "floral": 4,
+    "citrus": 2,
+    "fruitiness": 0,
+    "aquatic": 0,
+    "powdery": 2,
+    "smoky": 0,
+    "leathery": 2
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Noche",
+      "Oficina",
+      "Evento"
+    ],
+    "contexts": [
+      "Profesional",
+      "Formal",
+      "Especial"
+    ],
+    "climates": [
+      "Templado",
+      "Frío"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno",
+      "Primavera"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 4,
+    "versatility": 3,
+    "distinctiveness": 4,
+    "recommendedAge": {
+      "min": 30,
+      "max": 65,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 30 a 65 años por su estilo opulento, formal y sofisticado. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil iris, cuero, amaderado, con una salida de naranja de italia que evoluciona hacia un fondo de cuero, sándalo, ambreta. Su carácter opulento, formal y sofisticado ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil opulento, formal y sofisticado. Afinidad orientativa: 30 a 65 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima templado y frío.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP02520.avif",
+      "alt": "DIOR DIOR HOMME PARFUM"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 002",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=DIOR+DIOR+HOMME+PARFUM",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP02520",
+        "url": "https://perfumoteca.com/catalogo",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 002. Fragrantica y Perfumoteca se registran como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca se consulta por clave y representa la referencia olfativa usada por proveedor y pedidos PRIVÉ. Identidad contrastada por nombre e imagen; clave conservada para búsqueda exacta en Perfumoteca. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

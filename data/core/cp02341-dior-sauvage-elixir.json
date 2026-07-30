@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp02341-dior-sauvage-elixir",
+  "status": "review",
+  "identity": {
+    "brand": "DIOR",
+    "name": "SAUVAGE ELIXIR",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP02341",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Parfum",
+    "launchYear": 2021,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Aromática especiada",
+    "subfamily": null,
+    "accords": [
+      "Especiado",
+      "Canela",
+      "Lavanda",
+      "Amaderado"
+    ],
+    "styleTags": [
+      "Concentrado",
+      "Oscuro y dominante"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Nuez moscada",
+      "Canela",
+      "Cardamomo",
+      "Toronja"
+    ],
+    "heartNotes": [
+      "Lavanda"
+    ],
+    "baseNotes": [
+      "Regaliz",
+      "Sándalo",
+      "Ámbar",
+      "Pachulí",
+      "Vetiver de Haití"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Muy intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 4,
+    "sweetness": 0,
+    "warmth": 5,
+    "woodiness": 5,
+    "spiciness": 5,
+    "floral": 2,
+    "citrus": 2,
+    "fruitiness": 0,
+    "aquatic": 0,
+    "powdery": 0,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Noche",
+      "Cita",
+      "Fiesta",
+      "Evento"
+    ],
+    "contexts": [
+      "Romántico",
+      "Social",
+      "Especial"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "dayParts": [
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 2,
+    "versatility": 3,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 25,
+      "max": 60,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 25 a 60 años por su estilo concentrado, oscuro y dominante. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil especiado, canela, lavanda, con una salida de nuez moscada, canela, cardamomo que evoluciona hacia un fondo de regaliz, sándalo, ámbar. Su carácter concentrado, oscuro y dominante ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil concentrado, oscuro y dominante. Afinidad orientativa: 25 a 60 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima frío y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP02341.avif",
+      "alt": "DIOR SAUVAGE ELIXIR"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 002",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=DIOR+SAUVAGE+ELIXIR",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP02341",
+        "url": "https://perfumoteca.com/catalogo",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 002. Fragrantica y Perfumoteca se registran como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca se consulta por clave y representa la referencia olfativa usada por proveedor y pedidos PRIVÉ. Identidad contrastada por nombre e imagen; clave conservada para búsqueda exacta en Perfumoteca. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}
