@@ -7,12 +7,15 @@ const state = {
 const IMAGE_BASE_PATH = "IMAGES";
 const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
 const MIN_RECOMMENDATION_SCORE = 85;
-const CORE_DATA_VERSION = "master-004-scrollfix-v47";
+const CORE_DATA_VERSION = "master-004-scrollfix-v48";
 const IS_MOBILE_CATALOG = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.matchMedia("(pointer: coarse)").matches;
-const CATALOG_IMAGE_ROOT_MARGIN = IS_MOBILE_CATALOG ? "900px 0px" : "1600px 0px";
-const CATALOG_IMAGE_CONCURRENCY = IS_MOBILE_CATALOG ? 3 : 6;
-const CATALOG_VIRTUAL_OVERSCAN_ROWS = IS_MOBILE_CATALOG ? 5 : 4;
-const CATALOG_VIRTUAL_MIN_ROWS = IS_MOBILE_CATALOG ? 12 : 10;
+const CATALOG_BATCH_SIZE = IS_MOBILE_CATALOG ? 16 : 32;
+const CATALOG_INITIAL_BATCH_SIZE = IS_MOBILE_CATALOG ? 32 : 64;
+const CATALOG_IMAGE_CACHE_LIMIT = IS_MOBILE_CATALOG ? 96 : 160;
+const CATALOG_IMAGE_RELEASE_DISTANCE = IS_MOBILE_CATALOG ? 8 : 10;
+const CATALOG_IMAGE_ROOT_MARGIN = IS_MOBILE_CATALOG ? "650px 0px" : "1800px 0px";
+const CATALOG_IMAGE_CONCURRENCY = IS_MOBILE_CATALOG ? 2 : 5;
+const CATALOG_IDLE_DELAY = IS_MOBILE_CATALOG ? 950 : 500;
 
 const DISCOVERY_GROUPS = [
   { label: "Género", type: "category", featured: true, values: ["Caballero", "Dama", "Unisex"] },
@@ -74,17 +77,17 @@ const detailImageBoundsCache = new Map();
 let detailLayoutFrame = 0;
 let detailOpenSequence = 0;
 let catalogRenderToken = 0;
+let catalogRenderedCount = 0;
+let catalogObserver = null;
 let catalogImageObserver = null;
+let catalogBatchTimer = 0;
+let catalogScrollIdleTimer = 0;
+let catalogScrollBusy = false;
+let lastCatalogScrollY = window.scrollY;
+let lastCatalogScrollTime = performance.now();
 let catalogImageActiveLoads = 0;
 const catalogImageQueue = [];
 const catalogImageQueued = new WeakSet();
-let virtualCatalogResults = [];
-let virtualCatalogStartRow = -1;
-let virtualCatalogEndRow = -1;
-let virtualCatalogColumns = 0;
-let virtualCatalogRowPitch = 0;
-let virtualCatalogFrame = 0;
-let virtualCatalogResizeTimer = 0;
 
 function categoryFromCode(code) {
   const value = String(code || "").trim().toUpperCase();
@@ -255,6 +258,21 @@ function loadImage(image, fallback, monogram, perfume) {
   image.onerror = tryNextExtension;
   tryNextExtension();
 }
+function unloadCatalogImage(image) {
+  if (!image || image === elements.detailImage) return;
+  catalogImageQueued.delete(image);
+  image.dataset.requestId = `unloaded-${Date.now()}`;
+  image.onload = null;
+  image.onerror = null;
+  image.removeAttribute("src");
+  image.classList.add("is-loading");
+  image.hidden = false;
+  const card = image.closest(".perfume-card");
+  const fallback = card?.querySelector(".image-fallback");
+  if (fallback) fallback.hidden = false;
+  image.dataset.loaded = "false";
+}
+
 function pumpCatalogImageQueue() {
   while (catalogImageActiveLoads < CATALOG_IMAGE_CONCURRENCY && catalogImageQueue.length) {
     const task = catalogImageQueue.shift();
@@ -263,6 +281,9 @@ function pumpCatalogImageQueue() {
     catalogImageActiveLoads += 1;
     image.dataset.loaded = "true";
     const finish = () => {
+      image.removeEventListener("load", finish);
+      image.removeEventListener("error", finish);
+      catalogImageQueued.delete(image);
       catalogImageActiveLoads = Math.max(0, catalogImageActiveLoads - 1);
       pumpCatalogImageQueue();
     };
@@ -286,10 +307,27 @@ function queueCatalogImage(image) {
 function ensureCatalogImageObserver() {
   if (catalogImageObserver || typeof IntersectionObserver === "undefined") return;
   catalogImageObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
+    for (const entry of entries) {
       if (entry.isIntersecting) queueCatalogImage(entry.target);
-    });
+    }
   }, { root: null, rootMargin: CATALOG_IMAGE_ROOT_MARGIN, threshold: 0.01 });
+}
+
+function releaseFarCatalogImages() {
+  const loaded = [...elements.catalog.querySelectorAll('.perfume-image[data-loaded="true"]')];
+  if (loaded.length <= CATALOG_IMAGE_CACHE_LIMIT) return;
+  const viewportHeight = Math.max(window.innerHeight, 1);
+  const releaseDistance = viewportHeight * CATALOG_IMAGE_RELEASE_DISTANCE;
+  const candidates = loaded
+    .map(image => {
+      const rect = image.getBoundingClientRect();
+      const distance = rect.bottom < 0 ? Math.abs(rect.bottom) : rect.top > viewportHeight ? rect.top - viewportHeight : 0;
+      return { image, distance };
+    })
+    .filter(item => item.distance > releaseDistance)
+    .sort((a, b) => b.distance - a.distance);
+  const excess = Math.max(0, loaded.length - CATALOG_IMAGE_CACHE_LIMIT);
+  candidates.slice(0, excess).forEach(({ image }) => unloadCatalogImage(image));
 }
 
 function configureImage(card, perfume) {
@@ -300,12 +338,12 @@ function configureImage(card, perfume) {
   image.loading = "lazy";
   image.decoding = "async";
   image.fetchPriority = "low";
-  image.dataset.loaded = "true";
+  image.dataset.loaded = "false";
   monogram.textContent = initials(perfume.designer);
   fallback.hidden = false;
-  // La ventana virtual mantiene pocas tarjetas vivas; cargar directamente evita
-  // que una cola/observer obsoleto deje todas las imágenes en estado pendiente.
-  loadImage(image, fallback, monogram, perfume);
+  ensureCatalogImageObserver();
+  if (catalogImageObserver) catalogImageObserver.observe(image);
+  else loadImage(image, fallback, monogram, perfume);
 }
 function scrollToCatalog() { $("#catalogo").scrollIntoView({ behavior: "smooth", block: "start" }); }
 function setFilter(type, value, shouldScroll = true) {
@@ -504,113 +542,78 @@ function createCatalogCard(perfume, index) {
   return card;
 }
 
-function resetCatalogImages() {
+function disconnectCatalogObserver() {
+  if (catalogObserver) catalogObserver.disconnect();
+  catalogObserver = null;
+}
+
+function disconnectCatalogImages() {
   if (catalogImageObserver) catalogImageObserver.disconnect();
   catalogImageObserver = null;
   catalogImageQueue.length = 0;
   catalogImageActiveLoads = 0;
-  // Cancelamos solicitudes de tarjetas que van a salir de la ventana virtual.
-  elements.catalog.querySelectorAll(".perfume-image").forEach(image => {
-    image.onload = null;
-    image.onerror = null;
-    image.removeAttribute("src");
-  });
 }
 
-function catalogColumnCount() {
-  const template = getComputedStyle(elements.catalog).gridTemplateColumns;
-  const columns = template && template !== "none" ? template.split(/\s+/).filter(Boolean).length : 1;
-  return Math.max(1, columns);
-}
-
-function catalogGridGap() {
-  const styles = getComputedStyle(elements.catalog);
-  return parseFloat(styles.rowGap || styles.gap || "0") || 0;
-}
-
-function createVirtualSpacer(height, position) {
-  const spacer = document.createElement("div");
-  spacer.className = `catalog-virtual-spacer catalog-virtual-spacer--${position}`;
-  spacer.style.height = `${Math.max(0, height).toFixed(2)}px`;
-  spacer.setAttribute("aria-hidden", "true");
-  return spacer;
-}
-
-function measureVirtualRow() {
-  const firstCard = elements.catalog.querySelector(".perfume-card");
-  if (!firstCard) return;
-  const height = firstCard.getBoundingClientRect().height;
-  if (height > 100) virtualCatalogRowPitch = height + catalogGridGap();
-}
-
-function unobserveCurrentCatalogImages() {
-  elements.catalog.querySelectorAll(".perfume-image").forEach(image => {
-    if (catalogImageObserver) catalogImageObserver.unobserve(image);
-    image.onload = null;
-    image.onerror = null;
-    image.removeAttribute("src");
-  });
-}
-
-function renderVirtualCatalogWindow(force = false) {
-  cancelAnimationFrame(virtualCatalogFrame);
-  virtualCatalogFrame = requestAnimationFrame(() => {
-    const results = virtualCatalogResults;
-    if (!results.length) {
-      elements.catalog.replaceChildren();
+function scheduleCatalogBatch(results, token) {
+  clearTimeout(catalogBatchTimer);
+  const run = deadline => {
+    if (token !== catalogRenderToken || catalogRenderedCount >= results.length) return;
+    const canWork = !deadline || deadline.didTimeout || deadline.timeRemaining() > 5;
+    if (!canWork) {
+      scheduleCatalogBatch(results, token);
       return;
     }
+    appendCatalogBatch(results, token, CATALOG_BATCH_SIZE);
+  };
+  if (IS_MOBILE_CATALOG && catalogScrollBusy) {
+    catalogBatchTimer = window.setTimeout(() => scheduleCatalogBatch(results, token), 90);
+  } else if (typeof requestIdleCallback === "function") {
+    requestIdleCallback(run, { timeout: IS_MOBILE_CATALOG ? 420 : 220 });
+  } else {
+    catalogBatchTimer = window.setTimeout(() => run(null), IS_MOBILE_CATALOG ? 55 : 35);
+  }
+}
 
-    const columns = catalogColumnCount();
-    const catalogTop = elements.catalog.getBoundingClientRect().top + window.scrollY;
-    const estimatedCardHeight = Math.max(360, elements.catalog.clientWidth / columns * 1.78);
-    const rowPitch = virtualCatalogRowPitch || (estimatedCardHeight + catalogGridGap());
-    const totalRows = Math.ceil(results.length / columns);
-    const viewportTop = Math.max(0, window.scrollY - catalogTop);
-    const visibleStartRow = Math.max(0, Math.floor(viewportTop / rowPitch));
-    const visibleRows = Math.max(CATALOG_VIRTUAL_MIN_ROWS, Math.ceil(window.innerHeight / rowPitch) + 2);
-    const startRow = Math.max(0, visibleStartRow - CATALOG_VIRTUAL_OVERSCAN_ROWS);
-    const endRow = Math.min(totalRows, visibleStartRow + visibleRows + CATALOG_VIRTUAL_OVERSCAN_ROWS);
+function appendCatalogBatch(results, token, requestedSize = CATALOG_BATCH_SIZE) {
+  if (token !== catalogRenderToken || catalogRenderedCount >= results.length) return;
+  const end = Math.min(catalogRenderedCount + requestedSize, results.length);
+  const fragment = document.createDocumentFragment();
+  for (let index = catalogRenderedCount; index < end; index += 1) {
+    fragment.appendChild(createCatalogCard(results[index], index));
+  }
+  elements.catalog.appendChild(fragment);
+  catalogRenderedCount = end;
+  updateCatalogSentinel(results.length);
+  if (catalogRenderedCount < results.length) scheduleCatalogBatch(results, token);
+}
 
-    if (!force && columns === virtualCatalogColumns && startRow === virtualCatalogStartRow && endRow === virtualCatalogEndRow) return;
-    virtualCatalogColumns = columns;
-    virtualCatalogStartRow = startRow;
-    virtualCatalogEndRow = endRow;
-
-    const gap = catalogGridGap();
-    const fragment = document.createDocumentFragment();
-    if (startRow > 0) fragment.appendChild(createVirtualSpacer(startRow * rowPitch - gap, "top"));
-    const startIndex = startRow * columns;
-    const endIndex = Math.min(results.length, endRow * columns);
-    for (let index = startIndex; index < endIndex; index += 1) {
-      fragment.appendChild(createCatalogCard(results[index], index));
-    }
-    if (endRow < totalRows) fragment.appendChild(createVirtualSpacer((totalRows - endRow) * rowPitch - gap, "bottom"));
-    unobserveCurrentCatalogImages();
-    elements.catalog.replaceChildren(fragment);
-
-    requestAnimationFrame(() => {
-      const previousPitch = virtualCatalogRowPitch;
-      measureVirtualRow();
-      if (!previousPitch && virtualCatalogRowPitch) renderVirtualCatalogWindow(true);
-    });
-  });
+function updateCatalogSentinel(total) {
+  let sentinel = document.getElementById("catalogLoadSentinel");
+  if (!sentinel) {
+    sentinel = document.createElement("div");
+    sentinel.id = "catalogLoadSentinel";
+    sentinel.className = "catalog-load-sentinel";
+    sentinel.setAttribute("aria-hidden", "true");
+    elements.catalog.insertAdjacentElement("afterend", sentinel);
+  }
+  sentinel.hidden = true;
+  sentinel.dataset.remaining = String(Math.max(0, total - catalogRenderedCount));
 }
 
 function render() {
   const results = filteredPerfumes();
-  catalogRenderToken += 1;
-  resetCatalogImages();
-  virtualCatalogResults = results;
-  virtualCatalogStartRow = -1;
-  virtualCatalogEndRow = -1;
-  virtualCatalogColumns = 0;
-  virtualCatalogRowPitch = 0;
+  const token = ++catalogRenderToken;
+  disconnectCatalogObserver();
+  disconnectCatalogImages();
+  clearTimeout(catalogBatchTimer);
+  catalogRenderedCount = 0;
   elements.catalog.replaceChildren();
-  renderVirtualCatalogWindow(true);
+  appendCatalogBatch(results, token, CATALOG_INITIAL_BATCH_SIZE);
   elements.resultCount.textContent = results.length.toLocaleString("es-MX");
   elements.resultLabel.textContent = results.length === 1 ? "fragancia" : "fragancias";
   elements.emptyState.hidden = results.length !== 0;
+  const sentinel = document.getElementById("catalogLoadSentinel");
+  if (sentinel && results.length === 0) sentinel.hidden = true;
   elements.clearSearch.classList.toggle("visible", Boolean(state.query));
   elements.categoryFilters.forEach(button => {
     const active = button.dataset.category === state.category;
@@ -893,7 +896,21 @@ async function init(){
 }
 
 window.addEventListener("scroll", () => {
-  renderVirtualCatalogWindow(false);
+  const now = performance.now();
+  const deltaY = Math.abs(window.scrollY - lastCatalogScrollY);
+  const deltaT = Math.max(1, now - lastCatalogScrollTime);
+  const velocity = deltaY / deltaT;
+  lastCatalogScrollY = window.scrollY;
+  lastCatalogScrollTime = now;
+  if (velocity > 1.25 || deltaY > 320) catalogScrollBusy = true;
+  // Nunca descargamos imágenes durante el desplazamiento: hacerlo provoca
+  // parpadeo visible cuando Safari alterna entre liberar y volver a pedir recursos.
+  clearTimeout(catalogScrollIdleTimer);
+  catalogScrollIdleTimer = window.setTimeout(() => {
+    catalogScrollBusy = false;
+    releaseFarCatalogImages();
+    pumpCatalogImageQueue();
+  }, CATALOG_IDLE_DELAY);
 }, { passive: true });
 
 window.addEventListener("pageshow", event => {
@@ -908,14 +925,4 @@ if (typeof ResizeObserver !== "undefined" && elements.detailBottleStage) {
   const detailStageObserver = new ResizeObserver(() => layoutDetailBottle());
   detailStageObserver.observe(elements.detailBottleStage);
 }
-window.addEventListener("resize", () => {
-  layoutDetailBottle();
-  clearTimeout(virtualCatalogResizeTimer);
-  virtualCatalogResizeTimer = window.setTimeout(() => {
-    virtualCatalogStartRow = -1;
-    virtualCatalogEndRow = -1;
-    virtualCatalogColumns = 0;
-    virtualCatalogRowPitch = 0;
-    renderVirtualCatalogWindow(true);
-  }, 160);
-}, { passive: true });
+window.addEventListener("resize", layoutDetailBottle, { passive: true });
