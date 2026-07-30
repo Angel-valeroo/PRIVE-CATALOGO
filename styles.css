@@ -1479,27 +1479,17 @@ body.search-has-query .search-svg{
   opacity:.86;
 }
 
-/* Sprint 4.2 · estabilidad de catálogo en Safari iOS */
-.perfume-card{
-  content-visibility:auto;
-  contain-intrinsic-size:420px 260px;
-}
-.catalog-load-sentinel{
-  width:100%;
-  height:2px;
-  pointer-events:none;
-}
-.catalog-load-sentinel[hidden]{display:none}
-
-
-/* Sprint 4.3 — reducción de pintura y memoria durante scroll agresivo en Safari */
-@supports (content-visibility: auto) {
-  .perfume-card {
-    content-visibility: auto;
-    contain-intrinsic-size: 430px;
+/* Sprint 4.5 — guardia de memoria móvil para Safari y Android */
+.catalog-load-sentinel{display:none!important}
+@media (hover:none) and (pointer:coarse){
+  /* content-visibility provoca repintados y recargas inestables en algunas versiones de WebKit. */
+  .perfume-card{
+    content-visibility:visible!important;
+    contain:layout paint style;
+    transform:translateZ(0);
+    backface-visibility:hidden;
+  }
+  .perfume-image{
+    will-change:auto!important;
   }
 }
-
-
-/* Sprint 4.4 — catálogo continuo sin pausas visibles */
-.catalog-load-sentinel{display:none!important}

@@ -180,3 +180,11 @@
 - Las imágenes se precargan con mayor anticipación y solo se liberan cuando la memoria supera un límite seguro y están muy lejos de la pantalla.
 - Se conserva un máximo controlado de imágenes decodificadas para evitar reinicios de Safari durante scroll agresivo.
 - Se actualizó la caché de estilos y JavaScript a 4.4 / 5.4.
+
+
+## Sprint 4.5 — estabilidad móvil Safari/Android
+- Cola de imágenes con concurrencia limitada.
+- Menor margen de precarga en móviles.
+- Liberación temprana de imágenes lejanas durante scroll agresivo.
+- Render por lotes pausado mientras el usuario desplaza rápidamente.
+- Desactivación de `content-visibility` en dispositivos táctiles por inestabilidad de WebKit.

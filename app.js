@@ -7,12 +7,15 @@ const state = {
 const IMAGE_BASE_PATH = "IMAGES";
 const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
 const MIN_RECOMMENDATION_SCORE = 85;
-const CORE_DATA_VERSION = "master-004-scrollfix-v44";
-const CATALOG_BATCH_SIZE = 24;
-const CATALOG_INITIAL_BATCH_SIZE = 48;
-const CATALOG_IMAGE_CACHE_LIMIT = 96;
-const CATALOG_IMAGE_RELEASE_DISTANCE = 5;
-const CATALOG_IDLE_DELAY = 180;
+const CORE_DATA_VERSION = "master-004-scrollfix-v45";
+const IS_MOBILE_CATALOG = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.matchMedia("(pointer: coarse)").matches;
+const CATALOG_BATCH_SIZE = IS_MOBILE_CATALOG ? 16 : 32;
+const CATALOG_INITIAL_BATCH_SIZE = IS_MOBILE_CATALOG ? 32 : 64;
+const CATALOG_IMAGE_CACHE_LIMIT = IS_MOBILE_CATALOG ? 42 : 110;
+const CATALOG_IMAGE_RELEASE_DISTANCE = IS_MOBILE_CATALOG ? 2.2 : 5;
+const CATALOG_IMAGE_ROOT_MARGIN = IS_MOBILE_CATALOG ? "650px 0px" : "1800px 0px";
+const CATALOG_IMAGE_CONCURRENCY = IS_MOBILE_CATALOG ? 2 : 5;
+const CATALOG_IDLE_DELAY = IS_MOBILE_CATALOG ? 110 : 180;
 
 const DISCOVERY_GROUPS = [
   { label: "Género", type: "category", featured: true, values: ["Caballero", "Dama", "Unisex"] },
@@ -82,6 +85,9 @@ let catalogScrollIdleTimer = 0;
 let catalogScrollBusy = false;
 let lastCatalogScrollY = window.scrollY;
 let lastCatalogScrollTime = performance.now();
+let catalogImageActiveLoads = 0;
+const catalogImageQueue = [];
+const catalogImageQueued = new WeakSet();
 
 function categoryFromCode(code) {
   const value = String(code || "").trim().toUpperCase();
@@ -266,20 +272,44 @@ function unloadCatalogImage(image) {
   image.dataset.loaded = "false";
 }
 
+function pumpCatalogImageQueue() {
+  while (catalogImageActiveLoads < CATALOG_IMAGE_CONCURRENCY && catalogImageQueue.length) {
+    const task = catalogImageQueue.shift();
+    if (!task?.image?.isConnected || task.image.dataset.loaded === "true") continue;
+    const { image, card, perfume } = task;
+    catalogImageActiveLoads += 1;
+    image.dataset.loaded = "true";
+    const finish = () => {
+      image.removeEventListener("load", finish);
+      image.removeEventListener("error", finish);
+      catalogImageActiveLoads = Math.max(0, catalogImageActiveLoads - 1);
+      if (IS_MOBILE_CATALOG) releaseFarCatalogImages();
+      pumpCatalogImageQueue();
+    };
+    image.addEventListener("load", finish, { once: true });
+    image.addEventListener("error", finish, { once: true });
+    loadImage(image, card.querySelector(".image-fallback"), card.querySelector(".monogram"), perfume);
+  }
+}
+
+function queueCatalogImage(image) {
+  if (!image || image.dataset.loaded === "true" || catalogImageQueued.has(image)) return;
+  const card = image.closest(".perfume-card");
+  const perfumeId = card?.dataset.perfumeId;
+  const perfume = state.perfumes.find(item => item.id === perfumeId);
+  if (!card || !perfume) return;
+  catalogImageQueued.add(image);
+  catalogImageQueue.push({ image, card, perfume });
+  pumpCatalogImageQueue();
+}
+
 function ensureCatalogImageObserver() {
   if (catalogImageObserver || typeof IntersectionObserver === "undefined") return;
   catalogImageObserver = new IntersectionObserver(entries => {
     for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      const image = entry.target;
-      const card = image.closest(".perfume-card");
-      const perfumeId = card?.dataset.perfumeId;
-      const perfume = state.perfumes.find(item => item.id === perfumeId);
-      if (!perfume || image.dataset.loaded === "true") continue;
-      image.dataset.loaded = "true";
-      loadImage(image, card.querySelector(".image-fallback"), card.querySelector(".monogram"), perfume);
+      if (entry.isIntersecting) queueCatalogImage(entry.target);
     }
-  }, { root: null, rootMargin: "2200px 0px", threshold: 0.01 });
+  }, { root: null, rootMargin: CATALOG_IMAGE_ROOT_MARGIN, threshold: 0.01 });
 }
 
 function releaseFarCatalogImages() {
@@ -519,6 +549,8 @@ function disconnectCatalogObserver() {
 function disconnectCatalogImages() {
   if (catalogImageObserver) catalogImageObserver.disconnect();
   catalogImageObserver = null;
+  catalogImageQueue.length = 0;
+  catalogImageActiveLoads = 0;
 }
 
 function scheduleCatalogBatch(results, token) {
@@ -532,10 +564,12 @@ function scheduleCatalogBatch(results, token) {
     }
     appendCatalogBatch(results, token, CATALOG_BATCH_SIZE);
   };
-  if (typeof requestIdleCallback === "function") {
-    requestIdleCallback(run, { timeout: 220 });
+  if (IS_MOBILE_CATALOG && catalogScrollBusy) {
+    catalogBatchTimer = window.setTimeout(() => scheduleCatalogBatch(results, token), 90);
+  } else if (typeof requestIdleCallback === "function") {
+    requestIdleCallback(run, { timeout: IS_MOBILE_CATALOG ? 420 : 220 });
   } else {
-    catalogBatchTimer = window.setTimeout(() => run(null), 35);
+    catalogBatchTimer = window.setTimeout(() => run(null), IS_MOBILE_CATALOG ? 55 : 35);
   }
 }
 
@@ -867,11 +901,13 @@ window.addEventListener("scroll", () => {
   const velocity = deltaY / deltaT;
   lastCatalogScrollY = window.scrollY;
   lastCatalogScrollTime = now;
-  if (velocity > 1.6 || deltaY > 420) catalogScrollBusy = true;
+  if (velocity > 1.25 || deltaY > 320) catalogScrollBusy = true;
+  if (IS_MOBILE_CATALOG && catalogScrollBusy) releaseFarCatalogImages();
   clearTimeout(catalogScrollIdleTimer);
   catalogScrollIdleTimer = window.setTimeout(() => {
     catalogScrollBusy = false;
     releaseFarCatalogImages();
+    pumpCatalogImageQueue();
   }, CATALOG_IDLE_DELAY);
 }, { passive: true });
 
