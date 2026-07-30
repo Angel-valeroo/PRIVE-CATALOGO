@@ -7,14 +7,14 @@ const state = {
 const IMAGE_BASE_PATH = "IMAGES";
 const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
 const MIN_RECOMMENDATION_SCORE = 85;
-const CORE_DATA_VERSION = "master-004-scrollfix-v48";
+const CORE_DATA_VERSION = "master-004-scrollfix-v49";
 const IS_MOBILE_CATALOG = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.matchMedia("(pointer: coarse)").matches;
-const CATALOG_BATCH_SIZE = IS_MOBILE_CATALOG ? 16 : 32;
-const CATALOG_INITIAL_BATCH_SIZE = IS_MOBILE_CATALOG ? 32 : 64;
-const CATALOG_IMAGE_CACHE_LIMIT = IS_MOBILE_CATALOG ? 96 : 160;
-const CATALOG_IMAGE_RELEASE_DISTANCE = IS_MOBILE_CATALOG ? 8 : 10;
-const CATALOG_IMAGE_ROOT_MARGIN = IS_MOBILE_CATALOG ? "650px 0px" : "1800px 0px";
-const CATALOG_IMAGE_CONCURRENCY = IS_MOBILE_CATALOG ? 2 : 5;
+const CATALOG_BATCH_SIZE = IS_MOBILE_CATALOG ? 24 : 40;
+const CATALOG_INITIAL_BATCH_SIZE = IS_MOBILE_CATALOG ? 48 : 72;
+const CATALOG_IMAGE_CACHE_LIMIT = IS_MOBILE_CATALOG ? 112 : 180;
+const CATALOG_IMAGE_RELEASE_DISTANCE = IS_MOBILE_CATALOG ? 9 : 11;
+const CATALOG_IMAGE_ROOT_MARGIN = IS_MOBILE_CATALOG ? "1400px 0px" : "2200px 0px";
+const CATALOG_IMAGE_CONCURRENCY = IS_MOBILE_CATALOG ? 4 : 6;
 const CATALOG_IDLE_DELAY = IS_MOBILE_CATALOG ? 950 : 500;
 
 const DISCOVERY_GROUPS = [
@@ -86,6 +86,8 @@ let catalogScrollBusy = false;
 let lastCatalogScrollY = window.scrollY;
 let lastCatalogScrollTime = performance.now();
 let catalogImageActiveLoads = 0;
+let catalogImageGeneration = 0;
+let catalogImageSweepFrame = 0;
 const catalogImageQueue = [];
 const catalogImageQueued = new WeakSet();
 
@@ -202,7 +204,7 @@ function filteredPerfumes() {
       && (!query || searchableText(perfume).includes(query));
   });
 }
-function loadImage(image, fallback, monogram, perfume) {
+function loadImage(image, fallback, monogram, perfume, onSettled = null) {
   let extensionIndex = 0;
   const requestId = `${perfume.id}-${Date.now()}-${Math.random().toString(36).slice(2)}`;
   image.dataset.requestId = requestId;
@@ -214,6 +216,12 @@ function loadImage(image, fallback, monogram, perfume) {
   fallback.hidden = false;
 
   const isCurrentRequest = () => image.dataset.requestId === requestId;
+  let settled = false;
+  const settle = success => {
+    if (settled) return;
+    settled = true;
+    if (typeof onSettled === "function") onSettled(success);
+  };
   const revealCurrentImage = async () => {
     if (!isCurrentRequest()) return;
     // En tarjetas evitamos decodificaciones masivas simultáneas. Safari puede
@@ -224,6 +232,7 @@ function loadImage(image, fallback, monogram, perfume) {
     }
     image.classList.remove("is-loading");
     fallback.hidden = true;
+    settle(true);
     if (image === elements.detailImage) {
       const revealSequence = detailOpenSequence;
       requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -248,6 +257,7 @@ function loadImage(image, fallback, monogram, perfume) {
       image.hidden = true;
       image.classList.remove("is-loading");
       fallback.hidden = false;
+      settle(false);
       return;
     }
     const extension = IMAGE_EXTENSIONS[extensionIndex++];
@@ -273,23 +283,35 @@ function unloadCatalogImage(image) {
   image.dataset.loaded = "false";
 }
 
+function imageDistanceFromViewport(image) {
+  const rect = image.getBoundingClientRect();
+  const viewportHeight = Math.max(window.innerHeight, 1);
+  if (rect.bottom < 0) return Math.abs(rect.bottom);
+  if (rect.top > viewportHeight) return rect.top - viewportHeight;
+  return 0;
+}
+
 function pumpCatalogImageQueue() {
+  catalogImageQueue.sort((a, b) => imageDistanceFromViewport(a.image) - imageDistanceFromViewport(b.image));
   while (catalogImageActiveLoads < CATALOG_IMAGE_CONCURRENCY && catalogImageQueue.length) {
     const task = catalogImageQueue.shift();
     if (!task?.image?.isConnected || task.image.dataset.loaded === "true") continue;
-    const { image, card, perfume } = task;
+    const { image, card, perfume, generation } = task;
     catalogImageActiveLoads += 1;
     image.dataset.loaded = "true";
-    const finish = () => {
-      image.removeEventListener("load", finish);
-      image.removeEventListener("error", finish);
-      catalogImageQueued.delete(image);
-      catalogImageActiveLoads = Math.max(0, catalogImageActiveLoads - 1);
-      pumpCatalogImageQueue();
-    };
-    image.addEventListener("load", finish, { once: true });
-    image.addEventListener("error", finish, { once: true });
-    loadImage(image, card.querySelector(".image-fallback"), card.querySelector(".monogram"), perfume);
+    loadImage(
+      image,
+      card.querySelector(".image-fallback"),
+      card.querySelector(".monogram"),
+      perfume,
+      () => {
+        catalogImageQueued.delete(image);
+        if (generation === catalogImageGeneration) {
+          catalogImageActiveLoads = Math.max(0, catalogImageActiveLoads - 1);
+          pumpCatalogImageQueue();
+        }
+      }
+    );
   }
 }
 
@@ -300,8 +322,24 @@ function queueCatalogImage(image) {
   const perfume = state.perfumes.find(item => item.id === perfumeId);
   if (!card || !perfume) return;
   catalogImageQueued.add(image);
-  catalogImageQueue.push({ image, card, perfume });
+  catalogImageQueue.push({ image, card, perfume, generation: catalogImageGeneration });
   pumpCatalogImageQueue();
+}
+
+
+function queueNearbyCatalogImages() {
+  cancelAnimationFrame(catalogImageSweepFrame);
+  catalogImageSweepFrame = requestAnimationFrame(() => {
+    const preloadDistance = IS_MOBILE_CATALOG ? 1500 : 2400;
+    const viewportHeight = Math.max(window.innerHeight, 1);
+    const candidates = [...elements.catalog.querySelectorAll('.perfume-image[data-loaded="false"]')]
+      .filter(image => {
+        const rect = image.getBoundingClientRect();
+        return rect.bottom >= -preloadDistance && rect.top <= viewportHeight + preloadDistance;
+      })
+      .sort((a, b) => imageDistanceFromViewport(a) - imageDistanceFromViewport(b));
+    candidates.forEach(queueCatalogImage);
+  });
 }
 
 function ensureCatalogImageObserver() {
@@ -335,7 +373,9 @@ function configureImage(card, perfume) {
   const fallback = card.querySelector(".image-fallback");
   const monogram = card.querySelector(".monogram");
   image.removeAttribute("src");
-  image.loading = "lazy";
+  // IntersectionObserver ya controla la carga; el lazy nativo puede posponerla
+  // demasiado cuando el usuario desplaza el catálogo con rapidez.
+  image.loading = "eager";
   image.decoding = "async";
   image.fetchPriority = "low";
   image.dataset.loaded = "false";
@@ -550,8 +590,10 @@ function disconnectCatalogObserver() {
 function disconnectCatalogImages() {
   if (catalogImageObserver) catalogImageObserver.disconnect();
   catalogImageObserver = null;
+  catalogImageGeneration += 1;
   catalogImageQueue.length = 0;
   catalogImageActiveLoads = 0;
+  cancelAnimationFrame(catalogImageSweepFrame);
 }
 
 function scheduleCatalogBatch(results, token) {
@@ -566,11 +608,13 @@ function scheduleCatalogBatch(results, token) {
     appendCatalogBatch(results, token, CATALOG_BATCH_SIZE);
   };
   if (IS_MOBILE_CATALOG && catalogScrollBusy) {
-    catalogBatchTimer = window.setTimeout(() => scheduleCatalogBatch(results, token), 90);
+    // No detenemos el render durante un scroll rápido: de lo contrario el usuario
+    // alcanza filas que todavía no existen y percibe el catálogo en blanco.
+    catalogBatchTimer = window.setTimeout(() => run(null), 24);
   } else if (typeof requestIdleCallback === "function") {
-    requestIdleCallback(run, { timeout: IS_MOBILE_CATALOG ? 420 : 220 });
+    requestIdleCallback(run, { timeout: IS_MOBILE_CATALOG ? 280 : 180 });
   } else {
-    catalogBatchTimer = window.setTimeout(() => run(null), IS_MOBILE_CATALOG ? 55 : 35);
+    catalogBatchTimer = window.setTimeout(() => run(null), IS_MOBILE_CATALOG ? 40 : 28);
   }
 }
 
@@ -583,6 +627,7 @@ function appendCatalogBatch(results, token, requestedSize = CATALOG_BATCH_SIZE) 
   }
   elements.catalog.appendChild(fragment);
   catalogRenderedCount = end;
+  queueNearbyCatalogImages();
   updateCatalogSentinel(results.length);
   if (catalogRenderedCount < results.length) scheduleCatalogBatch(results, token);
 }
@@ -903,6 +948,7 @@ window.addEventListener("scroll", () => {
   lastCatalogScrollY = window.scrollY;
   lastCatalogScrollTime = now;
   if (velocity > 1.25 || deltaY > 320) catalogScrollBusy = true;
+  queueNearbyCatalogImages();
   // Nunca descargamos imágenes durante el desplazamiento: hacerlo provoca
   // parpadeo visible cuando Safari alterna entre liberar y volver a pedir recursos.
   clearTimeout(catalogScrollIdleTimer);
