@@ -1499,3 +1499,7 @@ body.search-has-query .search-svg{
     contain-intrinsic-size: 430px;
   }
 }
+
+
+/* Sprint 4.4 — catálogo continuo sin pausas visibles */
+.catalog-load-sentinel{display:none!important}

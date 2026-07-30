@@ -171,3 +171,12 @@
 - Las imágenes de tarjetas ya no ejecutan decodificación masiva; la decodificación completa se conserva en la ficha de detalle.
 - Se añadió `content-visibility` para reducir memoria y trabajo fuera de pantalla.
 - Safari ya no pierde la posición por un `pageshow` restaurado desde memoria.
+
+
+## Sprint 4.4 — Scroll continuo optimizado para Safari iOS
+- Se eliminó la espera visible al llegar al final de cada bloque del catálogo.
+- Se renderizan 48 tarjetas en la primera carga y el resto se prepara progresivamente en segundo plano.
+- Las siguientes tarjetas se incorporan antes de que el usuario llegue al final, evitando cortes o saltos visuales.
+- Las imágenes se precargan con mayor anticipación y solo se liberan cuando la memoria supera un límite seguro y están muy lejos de la pantalla.
+- Se conserva un máximo controlado de imágenes decodificadas para evitar reinicios de Safari durante scroll agresivo.
+- Se actualizó la caché de estilos y JavaScript a 4.4 / 5.4.

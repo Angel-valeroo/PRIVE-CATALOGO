@@ -7,9 +7,12 @@ const state = {
 const IMAGE_BASE_PATH = "IMAGES";
 const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
 const MIN_RECOMMENDATION_SCORE = 85;
-const CORE_DATA_VERSION = "master-004-scrollfix-2";
-const CATALOG_BATCH_SIZE = 16;
-const CATALOG_IDLE_DELAY = 240;
+const CORE_DATA_VERSION = "master-004-scrollfix-v44";
+const CATALOG_BATCH_SIZE = 24;
+const CATALOG_INITIAL_BATCH_SIZE = 48;
+const CATALOG_IMAGE_CACHE_LIMIT = 96;
+const CATALOG_IMAGE_RELEASE_DISTANCE = 5;
+const CATALOG_IDLE_DELAY = 180;
 
 const DISCOVERY_GROUPS = [
   { label: "Género", type: "category", featured: true, values: ["Caballero", "Dama", "Unisex"] },
@@ -267,22 +270,33 @@ function ensureCatalogImageObserver() {
   if (catalogImageObserver || typeof IntersectionObserver === "undefined") return;
   catalogImageObserver = new IntersectionObserver(entries => {
     for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
       const image = entry.target;
       const card = image.closest(".perfume-card");
       const perfumeId = card?.dataset.perfumeId;
       const perfume = state.perfumes.find(item => item.id === perfumeId);
-      if (!perfume) continue;
-      if (entry.isIntersecting) {
-        if (image.dataset.loaded !== "true") {
-          image.dataset.loaded = "true";
-          loadImage(image, card.querySelector(".image-fallback"), card.querySelector(".monogram"), perfume);
-        }
-      } else if (image.dataset.loaded === "true") {
-        // Liberar imágenes lejanas reduce drásticamente la memoria decodificada en Safari iOS.
-        unloadCatalogImage(image);
-      }
+      if (!perfume || image.dataset.loaded === "true") continue;
+      image.dataset.loaded = "true";
+      loadImage(image, card.querySelector(".image-fallback"), card.querySelector(".monogram"), perfume);
     }
-  }, { root: null, rootMargin: "700px 0px", threshold: 0.01 });
+  }, { root: null, rootMargin: "2200px 0px", threshold: 0.01 });
+}
+
+function releaseFarCatalogImages() {
+  const loaded = [...elements.catalog.querySelectorAll('.perfume-image[data-loaded="true"]')];
+  if (loaded.length <= CATALOG_IMAGE_CACHE_LIMIT) return;
+  const viewportHeight = Math.max(window.innerHeight, 1);
+  const releaseDistance = viewportHeight * CATALOG_IMAGE_RELEASE_DISTANCE;
+  const candidates = loaded
+    .map(image => {
+      const rect = image.getBoundingClientRect();
+      const distance = rect.bottom < 0 ? Math.abs(rect.bottom) : rect.top > viewportHeight ? rect.top - viewportHeight : 0;
+      return { image, distance };
+    })
+    .filter(item => item.distance > releaseDistance)
+    .sort((a, b) => b.distance - a.distance);
+  const excess = Math.max(0, loaded.length - CATALOG_IMAGE_CACHE_LIMIT);
+  candidates.slice(0, excess).forEach(({ image }) => unloadCatalogImage(image));
 }
 
 function configureImage(card, perfume) {
@@ -509,31 +523,36 @@ function disconnectCatalogImages() {
 
 function scheduleCatalogBatch(results, token) {
   clearTimeout(catalogBatchTimer);
-  const run = () => {
-    if (token !== catalogRenderToken) return;
-    if (catalogScrollBusy) {
-      catalogBatchTimer = window.setTimeout(run, CATALOG_IDLE_DELAY);
+  const run = deadline => {
+    if (token !== catalogRenderToken || catalogRenderedCount >= results.length) return;
+    const canWork = !deadline || deadline.didTimeout || deadline.timeRemaining() > 5;
+    if (!canWork) {
+      scheduleCatalogBatch(results, token);
       return;
     }
-    requestAnimationFrame(() => appendCatalogBatch(results, token));
+    appendCatalogBatch(results, token, CATALOG_BATCH_SIZE);
   };
-  catalogBatchTimer = window.setTimeout(run, catalogScrollBusy ? CATALOG_IDLE_DELAY : 40);
+  if (typeof requestIdleCallback === "function") {
+    requestIdleCallback(run, { timeout: 220 });
+  } else {
+    catalogBatchTimer = window.setTimeout(() => run(null), 35);
+  }
 }
 
-function appendCatalogBatch(results, token) {
+function appendCatalogBatch(results, token, requestedSize = CATALOG_BATCH_SIZE) {
   if (token !== catalogRenderToken || catalogRenderedCount >= results.length) return;
-  const end = Math.min(catalogRenderedCount + CATALOG_BATCH_SIZE, results.length);
+  const end = Math.min(catalogRenderedCount + requestedSize, results.length);
   const fragment = document.createDocumentFragment();
   for (let index = catalogRenderedCount; index < end; index += 1) {
     fragment.appendChild(createCatalogCard(results[index], index));
   }
   elements.catalog.appendChild(fragment);
   catalogRenderedCount = end;
-  setupCatalogObserver(results, token);
+  updateCatalogSentinel(results.length);
+  if (catalogRenderedCount < results.length) scheduleCatalogBatch(results, token);
 }
 
-function setupCatalogObserver(results, token) {
-  disconnectCatalogObserver();
+function updateCatalogSentinel(total) {
   let sentinel = document.getElementById("catalogLoadSentinel");
   if (!sentinel) {
     sentinel = document.createElement("div");
@@ -542,17 +561,8 @@ function setupCatalogObserver(results, token) {
     sentinel.setAttribute("aria-hidden", "true");
     elements.catalog.insertAdjacentElement("afterend", sentinel);
   }
-  sentinel.hidden = catalogRenderedCount >= results.length;
-  if (sentinel.hidden) return;
-  catalogObserver = new IntersectionObserver(entries => {
-    if (token !== catalogRenderToken) return;
-    if (entries.some(entry => entry.isIntersecting)) {
-      disconnectCatalogObserver();
-      // Esperar a que termine el desplazamiento agresivo evita ráfagas de DOM e imágenes en Safari.
-      scheduleCatalogBatch(results, token);
-    }
-  }, { root: null, rootMargin: "900px 0px", threshold: 0.01 });
-  catalogObserver.observe(sentinel);
+  sentinel.hidden = true;
+  sentinel.dataset.remaining = String(Math.max(0, total - catalogRenderedCount));
 }
 
 function render() {
@@ -563,7 +573,7 @@ function render() {
   clearTimeout(catalogBatchTimer);
   catalogRenderedCount = 0;
   elements.catalog.replaceChildren();
-  appendCatalogBatch(results, token);
+  appendCatalogBatch(results, token, CATALOG_INITIAL_BATCH_SIZE);
   elements.resultCount.textContent = results.length.toLocaleString("es-MX");
   elements.resultLabel.textContent = results.length === 1 ? "fragancia" : "fragancias";
   elements.emptyState.hidden = results.length !== 0;
@@ -859,7 +869,10 @@ window.addEventListener("scroll", () => {
   lastCatalogScrollTime = now;
   if (velocity > 1.6 || deltaY > 420) catalogScrollBusy = true;
   clearTimeout(catalogScrollIdleTimer);
-  catalogScrollIdleTimer = window.setTimeout(() => { catalogScrollBusy = false; }, CATALOG_IDLE_DELAY);
+  catalogScrollIdleTimer = window.setTimeout(() => {
+    catalogScrollBusy = false;
+    releaseFarCatalogImages();
+  }, CATALOG_IDLE_DELAY);
 }, { passive: true });
 
 window.addEventListener("pageshow", event => {
