@@ -1451,3 +1451,30 @@ body.search-has-query .search-svg{
   .hero-message{margin-top:20px!important}
   .search-area{margin-top:24px!important}
 }
+
+/* =========================================================
+   SPRINT 4.1 — LEGIBILIDAD EN FICHAS DAMA
+   Refuerza los indicadores inferiores sin alterar la paleta.
+   ========================================================= */
+.detail-gender-dama .detail-stage-caption{
+  color:rgba(255,236,240,.88)!important;
+  text-shadow:
+    0 2px 14px rgba(13,1,5,.8),
+    0 0 16px rgba(211,105,129,.2);
+}
+.detail-gender-dama .detail-scroll-cue{
+  color:rgba(255,244,246,.94)!important;
+  text-shadow:
+    0 2px 14px rgba(13,1,5,.84),
+    0 0 18px rgba(211,105,129,.24);
+}
+.detail-gender-dama .detail-scroll-cue__label{
+  opacity:1!important;
+}
+.detail-gender-dama .detail-scroll-cue__arrows{
+  filter:drop-shadow(0 2px 7px rgba(13,1,5,.72));
+}
+.detail-gender-dama .detail-scroll-cue__arrows i{
+  border-color:rgba(246,178,192,.96)!important;
+  opacity:.86;
+}

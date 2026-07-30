@@ -97,3 +97,11 @@
 - La atmósfera decorativa del Home ahora se organiza alrededor del eje central.
 - “Ayúdame a elegir” ahora presenta al Asesor Inteligente PRIVÉ y usa una estrella como símbolo de descubrimiento.
 - Caché actualizada a la versión 4.0.
+
+## Sprint 4.1 — Legibilidad en fichas Dama
+- Se reforzó el contraste de “Desliza para descubrir” y “Colección PRIVÉ” únicamente en las fichas de Dama.
+- Se sustituyeron los tonos semitransparentes por marfil rosado de mayor presencia, conservando la atmósfera vino/borgoña.
+- Se añadieron sombras suaves para separar el texto del degradado y de los reflejos del escenario.
+- Las flechas de desplazamiento ahora tienen mayor contraste y definición sin volverse protagonistas.
+- Caballero, Unisex, composición, tamaños y comportamiento funcional permanecen sin cambios.
+- Caché de estilos y JavaScript actualizada a la versión 4.1.
