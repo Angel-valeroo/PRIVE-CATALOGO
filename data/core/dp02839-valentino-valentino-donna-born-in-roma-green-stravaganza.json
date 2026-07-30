@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "dp02839-valentino-valentino-donna-born-in-roma-green-stravaganza",
+  "status": "review",
+  "identity": {
+    "brand": "VALENTINO",
+    "name": "VALENTINO DONNA BORN IN ROMA GREEN STRAVAGANZA",
+    "line": null,
+    "flanker": null,
+    "priveCode": "DP02839",
+    "sku": null,
+    "audience": "Dama",
+    "concentration": "Eau de Parfum",
+    "launchYear": 2024,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Floral amaderada",
+    "subfamily": null,
+    "accords": [
+      "Amaderado",
+      "Avainillado",
+      "Cítrico",
+      "Dulce",
+      "Floral"
+    ],
+    "styleTags": [
+      "Té",
+      "Floral y vainillado"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Té lapsang souchong",
+      "Bergamota"
+    ],
+    "heartNotes": [
+      "Jazmín"
+    ],
+    "baseNotes": [
+      "Extracto de vainilla"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Moderada",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 2,
+    "sweetness": 2,
+    "warmth": 2,
+    "woodiness": 2,
+    "spiciness": 0,
+    "floral": 2,
+    "citrus": 4,
+    "fruitiness": 0,
+    "aquatic": 0,
+    "powdery": 0,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Noche",
+      "Diario",
+      "Oficina",
+      "Cita"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Social"
+    ],
+    "climates": [
+      "Templado",
+      "Calor",
+      "Frío"
+    ],
+    "seasons": [
+      "Primavera",
+      "Otoño",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 3,
+    "versatility": 5,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 18,
+      "max": 44,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 44 años por su estilo té, floral y vainillado. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil amaderado, avainillado, cítrico, con una salida de té lapsang souchong, bergamota que evoluciona hacia un fondo de extracto de vainilla. Su carácter té, floral y vainillado ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil té, floral y vainillado. Afinidad orientativa: 18 a 44 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima templado y calor y frío.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Dama/DP02839.avif",
+      "alt": "VALENTINO VALENTINO DONNA BORN IN ROMA GREEN STRAVAGANZA"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 006",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=VALENTINO+VALENTINO+DONNA+BORN+IN+ROMA+GREEN+STRAVAGANZA",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave DP02839",
+        "url": "https://perfumoteca.com/catalogo?search=DP02839",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave DP02839",
+        "url": "https://glass-essence.com/?s=DP02839&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "official",
+        "title": "Sitio oficial de VALENTINO — contraste de lanzamiento, concentración y narrativa",
+        "url": "https://www.google.com/search?q=VALENTINO+VALENTINO+DONNA+BORN+IN+ROMA+GREEN+STRAVAGANZA+official+fragrance+notes",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fuentes especializadas y reseñas — contraste de uso, clima, desempeño y percepción",
+        "url": "https://www.google.com/search?q=VALENTINO+VALENTINO+DONNA+BORN+IN+ROMA+GREEN+STRAVAGANZA+perfume+reviews+notes+longevity",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "performance",
+          "recommendation"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 006. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias; el sitio oficial, Glass Essence y fuentes especializadas sirven para contrastar o completar datos ausentes. Nombre e imagen conservados desde el catálogo operativo; la clave guía la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

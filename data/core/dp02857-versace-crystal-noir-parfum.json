@@ -1,0 +1,193 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "dp02857-versace-crystal-noir-parfum",
+  "status": "review",
+  "identity": {
+    "brand": "VERSACE",
+    "name": "CRYSTAL NOIR PARFUM",
+    "line": null,
+    "flanker": null,
+    "priveCode": "DP02857",
+    "sku": null,
+    "audience": "Dama",
+    "concentration": "Parfum",
+    "launchYear": 2024,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Ámbar floral",
+    "subfamily": null,
+    "accords": [
+      "Floral",
+      "Ámbar",
+      "Amaderado",
+      "Avainillado",
+      "Dulce",
+      "Fresco especiado"
+    ],
+    "styleTags": [
+      "Oscuro",
+      "Especiado y cremoso"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Especias",
+      "Pimienta rosa",
+      "Grosella negra"
+    ],
+    "heartNotes": [
+      "Nardo",
+      "Jazmín",
+      "Azahar"
+    ],
+    "baseNotes": [
+      "Ámbar",
+      "Sándalo",
+      "Vainilla"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Muy intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 0,
+    "sweetness": 2,
+    "warmth": 4,
+    "woodiness": 4,
+    "spiciness": 4,
+    "floral": 4,
+    "citrus": 0,
+    "fruitiness": 2,
+    "aquatic": 0,
+    "powdery": 0,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Noche",
+      "Cita",
+      "Fiesta",
+      "Evento"
+    ],
+    "contexts": [
+      "Romántico",
+      "Social",
+      "Especial"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "dayParts": [
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 2,
+    "versatility": 3,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 20,
+      "max": 52,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 52 años por su estilo oscuro, especiado y cremoso. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil floral, ámbar, amaderado, con una salida de especias, pimienta rosa, grosella negra que evoluciona hacia un fondo de ámbar, sándalo, vainilla. Su carácter oscuro, especiado y cremoso ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil oscuro, especiado y cremoso. Afinidad orientativa: 20 a 52 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima frío y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Dama/DP02857.avif",
+      "alt": "VERSACE CRYSTAL NOIR PARFUM"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 006",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=VERSACE+CRYSTAL+NOIR+PARFUM",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave DP02857",
+        "url": "https://perfumoteca.com/catalogo?search=DP02857",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave DP02857",
+        "url": "https://glass-essence.com/?s=DP02857&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "official",
+        "title": "Sitio oficial de VERSACE — contraste de lanzamiento, concentración y narrativa",
+        "url": "https://www.google.com/search?q=VERSACE+CRYSTAL+NOIR+PARFUM+official+fragrance+notes",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fuentes especializadas y reseñas — contraste de uso, clima, desempeño y percepción",
+        "url": "https://www.google.com/search?q=VERSACE+CRYSTAL+NOIR+PARFUM+perfume+reviews+notes+longevity",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "performance",
+          "recommendation"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 006. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias; el sitio oficial, Glass Essence y fuentes especializadas sirven para contrastar o completar datos ausentes. Nombre e imagen conservados desde el catálogo operativo; la clave guía la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

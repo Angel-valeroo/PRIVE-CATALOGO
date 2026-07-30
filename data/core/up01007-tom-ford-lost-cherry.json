@@ -1,0 +1,200 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "up01007-tom-ford-lost-cherry",
+  "status": "review",
+  "identity": {
+    "brand": "TOM FORD",
+    "name": "LOST CHERRY",
+    "line": null,
+    "flanker": null,
+    "priveCode": "UP01007",
+    "sku": null,
+    "audience": "Unisex",
+    "concentration": "Eau de Parfum",
+    "launchYear": 2018,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Ámbar floral",
+    "subfamily": null,
+    "accords": [
+      "Amaderado",
+      "Cálido especiado",
+      "Dulce",
+      "Floral",
+      "Ámbar",
+      "Acuático"
+    ],
+    "styleTags": [
+      "Cereza",
+      "Licoroso y oscuro"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Cereza negra",
+      "Almendra amarga",
+      "Licor"
+    ],
+    "heartNotes": [
+      "Cereza ácida",
+      "Ciruela",
+      "Rosa turca",
+      "Jazmín sambac"
+    ],
+    "baseNotes": [
+      "Haba tonka",
+      "Vainilla",
+      "Canela",
+      "Benjuí",
+      "Sándalo",
+      "Clavo",
+      "Cedro",
+      "Pachulí",
+      "Vetiver"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Muy intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 4,
+    "sweetness": 5,
+    "warmth": 5,
+    "woodiness": 5,
+    "spiciness": 5,
+    "floral": 4,
+    "citrus": 0,
+    "fruitiness": 2,
+    "aquatic": 4,
+    "powdery": 2,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Noche",
+      "Cita",
+      "Fiesta",
+      "Evento"
+    ],
+    "contexts": [
+      "Romántico",
+      "Social",
+      "Especial"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "dayParts": [
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 2,
+    "versatility": 3,
+    "distinctiveness": 4,
+    "recommendedAge": {
+      "min": 20,
+      "max": 58,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 58 años por su estilo cereza, licoroso y oscuro. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil amaderado, cálido especiado, dulce, con una salida de cereza negra, almendra amarga, licor que evoluciona hacia un fondo de haba tonka, vainilla, canela. Su carácter cereza, licoroso y oscuro ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil cereza, licoroso y oscuro. Afinidad orientativa: 20 a 58 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima frío y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Unisex/UP01007.avif",
+      "alt": "TOM FORD LOST CHERRY"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 006",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=TOM+FORD+LOST+CHERRY",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave UP01007",
+        "url": "https://perfumoteca.com/catalogo?search=UP01007",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave UP01007",
+        "url": "https://glass-essence.com/?s=UP01007&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "official",
+        "title": "Sitio oficial de TOM FORD — contraste de lanzamiento, concentración y narrativa",
+        "url": "https://www.google.com/search?q=TOM+FORD+LOST+CHERRY+official+fragrance+notes",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fuentes especializadas y reseñas — contraste de uso, clima, desempeño y percepción",
+        "url": "https://www.google.com/search?q=TOM+FORD+LOST+CHERRY+perfume+reviews+notes+longevity",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "performance",
+          "recommendation"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 006. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias; el sitio oficial, Glass Essence y fuentes especializadas sirven para contrastar o completar datos ausentes. Nombre e imagen conservados desde el catálogo operativo; la clave guía la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

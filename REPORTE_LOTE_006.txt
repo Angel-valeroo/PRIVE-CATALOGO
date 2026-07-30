@@ -1,0 +1,24 @@
+PRIVÉ — REPORTE DE INTEGRACIÓN LOTE 006
+Fecha: 30 de julio de 2026
+
+RESULTADO
+- Posiciones integradas: 451–547
+- Fichas nuevas: 97
+- Total activo en Base Maestra: 547
+- Primera ficha: DP02868 — FAME COUTURE
+- Última ficha: UP01129 — ERBA PURA
+- Categorías del lote: 54 Dama y 43 Unisex
+
+ARCHIVOS DE CONTROL
+- data/core/review-batch-006.csv
+- tools/build-master-batch-006.py
+- tools/test-master-batch-006.mjs
+- README-SPRINT-BASE-MAESTRA-LOTE-006.md
+
+PRUEBAS APROBADAS
+- Validación de identidad del catálogo: 547 productos, sin claves ni IDs duplicados.
+- Adaptador Core: 547 fichas cargadas.
+- Lote 006: 97 fichas, orden 451–547 y trazabilidad requerida.
+
+NOTA
+Las fichas permanecen en estado interno review. Variantes recientes, descontinuadas o con información limitada se marcaron con confianza baja/media para revisión posterior, sin exponer estas etiquetas al público.

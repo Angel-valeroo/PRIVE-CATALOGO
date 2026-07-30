@@ -1,0 +1,193 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "dp02304-ralph-lauren-ralph-fresh",
+  "status": "review",
+  "identity": {
+    "brand": "RALPH LAUREN",
+    "name": "RALPH FRESH",
+    "line": null,
+    "flanker": null,
+    "priveCode": "DP02304",
+    "sku": null,
+    "audience": "Dama",
+    "concentration": "Eau de Toilette",
+    "launchYear": 2015,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Floral frutal",
+    "subfamily": null,
+    "accords": [
+      "Cítrico",
+      "Afrutado",
+      "Almizclado",
+      "Amaderado",
+      "Atalcado",
+      "Floral"
+    ],
+    "styleTags": [
+      "Acuático",
+      "Cítrico y alegre"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Sandía",
+      "Limón",
+      "Mandarina"
+    ],
+    "heartNotes": [
+      "Magnolia",
+      "Rosa",
+      "Fresia"
+    ],
+    "baseNotes": [
+      "Almizcle",
+      "Cedro"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Moderada",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 4,
+    "sweetness": 2,
+    "warmth": 0,
+    "woodiness": 4,
+    "spiciness": 0,
+    "floral": 2,
+    "citrus": 5,
+    "fruitiness": 2,
+    "aquatic": 0,
+    "powdery": 4,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Diario",
+      "Oficina",
+      "Viaje",
+      "Playa"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Vacaciones"
+    ],
+    "climates": [
+      "Calor",
+      "Templado"
+    ],
+    "seasons": [
+      "Primavera",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde"
+    ],
+    "formality": 3,
+    "versatility": 4,
+    "distinctiveness": 4,
+    "recommendedAge": {
+      "min": 16,
+      "max": 38,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 16 a 38 años por su estilo acuático, cítrico y alegre. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil cítrico, afrutado, almizclado, con una salida de sandía, limón, mandarina que evoluciona hacia un fondo de almizcle, cedro. Su carácter acuático, cítrico y alegre ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil acuático, cítrico y alegre. Afinidad orientativa: 16 a 38 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima calor y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Dama/DP02304.avif",
+      "alt": "RALPH LAUREN RALPH FRESH"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 006",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=RALPH+LAUREN+RALPH+FRESH",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave DP02304",
+        "url": "https://perfumoteca.com/catalogo?search=DP02304",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave DP02304",
+        "url": "https://glass-essence.com/?s=DP02304&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "official",
+        "title": "Sitio oficial de RALPH LAUREN — contraste de lanzamiento, concentración y narrativa",
+        "url": "https://www.google.com/search?q=RALPH+LAUREN+RALPH+FRESH+official+fragrance+notes",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fuentes especializadas y reseñas — contraste de uso, clima, desempeño y percepción",
+        "url": "https://www.google.com/search?q=RALPH+LAUREN+RALPH+FRESH+perfume+reviews+notes+longevity",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "performance",
+          "recommendation"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 006. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias; el sitio oficial, Glass Essence y fuentes especializadas sirven para contrastar o completar datos ausentes. Nombre e imagen conservados desde el catálogo operativo; la clave guía la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

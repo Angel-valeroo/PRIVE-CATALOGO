@@ -1,0 +1,190 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "up01079-montale-intense-cafe",
+  "status": "review",
+  "identity": {
+    "brand": "MONTALE",
+    "name": "INTENSE CAFÉ",
+    "line": null,
+    "flanker": null,
+    "priveCode": "UP01079",
+    "sku": null,
+    "audience": "Unisex",
+    "concentration": "Eau de Parfum",
+    "launchYear": 2013,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Ámbar vainilla",
+    "subfamily": null,
+    "accords": [
+      "Avainillado",
+      "Dulce",
+      "Ámbar",
+      "Almizclado",
+      "Atalcado",
+      "Floral"
+    ],
+    "styleTags": [
+      "Café",
+      "Rosa y vainilla"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Notas florales"
+    ],
+    "heartNotes": [
+      "Rosa",
+      "Café"
+    ],
+    "baseNotes": [
+      "Vainilla",
+      "Almizcle blanco",
+      "Ámbar"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Muy intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 0,
+    "sweetness": 2,
+    "warmth": 4,
+    "woodiness": 0,
+    "spiciness": 0,
+    "floral": 2,
+    "citrus": 0,
+    "fruitiness": 0,
+    "aquatic": 0,
+    "powdery": 4,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Noche",
+      "Cita",
+      "Fiesta",
+      "Evento"
+    ],
+    "contexts": [
+      "Romántico",
+      "Social",
+      "Especial"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "dayParts": [
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 2,
+    "versatility": 3,
+    "distinctiveness": 4,
+    "recommendedAge": {
+      "min": 18,
+      "max": 58,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 58 años por su estilo café, rosa y vainilla. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil avainillado, dulce, ámbar, con una salida de notas florales que evoluciona hacia un fondo de vainilla, almizcle blanco, ámbar. Su carácter café, rosa y vainilla ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil café, rosa y vainilla. Afinidad orientativa: 18 a 58 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima frío y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Unisex/UP01079.avif",
+      "alt": "MONTALE INTENSE CAFÉ"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 006",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=MONTALE+INTENSE+CAF%C3%89",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave UP01079",
+        "url": "https://perfumoteca.com/catalogo?search=UP01079",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave UP01079",
+        "url": "https://glass-essence.com/?s=UP01079&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "official",
+        "title": "Sitio oficial de MONTALE — contraste de lanzamiento, concentración y narrativa",
+        "url": "https://www.google.com/search?q=MONTALE+INTENSE+CAF%C3%89+official+fragrance+notes",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fuentes especializadas y reseñas — contraste de uso, clima, desempeño y percepción",
+        "url": "https://www.google.com/search?q=MONTALE+INTENSE+CAF%C3%89+perfume+reviews+notes+longevity",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "performance",
+          "recommendation"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 006. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias; el sitio oficial, Glass Essence y fuentes especializadas sirven para contrastar o completar datos ausentes. Nombre e imagen conservados desde el catálogo operativo; la clave guía la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

@@ -212,3 +212,12 @@
 - Se agregó control interno `review-batch-005.csv`.
 - Se añadieron generador y prueba reproducible del Lote 005.
 - Se amplió la trazabilidad con Fragrantica, Perfumoteca por clave, sitio oficial, Glass Essence y fuentes especializadas.
+
+## 2026-07-30 — Base Maestra Lote 006 · cierre de fase
+- Se integraron las 97 fragancias restantes del catálogo operativo (posiciones 451–547).
+- La Base Maestra alcanza 547 fichas activas y cubre el catálogo vigente completo.
+- El lote comprende 54 fragancias de Dama y 43 Unisex, desde `DP02868 — FAME COUTURE` hasta `UP01129 — ERBA PURA`.
+- Se agregó el control interno `review-batch-006.csv`.
+- Se añadieron generador y prueba reproducible del Lote 006.
+- La trazabilidad conserva Fragrantica y Perfumoteca por clave como fuentes principales, con contraste de sitios oficiales, Glass Essence y fuentes especializadas.
+- Las variantes recientes o con información pública limitada permanecen señaladas internamente con confianza baja o media.

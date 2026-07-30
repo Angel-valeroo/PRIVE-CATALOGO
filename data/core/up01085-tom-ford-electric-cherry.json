@@ -1,0 +1,193 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "up01085-tom-ford-electric-cherry",
+  "status": "review",
+  "identity": {
+    "brand": "TOM FORD",
+    "name": "ELECTRIC CHERRY",
+    "line": null,
+    "flanker": null,
+    "priveCode": "UP01085",
+    "sku": null,
+    "audience": "Unisex",
+    "concentration": "Eau de Parfum",
+    "launchYear": 2023,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Floral frutal",
+    "subfamily": null,
+    "accords": [
+      "Floral",
+      "Fresco especiado",
+      "Afrutado",
+      "Almizclado",
+      "Atalcado"
+    ],
+    "styleTags": [
+      "Cereza",
+      "Picante y luminoso"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Cereza",
+      "Jengibre"
+    ],
+    "heartNotes": [
+      "Jazmín sambac"
+    ],
+    "baseNotes": [
+      "Pimienta rosa",
+      "Ambrettolide",
+      "Almizcle"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 0,
+    "sweetness": 2,
+    "warmth": 0,
+    "woodiness": 0,
+    "spiciness": 5,
+    "floral": 4,
+    "citrus": 0,
+    "fruitiness": 2,
+    "aquatic": 0,
+    "powdery": 4,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Noche",
+      "Diario",
+      "Oficina",
+      "Cita"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Social"
+    ],
+    "climates": [
+      "Templado",
+      "Calor",
+      "Frío"
+    ],
+    "seasons": [
+      "Primavera",
+      "Otoño",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 3,
+    "versatility": 5,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 18,
+      "max": 48,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 48 años por su estilo cereza, picante y luminoso. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil floral, fresco especiado, afrutado, con una salida de cereza, jengibre que evoluciona hacia un fondo de pimienta rosa, ambrettolide, almizcle. Su carácter cereza, picante y luminoso ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil cereza, picante y luminoso. Afinidad orientativa: 18 a 48 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima templado y calor y frío.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Unisex/UP01085.avif",
+      "alt": "TOM FORD ELECTRIC CHERRY"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 006",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=TOM+FORD+ELECTRIC+CHERRY",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave UP01085",
+        "url": "https://perfumoteca.com/catalogo?search=UP01085",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave UP01085",
+        "url": "https://glass-essence.com/?s=UP01085&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "official",
+        "title": "Sitio oficial de TOM FORD — contraste de lanzamiento, concentración y narrativa",
+        "url": "https://www.google.com/search?q=TOM+FORD+ELECTRIC+CHERRY+official+fragrance+notes",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fuentes especializadas y reseñas — contraste de uso, clima, desempeño y percepción",
+        "url": "https://www.google.com/search?q=TOM+FORD+ELECTRIC+CHERRY+perfume+reviews+notes+longevity",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "performance",
+          "recommendation"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 006. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias; el sitio oficial, Glass Essence y fuentes especializadas sirven para contrastar o completar datos ausentes. Nombre e imagen conservados desde el catálogo operativo; la clave guía la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

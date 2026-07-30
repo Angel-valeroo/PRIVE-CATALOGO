@@ -1,0 +1,202 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "up01017-calvin-klein-ck-be",
+  "status": "review",
+  "identity": {
+    "brand": "CALVIN KLEIN",
+    "name": "CK BE",
+    "line": null,
+    "flanker": null,
+    "priveCode": "UP01017",
+    "sku": null,
+    "audience": "Unisex",
+    "concentration": "Eau de Toilette",
+    "launchYear": 1996,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Floral amaderada almizclada",
+    "subfamily": null,
+    "accords": [
+      "Amaderado",
+      "Verde",
+      "Aromático",
+      "Cítrico",
+      "Fresco especiado",
+      "Almizclado"
+    ],
+    "styleTags": [
+      "Verde",
+      "Limpio y almizclado"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Lavanda",
+      "Notas verdes",
+      "Bergamota",
+      "Menta",
+      "Enebro",
+      "Mandarina"
+    ],
+    "heartNotes": [
+      "Hierba verde",
+      "Durazno",
+      "Jazmín",
+      "Fresia",
+      "Magnolia",
+      "Orquídea"
+    ],
+    "baseNotes": [
+      "Almizcle",
+      "Sándalo",
+      "Cedro",
+      "Vainilla",
+      "Ámbar"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Moderada",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 5,
+    "sweetness": 2,
+    "warmth": 4,
+    "woodiness": 5,
+    "spiciness": 2,
+    "floral": 4,
+    "citrus": 5,
+    "fruitiness": 2,
+    "aquatic": 0,
+    "powdery": 2,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Diario",
+      "Oficina",
+      "Viaje",
+      "Playa"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Vacaciones"
+    ],
+    "climates": [
+      "Calor",
+      "Templado"
+    ],
+    "seasons": [
+      "Primavera",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde"
+    ],
+    "formality": 3,
+    "versatility": 4,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 16,
+      "max": 55,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 16 a 55 años por su estilo verde, limpio y almizclado. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil amaderado, verde, aromático, con una salida de lavanda, notas verdes, bergamota que evoluciona hacia un fondo de almizcle, sándalo, cedro. Su carácter verde, limpio y almizclado ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil verde, limpio y almizclado. Afinidad orientativa: 16 a 55 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima calor y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Unisex/UP01017.avif",
+      "alt": "CALVIN KLEIN CK BE"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 006",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=CALVIN+KLEIN+CK+BE",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave UP01017",
+        "url": "https://perfumoteca.com/catalogo?search=UP01017",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave UP01017",
+        "url": "https://glass-essence.com/?s=UP01017&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "official",
+        "title": "Sitio oficial de CALVIN KLEIN — contraste de lanzamiento, concentración y narrativa",
+        "url": "https://www.google.com/search?q=CALVIN+KLEIN+CK+BE+official+fragrance+notes",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fuentes especializadas y reseñas — contraste de uso, clima, desempeño y percepción",
+        "url": "https://www.google.com/search?q=CALVIN+KLEIN+CK+BE+perfume+reviews+notes+longevity",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "performance",
+          "recommendation"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 006. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias; el sitio oficial, Glass Essence y fuentes especializadas sirven para contrastar o completar datos ausentes. Nombre e imagen conservados desde el catálogo operativo; la clave guía la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

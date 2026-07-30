@@ -1,0 +1,192 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "dp02756-yves-saint-laurent-black-opium-le-parfum",
+  "status": "review",
+  "identity": {
+    "brand": "YVES SAINT LAURENT",
+    "name": "BLACK OPIUM LE PARFUM",
+    "line": null,
+    "flanker": null,
+    "priveCode": "DP02756",
+    "sku": null,
+    "audience": "Dama",
+    "concentration": "Le Parfum",
+    "launchYear": 2022,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Ámbar vainilla",
+    "subfamily": null,
+    "accords": [
+      "Avainillado",
+      "Dulce",
+      "Afrutado",
+      "Amaderado",
+      "Cálido especiado",
+      "Floral"
+    ],
+    "styleTags": [
+      "Vainilla intensa",
+      "Cálida y sensual"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Pera",
+      "Canela"
+    ],
+    "heartNotes": [
+      "Jazmín sambac",
+      "Notas solares"
+    ],
+    "baseNotes": [
+      "Vainilla de Madagascar",
+      "Vainilla bourbon",
+      "Absoluto de vainilla",
+      "Pachulí"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Muy intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 0,
+    "sweetness": 5,
+    "warmth": 4,
+    "woodiness": 4,
+    "spiciness": 4,
+    "floral": 2,
+    "citrus": 0,
+    "fruitiness": 4,
+    "aquatic": 0,
+    "powdery": 0,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Noche",
+      "Cita",
+      "Fiesta",
+      "Evento"
+    ],
+    "contexts": [
+      "Romántico",
+      "Social",
+      "Especial"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "dayParts": [
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 2,
+    "versatility": 3,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 20,
+      "max": 52,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 52 años por su estilo vainilla intensa, cálida y sensual. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil avainillado, dulce, afrutado, con una salida de pera, canela que evoluciona hacia un fondo de vainilla de madagascar, vainilla bourbon, absoluto de vainilla. Su carácter vainilla intensa, cálida y sensual ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil vainilla intensa, cálida y sensual. Afinidad orientativa: 20 a 52 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima frío y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Dama/DP02756.avif",
+      "alt": "YVES SAINT LAURENT BLACK OPIUM LE PARFUM"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 006",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=YVES+SAINT+LAURENT+BLACK+OPIUM+LE+PARFUM",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave DP02756",
+        "url": "https://perfumoteca.com/catalogo?search=DP02756",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave DP02756",
+        "url": "https://glass-essence.com/?s=DP02756&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "official",
+        "title": "Sitio oficial de YVES SAINT LAURENT — contraste de lanzamiento, concentración y narrativa",
+        "url": "https://www.google.com/search?q=YVES+SAINT+LAURENT+BLACK+OPIUM+LE+PARFUM+official+fragrance+notes",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fuentes especializadas y reseñas — contraste de uso, clima, desempeño y percepción",
+        "url": "https://www.google.com/search?q=YVES+SAINT+LAURENT+BLACK+OPIUM+LE+PARFUM+perfume+reviews+notes+longevity",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "performance",
+          "recommendation"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 006. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias; el sitio oficial, Glass Essence y fuentes especializadas sirven para contrastar o completar datos ausentes. Nombre e imagen conservados desde el catálogo operativo; la clave guía la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}
