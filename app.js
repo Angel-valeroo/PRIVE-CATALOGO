@@ -45,6 +45,7 @@ const elements = {
   dialog: $("#perfumeDialog"), closeDialog: $("#closeDialog"),
   detailImage: $("#detailImage"), detailFallback: $("#detailFallback"), detailMonogram: $("#detailMonogram"),
   detailStageName: $("#detailStageName"), detailStageCode: $("#detailStageCode"),
+  detailScrollCue: $(".detail-scroll-cue"),
   detailDesigner: $("#detailDesigner"), detailName: $("#detailName"), detailCode: $("#detailCode"),
   detailDescription: $("#detailDescription"), detailCategory: $("#detailCategory"), profileChips: $("#profileChips"), useSection: $("#useSection"),
   familySection: $("#familySection"), detailFamily: $("#detailFamily"), notesSection: $("#notesSection"),
@@ -175,6 +176,18 @@ function createProfileChip(value) {
   button.addEventListener("click", () => toggleTag(value)); return button;
 }
 
+let detailCueTimer = null;
+
+function resetDetailScrollCue() {
+  clearTimeout(detailCueTimer);
+  elements.dialog.classList.remove("detail-cue-nudge", "detail-cue-dismissed");
+  detailCueTimer = setTimeout(() => {
+    if (elements.dialog.open && elements.dialog.scrollTop < 8) {
+      elements.dialog.classList.add("detail-cue-nudge");
+    }
+  }, 3000);
+}
+
 function updateDetailScrollProgress() {
   const viewport = Math.max(1, elements.dialog.clientHeight);
   const maxDistance = Math.max(320, Math.min(760, viewport * 0.78));
@@ -182,6 +195,11 @@ function updateDetailScrollProgress() {
   elements.dialog.style.setProperty("--detail-progress", progress.toFixed(3));
   elements.dialog.classList.toggle("detail-is-discovering", progress > 0.08);
   elements.dialog.classList.toggle("detail-is-reading", progress > 0.62);
+  if (elements.dialog.scrollTop > 10) {
+    clearTimeout(detailCueTimer);
+    elements.dialog.classList.add("detail-cue-dismissed");
+    elements.dialog.classList.remove("detail-cue-nudge");
+  }
 }
 
 function openPerfume(perfume, updateHash = true) {
@@ -212,12 +230,14 @@ function openPerfume(perfume, updateHash = true) {
   if (!elements.dialog.open) elements.dialog.showModal();
   elements.dialog.scrollTop = 0;
   elements.dialog.style.setProperty("--detail-progress", "0");
-  elements.dialog.classList.remove("detail-is-discovering", "detail-is-reading");
+  elements.dialog.classList.remove("detail-is-discovering", "detail-is-reading", "detail-cue-dismissed", "detail-cue-nudge");
+  resetDetailScrollCue();
   requestAnimationFrame(updateDetailScrollProgress);
   document.body.classList.add("dialog-open");
   if (updateHash) history.pushState({ perfume: perfume.id }, "", `#perfume=${encodeURIComponent(perfume.id)}`);
 }
 function closePerfume(updateHash = true) {
+  clearTimeout(detailCueTimer);
   state.selectedPerfume = null;
   if (elements.dialog.open) elements.dialog.close();
   if (!elements.advisorDialog.open) document.body.classList.remove("dialog-open");
