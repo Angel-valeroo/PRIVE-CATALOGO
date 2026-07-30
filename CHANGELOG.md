@@ -188,3 +188,12 @@
 - Liberación temprana de imágenes lejanas durante scroll agresivo.
 - Render por lotes pausado mientras el usuario desplaza rápidamente.
 - Desactivación de `content-visibility` en dispositivos táctiles por inestabilidad de WebKit.
+
+
+## Sprint 4.6 — virtualización real del catálogo
+- Se eliminó el render acumulativo que dejaba cientos de tarjetas e imágenes en memoria.
+- Safari y Android mantienen únicamente las filas cercanas a la pantalla.
+- El scroll conserva la altura total del catálogo y se mantiene continuo.
+- PC vuelve a recorrer el catálogo completo sin quedarse a medias.
+- Las imágenes y observadores de filas retiradas se liberan al cambiar de ventana.
+- Caché actualizada a styles 4.6 / app 5.6.

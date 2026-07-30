@@ -1,4 +1,4 @@
-SPRINT 4.4 — ARCHIVOS PARA REEMPLAZAR
+SPRINT 4.6
 
 Reemplaza estos archivos en la raíz del repositorio:
 - app.js
@@ -6,5 +6,4 @@ Reemplaza estos archivos en la raíz del repositorio:
 - index.html
 - CHANGELOG.md
 
-Opcional para documentación:
-- REPORTE_SPRINT_4.4.txt
+REPORTE_SPRINT_4.6.txt es informativo.

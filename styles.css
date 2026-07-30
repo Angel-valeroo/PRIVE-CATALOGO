@@ -1493,3 +1493,11 @@ body.search-has-query .search-svg{
     will-change:auto!important;
   }
 }
+
+
+/* Sprint 4.6 — catálogo virtual estable para Safari y Android */
+.catalog-virtual-spacer{grid-column:1/-1;width:100%;pointer-events:none;visibility:hidden}
+@media (hover:none) and (pointer:coarse){
+  .perfume-card{contain:layout paint style;transform:none;backface-visibility:visible}
+  .perfume-card:hover{transform:none}
+}
