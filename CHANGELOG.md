@@ -190,10 +190,18 @@
 - Desactivación de `content-visibility` en dispositivos táctiles por inestabilidad de WebKit.
 
 
-## Sprint 4.6 — virtualización real del catálogo
+## Sprint 4.7 — virtualización real del catálogo
 - Se eliminó el render acumulativo que dejaba cientos de tarjetas e imágenes en memoria.
 - Safari y Android mantienen únicamente las filas cercanas a la pantalla.
 - El scroll conserva la altura total del catálogo y se mantiene continuo.
 - PC vuelve a recorrer el catálogo completo sin quedarse a medias.
 - Las imágenes y observadores de filas retiradas se liberan al cambiar de ventana.
 - Caché actualizada a styles 4.6 / app 5.6.
+
+## Sprint 4.7 — hotfix de imágenes en catálogo virtual
+- Se eliminó la dependencia de la cola/observer para las imágenes dentro de la ventana virtual.
+- Las imágenes de las tarjetas visibles ahora se solicitan directamente con carga diferida nativa.
+- Se cancelan las solicitudes de tarjetas retiradas antes de reciclar la ventana para controlar memoria.
+- Se reinicia correctamente el estado interno al cambiar filtros o reconstruir el catálogo.
+- Se mantiene la virtualización de filas para Safari y Android sin dejar el catálogo en blanco.
+- Caché de JavaScript actualizada a 5.7.

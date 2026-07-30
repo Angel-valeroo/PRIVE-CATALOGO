@@ -7,7 +7,7 @@ const state = {
 const IMAGE_BASE_PATH = "IMAGES";
 const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
 const MIN_RECOMMENDATION_SCORE = 85;
-const CORE_DATA_VERSION = "master-004-scrollfix-v46";
+const CORE_DATA_VERSION = "master-004-scrollfix-v47";
 const IS_MOBILE_CATALOG = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.matchMedia("(pointer: coarse)").matches;
 const CATALOG_IMAGE_ROOT_MARGIN = IS_MOBILE_CATALOG ? "900px 0px" : "1600px 0px";
 const CATALOG_IMAGE_CONCURRENCY = IS_MOBILE_CATALOG ? 3 : 6;
@@ -300,12 +300,12 @@ function configureImage(card, perfume) {
   image.loading = "lazy";
   image.decoding = "async";
   image.fetchPriority = "low";
-  image.dataset.loaded = "false";
+  image.dataset.loaded = "true";
   monogram.textContent = initials(perfume.designer);
   fallback.hidden = false;
-  ensureCatalogImageObserver();
-  if (catalogImageObserver) catalogImageObserver.observe(image);
-  else loadImage(image, fallback, monogram, perfume);
+  // La ventana virtual mantiene pocas tarjetas vivas; cargar directamente evita
+  // que una cola/observer obsoleto deje todas las imágenes en estado pendiente.
+  loadImage(image, fallback, monogram, perfume);
 }
 function scrollToCatalog() { $("#catalogo").scrollIntoView({ behavior: "smooth", block: "start" }); }
 function setFilter(type, value, shouldScroll = true) {
@@ -508,6 +508,13 @@ function resetCatalogImages() {
   if (catalogImageObserver) catalogImageObserver.disconnect();
   catalogImageObserver = null;
   catalogImageQueue.length = 0;
+  catalogImageActiveLoads = 0;
+  // Cancelamos solicitudes de tarjetas que van a salir de la ventana virtual.
+  elements.catalog.querySelectorAll(".perfume-image").forEach(image => {
+    image.onload = null;
+    image.onerror = null;
+    image.removeAttribute("src");
+  });
 }
 
 function catalogColumnCount() {
@@ -537,8 +544,12 @@ function measureVirtualRow() {
 }
 
 function unobserveCurrentCatalogImages() {
-  if (!catalogImageObserver) return;
-  elements.catalog.querySelectorAll(".perfume-image").forEach(image => catalogImageObserver.unobserve(image));
+  elements.catalog.querySelectorAll(".perfume-image").forEach(image => {
+    if (catalogImageObserver) catalogImageObserver.unobserve(image);
+    image.onload = null;
+    image.onerror = null;
+    image.removeAttribute("src");
+  });
 }
 
 function renderVirtualCatalogWindow(force = false) {
