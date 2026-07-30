@@ -44,6 +44,7 @@ const elements = {
   activeFilters: $("#activeFilters"), categoryFilters: [...document.querySelectorAll(".category-filter")],
   dialog: $("#perfumeDialog"), closeDialog: $("#closeDialog"),
   detailImage: $("#detailImage"), detailFallback: $("#detailFallback"), detailMonogram: $("#detailMonogram"),
+  detailStageName: $("#detailStageName"), detailStageCode: $("#detailStageCode"),
   detailDesigner: $("#detailDesigner"), detailName: $("#detailName"), detailCode: $("#detailCode"),
   detailDescription: $("#detailDescription"), detailCategory: $("#detailCategory"), profileChips: $("#profileChips"), useSection: $("#useSection"),
   familySection: $("#familySection"), detailFamily: $("#detailFamily"), notesSection: $("#notesSection"),
@@ -187,6 +188,8 @@ function openPerfume(perfume, updateHash = true) {
   state.selectedPerfume = perfume;
   elements.detailDesigner.textContent = perfume.designer; elements.detailName.textContent = perfume.name;
   elements.detailCode.textContent = `CLAVE ${perfume.code}`;
+  elements.detailStageName.textContent = perfume.name;
+  elements.detailStageCode.textContent = `Clave ${perfume.code}`;
   elements.detailCategory.textContent = `COLECCIÓN ${String(perfume.category || "PRIVÉ").toUpperCase()}`;
   elements.detailDescription.textContent = perfume.description || "Una fragancia de la colección PRIVÉ. Su información olfativa se incorporará progresivamente a la base de datos.";
   loadImage(elements.detailImage, elements.detailFallback, elements.detailMonogram, perfume);
