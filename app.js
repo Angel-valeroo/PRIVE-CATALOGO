@@ -98,18 +98,40 @@ function filteredPerfumes() {
 }
 function loadImage(image, fallback, monogram, perfume) {
   let extensionIndex = 0;
+  const requestId = `${perfume.id}-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  image.dataset.requestId = requestId;
   monogram.textContent = initials(perfume.designer);
   image.alt = `${perfume.name} de ${perfume.designer}`;
-  image.hidden = false; image.classList.add("is-loading"); fallback.hidden = false;
-  const tryNextExtension = () => {
-    if (extensionIndex >= IMAGE_EXTENSIONS.length) {
-      image.onload = null; image.onerror = null; image.removeAttribute("src"); image.hidden = true;
-      image.classList.remove("is-loading"); fallback.hidden = false; return;
-    }
-    image.src = `${IMAGE_BASE_PATH}/${encodeURIComponent(perfume.category)}/${encodeURIComponent(perfume.code)}.${IMAGE_EXTENSIONS[extensionIndex++]}`;
+  image.hidden = false;
+  image.classList.add("is-loading");
+  fallback.hidden = false;
+
+  const isCurrentRequest = () => image.dataset.requestId === requestId;
+  const revealCurrentImage = async () => {
+    if (!isCurrentRequest()) return;
+    try { if (typeof image.decode === "function") await image.decode(); } catch (_) { /* onload ya confirmó el recurso */ }
+    if (!isCurrentRequest()) return;
+    image.classList.remove("is-loading");
+    fallback.hidden = true;
   };
-  image.onload = () => { image.classList.remove("is-loading"); fallback.hidden = true; };
-  image.onerror = tryNextExtension; tryNextExtension();
+  const tryNextExtension = () => {
+    if (!isCurrentRequest()) return;
+    if (extensionIndex >= IMAGE_EXTENSIONS.length) {
+      image.onload = null;
+      image.onerror = null;
+      image.removeAttribute("src");
+      image.hidden = true;
+      image.classList.remove("is-loading");
+      fallback.hidden = false;
+      return;
+    }
+    const extension = IMAGE_EXTENSIONS[extensionIndex++];
+    image.src = `${IMAGE_BASE_PATH}/${encodeURIComponent(perfume.category)}/${encodeURIComponent(perfume.code)}.${extension}`;
+  };
+
+  image.onload = revealCurrentImage;
+  image.onerror = tryNextExtension;
+  tryNextExtension();
 }
 function configureImage(card, perfume) {
   loadImage(card.querySelector(".perfume-image"), card.querySelector(".image-fallback"), card.querySelector(".monogram"), perfume);
