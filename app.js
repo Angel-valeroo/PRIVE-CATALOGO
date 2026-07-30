@@ -7,8 +7,9 @@ const state = {
 const IMAGE_BASE_PATH = "IMAGES";
 const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
 const MIN_RECOMMENDATION_SCORE = 85;
-const CORE_DATA_VERSION = "master-004-scrollfix";
-const CATALOG_BATCH_SIZE = 32;
+const CORE_DATA_VERSION = "master-004-scrollfix-2";
+const CATALOG_BATCH_SIZE = 16;
+const CATALOG_IDLE_DELAY = 240;
 
 const DISCOVERY_GROUPS = [
   { label: "Género", type: "category", featured: true, values: ["Caballero", "Dama", "Unisex"] },
@@ -72,6 +73,12 @@ let detailOpenSequence = 0;
 let catalogRenderToken = 0;
 let catalogRenderedCount = 0;
 let catalogObserver = null;
+let catalogImageObserver = null;
+let catalogBatchTimer = 0;
+let catalogScrollIdleTimer = 0;
+let catalogScrollBusy = false;
+let lastCatalogScrollY = window.scrollY;
+let lastCatalogScrollTime = performance.now();
 
 function categoryFromCode(code) {
   const value = String(code || "").trim().toUpperCase();
@@ -242,8 +249,56 @@ function loadImage(image, fallback, monogram, perfume) {
   image.onerror = tryNextExtension;
   tryNextExtension();
 }
+function unloadCatalogImage(image) {
+  if (!image || image === elements.detailImage) return;
+  image.dataset.requestId = `unloaded-${Date.now()}`;
+  image.onload = null;
+  image.onerror = null;
+  image.removeAttribute("src");
+  image.classList.add("is-loading");
+  image.hidden = false;
+  const card = image.closest(".perfume-card");
+  const fallback = card?.querySelector(".image-fallback");
+  if (fallback) fallback.hidden = false;
+  image.dataset.loaded = "false";
+}
+
+function ensureCatalogImageObserver() {
+  if (catalogImageObserver || typeof IntersectionObserver === "undefined") return;
+  catalogImageObserver = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      const image = entry.target;
+      const card = image.closest(".perfume-card");
+      const perfumeId = card?.dataset.perfumeId;
+      const perfume = state.perfumes.find(item => item.id === perfumeId);
+      if (!perfume) continue;
+      if (entry.isIntersecting) {
+        if (image.dataset.loaded !== "true") {
+          image.dataset.loaded = "true";
+          loadImage(image, card.querySelector(".image-fallback"), card.querySelector(".monogram"), perfume);
+        }
+      } else if (image.dataset.loaded === "true") {
+        // Liberar imágenes lejanas reduce drásticamente la memoria decodificada en Safari iOS.
+        unloadCatalogImage(image);
+      }
+    }
+  }, { root: null, rootMargin: "700px 0px", threshold: 0.01 });
+}
+
 function configureImage(card, perfume) {
-  loadImage(card.querySelector(".perfume-image"), card.querySelector(".image-fallback"), card.querySelector(".monogram"), perfume);
+  const image = card.querySelector(".perfume-image");
+  const fallback = card.querySelector(".image-fallback");
+  const monogram = card.querySelector(".monogram");
+  image.removeAttribute("src");
+  image.loading = "lazy";
+  image.decoding = "async";
+  image.fetchPriority = "low";
+  image.dataset.loaded = "false";
+  monogram.textContent = initials(perfume.designer);
+  fallback.hidden = false;
+  ensureCatalogImageObserver();
+  if (catalogImageObserver) catalogImageObserver.observe(image);
+  else loadImage(image, fallback, monogram, perfume);
 }
 function scrollToCatalog() { $("#catalogo").scrollIntoView({ behavior: "smooth", block: "start" }); }
 function setFilter(type, value, shouldScroll = true) {
@@ -447,6 +502,24 @@ function disconnectCatalogObserver() {
   catalogObserver = null;
 }
 
+function disconnectCatalogImages() {
+  if (catalogImageObserver) catalogImageObserver.disconnect();
+  catalogImageObserver = null;
+}
+
+function scheduleCatalogBatch(results, token) {
+  clearTimeout(catalogBatchTimer);
+  const run = () => {
+    if (token !== catalogRenderToken) return;
+    if (catalogScrollBusy) {
+      catalogBatchTimer = window.setTimeout(run, CATALOG_IDLE_DELAY);
+      return;
+    }
+    requestAnimationFrame(() => appendCatalogBatch(results, token));
+  };
+  catalogBatchTimer = window.setTimeout(run, catalogScrollBusy ? CATALOG_IDLE_DELAY : 40);
+}
+
 function appendCatalogBatch(results, token) {
   if (token !== catalogRenderToken || catalogRenderedCount >= results.length) return;
   const end = Math.min(catalogRenderedCount + CATALOG_BATCH_SIZE, results.length);
@@ -475,8 +548,8 @@ function setupCatalogObserver(results, token) {
     if (token !== catalogRenderToken) return;
     if (entries.some(entry => entry.isIntersecting)) {
       disconnectCatalogObserver();
-      // Un solo lote por fotograma evita ráfagas de render y decodificación en Safari iOS.
-      requestAnimationFrame(() => appendCatalogBatch(results, token));
+      // Esperar a que termine el desplazamiento agresivo evita ráfagas de DOM e imágenes en Safari.
+      scheduleCatalogBatch(results, token);
     }
   }, { root: null, rootMargin: "900px 0px", threshold: 0.01 });
   catalogObserver.observe(sentinel);
@@ -486,6 +559,8 @@ function render() {
   const results = filteredPerfumes();
   const token = ++catalogRenderToken;
   disconnectCatalogObserver();
+  disconnectCatalogImages();
+  clearTimeout(catalogBatchTimer);
   catalogRenderedCount = 0;
   elements.catalog.replaceChildren();
   appendCatalogBatch(results, token);
@@ -774,6 +849,19 @@ async function init(){
     console.error(error);
   }
 }
+
+window.addEventListener("scroll", () => {
+  const now = performance.now();
+  const deltaY = Math.abs(window.scrollY - lastCatalogScrollY);
+  const deltaT = Math.max(1, now - lastCatalogScrollTime);
+  const velocity = deltaY / deltaT;
+  lastCatalogScrollY = window.scrollY;
+  lastCatalogScrollTime = now;
+  if (velocity > 1.6 || deltaY > 420) catalogScrollBusy = true;
+  clearTimeout(catalogScrollIdleTimer);
+  catalogScrollIdleTimer = window.setTimeout(() => { catalogScrollBusy = false; }, CATALOG_IDLE_DELAY);
+}, { passive: true });
+
 window.addEventListener("pageshow", event => {
   // No alteramos el scroll restaurado por Safari al volver desde memoria/bfcache.
   if (!event.persisted && !location.hash.startsWith("#perfume=") && window.scrollY < 2) {

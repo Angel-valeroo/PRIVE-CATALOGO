@@ -1,3 +1,11 @@
+## Sprint 4.3 — Safari scroll memory hardening
+
+- Carga del catálogo reducida a lotes de 16 tarjetas.
+- Nuevas imágenes se cargan solo cerca del viewport.
+- Imágenes lejanas se descargan para liberar memoria decodificada.
+- La carga de nuevos lotes se pausa durante scroll agresivo y continúa al quedar inactivo.
+- Se conserva la navegación y el diseño existentes.
+
 # CHANGELOG — PRIVÉ Sprint 3.4
 
 ## Motor de composición universal

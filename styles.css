@@ -1490,3 +1490,12 @@ body.search-has-query .search-svg{
   pointer-events:none;
 }
 .catalog-load-sentinel[hidden]{display:none}
+
+
+/* Sprint 4.3 — reducción de pintura y memoria durante scroll agresivo en Safari */
+@supports (content-visibility: auto) {
+  .perfume-card {
+    content-visibility: auto;
+    contain-intrinsic-size: 430px;
+  }
+}

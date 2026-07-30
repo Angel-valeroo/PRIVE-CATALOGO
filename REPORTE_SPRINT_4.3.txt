@@ -1,0 +1,17 @@
+PRIVÉ — Sprint 4.3
+Corrección de reinicio/error por scroll agresivo en Safari iPhone.
+
+Cambios:
+- Lotes reducidos de 32 a 16 tarjetas.
+- Carga de nuevos lotes pausada mientras el desplazamiento es muy rápido.
+- Imágenes de tarjetas cargadas solo cerca del viewport.
+- Imágenes lejanas liberadas de memoria y recargadas al volver a acercarse.
+- Carga lazy, decoding async y prioridad baja en tarjetas.
+- content-visibility para reducir pintura y trabajo fuera de pantalla.
+- Caché de app y estilos actualizada.
+
+Archivos modificados:
+- app.js
+- styles.css
+- index.html
+- CHANGELOG.md
