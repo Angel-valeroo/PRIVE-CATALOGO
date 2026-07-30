@@ -7,7 +7,8 @@ const state = {
 const IMAGE_BASE_PATH = "IMAGES";
 const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
 const MIN_RECOMMENDATION_SCORE = 85;
-const CORE_DATA_VERSION = "master-004";
+const CORE_DATA_VERSION = "master-004-scrollfix";
+const CATALOG_BATCH_SIZE = 32;
 
 const DISCOVERY_GROUPS = [
   { label: "Género", type: "category", featured: true, values: ["Caballero", "Dama", "Unisex"] },
@@ -68,6 +69,9 @@ const elements = {
 const detailImageBoundsCache = new Map();
 let detailLayoutFrame = 0;
 let detailOpenSequence = 0;
+let catalogRenderToken = 0;
+let catalogRenderedCount = 0;
+let catalogObserver = null;
 
 function categoryFromCode(code) {
   const value = String(code || "").trim().toUpperCase();
@@ -188,6 +192,7 @@ function loadImage(image, fallback, monogram, perfume) {
   image.dataset.requestId = requestId;
   monogram.textContent = initials(perfume.designer);
   image.alt = `${perfume.name} de ${perfume.designer}`;
+  if (image !== elements.detailImage) image.fetchPriority = "low";
   image.hidden = false;
   image.classList.add("is-loading");
   fallback.hidden = false;
@@ -195,8 +200,12 @@ function loadImage(image, fallback, monogram, perfume) {
   const isCurrentRequest = () => image.dataset.requestId === requestId;
   const revealCurrentImage = async () => {
     if (!isCurrentRequest()) return;
-    try { if (typeof image.decode === "function") await image.decode(); } catch (_) { /* onload ya confirmó el recurso */ }
-    if (!isCurrentRequest()) return;
+    // En tarjetas evitamos decodificaciones masivas simultáneas. Safari puede
+    // recargar la pestaña cuando muchas imágenes se decodifican al hacer scroll rápido.
+    if (image === elements.detailImage) {
+      try { if (typeof image.decode === "function") await image.decode(); } catch (_) { /* onload ya confirmó el recurso */ }
+      if (!isCurrentRequest()) return;
+    }
     image.classList.remove("is-loading");
     fallback.hidden = true;
     if (image === elements.detailImage) {
@@ -411,26 +420,80 @@ function closePerfume(updateHash = true) {
   if (!elements.advisorDialog.open) document.body.classList.remove("dialog-open");
   if (updateHash && location.hash.startsWith("#perfume=")) history.pushState({}, "", location.pathname + location.search);
 }
+function createCatalogCard(perfume, index) {
+  const card = elements.template.content.cloneNode(true);
+  const article = card.querySelector(".perfume-card");
+  const designer = card.querySelector(".designer");
+  const openButtons = card.querySelectorAll(".card-open, .name-button, .details-link");
+  designer.textContent = perfume.designer;
+  designer.addEventListener("click", () => setFilter("designer", perfume.designer));
+  card.querySelector(".perfume-name").textContent = perfume.name;
+  card.querySelector(".product-code").textContent = `CLAVE ${perfume.code}`;
+  article.dataset.perfumeId = perfume.id;
+  article.style.setProperty("--card-index", Math.min(index, 18));
+  const cardNumber = card.querySelector(".card-number");
+  if (cardNumber) cardNumber.textContent = String(index + 1).padStart(2, "0");
+  const meta = card.querySelector(".card-meta");
+  const metaValues = [perfume.family, ...asList(perfume.contexts).slice(0,1), ...asList(perfume.accords).slice(0,1)].filter(Boolean);
+  meta.textContent = metaValues.join(" · ");
+  meta.hidden = metaValues.length === 0;
+  openButtons.forEach(button => button.addEventListener("click", () => openPerfume(perfume)));
+  configureImage(card, perfume);
+  return card;
+}
+
+function disconnectCatalogObserver() {
+  if (catalogObserver) catalogObserver.disconnect();
+  catalogObserver = null;
+}
+
+function appendCatalogBatch(results, token) {
+  if (token !== catalogRenderToken || catalogRenderedCount >= results.length) return;
+  const end = Math.min(catalogRenderedCount + CATALOG_BATCH_SIZE, results.length);
+  const fragment = document.createDocumentFragment();
+  for (let index = catalogRenderedCount; index < end; index += 1) {
+    fragment.appendChild(createCatalogCard(results[index], index));
+  }
+  elements.catalog.appendChild(fragment);
+  catalogRenderedCount = end;
+  setupCatalogObserver(results, token);
+}
+
+function setupCatalogObserver(results, token) {
+  disconnectCatalogObserver();
+  let sentinel = document.getElementById("catalogLoadSentinel");
+  if (!sentinel) {
+    sentinel = document.createElement("div");
+    sentinel.id = "catalogLoadSentinel";
+    sentinel.className = "catalog-load-sentinel";
+    sentinel.setAttribute("aria-hidden", "true");
+    elements.catalog.insertAdjacentElement("afterend", sentinel);
+  }
+  sentinel.hidden = catalogRenderedCount >= results.length;
+  if (sentinel.hidden) return;
+  catalogObserver = new IntersectionObserver(entries => {
+    if (token !== catalogRenderToken) return;
+    if (entries.some(entry => entry.isIntersecting)) {
+      disconnectCatalogObserver();
+      // Un solo lote por fotograma evita ráfagas de render y decodificación en Safari iOS.
+      requestAnimationFrame(() => appendCatalogBatch(results, token));
+    }
+  }, { root: null, rootMargin: "900px 0px", threshold: 0.01 });
+  catalogObserver.observe(sentinel);
+}
+
 function render() {
-  const results = filteredPerfumes(); const fragment = document.createDocumentFragment();
-  results.forEach((perfume, index) => {
-    const card = elements.template.content.cloneNode(true); const article = card.querySelector(".perfume-card");
-    const designer = card.querySelector(".designer"); const openButtons = card.querySelectorAll(".card-open, .name-button, .details-link");
-    designer.textContent = perfume.designer; designer.addEventListener("click", () => setFilter("designer", perfume.designer));
-    card.querySelector(".perfume-name").textContent = perfume.name;
-    card.querySelector(".product-code").textContent = `CLAVE ${perfume.code}`; article.dataset.perfumeId = perfume.id;
-    article.style.setProperty("--card-index", Math.min(index, 18));
-    const cardNumber = card.querySelector(".card-number");
-    if (cardNumber) cardNumber.textContent = String(index + 1).padStart(2, "0");
-    const meta = card.querySelector(".card-meta");
-    const metaValues = [perfume.family, ...asList(perfume.contexts).slice(0,1), ...asList(perfume.accords).slice(0,1)].filter(Boolean);
-    meta.textContent = metaValues.join(" · "); meta.hidden = metaValues.length === 0;
-    openButtons.forEach(button => button.addEventListener("click", () => openPerfume(perfume)));
-    configureImage(card, perfume); fragment.appendChild(card);
-  });
-  elements.catalog.replaceChildren(fragment); elements.resultCount.textContent = results.length.toLocaleString("es-MX");
+  const results = filteredPerfumes();
+  const token = ++catalogRenderToken;
+  disconnectCatalogObserver();
+  catalogRenderedCount = 0;
+  elements.catalog.replaceChildren();
+  appendCatalogBatch(results, token);
+  elements.resultCount.textContent = results.length.toLocaleString("es-MX");
   elements.resultLabel.textContent = results.length === 1 ? "fragancia" : "fragancias";
   elements.emptyState.hidden = results.length !== 0;
+  const sentinel = document.getElementById("catalogLoadSentinel");
+  if (sentinel && results.length === 0) sentinel.hidden = true;
   elements.clearSearch.classList.toggle("visible", Boolean(state.query));
   elements.categoryFilters.forEach(button => {
     const active = button.dataset.category === state.category;
@@ -711,8 +774,11 @@ async function init(){
     console.error(error);
   }
 }
-window.addEventListener("pageshow", () => {
-  if (!location.hash.startsWith("#perfume=")) window.scrollTo(0, 0);
+window.addEventListener("pageshow", event => {
+  // No alteramos el scroll restaurado por Safari al volver desde memoria/bfcache.
+  if (!event.persisted && !location.hash.startsWith("#perfume=") && window.scrollY < 2) {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }
 });
 init();
 

@@ -1478,3 +1478,15 @@ body.search-has-query .search-svg{
   border-color:rgba(246,178,192,.96)!important;
   opacity:.86;
 }
+
+/* Sprint 4.2 · estabilidad de catálogo en Safari iOS */
+.perfume-card{
+  content-visibility:auto;
+  contain-intrinsic-size:420px 260px;
+}
+.catalog-load-sentinel{
+  width:100%;
+  height:2px;
+  pointer-events:none;
+}
+.catalog-load-sentinel[hidden]{display:none}

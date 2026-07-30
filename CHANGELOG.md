@@ -156,3 +156,10 @@
 - La edad continúa como tendencia orientativa, secundaria y nunca restrictiva.
 - Se actualizó la versión de Core a `master-004` y la carga de JavaScript a 5.2.
 - Se añadieron generador y pruebas reproducibles del Lote 004.
+
+## Sprint 4.2 — Estabilidad del catálogo en Safari iOS
+- El catálogo ahora se renderiza en lotes controlados de 32 tarjetas.
+- Se evita disparar múltiples cargas simultáneas al hacer scroll rápido.
+- Las imágenes de tarjetas ya no ejecutan decodificación masiva; la decodificación completa se conserva en la ficha de detalle.
+- Se añadió `content-visibility` para reducir memoria y trabajo fuera de pantalla.
+- Safari ya no pierde la posición por un `pageshow` restaurado desde memoria.
