@@ -7,7 +7,7 @@ const state = {
 const IMAGE_BASE_PATH = "IMAGES";
 const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
 const MIN_RECOMMENDATION_SCORE = 85;
-const CORE_DATA_VERSION = "master-004-scrollfix-v49";
+const CORE_DATA_VERSION = "master-004-scrollfix-v50";
 const IS_MOBILE_CATALOG = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.matchMedia("(pointer: coarse)").matches;
 const CATALOG_BATCH_SIZE = IS_MOBILE_CATALOG ? 24 : 40;
 const CATALOG_INITIAL_BATCH_SIZE = IS_MOBILE_CATALOG ? 48 : 72;
@@ -270,6 +270,10 @@ function loadImage(image, fallback, monogram, perfume, onSettled = null) {
 }
 function unloadCatalogImage(image) {
   if (!image || image === elements.detailImage) return;
+  // Nunca cancelar una petición activa. Antes se liberaban imágenes con
+  // dataset.loaded=true aunque todavía estuvieran descargándose; al borrar
+  // sus handlers, la cola nunca recibía el callback y perdía capacidad.
+  if (image.dataset.loadState === "loading" || image.dataset.loadState === "queued") return;
   catalogImageQueued.delete(image);
   image.dataset.requestId = `unloaded-${Date.now()}`;
   image.onload = null;
@@ -281,6 +285,7 @@ function unloadCatalogImage(image) {
   const fallback = card?.querySelector(".image-fallback");
   if (fallback) fallback.hidden = false;
   image.dataset.loaded = "false";
+  image.dataset.loadState = "idle";
 }
 
 function imageDistanceFromViewport(image) {
@@ -295,17 +300,23 @@ function pumpCatalogImageQueue() {
   catalogImageQueue.sort((a, b) => imageDistanceFromViewport(a.image) - imageDistanceFromViewport(b.image));
   while (catalogImageActiveLoads < CATALOG_IMAGE_CONCURRENCY && catalogImageQueue.length) {
     const task = catalogImageQueue.shift();
-    if (!task?.image?.isConnected || task.image.dataset.loaded === "true") continue;
+    if (!task?.image?.isConnected || task.image.dataset.loadState !== "queued") {
+      if (task?.image) catalogImageQueued.delete(task.image);
+      continue;
+    }
     const { image, card, perfume, generation } = task;
     catalogImageActiveLoads += 1;
     image.dataset.loaded = "true";
+    image.dataset.loadState = "loading";
     loadImage(
       image,
       card.querySelector(".image-fallback"),
       card.querySelector(".monogram"),
       perfume,
-      () => {
+      success => {
         catalogImageQueued.delete(image);
+        image.dataset.loadState = success ? "loaded" : "failed";
+        if (!success) image.dataset.loaded = "false";
         if (generation === catalogImageGeneration) {
           catalogImageActiveLoads = Math.max(0, catalogImageActiveLoads - 1);
           pumpCatalogImageQueue();
@@ -316,12 +327,13 @@ function pumpCatalogImageQueue() {
 }
 
 function queueCatalogImage(image) {
-  if (!image || image.dataset.loaded === "true" || catalogImageQueued.has(image)) return;
+  if (!image || image.dataset.loadState === "loaded" || image.dataset.loadState === "loading" || image.dataset.loadState === "queued" || catalogImageQueued.has(image)) return;
   const card = image.closest(".perfume-card");
   const perfumeId = card?.dataset.perfumeId;
   const perfume = state.perfumes.find(item => item.id === perfumeId);
   if (!card || !perfume) return;
   catalogImageQueued.add(image);
+  image.dataset.loadState = "queued";
   catalogImageQueue.push({ image, card, perfume, generation: catalogImageGeneration });
   pumpCatalogImageQueue();
 }
@@ -332,7 +344,7 @@ function queueNearbyCatalogImages() {
   catalogImageSweepFrame = requestAnimationFrame(() => {
     const preloadDistance = IS_MOBILE_CATALOG ? 1500 : 2400;
     const viewportHeight = Math.max(window.innerHeight, 1);
-    const candidates = [...elements.catalog.querySelectorAll('.perfume-image[data-loaded="false"]')]
+    const candidates = [...elements.catalog.querySelectorAll('.perfume-image[data-load-state="idle"], .perfume-image[data-load-state="failed"]')]
       .filter(image => {
         const rect = image.getBoundingClientRect();
         return rect.bottom >= -preloadDistance && rect.top <= viewportHeight + preloadDistance;
@@ -352,7 +364,7 @@ function ensureCatalogImageObserver() {
 }
 
 function releaseFarCatalogImages() {
-  const loaded = [...elements.catalog.querySelectorAll('.perfume-image[data-loaded="true"]')];
+  const loaded = [...elements.catalog.querySelectorAll('.perfume-image[data-load-state="loaded"]')];
   if (loaded.length <= CATALOG_IMAGE_CACHE_LIMIT) return;
   const viewportHeight = Math.max(window.innerHeight, 1);
   const releaseDistance = viewportHeight * CATALOG_IMAGE_RELEASE_DISTANCE;
@@ -379,6 +391,7 @@ function configureImage(card, perfume) {
   image.decoding = "async";
   image.fetchPriority = "low";
   image.dataset.loaded = "false";
+  image.dataset.loadState = "idle";
   monogram.textContent = initials(perfume.designer);
   fallback.hidden = false;
   ensureCatalogImageObserver();
