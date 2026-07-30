@@ -57,3 +57,16 @@
 - En dispositivos móviles conserva todo el ancho disponible para mantener la usabilidad.
 - Se respetan las preferencias del sistema para reducir movimiento.
 - Se actualizó la versión de caché de estilos y JavaScript a 3.6.
+
+## Sprint 3.7 — Corrección de crecimiento de la búsqueda
+
+- Se eliminó cualquier transformación visual que pudiera sentirse como zoom al activar la búsqueda.
+- La barra ahora crece de forma real mediante ancho, altura mínima, padding y separación interna.
+- El contenedor blanco, la tipografía y el icono aumentan de tamaño de manera coordinada.
+- Se fijó un tamaño mínimo de 16 px en el campo para impedir el zoom automático de navegadores móviles al recibir foco.
+- Se eliminó el borde, anillo y brillo dorado del estado activo.
+- El único indicador de escritura es el cursor natural del campo.
+- Se mantuvo la expansión desde el centro sin recortar ni desplazar el resto del Home.
+- En móvil, la barra compacta conserva aire lateral y al activarse ocupa el ancho disponible.
+- Se eliminaron efectos de escala en el botón de limpiar para mantener un crecimiento físico y estable.
+- Se actualizó la versión de caché de estilos y JavaScript a 3.7.
