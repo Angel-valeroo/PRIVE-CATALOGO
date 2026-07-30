@@ -105,3 +105,15 @@
 - Las flechas de desplazamiento ahora tienen mayor contraste y definición sin volverse protagonistas.
 - Caballero, Unisex, composición, tamaños y comportamiento funcional permanecen sin cambios.
 - Caché de estilos y JavaScript actualizada a la versión 4.1.
+
+## Base Maestra — Lote 001 (50 perfumes)
+- Se activaron las primeras 50 fichas enriquecidas de PRIVÉ Core Database, respetando el orden del catálogo operativo.
+- Cada ficha incorpora familia, acordes, pirámide olfativa, descripción sensorial, etiquetas de estilo, intensidad, ocasiones, contextos, clima, estación y momento del día.
+- Se añadió un perfil sensorial estructurado para mejorar búsquedas, similitud y recomendaciones.
+- La tendencia de edad ahora incluye rango, nivel de confianza, encuadre `tendency`, indicador no restrictivo y una explicación amable.
+- La edad permanece como señal secundaria: no excluye perfumes y siempre prioriza gustos, notas y personalidad.
+- El adaptador Core expone `styleTags`, `dayParts`, `sensoryProfile` y `ageTrend` sin alterar la identidad procedente del Excel.
+- Las recomendaciones entre perfumes ahora también consideran etiquetas de estilo y momento del día.
+- Se fijó la regla de crecimiento en lotes de 50, con validación obligatoria antes del siguiente lote.
+- Se añadieron pruebas automáticas del lote, política de edad, integridad de archivos, orden y ausencia de duplicados.
+- Caché de JavaScript y Core actualizada a la versión 5.0 / `master-001`.

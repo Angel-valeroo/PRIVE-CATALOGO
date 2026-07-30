@@ -1,54 +1,53 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02446-afnan-9pm",
+  "id": "cp02374-armani-armani-code",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "9PM",
+    "brand": "ARMANI",
+    "name": "ARMANI CODE",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02446",
+    "priveCode": "CP02374",
     "sku": null,
     "audience": "Caballero",
-    "concentration": "Eau de Parfum",
-    "launchYear": 2020,
+    "concentration": "Eau de Toilette",
+    "launchYear": 2004,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Ámbar vainilla",
+    "family": "Ámbar especiada",
     "subfamily": null,
     "accords": [
-      "Dulce",
       "Especiado",
-      "Afrutado"
+      "Cítrico",
+      "Cuero",
+      "Dulce"
     ],
     "styleTags": [
-      "Juvenil",
-      "Dulce y nocturno"
+      "Elegante",
+      "Sensual y nocturno"
     ]
   },
   "olfactory": {
     "topNotes": [
-      "Bergamota",
-      "Lavanda",
-      "Canela",
-      "Manzana"
+      "Limón",
+      "Bergamota"
     ],
     "heartNotes": [
-      "Muguete",
-      "Flor de azahar"
+      "Anís estrellado",
+      "Flor de olivo",
+      "Madera de guayaco"
     ],
     "baseNotes": [
-      "Pachulí",
-      "Ámbar",
-      "Vainilla",
-      "Haba tonka"
+      "Cuero",
+      "Haba tonka",
+      "Tabaco"
     ],
-    "notePyramidConfidence": "medium"
+    "notePyramidConfidence": "low"
   },
   "performance": {
-    "intensity": "Intensa",
+    "intensity": "Moderada",
     "longevity": "Desconocida",
     "projection": "Desconocida",
     "trail": "Desconocida",
@@ -58,34 +57,33 @@
     }
   },
   "sensoryProfile": {
-    "freshness": 2,
-    "sweetness": 5,
-    "warmth": 5,
+    "freshness": 4,
+    "sweetness": 2,
+    "warmth": 4,
     "woodiness": 2,
     "spiciness": 2,
-    "floral": 5,
-    "citrus": 2,
-    "fruitiness": 2,
+    "floral": 0,
+    "citrus": 4,
+    "fruitiness": 0,
     "aquatic": 0,
     "powdery": 2,
-    "smoky": 0,
-    "leathery": 0
+    "smoky": 2,
+    "leathery": 2
   },
   "recommendation": {
     "occasions": [
       "Noche",
       "Cita",
-      "Fiesta",
       "Evento"
     ],
     "contexts": [
       "Romántico",
-      "Social",
+      "Formal",
       "Especial"
     ],
     "climates": [
-      "Frío",
-      "Templado"
+      "Templado",
+      "Frío"
     ],
     "seasons": [
       "Otoño",
@@ -94,34 +92,34 @@
     "dayParts": [
       "Noche"
     ],
-    "formality": 2,
-    "versatility": 4,
-    "distinctiveness": 3,
+    "formality": 4,
+    "versatility": 3,
+    "distinctiveness": 4,
     "recommendedAge": {
-      "min": 18,
-      "max": 35,
-      "confidence": "medium",
+      "min": 25,
+      "max": 55,
+      "confidence": "low",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 35 años por su estilo juvenil, dulce y nocturno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 25 a 55 años por su estilo elegante, sensual y nocturno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil dulce, especiado, afrutado, con una salida de bergamota, lavanda, canela que evoluciona hacia un fondo de pachulí, ámbar, vainilla. Su carácter juvenil, dulce y nocturno la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil juvenil, dulce y nocturno. Afinidad orientativa: 18 a 35 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil especiado, cítrico, cuero, con una salida de limón, bergamota que evoluciona hacia un fondo de cuero, haba tonka, tabaco. Su carácter elegante, sensual y nocturno la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil elegante, sensual y nocturno. Afinidad orientativa: 25 a 55 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
-      "Rinde mejor en clima frío y templado.",
+      "Rinde mejor en clima templado y frío.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02446.avif",
-      "alt": "AFNAN 9PM"
+      "path": "IMAGES/Caballero/CP02374.avif",
+      "alt": "ARMANI ARMANI CODE"
     }
   },
   "provenance": {
     "lastReviewedAt": "2026-07-30",
     "reviewedBy": "PRIVÉ — revisión de lote",
-    "confidence": "medium",
+    "confidence": "low",
     "sources": [
       {
         "type": "internal",
@@ -133,9 +131,9 @@
         ]
       },
       {
-        "type": "official",
-        "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/9-pm",
+        "type": "internal",
+        "title": "Revisión documental PRIVÉ — Lote maestro 001",
+        "url": null,
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

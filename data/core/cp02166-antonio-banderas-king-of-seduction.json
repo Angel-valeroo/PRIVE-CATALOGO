@@ -1,49 +1,56 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02518-afnan-turathi-blue",
+  "id": "cp02166-antonio-banderas-king-of-seduction",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "TURATHI BLUE",
+    "brand": "ANTONIO BANDERAS",
+    "name": "KING OF SEDUCTION",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02518",
+    "priveCode": "CP02166",
     "sku": null,
     "audience": "Caballero",
-    "concentration": "Eau de Parfum",
-    "launchYear": 2021,
+    "concentration": "Eau de Toilette",
+    "launchYear": 2014,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Cítrica aromática",
+    "family": "Aromática acuática",
     "subfamily": null,
     "accords": [
-      "Cítrico",
-      "Aromático",
-      "Amaderado",
-      "Fresco"
+      "Fresco",
+      "Acuático",
+      "Afrutado",
+      "Cítrico"
     ],
     "styleTags": [
-      "Moderno",
-      "Limpio y versátil"
+      "Fresco",
+      "Seductor y accesible"
     ]
   },
   "olfactory": {
     "topNotes": [
       "Bergamota",
-      "Mandarina"
+      "Toronja",
+      "Melón",
+      "Piña",
+      "Manzana verde"
     ],
     "heartNotes": [
-      "Ámbar",
-      "Notas amaderadas",
-      "Especias frescas"
+      "Notas marinas",
+      "Cardamomo",
+      "Neroli",
+      "Jazmín"
     ],
     "baseNotes": [
-      "Almizcle",
-      "Pachulí"
+      "Cedro",
+      "Vetiver",
+      "Ámbar",
+      "Almizcle blanco",
+      "Ante"
     ],
-    "notePyramidConfidence": "medium"
+    "notePyramidConfidence": "low"
   },
   "performance": {
     "intensity": "Moderada",
@@ -56,29 +63,30 @@
     }
   },
   "sensoryProfile": {
-    "freshness": 4,
-    "sweetness": 0,
-    "warmth": 2,
+    "freshness": 5,
+    "sweetness": 5,
+    "warmth": 4,
     "woodiness": 4,
     "spiciness": 2,
-    "floral": 0,
+    "floral": 2,
     "citrus": 4,
-    "fruitiness": 0,
-    "aquatic": 0,
+    "fruitiness": 5,
+    "aquatic": 4,
     "powdery": 2,
     "smoky": 0,
-    "leathery": 0
+    "leathery": 2
   },
   "recommendation": {
     "occasions": [
       "Día",
       "Diario",
-      "Oficina",
+      "Cita",
+      "Playa",
       "Viaje"
     ],
     "contexts": [
       "Casual",
-      "Profesional",
+      "Romántico",
       "Vacaciones"
     ],
     "climates": [
@@ -91,36 +99,37 @@
     ],
     "dayParts": [
       "Mañana",
-      "Tarde"
+      "Tarde",
+      "Noche"
     ],
-    "formality": 3,
+    "formality": 2,
     "versatility": 4,
     "distinctiveness": 3,
     "recommendedAge": {
-      "min": 20,
-      "max": 45,
-      "confidence": "medium",
+      "min": 18,
+      "max": 40,
+      "confidence": "low",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 45 años por su estilo moderno, limpio y versátil. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 40 años por su estilo fresco, seductor y accesible. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil cítrico, aromático, amaderado, con una salida de bergamota, mandarina que evoluciona hacia un fondo de almizcle, pachulí. Su carácter moderno, limpio y versátil la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil moderno, limpio y versátil. Afinidad orientativa: 20 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil fresco, acuático, afrutado, con una salida de bergamota, toronja, melón que evoluciona hacia un fondo de cedro, vetiver, ámbar. Su carácter fresco, seductor y accesible la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil fresco, seductor y accesible. Afinidad orientativa: 18 a 40 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
       "Rinde mejor en clima calor y templado.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02518.avif",
-      "alt": "AFNAN TURATHI BLUE"
+      "path": "IMAGES/Caballero/CP02166.avif",
+      "alt": "ANTONIO BANDERAS KING OF SEDUCTION"
     }
   },
   "provenance": {
     "lastReviewedAt": "2026-07-30",
     "reviewedBy": "PRIVÉ — revisión de lote",
-    "confidence": "medium",
+    "confidence": "low",
     "sources": [
       {
         "type": "internal",
@@ -132,9 +141,9 @@
         ]
       },
       {
-        "type": "official",
-        "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/turathi-blue-homme",
+        "type": "internal",
+        "title": "Revisión documental PRIVÉ — Lote maestro 001",
+        "url": null,
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

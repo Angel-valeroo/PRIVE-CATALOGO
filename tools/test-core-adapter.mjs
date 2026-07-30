@@ -27,7 +27,12 @@ const checks = [
   [merged.find(item => item.code === "CP02446")?.contexts?.includes("Cita"), "Afnan 9PM debe conservar Cita"],
   [merged.find(item => item.code === "CP02518")?.climates?.includes("Calor"), "Turathi Blue debe conservar Calor"],
   [merged.find(item => item.code === "CP02438")?.accords?.length > 0, "Club de Nuit debe conservar acordes"],
-  [merged.find(item => item.code === "CP00725")?.topNotes?.length > 0, "Acqua di Giò debe conservar notas"]
+  [merged.find(item => item.code === "CP00725")?.topNotes?.length > 0, "Acqua di Giò debe conservar notas"],
+  [merged.find(item => item.code === "CP02446")?.styleTags?.length > 0, "Afnan 9PM debe exponer etiquetas de estilo"],
+  [merged.find(item => item.code === "CP02446")?.dayParts?.includes("Noche"), "Afnan 9PM debe exponer momento del día"],
+  [merged.find(item => item.code === "CP02446")?.sensoryProfile?.sweetness >= 0, "Afnan 9PM debe exponer perfil sensorial"],
+  [merged.find(item => item.code === "CP02446")?.ageTrend?.framing === "tendency", "La edad debe exponerse como tendencia"],
+  [merged.find(item => item.code === "CP02446")?.ageTrend?.isRestrictive === false, "La edad no debe ser restrictiva"]
 ];
 
 const failed = checks.filter(([ok]) => !ok);

@@ -1,54 +1,54 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02446-afnan-9pm",
+  "id": "cp02259-armani-armani-code-absolu",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "9PM",
+    "brand": "ARMANI",
+    "name": "ARMANI CODE ABSOLU",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02446",
+    "priveCode": "CP02259",
     "sku": null,
     "audience": "Caballero",
     "concentration": "Eau de Parfum",
-    "launchYear": 2020,
+    "launchYear": 2019,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Ámbar vainilla",
+    "family": "Ámbar especiada",
     "subfamily": null,
     "accords": [
       "Dulce",
+      "Vainilla",
       "Especiado",
-      "Afrutado"
+      "Cuero"
     ],
     "styleTags": [
-      "Juvenil",
-      "Dulce y nocturno"
+      "Opulento",
+      "Cremoso y seductor"
     ]
   },
   "olfactory": {
     "topNotes": [
-      "Bergamota",
-      "Lavanda",
-      "Canela",
+      "Mandarina verde",
       "Manzana"
     ],
     "heartNotes": [
-      "Muguete",
-      "Flor de azahar"
+      "Flor de azahar",
+      "Nuez moscada",
+      "Semilla de zanahoria"
     ],
     "baseNotes": [
-      "Pachulí",
-      "Ámbar",
+      "Haba tonka",
       "Vainilla",
-      "Haba tonka"
+      "Ante",
+      "Notas amaderadas"
     ],
-    "notePyramidConfidence": "medium"
+    "notePyramidConfidence": "low"
   },
   "performance": {
-    "intensity": "Intensa",
+    "intensity": "Muy intensa",
     "longevity": "Desconocida",
     "projection": "Desconocida",
     "trail": "Desconocida",
@@ -60,16 +60,16 @@
   "sensoryProfile": {
     "freshness": 2,
     "sweetness": 5,
-    "warmth": 5,
+    "warmth": 4,
     "woodiness": 2,
     "spiciness": 2,
-    "floral": 5,
+    "floral": 2,
     "citrus": 2,
     "fruitiness": 2,
     "aquatic": 0,
     "powdery": 2,
     "smoky": 0,
-    "leathery": 0
+    "leathery": 4
   },
   "recommendation": {
     "occasions": [
@@ -96,32 +96,32 @@
     ],
     "formality": 2,
     "versatility": 4,
-    "distinctiveness": 3,
+    "distinctiveness": 4,
     "recommendedAge": {
-      "min": 18,
-      "max": 35,
-      "confidence": "medium",
+      "min": 23,
+      "max": 48,
+      "confidence": "low",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 35 años por su estilo juvenil, dulce y nocturno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 23 a 48 años por su estilo opulento, cremoso y seductor. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil dulce, especiado, afrutado, con una salida de bergamota, lavanda, canela que evoluciona hacia un fondo de pachulí, ámbar, vainilla. Su carácter juvenil, dulce y nocturno la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil juvenil, dulce y nocturno. Afinidad orientativa: 18 a 35 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil dulce, vainilla, especiado, con una salida de mandarina verde, manzana que evoluciona hacia un fondo de haba tonka, vainilla, ante. Su carácter opulento, cremoso y seductor la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil opulento, cremoso y seductor. Afinidad orientativa: 23 a 48 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
       "Rinde mejor en clima frío y templado.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02446.avif",
-      "alt": "AFNAN 9PM"
+      "path": "IMAGES/Caballero/CP02259.avif",
+      "alt": "ARMANI ARMANI CODE ABSOLU"
     }
   },
   "provenance": {
     "lastReviewedAt": "2026-07-30",
     "reviewedBy": "PRIVÉ — revisión de lote",
-    "confidence": "medium",
+    "confidence": "low",
     "sources": [
       {
         "type": "internal",
@@ -133,9 +133,9 @@
         ]
       },
       {
-        "type": "official",
-        "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/9-pm",
+        "type": "internal",
+        "title": "Revisión documental PRIVÉ — Lote maestro 001",
+        "url": null,
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

@@ -1,52 +1,47 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02438-armaf-club-de-nuit-intense-man",
+  "id": "cp02306-armani-acqua-di-gio-profumo",
   "status": "review",
   "identity": {
-    "brand": "ARMAF",
-    "name": "CLUB DE NUIT INTENSE MAN",
+    "brand": "ARMANI",
+    "name": "ACQUA DI GIÒ PROFUMO",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02438",
+    "priveCode": "CP02306",
     "sku": null,
     "audience": "Caballero",
-    "concentration": "Eau de Toilette",
+    "concentration": "Parfum",
     "launchYear": 2015,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Chipre frutal",
+    "family": "Aromática acuática",
     "subfamily": null,
     "accords": [
-      "Cítrico",
-      "Afrutado",
-      "Amaderado",
-      "Ahumado"
+      "Acuático",
+      "Incienso",
+      "Aromático",
+      "Amaderado"
     ],
     "styleTags": [
-      "Moderno",
-      "Seguro y de presencia"
+      "Serio",
+      "Elegante y magnético"
     ]
   },
   "olfactory": {
     "topNotes": [
-      "Limón",
-      "Piña",
-      "Bergamota",
-      "Grosella negra",
-      "Manzana"
+      "Notas marinas",
+      "Bergamota"
     ],
     "heartNotes": [
-      "Abedul",
-      "Jazmín",
-      "Rosa"
+      "Romero",
+      "Salvia",
+      "Geranio"
     ],
     "baseNotes": [
-      "Almizcle",
-      "Ámbar gris",
-      "Pachulí",
-      "Vainilla"
+      "Incienso",
+      "Pachulí"
     ],
     "notePyramidConfidence": "low"
   },
@@ -61,31 +56,30 @@
     }
   },
   "sensoryProfile": {
-    "freshness": 4,
-    "sweetness": 5,
-    "warmth": 4,
+    "freshness": 5,
+    "sweetness": 0,
+    "warmth": 2,
     "woodiness": 2,
     "spiciness": 0,
-    "floral": 4,
-    "citrus": 4,
-    "fruitiness": 5,
-    "aquatic": 0,
-    "powdery": 2,
+    "floral": 2,
+    "citrus": 2,
+    "fruitiness": 0,
+    "aquatic": 5,
+    "powdery": 0,
     "smoky": 2,
     "leathery": 0
   },
   "recommendation": {
     "occasions": [
-      "Día",
       "Noche",
-      "Oficina",
       "Cita",
-      "Evento"
+      "Evento",
+      "Oficina"
     ],
     "contexts": [
-      "Casual",
       "Profesional",
-      "Social",
+      "Romántico",
+      "Formal",
       "Especial"
     ],
     "climates": [
@@ -93,36 +87,36 @@
       "Frío"
     ],
     "seasons": [
-      "Primavera",
       "Otoño",
-      "Invierno"
+      "Invierno",
+      "Primavera"
     ],
     "dayParts": [
       "Tarde",
       "Noche"
     ],
-    "formality": 3,
+    "formality": 4,
     "versatility": 4,
-    "distinctiveness": 3,
+    "distinctiveness": 4,
     "recommendedAge": {
-      "min": 20,
-      "max": 45,
+      "min": 25,
+      "max": 55,
       "confidence": "low",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 45 años por su estilo moderno, seguro y de presencia. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 25 a 55 años por su estilo serio, elegante y magnético. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil cítrico, afrutado, amaderado, con una salida de limón, piña, bergamota que evoluciona hacia un fondo de almizcle, ámbar gris, pachulí. Su carácter moderno, seguro y de presencia la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil moderno, seguro y de presencia. Afinidad orientativa: 20 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil acuático, incienso, aromático, con una salida de notas marinas, bergamota que evoluciona hacia un fondo de incienso, pachulí. Su carácter serio, elegante y magnético la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil serio, elegante y magnético. Afinidad orientativa: 25 a 55 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
       "Rinde mejor en clima templado y frío.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02438.avif",
-      "alt": "ARMAF CLUB DE NUIT INTENSE MAN"
+      "path": "IMAGES/Caballero/CP02306.avif",
+      "alt": "ARMANI ACQUA DI GIÒ PROFUMO"
     }
   },
   "provenance": {

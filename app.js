@@ -7,6 +7,7 @@ const state = {
 const IMAGE_BASE_PATH = "IMAGES";
 const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
 const MIN_RECOMMENDATION_SCORE = 85;
+const CORE_DATA_VERSION = "master-001";
 
 const DISCOVERY_GROUPS = [
   { label: "Género", type: "category", featured: true, values: ["Caballero", "Dama", "Unisex"] },
@@ -162,7 +163,7 @@ function includesNormalized(list, value) {
   return asList(list).some(item => normalize(item) === wanted);
 }
 function perfumeTags(perfume) {
-  return [...new Set([...asList(perfume.contexts), ...asList(perfume.occasions), ...asList(perfume.climates), ...asList(perfume.seasons), ...asList(perfume.accords)])];
+  return [...new Set([...asList(perfume.contexts), ...asList(perfume.occasions), ...asList(perfume.climates), ...asList(perfume.seasons), ...asList(perfume.accords), ...asList(perfume.styleTags), ...asList(perfume.dayParts)])];
 }
 function searchableText(perfume) {
   return normalize([perfume.name, perfume.designer, perfume.code, perfume.family,
@@ -263,14 +264,14 @@ function renderActiveFilters() {
 }
 
 function profileValues(perfume) {
-  return [...new Set([...asList(perfume.contexts), ...asList(perfume.climates), ...asList(perfume.seasons), ...asList(perfume.accords)])].slice(0, 12);
+  return [...new Set([...asList(perfume.contexts), ...asList(perfume.climates), ...asList(perfume.seasons), ...asList(perfume.accords), ...asList(perfume.styleTags)])].slice(0, 12);
 }
 function similarityScore(reference, candidate) {
   if (reference.id === candidate.id) return -1;
   let score = 0;
   if (reference.family && reference.family === candidate.family) score += 8;
   const shared = (field, weight) => asList(reference[field]).filter(item => asList(candidate[field]).includes(item)).length * weight;
-  score += shared("accords", 3) + shared("contexts", 3) + shared("climates", 2) + shared("occasions", 2) + shared("seasons", 1);
+  score += shared("accords", 3) + shared("contexts", 3) + shared("climates", 2) + shared("occasions", 2) + shared("styleTags", 2) + shared("dayParts", 1) + shared("seasons", 1);
   if (reference.intensity && reference.intensity === candidate.intensity) score += 2;
   if (reference.designer === candidate.designer) score += 1;
   return score;
@@ -681,9 +682,9 @@ async function loadCorePerfumes() {
     return [];
   }
   try {
-    const manifest = await fetchJson("data/core/catalog.json");
+    const manifest = await fetchJson(`data/core/catalog.json?v=${CORE_DATA_VERSION}`);
     const files = Array.isArray(manifest.perfumes) ? manifest.perfumes : [];
-    return await Promise.all(files.map(file => fetchJson(`data/core/${file}`)));
+    return await Promise.all(files.map(file => fetchJson(`data/core/${file}?v=${CORE_DATA_VERSION}`)));
   } catch (error) {
     console.warn("No fue posible cargar PRIVÉ Core; se usará el catálogo heredado.", error);
     return [];

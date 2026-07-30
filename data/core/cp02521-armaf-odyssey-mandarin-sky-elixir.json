@@ -1,54 +1,56 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02446-afnan-9pm",
+  "id": "cp02521-armaf-odyssey-mandarin-sky-elixir",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "9PM",
+    "brand": "ARMAF",
+    "name": "ODYSSEY MANDARIN SKY ELIXIR",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02446",
+    "priveCode": "CP02521",
     "sku": null,
     "audience": "Caballero",
-    "concentration": "Eau de Parfum",
-    "launchYear": 2020,
+    "concentration": "Parfum",
+    "launchYear": 2025,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Ámbar vainilla",
+    "family": "Ámbar amaderada",
     "subfamily": null,
     "accords": [
       "Dulce",
       "Especiado",
-      "Afrutado"
+      "Amaderado",
+      "Cítrico"
     ],
     "styleTags": [
-      "Juvenil",
-      "Dulce y nocturno"
+      "Intenso",
+      "Moderno y nocturno"
     ]
   },
   "olfactory": {
     "topNotes": [
-      "Bergamota",
+      "Mandarina",
       "Lavanda",
-      "Canela",
-      "Manzana"
+      "Pimienta negra",
+      "Cardamomo"
     ],
     "heartNotes": [
-      "Muguete",
-      "Flor de azahar"
+      "Caramelo",
+      "Incienso",
+      "Vainilla"
     ],
     "baseNotes": [
-      "Pachulí",
-      "Ámbar",
-      "Vainilla",
-      "Haba tonka"
+      "Ambroxan",
+      "Haba tonka",
+      "Cedro",
+      "Vetiver"
     ],
-    "notePyramidConfidence": "medium"
+    "notePyramidConfidence": "low"
   },
   "performance": {
-    "intensity": "Intensa",
+    "intensity": "Muy intensa",
     "longevity": "Desconocida",
     "projection": "Desconocida",
     "trail": "Desconocida",
@@ -60,15 +62,15 @@
   "sensoryProfile": {
     "freshness": 2,
     "sweetness": 5,
-    "warmth": 5,
-    "woodiness": 2,
-    "spiciness": 2,
-    "floral": 5,
+    "warmth": 4,
+    "woodiness": 4,
+    "spiciness": 4,
+    "floral": 2,
     "citrus": 2,
-    "fruitiness": 2,
+    "fruitiness": 0,
     "aquatic": 0,
     "powdery": 2,
-    "smoky": 0,
+    "smoky": 2,
     "leathery": 0
   },
   "recommendation": {
@@ -98,30 +100,30 @@
     "versatility": 4,
     "distinctiveness": 3,
     "recommendedAge": {
-      "min": 18,
-      "max": 35,
-      "confidence": "medium",
+      "min": 20,
+      "max": 42,
+      "confidence": "low",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 35 años por su estilo juvenil, dulce y nocturno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 42 años por su estilo intenso, moderno y nocturno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil dulce, especiado, afrutado, con una salida de bergamota, lavanda, canela que evoluciona hacia un fondo de pachulí, ámbar, vainilla. Su carácter juvenil, dulce y nocturno la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil juvenil, dulce y nocturno. Afinidad orientativa: 18 a 35 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil dulce, especiado, amaderado, con una salida de mandarina, lavanda, pimienta negra que evoluciona hacia un fondo de ambroxan, haba tonka, cedro. Su carácter intenso, moderno y nocturno la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil intenso, moderno y nocturno. Afinidad orientativa: 20 a 42 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
       "Rinde mejor en clima frío y templado.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02446.avif",
-      "alt": "AFNAN 9PM"
+      "path": "IMAGES/Caballero/CP02521.avif",
+      "alt": "ARMAF ODYSSEY MANDARIN SKY ELIXIR"
     }
   },
   "provenance": {
     "lastReviewedAt": "2026-07-30",
     "reviewedBy": "PRIVÉ — revisión de lote",
-    "confidence": "medium",
+    "confidence": "low",
     "sources": [
       {
         "type": "internal",
@@ -133,9 +135,9 @@
         ]
       },
       {
-        "type": "official",
-        "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/9-pm",
+        "type": "internal",
+        "title": "Revisión documental PRIVÉ — Lote maestro 001",
+        "url": null,
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

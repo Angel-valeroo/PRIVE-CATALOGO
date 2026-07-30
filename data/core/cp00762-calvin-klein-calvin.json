@@ -1,52 +1,62 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02518-afnan-turathi-blue",
+  "id": "cp00762-calvin-klein-calvin",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "TURATHI BLUE",
+    "brand": "CALVIN KLEIN",
+    "name": "CALVIN",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02518",
+    "priveCode": "CP00762",
     "sku": null,
     "audience": "Caballero",
-    "concentration": "Eau de Parfum",
-    "launchYear": 2021,
+    "concentration": "Eau de Toilette",
+    "launchYear": 1981,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Cítrica aromática",
+    "family": "Chipre amaderada",
     "subfamily": null,
     "accords": [
-      "Cítrico",
       "Aromático",
+      "Verde",
       "Amaderado",
-      "Fresco"
+      "Cuero"
     ],
     "styleTags": [
-      "Moderno",
-      "Limpio y versátil"
+      "Vintage",
+      "Verde y formal"
     ]
   },
   "olfactory": {
     "topNotes": [
+      "Aldehídos",
       "Bergamota",
-      "Mandarina"
+      "Limón",
+      "Manzanilla",
+      "Salvia esclarea"
     ],
     "heartNotes": [
-      "Ámbar",
-      "Notas amaderadas",
-      "Especias frescas"
+      "Clavel",
+      "Geranio",
+      "Jazmín",
+      "Rosa",
+      "Canela"
     ],
     "baseNotes": [
+      "Musgo de roble",
+      "Vetiver",
+      "Pachulí",
+      "Cedro",
+      "Ámbar",
       "Almizcle",
-      "Pachulí"
+      "Cuero"
     ],
-    "notePyramidConfidence": "medium"
+    "notePyramidConfidence": "low"
   },
   "performance": {
-    "intensity": "Moderada",
+    "intensity": "Intensa",
     "longevity": "Desconocida",
     "projection": "Desconocida",
     "trail": "Desconocida",
@@ -58,69 +68,69 @@
   "sensoryProfile": {
     "freshness": 4,
     "sweetness": 0,
-    "warmth": 2,
-    "woodiness": 4,
+    "warmth": 5,
+    "woodiness": 5,
     "spiciness": 2,
-    "floral": 0,
+    "floral": 5,
     "citrus": 4,
     "fruitiness": 0,
-    "aquatic": 0,
+    "aquatic": 2,
     "powdery": 2,
     "smoky": 0,
-    "leathery": 0
+    "leathery": 2
   },
   "recommendation": {
     "occasions": [
       "Día",
-      "Diario",
       "Oficina",
-      "Viaje"
+      "Evento"
     ],
     "contexts": [
-      "Casual",
       "Profesional",
-      "Vacaciones"
+      "Formal",
+      "Especial"
     ],
     "climates": [
-      "Calor",
-      "Templado"
+      "Templado",
+      "Frío"
     ],
     "seasons": [
-      "Primavera",
-      "Verano"
+      "Otoño",
+      "Invierno",
+      "Primavera"
     ],
     "dayParts": [
-      "Mañana",
-      "Tarde"
+      "Tarde",
+      "Noche"
     ],
-    "formality": 3,
-    "versatility": 4,
-    "distinctiveness": 3,
+    "formality": 4,
+    "versatility": 3,
+    "distinctiveness": 4,
     "recommendedAge": {
-      "min": 20,
-      "max": 45,
-      "confidence": "medium",
+      "min": 35,
+      "max": 70,
+      "confidence": "low",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 45 años por su estilo moderno, limpio y versátil. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 35 a 70 años por su estilo vintage, verde y formal. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil cítrico, aromático, amaderado, con una salida de bergamota, mandarina que evoluciona hacia un fondo de almizcle, pachulí. Su carácter moderno, limpio y versátil la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil moderno, limpio y versátil. Afinidad orientativa: 20 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil aromático, verde, amaderado, con una salida de aldehídos, bergamota, limón que evoluciona hacia un fondo de musgo de roble, vetiver, pachulí. Su carácter vintage, verde y formal la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil vintage, verde y formal. Afinidad orientativa: 35 a 70 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
-      "Rinde mejor en clima calor y templado.",
+      "Rinde mejor en clima templado y frío.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02518.avif",
-      "alt": "AFNAN TURATHI BLUE"
+      "path": "IMAGES/Caballero/CP00762.avif",
+      "alt": "CALVIN KLEIN CALVIN"
     }
   },
   "provenance": {
     "lastReviewedAt": "2026-07-30",
     "reviewedBy": "PRIVÉ — revisión de lote",
-    "confidence": "medium",
+    "confidence": "low",
     "sources": [
       {
         "type": "internal",
@@ -132,9 +142,9 @@
         ]
       },
       {
-        "type": "official",
-        "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/turathi-blue-homme",
+        "type": "internal",
+        "title": "Revisión documental PRIVÉ — Lote maestro 001",
+        "url": null,
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

@@ -1,51 +1,54 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02446-afnan-9pm",
+  "id": "cp01064-calvin-klein-ck-one-shock-for-him",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "9PM",
+    "brand": "CALVIN KLEIN",
+    "name": "CK ONE SHOCK FOR HIM",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02446",
+    "priveCode": "CP01064",
     "sku": null,
     "audience": "Caballero",
-    "concentration": "Eau de Parfum",
-    "launchYear": 2020,
+    "concentration": "Eau de Toilette",
+    "launchYear": 2011,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Ámbar vainilla",
+    "family": "Ámbar especiada",
     "subfamily": null,
     "accords": [
+      "Tabaco",
       "Dulce",
       "Especiado",
-      "Afrutado"
+      "Aromático"
     ],
     "styleTags": [
       "Juvenil",
-      "Dulce y nocturno"
+      "Dulce y rebelde"
     ]
   },
   "olfactory": {
     "topNotes": [
-      "Bergamota",
       "Lavanda",
-      "Canela",
-      "Manzana"
+      "Clementina",
+      "Pepino"
     ],
     "heartNotes": [
-      "Muguete",
-      "Flor de azahar"
+      "Cardamomo",
+      "Pimienta",
+      "Albahaca",
+      "Osmanto"
     ],
     "baseNotes": [
-      "Pachulí",
+      "Tabaco",
       "Ámbar",
-      "Vainilla",
-      "Haba tonka"
+      "Pachulí",
+      "Almizcle",
+      "Notas amaderadas"
     ],
-    "notePyramidConfidence": "medium"
+    "notePyramidConfidence": "low"
   },
   "performance": {
     "intensity": "Intensa",
@@ -59,29 +62,28 @@
   },
   "sensoryProfile": {
     "freshness": 2,
-    "sweetness": 5,
-    "warmth": 5,
-    "woodiness": 2,
-    "spiciness": 2,
-    "floral": 5,
+    "sweetness": 0,
+    "warmth": 4,
+    "woodiness": 5,
+    "spiciness": 4,
+    "floral": 2,
     "citrus": 2,
-    "fruitiness": 2,
+    "fruitiness": 0,
     "aquatic": 0,
     "powdery": 2,
-    "smoky": 0,
+    "smoky": 2,
     "leathery": 0
   },
   "recommendation": {
     "occasions": [
       "Noche",
       "Cita",
-      "Fiesta",
-      "Evento"
+      "Fiesta"
     ],
     "contexts": [
-      "Romántico",
+      "Casual",
       "Social",
-      "Especial"
+      "Romántico"
     ],
     "climates": [
       "Frío",
@@ -95,33 +97,33 @@
       "Noche"
     ],
     "formality": 2,
-    "versatility": 4,
-    "distinctiveness": 3,
+    "versatility": 3,
+    "distinctiveness": 4,
     "recommendedAge": {
-      "min": 18,
+      "min": 16,
       "max": 35,
-      "confidence": "medium",
+      "confidence": "low",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 35 años por su estilo juvenil, dulce y nocturno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 16 a 35 años por su estilo juvenil, dulce y rebelde. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil dulce, especiado, afrutado, con una salida de bergamota, lavanda, canela que evoluciona hacia un fondo de pachulí, ámbar, vainilla. Su carácter juvenil, dulce y nocturno la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil juvenil, dulce y nocturno. Afinidad orientativa: 18 a 35 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil tabaco, dulce, especiado, con una salida de lavanda, clementina, pepino que evoluciona hacia un fondo de tabaco, ámbar, pachulí. Su carácter juvenil, dulce y rebelde la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil juvenil, dulce y rebelde. Afinidad orientativa: 16 a 35 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
       "Rinde mejor en clima frío y templado.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02446.avif",
-      "alt": "AFNAN 9PM"
+      "path": "IMAGES/Caballero/CP01064.avif",
+      "alt": "CALVIN KLEIN CK ONE SHOCK FOR HIM"
     }
   },
   "provenance": {
     "lastReviewedAt": "2026-07-30",
     "reviewedBy": "PRIVÉ — revisión de lote",
-    "confidence": "medium",
+    "confidence": "low",
     "sources": [
       {
         "type": "internal",
@@ -133,9 +135,9 @@
         ]
       },
       {
-        "type": "official",
-        "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/9-pm",
+        "type": "internal",
+        "title": "Revisión documental PRIVÉ — Lote maestro 001",
+        "url": null,
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

@@ -1,52 +1,55 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02518-afnan-turathi-blue",
+  "id": "cp02499-armaf-odyssey-mandarin-sky",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "TURATHI BLUE",
+    "brand": "ARMAF",
+    "name": "ODYSSEY MANDARIN SKY",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02518",
+    "priveCode": "CP02499",
     "sku": null,
     "audience": "Caballero",
     "concentration": "Eau de Parfum",
-    "launchYear": 2021,
+    "launchYear": 2023,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Cítrica aromática",
+    "family": "Ámbar especiada",
     "subfamily": null,
     "accords": [
+      "Dulce",
       "Cítrico",
-      "Aromático",
-      "Amaderado",
-      "Fresco"
+      "Especiado",
+      "Amaderado"
     ],
     "styleTags": [
-      "Moderno",
-      "Limpio y versátil"
+      "Juvenil",
+      "Dulce y energético"
     ]
   },
   "olfactory": {
     "topNotes": [
-      "Bergamota",
-      "Mandarina"
+      "Mandarina",
+      "Naranja",
+      "Azafrán",
+      "Salvia"
     ],
     "heartNotes": [
-      "Ámbar",
-      "Notas amaderadas",
-      "Especias frescas"
+      "Caramelo",
+      "Haba tonka",
+      "Tagetes"
     ],
     "baseNotes": [
-      "Almizcle",
-      "Pachulí"
+      "Ambroxan",
+      "Vetiver",
+      "Cedro"
     ],
     "notePyramidConfidence": "medium"
   },
   "performance": {
-    "intensity": "Moderada",
+    "intensity": "Intensa",
     "longevity": "Desconocida",
     "projection": "Desconocida",
     "trail": "Desconocida",
@@ -56,65 +59,64 @@
     }
   },
   "sensoryProfile": {
-    "freshness": 4,
-    "sweetness": 0,
-    "warmth": 2,
+    "freshness": 2,
+    "sweetness": 4,
+    "warmth": 0,
     "woodiness": 4,
     "spiciness": 2,
     "floral": 0,
     "citrus": 4,
     "fruitiness": 0,
-    "aquatic": 0,
+    "aquatic": 2,
     "powdery": 2,
     "smoky": 0,
     "leathery": 0
   },
   "recommendation": {
     "occasions": [
-      "Día",
-      "Diario",
-      "Oficina",
-      "Viaje"
+      "Noche",
+      "Cita",
+      "Fiesta"
     ],
     "contexts": [
-      "Casual",
-      "Profesional",
-      "Vacaciones"
+      "Romántico",
+      "Social"
     ],
     "climates": [
-      "Calor",
-      "Templado"
+      "Templado",
+      "Frío"
     ],
     "seasons": [
-      "Primavera",
-      "Verano"
+      "Otoño",
+      "Invierno",
+      "Primavera"
     ],
     "dayParts": [
-      "Mañana",
-      "Tarde"
+      "Tarde",
+      "Noche"
     ],
-    "formality": 3,
-    "versatility": 4,
+    "formality": 2,
+    "versatility": 3,
     "distinctiveness": 3,
     "recommendedAge": {
-      "min": 20,
-      "max": 45,
+      "min": 18,
+      "max": 38,
       "confidence": "medium",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 45 años por su estilo moderno, limpio y versátil. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 38 años por su estilo juvenil, dulce y energético. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil cítrico, aromático, amaderado, con una salida de bergamota, mandarina que evoluciona hacia un fondo de almizcle, pachulí. Su carácter moderno, limpio y versátil la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil moderno, limpio y versátil. Afinidad orientativa: 20 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil dulce, cítrico, especiado, con una salida de mandarina, naranja, azafrán que evoluciona hacia un fondo de ambroxan, vetiver, cedro. Su carácter juvenil, dulce y energético la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil juvenil, dulce y energético. Afinidad orientativa: 18 a 38 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
-      "Rinde mejor en clima calor y templado.",
+      "Rinde mejor en clima templado y frío.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02518.avif",
-      "alt": "AFNAN TURATHI BLUE"
+      "path": "IMAGES/Caballero/CP02499.avif",
+      "alt": "ARMAF ODYSSEY MANDARIN SKY"
     }
   },
   "provenance": {
@@ -134,7 +136,7 @@
       {
         "type": "official",
         "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/turathi-blue-homme",
+        "url": "https://armaf.com/products/odyssey-mega-for-men",
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

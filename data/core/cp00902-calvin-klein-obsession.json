@@ -1,54 +1,65 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02446-afnan-9pm",
+  "id": "cp00902-calvin-klein-obsession",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "9PM",
+    "brand": "CALVIN KLEIN",
+    "name": "OBSESSION",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02446",
+    "priveCode": "CP00902",
     "sku": null,
     "audience": "Caballero",
-    "concentration": "Eau de Parfum",
-    "launchYear": 2020,
+    "concentration": "Eau de Toilette",
+    "launchYear": 1986,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Ámbar vainilla",
+    "family": "Ámbar amaderada",
     "subfamily": null,
     "accords": [
-      "Dulce",
+      "Canela",
+      "Ámbar",
       "Especiado",
-      "Afrutado"
+      "Dulce"
     ],
     "styleTags": [
-      "Juvenil",
-      "Dulce y nocturno"
+      "Intenso",
+      "Cálido y clásico"
     ]
   },
   "olfactory": {
     "topNotes": [
-      "Bergamota",
-      "Lavanda",
       "Canela",
-      "Manzana"
+      "Lavanda",
+      "Cilantro",
+      "Mandarina",
+      "Lima",
+      "Bergamota",
+      "Toronja"
     ],
     "heartNotes": [
-      "Muguete",
-      "Flor de azahar"
+      "Mirra",
+      "Nuez moscada",
+      "Clavel",
+      "Palo de rosa",
+      "Pino",
+      "Salvia",
+      "Jazmín"
     ],
     "baseNotes": [
-      "Pachulí",
       "Ámbar",
       "Vainilla",
-      "Haba tonka"
+      "Sándalo",
+      "Almizcle",
+      "Pachulí",
+      "Vetiver"
     ],
-    "notePyramidConfidence": "medium"
+    "notePyramidConfidence": "low"
   },
   "performance": {
-    "intensity": "Intensa",
+    "intensity": "Muy intensa",
     "longevity": "Desconocida",
     "projection": "Desconocida",
     "trail": "Desconocida",
@@ -58,34 +69,32 @@
     }
   },
   "sensoryProfile": {
-    "freshness": 2,
-    "sweetness": 5,
+    "freshness": 5,
+    "sweetness": 2,
     "warmth": 5,
-    "woodiness": 2,
-    "spiciness": 2,
+    "woodiness": 5,
+    "spiciness": 4,
     "floral": 5,
-    "citrus": 2,
-    "fruitiness": 2,
-    "aquatic": 0,
+    "citrus": 5,
+    "fruitiness": 0,
+    "aquatic": 2,
     "powdery": 2,
-    "smoky": 0,
+    "smoky": 2,
     "leathery": 0
   },
   "recommendation": {
     "occasions": [
       "Noche",
       "Cita",
-      "Fiesta",
       "Evento"
     ],
     "contexts": [
       "Romántico",
-      "Social",
+      "Formal",
       "Especial"
     ],
     "climates": [
-      "Frío",
-      "Templado"
+      "Frío"
     ],
     "seasons": [
       "Otoño",
@@ -94,34 +103,34 @@
     "dayParts": [
       "Noche"
     ],
-    "formality": 2,
-    "versatility": 4,
+    "formality": 4,
+    "versatility": 3,
     "distinctiveness": 3,
     "recommendedAge": {
-      "min": 18,
-      "max": 35,
-      "confidence": "medium",
+      "min": 28,
+      "max": 60,
+      "confidence": "low",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 35 años por su estilo juvenil, dulce y nocturno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 28 a 60 años por su estilo intenso, cálido y clásico. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil dulce, especiado, afrutado, con una salida de bergamota, lavanda, canela que evoluciona hacia un fondo de pachulí, ámbar, vainilla. Su carácter juvenil, dulce y nocturno la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil juvenil, dulce y nocturno. Afinidad orientativa: 18 a 35 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil canela, ámbar, especiado, con una salida de canela, lavanda, cilantro que evoluciona hacia un fondo de ámbar, vainilla, sándalo. Su carácter intenso, cálido y clásico la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil intenso, cálido y clásico. Afinidad orientativa: 28 a 60 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
-      "Rinde mejor en clima frío y templado.",
+      "Rinde mejor en clima frío.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02446.avif",
-      "alt": "AFNAN 9PM"
+      "path": "IMAGES/Caballero/CP00902.avif",
+      "alt": "CALVIN KLEIN OBSESSION"
     }
   },
   "provenance": {
     "lastReviewedAt": "2026-07-30",
     "reviewedBy": "PRIVÉ — revisión de lote",
-    "confidence": "medium",
+    "confidence": "low",
     "sources": [
       {
         "type": "internal",
@@ -133,9 +142,9 @@
         ]
       },
       {
-        "type": "official",
-        "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/9-pm",
+        "type": "internal",
+        "title": "Revisión documental PRIVÉ — Lote maestro 001",
+        "url": null,
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

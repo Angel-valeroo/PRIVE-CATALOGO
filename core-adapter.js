@@ -23,6 +23,7 @@
     const performance = core.performance || {};
     const recommendation = core.recommendation || {};
     const content = core.content || {};
+    const age = recommendation.recommendedAge || {};
 
     if (!core.id || !identity.brand || !identity.name || !identity.priveCode) {
       throw new Error("La ficha Core no contiene identidad suficiente para el catálogo.");
@@ -39,6 +40,7 @@
       heartNotes: unique(olfactory.heartNotes),
       baseNotes: unique(olfactory.baseNotes),
       accords: unique(classification.accords),
+      styleTags: unique(classification.styleTags),
       intensity: normalizeIntensity(performance.intensity),
       occasions: unique(recommendation.occasions),
       // El catálogo heredado usa contexts como etiquetas de uso. Conservamos
@@ -47,12 +49,33 @@
       contexts: unique([...(recommendation.occasions || []), ...(recommendation.contexts || [])]),
       climates: unique(recommendation.climates),
       seasons: unique(recommendation.seasons),
+      dayParts: unique(recommendation.dayParts),
+      sensoryProfile: { ...(core.sensoryProfile || {}) },
+      ageTrend: {
+        min: Number.isInteger(age.min) ? age.min : null,
+        max: Number.isInteger(age.max) ? age.max : null,
+        confidence: age.confidence || "unknown",
+        framing: age.framing || "tendency",
+        isRestrictive: age.isRestrictive === true,
+        guidance: age.guidance || ""
+      },
       description: content.shortDescription || content.advisorSummary || "",
       image: content.image?.path || "",
       core: {
         schemaVersion: core.schemaVersion,
         status: core.status,
         advisorSummary: content.advisorSummary || "",
+        styleTags: unique(classification.styleTags),
+        dayParts: unique(recommendation.dayParts),
+        sensoryProfile: { ...(core.sensoryProfile || {}) },
+        ageTrend: {
+          min: Number.isInteger(age.min) ? age.min : null,
+          max: Number.isInteger(age.max) ? age.max : null,
+          confidence: age.confidence || "unknown",
+          framing: age.framing || "tendency",
+          isRestrictive: age.isRestrictive === true,
+          guidance: age.guidance || ""
+        },
         source: "PRIVÉ Core Database"
       }
     };

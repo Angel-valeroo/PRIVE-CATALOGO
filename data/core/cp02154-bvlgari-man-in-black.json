@@ -1,54 +1,54 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02446-afnan-9pm",
+  "id": "cp02154-bvlgari-man-in-black",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "9PM",
+    "brand": "BVLGARI",
+    "name": "MAN IN BLACK",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02446",
+    "priveCode": "CP02154",
     "sku": null,
     "audience": "Caballero",
     "concentration": "Eau de Parfum",
-    "launchYear": 2020,
+    "launchYear": 2014,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Ámbar vainilla",
+    "family": "Ámbar floral",
     "subfamily": null,
     "accords": [
-      "Dulce",
       "Especiado",
-      "Afrutado"
+      "Ron",
+      "Cuero",
+      "Dulce"
     ],
     "styleTags": [
-      "Juvenil",
-      "Dulce y nocturno"
+      "Oscuro",
+      "Sensual y sofisticado"
     ]
   },
   "olfactory": {
     "topNotes": [
-      "Bergamota",
-      "Lavanda",
-      "Canela",
-      "Manzana"
+      "Especias",
+      "Ron",
+      "Tabaco"
     ],
     "heartNotes": [
-      "Muguete",
-      "Flor de azahar"
+      "Cuero",
+      "Iris",
+      "Nardo"
     ],
     "baseNotes": [
-      "Pachulí",
-      "Ámbar",
-      "Vainilla",
-      "Haba tonka"
+      "Haba tonka",
+      "Madera de guayaco",
+      "Benjuí"
     ],
-    "notePyramidConfidence": "medium"
+    "notePyramidConfidence": "low"
   },
   "performance": {
-    "intensity": "Intensa",
+    "intensity": "Muy intensa",
     "longevity": "Desconocida",
     "projection": "Desconocida",
     "trail": "Desconocida",
@@ -58,29 +58,28 @@
     }
   },
   "sensoryProfile": {
-    "freshness": 2,
-    "sweetness": 5,
+    "freshness": 0,
+    "sweetness": 2,
     "warmth": 5,
     "woodiness": 2,
     "spiciness": 2,
-    "floral": 5,
-    "citrus": 2,
-    "fruitiness": 2,
+    "floral": 4,
+    "citrus": 0,
+    "fruitiness": 0,
     "aquatic": 0,
-    "powdery": 2,
-    "smoky": 0,
-    "leathery": 0
+    "powdery": 4,
+    "smoky": 2,
+    "leathery": 2
   },
   "recommendation": {
     "occasions": [
       "Noche",
       "Cita",
-      "Fiesta",
       "Evento"
     ],
     "contexts": [
       "Romántico",
-      "Social",
+      "Formal",
       "Especial"
     ],
     "climates": [
@@ -94,34 +93,34 @@
     "dayParts": [
       "Noche"
     ],
-    "formality": 2,
-    "versatility": 4,
-    "distinctiveness": 3,
+    "formality": 4,
+    "versatility": 3,
+    "distinctiveness": 4,
     "recommendedAge": {
-      "min": 18,
-      "max": 35,
-      "confidence": "medium",
+      "min": 25,
+      "max": 50,
+      "confidence": "low",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 35 años por su estilo juvenil, dulce y nocturno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 25 a 50 años por su estilo oscuro, sensual y sofisticado. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil dulce, especiado, afrutado, con una salida de bergamota, lavanda, canela que evoluciona hacia un fondo de pachulí, ámbar, vainilla. Su carácter juvenil, dulce y nocturno la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil juvenil, dulce y nocturno. Afinidad orientativa: 18 a 35 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil especiado, ron, cuero, con una salida de especias, ron, tabaco que evoluciona hacia un fondo de haba tonka, madera de guayaco, benjuí. Su carácter oscuro, sensual y sofisticado la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil oscuro, sensual y sofisticado. Afinidad orientativa: 25 a 50 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
       "Rinde mejor en clima frío y templado.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02446.avif",
-      "alt": "AFNAN 9PM"
+      "path": "IMAGES/Caballero/CP02154.avif",
+      "alt": "BVLGARI MAN IN BLACK"
     }
   },
   "provenance": {
     "lastReviewedAt": "2026-07-30",
     "reviewedBy": "PRIVÉ — revisión de lote",
-    "confidence": "medium",
+    "confidence": "low",
     "sources": [
       {
         "type": "internal",
@@ -133,9 +132,9 @@
         ]
       },
       {
-        "type": "official",
-        "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/9-pm",
+        "type": "internal",
+        "title": "Revisión documental PRIVÉ — Lote maestro 001",
+        "url": null,
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",
