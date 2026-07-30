@@ -34,3 +34,14 @@
 - JavaScript validado sin errores de sintaxis.
 - Adaptador Core validado.
 - Catálogo validado: 547 perfumes sin claves ni IDs duplicados.
+
+## Sprint 3.5 — Refinamiento visual por categoría
+
+- Se conservó intacto el motor de composición universal aprobado en Sprint 3.4.
+- Caballero ahora usa azul marino profundo, negro, reflejos fríos y acentos metálicos discretos inspirados en el Home.
+- Dama ahora usa una atmósfera sofisticada de ciruela/cacao oscuro, champán y marfil cálido, evitando un rosa evidente.
+- Unisex ahora usa grafito, gris mineral y plata con una identidad visual neutral.
+- Se refinó el halo de cada categoría para iluminar el producto con una temperatura de color propia.
+- Se unificaron marco, cuadrícula, marca de agua, botón de cierre, indicadores y contrastes mediante variables de tema.
+- Se añadieron microanimaciones suaves de respiración del halo y deriva ambiental.
+- Se respetó `prefers-reduced-motion` para desactivar las nuevas animaciones cuando el sistema lo solicita.

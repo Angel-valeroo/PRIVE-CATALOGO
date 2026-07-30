@@ -975,3 +975,136 @@ body.search-active .entry-paths{opacity:.62;transition:opacity .45s ease}
 @media(prefers-reduced-motion:reduce){
   .detail-product-composition{transform:none!important}
 }
+
+/* =========================================================
+   Sprint 3.5 — Atmósferas PRIVÉ por categoría
+   Misma composición, tres identidades visuales refinadas.
+   ========================================================= */
+.perfume-dialog{
+  --detail-accent:#b9c6dc;
+  --detail-ink:#f7f9ff;
+  --detail-muted:#aebbd0;
+  --detail-bg-1:#101a2d;
+  --detail-bg-2:#080f1c;
+  --detail-bg-3:#03070d;
+  --detail-halo:rgba(91,137,205,.34);
+  --detail-glow-secondary:rgba(42,78,132,.18);
+  --detail-frame:rgba(157,181,220,.23);
+  --detail-grid:rgba(173,194,228,.032);
+  --detail-mark:rgba(157,184,225,.075);
+  --detail-close-bg:rgba(4,10,19,.54);
+  --detail-close-border:rgba(165,187,220,.26);
+  --detail-close-ink:#e8eef9;
+}
+.perfume-dialog.detail-gender-caballero{
+  --detail-accent:#b9c6dc;
+  --detail-ink:#f7f9ff;
+  --detail-muted:#aebbd0;
+  --detail-bg-1:#101a2d;
+  --detail-bg-2:#080f1c;
+  --detail-bg-3:#03070d;
+  --detail-halo:rgba(91,137,205,.34);
+  --detail-glow-secondary:rgba(42,78,132,.18);
+  --detail-frame:rgba(157,181,220,.23);
+  --detail-grid:rgba(173,194,228,.032);
+  --detail-mark:rgba(157,184,225,.075);
+  --detail-close-bg:rgba(4,10,19,.54);
+  --detail-close-border:rgba(165,187,220,.26);
+  --detail-close-ink:#e8eef9;
+}
+.perfume-dialog.detail-gender-dama{
+  --detail-accent:#d8b98a;
+  --detail-ink:#fff8ed;
+  --detail-muted:#d9c3ad;
+  --detail-bg-1:#55423f;
+  --detail-bg-2:#332827;
+  --detail-bg-3:#1d1718;
+  --detail-halo:rgba(236,194,154,.34);
+  --detail-glow-secondary:rgba(183,129,119,.18);
+  --detail-frame:rgba(242,211,178,.23);
+  --detail-grid:rgba(255,232,210,.03);
+  --detail-mark:rgba(239,207,169,.07);
+  --detail-close-bg:rgba(39,28,29,.52);
+  --detail-close-border:rgba(232,204,176,.26);
+  --detail-close-ink:#fff4e7;
+}
+.perfume-dialog.detail-gender-unisex{
+  --detail-accent:#c8c6be;
+  --detail-ink:#f6f5f0;
+  --detail-muted:#c5c1b7;
+  --detail-bg-1:#343638;
+  --detail-bg-2:#1d1f21;
+  --detail-bg-3:#0d0f10;
+  --detail-halo:rgba(206,211,214,.25);
+  --detail-glow-secondary:rgba(158,164,163,.13);
+  --detail-frame:rgba(221,222,217,.18);
+  --detail-grid:rgba(225,226,222,.027);
+  --detail-mark:rgba(220,220,214,.06);
+  --detail-close-bg:rgba(15,17,18,.54);
+  --detail-close-border:rgba(210,211,206,.21);
+  --detail-close-ink:#f1f1ed;
+}
+.detail-media{
+  isolation:isolate;
+  transition:background .72s var(--detail-ease),color .52s ease;
+  background:
+    radial-gradient(circle at 19% 14%,var(--detail-glow-secondary),transparent 30%),
+    radial-gradient(circle at 83% 76%,color-mix(in srgb,var(--detail-accent) 8%,transparent),transparent 32%),
+    linear-gradient(135deg,rgba(255,255,255,.045),transparent 28% 72%,rgba(255,255,255,.018)),
+    linear-gradient(160deg,var(--detail-bg-1) 0%,var(--detail-bg-2) 58%,var(--detail-bg-3) 100%)!important;
+}
+.detail-media::after{
+  background:
+    linear-gradient(90deg,var(--detail-grid) 1px,transparent 1px),
+    linear-gradient(var(--detail-grid) 1px,transparent 1px)!important;
+  background-size:42px 42px!important;
+  opacity:.8;
+  animation:detailAtmosphereDrift 18s ease-in-out infinite alternate;
+}
+.detail-media-frame{
+  border-color:var(--detail-frame)!important;
+  box-shadow:inset 0 0 92px rgba(255,255,255,.025),0 0 0 1px rgba(0,0,0,.25)!important;
+  transition:border-color .5s ease,box-shadow .5s ease;
+}
+.detail-atmosphere{
+  background:
+    radial-gradient(ellipse at center,var(--detail-halo) 0%,color-mix(in srgb,var(--detail-halo) 45%,transparent) 38%,transparent 72%)!important;
+  filter:blur(28px)!important;
+  animation:detailHaloBreath 7s ease-in-out infinite;
+}
+.detail-brand-mark{
+  color:var(--detail-mark)!important;
+  text-shadow:0 0 42px color-mix(in srgb,var(--detail-accent) 10%,transparent);
+  transition:color .55s ease;
+}
+.detail-stage-identity{
+  text-shadow:0 2px 20px rgba(0,0,0,.48)!important;
+}
+.detail-stage-identity strong{color:var(--detail-ink)!important}
+.detail-stage-identity span{color:var(--detail-muted)!important}
+.detail-stage-caption,.detail-scroll-cue{color:color-mix(in srgb,var(--detail-muted) 72%,transparent)!important}
+.detail-scroll-cue__arrows i{border-color:color-mix(in srgb,var(--detail-accent) 82%,transparent)!important}
+.dialog-close{
+  color:var(--detail-close-ink)!important;
+  background:var(--detail-close-bg)!important;
+  border-color:var(--detail-close-border)!important;
+  box-shadow:0 8px 28px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.045);
+  backdrop-filter:blur(12px);
+  transition:background .28s ease,border-color .28s ease,color .28s ease,transform .28s ease;
+}
+.dialog-close:hover{transform:translateY(-1px);background:color-mix(in srgb,var(--detail-close-bg) 78%,white 6%)!important}
+.detail-gender-dama .detail-stage-identity{text-shadow:0 2px 18px rgba(20,10,10,.42)!important}
+.detail-gender-dama .detail-media-frame{border-color:var(--detail-frame)!important;box-shadow:inset 0 0 92px rgba(255,236,218,.035),0 0 0 1px rgba(0,0,0,.2)!important}
+.detail-gender-dama .dialog-close{color:var(--detail-close-ink)!important;background:var(--detail-close-bg)!important;border-color:var(--detail-close-border)!important}
+
+@keyframes detailHaloBreath{
+  0%,100%{opacity:.77;filter:blur(28px)}
+  50%{opacity:.96;filter:blur(33px)}
+}
+@keyframes detailAtmosphereDrift{
+  from{transform:translate3d(-5px,-3px,0);opacity:.62}
+  to{transform:translate3d(5px,4px,0);opacity:.88}
+}
+@media(prefers-reduced-motion:reduce){
+  .detail-atmosphere,.detail-media::after{animation:none!important}
+}
