@@ -1,0 +1,187 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "dp02850-lattafa-yara-moi",
+  "status": "review",
+  "identity": {
+    "brand": "LATTAFA",
+    "name": "YARA MOI",
+    "line": null,
+    "flanker": null,
+    "priveCode": "DP02850",
+    "sku": null,
+    "audience": "Dama",
+    "concentration": "Eau de Parfum",
+    "launchYear": 2022,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Ámbar",
+    "subfamily": null,
+    "accords": [
+      "Amaderado",
+      "Ámbar",
+      "Dulce",
+      "Floral"
+    ],
+    "styleTags": [
+      "Caramelo",
+      "Floral y amaderado"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Jazmín",
+      "Durazno"
+    ],
+    "heartNotes": [
+      "Caramelo",
+      "Ámbar"
+    ],
+    "baseNotes": [
+      "Pachulí",
+      "Sándalo"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 0,
+    "sweetness": 2,
+    "warmth": 2,
+    "woodiness": 5,
+    "spiciness": 0,
+    "floral": 2,
+    "citrus": 0,
+    "fruitiness": 2,
+    "aquatic": 0,
+    "powdery": 0,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Noche",
+      "Cita",
+      "Fiesta",
+      "Evento"
+    ],
+    "contexts": [
+      "Romántico",
+      "Social",
+      "Especial"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "dayParts": [
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 2,
+    "versatility": 3,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 18,
+      "max": 44,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 44 años por su estilo caramelo, floral y amaderado. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil amaderado, ámbar, dulce, con una salida de jazmín, durazno que evoluciona hacia un fondo de pachulí, sándalo. Su carácter caramelo, floral y amaderado ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil caramelo, floral y amaderado. Afinidad orientativa: 18 a 44 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima frío y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Dama/DP02850.avif",
+      "alt": "LATTAFA YARA MOI"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 005",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=LATTAFA+YARA+MOI",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave DP02850",
+        "url": "https://perfumoteca.com/catalogo?search=DP02850",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave DP02850",
+        "url": "https://glass-essence.com/?s=DP02850&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "official",
+        "title": "Sitio oficial de LATTAFA — contraste de lanzamiento y narrativa",
+        "url": "https://www.google.com/search?q=LATTAFA+YARA+MOI+official+fragrance",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fuentes especializadas y reseñas — contraste de uso, clima y percepción",
+        "url": "https://www.google.com/search?q=LATTAFA+YARA+MOI+perfume+reviews+notes",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "performance",
+          "recommendation"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 005. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Nombre e imagen conservados desde el catálogo operativo; la clave se utiliza para la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

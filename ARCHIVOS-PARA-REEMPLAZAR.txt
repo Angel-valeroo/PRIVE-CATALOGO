@@ -1,12 +1,9 @@
-PRIVÉ — BASE MAESTRA · LOTE 004
+SPRINT 4.6
 
-Reemplaza los archivos conservando exactamente la misma estructura de carpetas.
+Reemplaza estos archivos en la raíz del repositorio:
+- app.js
+- styles.css
+- index.html
+- CHANGELOG.md
 
-Incluye:
-- 100 fichas nuevas: posiciones 251–350.
-- Manifiesto Core actualizado a 350 perfumes.
-- Reporte interno review-batch-004.csv.
-- Versión Core master-004 / JavaScript 5.2.
-- Generador, prueba, README, fuentes y changelog del lote.
-
-No elimines las fichas de lotes anteriores.
+REPORTE_SPRINT_4.6.txt es informativo.

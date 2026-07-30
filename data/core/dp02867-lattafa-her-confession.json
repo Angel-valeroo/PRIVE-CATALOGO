@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "dp02867-lattafa-her-confession",
+  "status": "review",
+  "identity": {
+    "brand": "LATTAFA",
+    "name": "HER CONFESSION",
+    "line": null,
+    "flanker": null,
+    "priveCode": "DP02867",
+    "sku": null,
+    "audience": "Dama",
+    "concentration": "Eau de Parfum",
+    "launchYear": 2024,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Ámbar vainilla",
+    "subfamily": null,
+    "accords": [
+      "Dulce",
+      "Atalcado",
+      "Avainillado",
+      "Floral",
+      "Ahumado",
+      "Almizclado"
+    ],
+    "styleTags": [
+      "Vainilla",
+      "Especiado y misterioso"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Canela",
+      "Acorde místico"
+    ],
+    "heartNotes": [
+      "Jazmín",
+      "Tuberosa",
+      "Incienso"
+    ],
+    "baseNotes": [
+      "Vainilla",
+      "Haba tonka",
+      "Almizcle"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Muy intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 0,
+    "sweetness": 4,
+    "warmth": 5,
+    "woodiness": 0,
+    "spiciness": 2,
+    "floral": 4,
+    "citrus": 0,
+    "fruitiness": 0,
+    "aquatic": 0,
+    "powdery": 5,
+    "smoky": 2,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Noche",
+      "Cita",
+      "Fiesta",
+      "Evento"
+    ],
+    "contexts": [
+      "Romántico",
+      "Social",
+      "Especial"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "dayParts": [
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 2,
+    "versatility": 3,
+    "distinctiveness": 4,
+    "recommendedAge": {
+      "min": 18,
+      "max": 46,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 46 años por su estilo vainilla, especiado y misterioso. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil dulce, atalcado, avainillado, con una salida de canela, acorde místico que evoluciona hacia un fondo de vainilla, haba tonka, almizcle. Su carácter vainilla, especiado y misterioso ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil vainilla, especiado y misterioso. Afinidad orientativa: 18 a 46 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima frío y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Dama/DP02867.avif",
+      "alt": "LATTAFA HER CONFESSION"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 005",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=LATTAFA+HER+CONFESSION",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave DP02867",
+        "url": "https://perfumoteca.com/catalogo?search=DP02867",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave DP02867",
+        "url": "https://glass-essence.com/?s=DP02867&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "official",
+        "title": "Sitio oficial de LATTAFA — contraste de lanzamiento y narrativa",
+        "url": "https://www.google.com/search?q=LATTAFA+HER+CONFESSION+official+fragrance",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fuentes especializadas y reseñas — contraste de uso, clima y percepción",
+        "url": "https://www.google.com/search?q=LATTAFA+HER+CONFESSION+perfume+reviews+notes",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "performance",
+          "recommendation"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 005. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Nombre e imagen conservados desde el catálogo operativo; la clave se utiliza para la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

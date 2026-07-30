@@ -1,0 +1,16 @@
+SPRINT 4.7 — HOTFIX DE IMÁGENES
+
+Problema corregido:
+- En Sprint 4.6 las tarjetas se renderizaban, pero las imágenes podían quedarse permanentemente pendientes por el estado de la cola de carga al reciclar filas virtuales.
+
+Cambios:
+- Carga directa y diferida de imágenes para las pocas tarjetas visibles.
+- Cancelación de solicitudes al retirar una ventana virtual.
+- Reinicio seguro del estado de carga al renderizar o filtrar.
+- Se conserva la virtualización para reducir memoria en Safari/Android.
+
+Archivos modificados:
+- app.js
+- index.html
+- CHANGELOG.md
+- REPORTE_SPRINT_4.7.txt

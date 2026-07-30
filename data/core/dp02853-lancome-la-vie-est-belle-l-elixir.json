@@ -1,0 +1,190 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "dp02853-lancome-la-vie-est-belle-l-elixir",
+  "status": "review",
+  "identity": {
+    "brand": "LANCOME",
+    "name": "LA VIE EST BELLE L'ELIXIR",
+    "line": null,
+    "flanker": null,
+    "priveCode": "DP02853",
+    "sku": null,
+    "audience": "Dama",
+    "concentration": "Eau de Parfum",
+    "launchYear": 2024,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Floral frutal gourmand",
+    "subfamily": null,
+    "accords": [
+      "Cuero",
+      "Floral",
+      "Afrutado",
+      "Amaderado",
+      "Atalcado",
+      "Cítrico"
+    ],
+    "styleTags": [
+      "Frambuesa",
+      "Cacao y oscuro"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Frambuesa",
+      "Bergamota"
+    ],
+    "heartNotes": [
+      "Hoja de violeta",
+      "Rosa"
+    ],
+    "baseNotes": [
+      "Manteca de cacao",
+      "Cuero",
+      "Cedro"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Muy intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 2,
+    "sweetness": 4,
+    "warmth": 4,
+    "woodiness": 4,
+    "spiciness": 0,
+    "floral": 4,
+    "citrus": 4,
+    "fruitiness": 4,
+    "aquatic": 0,
+    "powdery": 4,
+    "smoky": 0,
+    "leathery": 4
+  },
+  "recommendation": {
+    "occasions": [
+      "Noche",
+      "Cita",
+      "Fiesta",
+      "Evento"
+    ],
+    "contexts": [
+      "Romántico",
+      "Social",
+      "Especial"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "dayParts": [
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 2,
+    "versatility": 3,
+    "distinctiveness": 4,
+    "recommendedAge": {
+      "min": 20,
+      "max": 48,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 48 años por su estilo frambuesa, cacao y oscuro. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil cuero, floral, afrutado, con una salida de frambuesa, bergamota que evoluciona hacia un fondo de manteca de cacao, cuero, cedro. Su carácter frambuesa, cacao y oscuro ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil frambuesa, cacao y oscuro. Afinidad orientativa: 20 a 48 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima frío y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Dama/DP02853.avif",
+      "alt": "LANCOME LA VIE EST BELLE L'ELIXIR"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 005",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=LANCOME+LA+VIE+EST+BELLE+L%27ELIXIR",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave DP02853",
+        "url": "https://perfumoteca.com/catalogo?search=DP02853",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave DP02853",
+        "url": "https://glass-essence.com/?s=DP02853&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "official",
+        "title": "Sitio oficial de LANCOME — contraste de lanzamiento y narrativa",
+        "url": "https://www.google.com/search?q=LANCOME+LA+VIE+EST+BELLE+L%27ELIXIR+official+fragrance",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fuentes especializadas y reseñas — contraste de uso, clima y percepción",
+        "url": "https://www.google.com/search?q=LANCOME+LA+VIE+EST+BELLE+L%27ELIXIR+perfume+reviews+notes",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "performance",
+          "recommendation"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 005. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Nombre e imagen conservados desde el catálogo operativo; la clave se utiliza para la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

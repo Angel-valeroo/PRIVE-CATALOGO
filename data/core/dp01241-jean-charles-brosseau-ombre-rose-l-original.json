@@ -1,0 +1,197 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "dp01241-jean-charles-brosseau-ombre-rose-l-original",
+  "status": "review",
+  "identity": {
+    "brand": "JEAN CHARLES BROSSEAU",
+    "name": "OMBRE ROSE L´ORIGINAL",
+    "line": null,
+    "flanker": null,
+    "priveCode": "DP01241",
+    "sku": null,
+    "audience": "Dama",
+    "concentration": "Eau de Toilette",
+    "launchYear": 1981,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Floral",
+    "subfamily": null,
+    "accords": [
+      "Floral",
+      "Atalcado",
+      "Dulce",
+      "Acuático",
+      "Almizclado",
+      "Amaderado"
+    ],
+    "styleTags": [
+      "Rosado",
+      "Empolvado y clásico"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Palo de rosa",
+      "Durazno",
+      "Miel",
+      "Ylang-ylang"
+    ],
+    "heartNotes": [
+      "Rosa",
+      "Iris",
+      "Muguete"
+    ],
+    "baseNotes": [
+      "Almizcle",
+      "Sándalo",
+      "Vainilla",
+      "Cumarina",
+      "Canela"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 4,
+    "sweetness": 4,
+    "warmth": 4,
+    "woodiness": 4,
+    "spiciness": 2,
+    "floral": 5,
+    "citrus": 0,
+    "fruitiness": 2,
+    "aquatic": 4,
+    "powdery": 5,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Noche",
+      "Oficina",
+      "Evento"
+    ],
+    "contexts": [
+      "Profesional",
+      "Formal",
+      "Especial"
+    ],
+    "climates": [
+      "Templado",
+      "Frío"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno",
+      "Primavera"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 4,
+    "versatility": 3,
+    "distinctiveness": 4,
+    "recommendedAge": {
+      "min": 26,
+      "max": 62,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 26 a 62 años por su estilo rosado, empolvado y clásico. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil floral, atalcado, dulce, con una salida de palo de rosa, durazno, miel que evoluciona hacia un fondo de almizcle, sándalo, vainilla. Su carácter rosado, empolvado y clásico ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil rosado, empolvado y clásico. Afinidad orientativa: 26 a 62 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima templado y frío.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Dama/DP01241.avif",
+      "alt": "JEAN CHARLES BROSSEAU OMBRE ROSE L´ORIGINAL"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 005",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=JEAN+CHARLES+BROSSEAU+OMBRE+ROSE+L%C2%B4ORIGINAL",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave DP01241",
+        "url": "https://perfumoteca.com/catalogo?search=DP01241",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave DP01241",
+        "url": "https://glass-essence.com/?s=DP01241&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "official",
+        "title": "Sitio oficial de JEAN CHARLES BROSSEAU — contraste de lanzamiento y narrativa",
+        "url": "https://www.google.com/search?q=JEAN+CHARLES+BROSSEAU+OMBRE+ROSE+L%C2%B4ORIGINAL+official+fragrance",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fuentes especializadas y reseñas — contraste de uso, clima y percepción",
+        "url": "https://www.google.com/search?q=JEAN+CHARLES+BROSSEAU+OMBRE+ROSE+L%C2%B4ORIGINAL+perfume+reviews+notes",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "performance",
+          "recommendation"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 005. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Nombre e imagen conservados desde el catálogo operativo; la clave se utiliza para la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

@@ -1,0 +1,8 @@
+SPRINT 4.6 — CATÁLOGO VIRTUAL MÓVIL
+
+- Se retiró la carga progresiva por lotes que dejaba el catálogo incompleto en PC.
+- El catálogo conserva la altura y el desplazamiento completos, pero solo mantiene en el DOM las filas cercanas a la pantalla.
+- Safari y Android ya no acumulan cientos de tarjetas e imágenes decodificadas.
+- El desplazamiento sigue siendo continuo, sin botón “cargar más” ni pausas al final.
+- En PC se puede recorrer la colección completa y buscar/filtrar todos los perfumes.
+- Las fichas individuales conservan la imagen completa y el comportamiento existente.

@@ -1,0 +1,20 @@
+PRIVÉ — REPORTE DE INTEGRACIÓN · BASE MAESTRA LOTE 005
+Fecha: 30 de julio de 2026
+
+RESULTADO
+- 100 fichas nuevas generadas.
+- Posiciones integradas: 351–450.
+- Primera clave: DP02556.
+- Última clave: DP02673.
+- Total activo de la Base Maestra: 450 fichas.
+- Estado interno del lote: review.
+
+PRUEBAS APROBADAS
+- tools/test-master-batch-005.mjs
+- tools/validate-core.mjs
+- tools/test-core-adapter.mjs
+- tools/test-identity.mjs
+
+OBSERVACIONES
+- Ediciones recientes, especiales o con información comunitaria limitada se mantienen con confianza baja/media y notas internas.
+- Los estados técnicos no se muestran al cliente ni al revendedor.

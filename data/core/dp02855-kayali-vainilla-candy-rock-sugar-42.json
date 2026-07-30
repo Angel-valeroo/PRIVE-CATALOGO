@@ -1,0 +1,200 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "dp02855-kayali-vainilla-candy-rock-sugar-42",
+  "status": "review",
+  "identity": {
+    "brand": "KAYALI",
+    "name": "VAINILLA CANDY ROCK SUGAR | 42",
+    "line": null,
+    "flanker": null,
+    "priveCode": "DP02855",
+    "sku": null,
+    "audience": "Dama",
+    "concentration": "Eau de Parfum",
+    "launchYear": 2024,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Floral frutal gourmand",
+    "subfamily": null,
+    "accords": [
+      "Amaderado",
+      "Afrutado",
+      "Atalcado",
+      "Dulce",
+      "Floral",
+      "Cítrico"
+    ],
+    "styleTags": [
+      "Dulce",
+      "Chicle y gourmand"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Pera confitada",
+      "Malvavisco",
+      "Ron",
+      "Hoja de violeta",
+      "Ylang-ylang",
+      "Bergamota"
+    ],
+    "heartNotes": [
+      "Chicle",
+      "Jellybean",
+      "Caramelo",
+      "Jazmín",
+      "Ládano"
+    ],
+    "baseNotes": [
+      "Azúcar",
+      "Pachulí",
+      "Haba tonka",
+      "Sándalo",
+      "Vetiver",
+      "Cachemira"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Muy intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 2,
+    "sweetness": 5,
+    "warmth": 2,
+    "woodiness": 5,
+    "spiciness": 0,
+    "floral": 4,
+    "citrus": 4,
+    "fruitiness": 4,
+    "aquatic": 0,
+    "powdery": 5,
+    "smoky": 2,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Noche",
+      "Cita",
+      "Fiesta",
+      "Evento"
+    ],
+    "contexts": [
+      "Romántico",
+      "Social",
+      "Especial"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "dayParts": [
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 2,
+    "versatility": 3,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 16,
+      "max": 38,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 16 a 38 años por su estilo dulce, chicle y gourmand. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil amaderado, afrutado, atalcado, con una salida de pera confitada, malvavisco, ron que evoluciona hacia un fondo de azúcar, pachulí, haba tonka. Su carácter dulce, chicle y gourmand ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil dulce, chicle y gourmand. Afinidad orientativa: 16 a 38 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima frío y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Dama/DP02855.avif",
+      "alt": "KAYALI VAINILLA CANDY ROCK SUGAR | 42"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 005",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=KAYALI+VAINILLA+CANDY+ROCK+SUGAR+%7C+42",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave DP02855",
+        "url": "https://perfumoteca.com/catalogo?search=DP02855",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave DP02855",
+        "url": "https://glass-essence.com/?s=DP02855&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "official",
+        "title": "Sitio oficial de KAYALI — contraste de lanzamiento y narrativa",
+        "url": "https://www.google.com/search?q=KAYALI+VAINILLA+CANDY+ROCK+SUGAR+%7C+42+official+fragrance",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fuentes especializadas y reseñas — contraste de uso, clima y percepción",
+        "url": "https://www.google.com/search?q=KAYALI+VAINILLA+CANDY+ROCK+SUGAR+%7C+42+perfume+reviews+notes",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "performance",
+          "recommendation"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 005. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Nombre e imagen conservados desde el catálogo operativo; la clave se utiliza para la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

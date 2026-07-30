@@ -1,3 +1,11 @@
+## Sprint 4.3 — Safari scroll memory hardening
+
+- Carga del catálogo reducida a lotes de 16 tarjetas.
+- Nuevas imágenes se cargan solo cerca del viewport.
+- Imágenes lejanas se descargan para liberar memoria decodificada.
+- La carga de nuevos lotes se pausa durante scroll agresivo y continúa al quedar inactivo.
+- Se conserva la navegación y el diseño existentes.
+
 # CHANGELOG — PRIVÉ Sprint 3.4
 
 ## Motor de composición universal
@@ -156,3 +164,51 @@
 - La edad continúa como tendencia orientativa, secundaria y nunca restrictiva.
 - Se actualizó la versión de Core a `master-004` y la carga de JavaScript a 5.2.
 - Se añadieron generador y pruebas reproducibles del Lote 004.
+
+## Sprint 4.2 — Estabilidad del catálogo en Safari iOS
+- El catálogo ahora se renderiza en lotes controlados de 32 tarjetas.
+- Se evita disparar múltiples cargas simultáneas al hacer scroll rápido.
+- Las imágenes de tarjetas ya no ejecutan decodificación masiva; la decodificación completa se conserva en la ficha de detalle.
+- Se añadió `content-visibility` para reducir memoria y trabajo fuera de pantalla.
+- Safari ya no pierde la posición por un `pageshow` restaurado desde memoria.
+
+
+## Sprint 4.4 — Scroll continuo optimizado para Safari iOS
+- Se eliminó la espera visible al llegar al final de cada bloque del catálogo.
+- Se renderizan 48 tarjetas en la primera carga y el resto se prepara progresivamente en segundo plano.
+- Las siguientes tarjetas se incorporan antes de que el usuario llegue al final, evitando cortes o saltos visuales.
+- Las imágenes se precargan con mayor anticipación y solo se liberan cuando la memoria supera un límite seguro y están muy lejos de la pantalla.
+- Se conserva un máximo controlado de imágenes decodificadas para evitar reinicios de Safari durante scroll agresivo.
+- Se actualizó la caché de estilos y JavaScript a 4.4 / 5.4.
+
+
+## Sprint 4.5 — estabilidad móvil Safari/Android
+- Cola de imágenes con concurrencia limitada.
+- Menor margen de precarga en móviles.
+- Liberación temprana de imágenes lejanas durante scroll agresivo.
+- Render por lotes pausado mientras el usuario desplaza rápidamente.
+- Desactivación de `content-visibility` en dispositivos táctiles por inestabilidad de WebKit.
+
+
+## Sprint 4.7 — virtualización real del catálogo
+- Se eliminó el render acumulativo que dejaba cientos de tarjetas e imágenes en memoria.
+- Safari y Android mantienen únicamente las filas cercanas a la pantalla.
+- El scroll conserva la altura total del catálogo y se mantiene continuo.
+- PC vuelve a recorrer el catálogo completo sin quedarse a medias.
+- Las imágenes y observadores de filas retiradas se liberan al cambiar de ventana.
+- Caché actualizada a styles 4.6 / app 5.6.
+
+## Sprint 4.7 — hotfix de imágenes en catálogo virtual
+- Se eliminó la dependencia de la cola/observer para las imágenes dentro de la ventana virtual.
+- Las imágenes de las tarjetas visibles ahora se solicitan directamente con carga diferida nativa.
+- Se cancelan las solicitudes de tarjetas retiradas antes de reciclar la ventana para controlar memoria.
+- Se reinicia correctamente el estado interno al cambiar filtros o reconstruir el catálogo.
+- Se mantiene la virtualización de filas para Safari y Android sin dejar el catálogo en blanco.
+- Caché de JavaScript actualizada a 5.7.
+
+## 2026-07-30 — Base Maestra Lote 005
+- Se integraron 100 fichas de Dama (posiciones 351–450).
+- La Base Maestra alcanza 450 perfumes activos.
+- Se agregó control interno `review-batch-005.csv`.
+- Se añadieron generador y prueba reproducible del Lote 005.
+- Se amplió la trazabilidad con Fragrantica, Perfumoteca por clave, sitio oficial, Glass Essence y fuentes especializadas.

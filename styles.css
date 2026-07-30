@@ -1478,3 +1478,26 @@ body.search-has-query .search-svg{
   border-color:rgba(246,178,192,.96)!important;
   opacity:.86;
 }
+
+/* Sprint 4.5 — guardia de memoria móvil para Safari y Android */
+.catalog-load-sentinel{display:none!important}
+@media (hover:none) and (pointer:coarse){
+  /* content-visibility provoca repintados y recargas inestables en algunas versiones de WebKit. */
+  .perfume-card{
+    content-visibility:visible!important;
+    contain:layout paint style;
+    transform:translateZ(0);
+    backface-visibility:hidden;
+  }
+  .perfume-image{
+    will-change:auto!important;
+  }
+}
+
+
+/* Sprint 4.6 — catálogo virtual estable para Safari y Android */
+.catalog-virtual-spacer{grid-column:1/-1;width:100%;pointer-events:none;visibility:hidden}
+@media (hover:none) and (pointer:coarse){
+  .perfume-card{contain:layout paint style;transform:none;backface-visibility:visible}
+  .perfume-card:hover{transform:none}
+}

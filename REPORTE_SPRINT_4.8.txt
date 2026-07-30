@@ -1,0 +1,8 @@
+SPRINT 4.8 — ESTABILIDAD VISUAL DE IMÁGENES
+
+- Se eliminó la descarga de imágenes durante el scroll activo.
+- Se amplió el margen de seguridad antes de liberar imágenes lejanas.
+- La limpieza de memoria ocurre únicamente tras casi un segundo de inactividad.
+- Se corrigió la cola para permitir recargar una imagen liberada sin quedar bloqueada.
+- Se aumentó el caché móvil para evitar parpadeos al desplazarse ligeramente.
+- Se actualizó la versión de caché de app.js.
