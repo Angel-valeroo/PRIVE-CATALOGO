@@ -44,6 +44,7 @@ const elements = {
   activeFilters: $("#activeFilters"), categoryFilters: [...document.querySelectorAll(".category-filter")],
   dialog: $("#perfumeDialog"), closeDialog: $("#closeDialog"),
   detailImage: $("#detailImage"), detailFallback: $("#detailFallback"), detailMonogram: $("#detailMonogram"),
+  detailBottleStage: $(".detail-bottle-stage"), detailComposition: $(".detail-product-composition"),
   detailStageName: $("#detailStageName"), detailStageCode: $("#detailStageCode"),
   detailScrollCue: $(".detail-scroll-cue"),
   detailDesigner: $("#detailDesigner"), detailName: $("#detailName"), detailCode: $("#detailCode"),
@@ -60,6 +61,88 @@ const elements = {
   advisorResultsIntro: $("#advisorResultsIntro"), advisorBack: $("#advisorBack"),
   advisorSkip: $("#advisorSkip"), advisorNext: $("#advisorNext"), advisorRestart: $("#advisorRestart")
 };
+
+
+const detailImageBoundsCache = new Map();
+let detailLayoutFrame = 0;
+
+function categoryFromCode(code) {
+  const value = String(code || "").trim().toUpperCase();
+  if (value.startsWith("DP") || value.startsWith("D")) return "dama";
+  if (value.startsWith("UP") || value.startsWith("U")) return "unisex";
+  return "caballero";
+}
+
+function applyDetailCategoryTheme(perfume) {
+  const gender = categoryFromCode(perfume?.code);
+  elements.dialog.classList.remove("detail-gender-caballero", "detail-gender-dama", "detail-gender-unisex");
+  elements.dialog.classList.add(`detail-gender-${gender}`);
+}
+
+function alphaBoundsForImage(image) {
+  const cacheKey = image.currentSrc || image.src;
+  if (detailImageBoundsCache.has(cacheKey)) return detailImageBoundsCache.get(cacheKey);
+  const canvas = document.createElement("canvas");
+  const width = image.naturalWidth;
+  const height = image.naturalHeight;
+  if (!width || !height) return null;
+  const maxSample = 720;
+  const ratio = Math.min(1, maxSample / Math.max(width, height));
+  canvas.width = Math.max(1, Math.round(width * ratio));
+  canvas.height = Math.max(1, Math.round(height * ratio));
+  const context = canvas.getContext("2d", { willReadFrequently: true });
+  if (!context) return null;
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  context.drawImage(image, 0, 0, canvas.width, canvas.height);
+  let pixels;
+  try { pixels = context.getImageData(0, 0, canvas.width, canvas.height).data; }
+  catch (_) { return null; }
+  let minX = canvas.width, minY = canvas.height, maxX = -1, maxY = -1;
+  for (let y = 0; y < canvas.height; y += 1) {
+    for (let x = 0; x < canvas.width; x += 1) {
+      const alpha = pixels[(y * canvas.width + x) * 4 + 3];
+      if (alpha > 12) {
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+      }
+    }
+  }
+  const bounds = maxX < minX || maxY < minY
+    ? { x: 0, y: 0, width, height }
+    : {
+        x: minX / ratio,
+        y: minY / ratio,
+        width: (maxX - minX + 1) / ratio,
+        height: (maxY - minY + 1) / ratio
+      };
+  detailImageBoundsCache.set(cacheKey, bounds);
+  return bounds;
+}
+
+function layoutDetailBottle() {
+  cancelAnimationFrame(detailLayoutFrame);
+  detailLayoutFrame = requestAnimationFrame(() => {
+    const image = elements.detailImage;
+    const stage = elements.detailBottleStage;
+    if (!image || !stage || image.hidden || !image.complete || !image.naturalWidth) return;
+    const stageRect = stage.getBoundingClientRect();
+    if (stageRect.width < 20 || stageRect.height < 20) return;
+    const bounds = alphaBoundsForImage(image) || { x: 0, y: 0, width: image.naturalWidth, height: image.naturalHeight };
+    const safeWidth = stageRect.width * .88;
+    const safeHeight = stageRect.height * .94;
+    const scale = Math.min(safeWidth / bounds.width, safeHeight / bounds.height);
+    const renderedWidth = image.naturalWidth * scale;
+    const renderedHeight = image.naturalHeight * scale;
+    const visibleCenterX = (bounds.x + bounds.width / 2) * scale;
+    const visibleCenterY = (bounds.y + bounds.height / 2) * scale;
+    image.style.width = `${renderedWidth.toFixed(2)}px`;
+    image.style.height = `${renderedHeight.toFixed(2)}px`;
+    image.style.left = `${(stageRect.width / 2 - visibleCenterX).toFixed(2)}px`;
+    image.style.top = `${(stageRect.height / 2 - visibleCenterY).toFixed(2)}px`;
+  });
+}
 
 function normalize(value) {
   return String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
@@ -113,6 +196,7 @@ function loadImage(image, fallback, monogram, perfume) {
     if (!isCurrentRequest()) return;
     image.classList.remove("is-loading");
     fallback.hidden = true;
+    if (image === elements.detailImage) layoutDetailBottle();
   };
   const tryNextExtension = () => {
     if (!isCurrentRequest()) return;
@@ -230,6 +314,7 @@ function openPerfume(perfume, updateHash = true) {
   elements.detailCode.textContent = `CLAVE ${perfume.code}`;
   elements.detailStageName.textContent = perfume.name;
   elements.detailStageCode.textContent = `Clave ${perfume.code}`;
+  applyDetailCategoryTheme(perfume);
   elements.detailCategory.textContent = `COLECCIÓN ${String(perfume.category || "PRIVÉ").toUpperCase()}`;
   elements.detailDescription.textContent = perfume.description || "Una fragancia de la colección PRIVÉ. Su información olfativa se incorporará progresivamente a la base de datos.";
   loadImage(elements.detailImage, elements.detailFallback, elements.detailMonogram, perfume);
@@ -254,7 +339,7 @@ function openPerfume(perfume, updateHash = true) {
   elements.dialog.style.setProperty("--detail-progress", "0");
   elements.dialog.classList.remove("detail-is-discovering", "detail-is-reading", "detail-cue-dismissed", "detail-cue-nudge");
   resetDetailScrollCue();
-  requestAnimationFrame(updateDetailScrollProgress);
+  requestAnimationFrame(() => { updateDetailScrollProgress(); layoutDetailBottle(); });
   document.body.classList.add("dialog-open");
   if (updateHash) history.pushState({ perfume: perfume.id }, "", `#perfume=${encodeURIComponent(perfume.id)}`);
 }
@@ -545,3 +630,9 @@ window.addEventListener("pageshow", () => {
   if (!location.hash.startsWith("#perfume=")) window.scrollTo(0, 0);
 });
 init();
+
+if (typeof ResizeObserver !== "undefined" && elements.detailBottleStage) {
+  const detailStageObserver = new ResizeObserver(() => layoutDetailBottle());
+  detailStageObserver.observe(elements.detailBottleStage);
+}
+window.addEventListener("resize", layoutDetailBottle, { passive: true });

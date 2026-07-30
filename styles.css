@@ -818,3 +818,160 @@ body.search-active .entry-paths{opacity:.62;transition:opacity .45s ease}
 @media(prefers-reduced-motion:reduce){
   .detail-image{transform:scale(1.035)!important}
 }
+
+/* =========================================================
+   Sprint 3.4 — Motor de composición universal
+   Un único bloque centrado: nombre + clave + botella.
+   ========================================================= */
+.perfume-dialog{
+  --detail-accent:#d7b675;
+  --detail-ink:#fff8ea;
+  --detail-muted:#e5cb98;
+  --detail-bg-1:#1a1814;
+  --detail-bg-2:#0f0e0c;
+  --detail-bg-3:#090806;
+  --detail-halo:rgba(234,205,151,.25);
+}
+.perfume-dialog.detail-gender-dama{
+  --detail-accent:#b88d83;
+  --detail-ink:#342823;
+  --detail-muted:#745b52;
+  --detail-bg-1:#f2e7e1;
+  --detail-bg-2:#dcc9c1;
+  --detail-bg-3:#bda59c;
+  --detail-halo:rgba(255,249,240,.78);
+}
+.perfume-dialog.detail-gender-unisex{
+  --detail-accent:#c3b89f;
+  --detail-ink:#f6f1e7;
+  --detail-muted:#d8ceb9;
+  --detail-bg-1:#302f2b;
+  --detail-bg-2:#1b1b19;
+  --detail-bg-3:#10100f;
+  --detail-halo:rgba(226,219,199,.25);
+}
+.detail-media{
+  display:block!important;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.08),transparent 28% 72%,rgba(255,255,255,.035)),
+    linear-gradient(160deg,var(--detail-bg-1) 0%,var(--detail-bg-2) 58%,var(--detail-bg-3) 100%)!important;
+}
+.detail-media::before{bottom:7%!important;left:23%!important;right:23%!important}
+.detail-product-composition{
+  position:absolute;
+  inset:clamp(58px,7vh,82px) clamp(28px,5vw,76px) clamp(88px,11vh,118px);
+  z-index:3;
+  display:grid;
+  grid-template-rows:auto minmax(0,1fr);
+  align-content:center;
+  justify-items:center;
+  gap:clamp(8px,1.5vh,16px);
+  min-width:0;
+  transform:translateY(calc(var(--detail-progress) * -15px)) scale(calc(1 - var(--detail-progress) * .11));
+  transform-origin:center 48%;
+}
+.detail-stage-identity{
+  position:relative!important;
+  inset:auto!important;
+  width:min(100%,760px)!important;
+  min-height:0!important;
+  padding:0 clamp(48px,7vw,88px)!important;
+  display:grid!important;
+  align-content:center!important;
+  justify-items:center!important;
+  gap:6px!important;
+  text-align:center!important;
+  transform:none!important;
+  opacity:calc(1 - var(--detail-progress) * 1.55)!important;
+  text-shadow:0 2px 18px rgba(0,0,0,.55);
+}
+.detail-stage-identity strong{
+  width:100%;
+  max-width:100%!important;
+  color:var(--detail-ink)!important;
+  font-size:clamp(1.25rem,2.65vw,2.12rem)!important;
+  line-height:1.04!important;
+  letter-spacing:.012em!important;
+  overflow-wrap:anywhere;
+  text-wrap:balance;
+}
+.detail-stage-identity span{
+  color:var(--detail-muted)!important;
+  font-size:clamp(.56rem,.7vw,.68rem)!important;
+  letter-spacing:.18em!important;
+}
+.detail-gender-dama .detail-stage-identity{text-shadow:0 1px 12px rgba(255,255,255,.42)}
+.detail-bottle-stage{
+  position:relative!important;
+  inset:auto!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0;
+  overflow:hidden;
+  display:block!important;
+  z-index:2;
+  transform:none!important;
+}
+.detail-image{
+  position:absolute!important;
+  z-index:3!important;
+  max-width:none!important;
+  max-height:none!important;
+  width:auto;
+  height:auto;
+  padding:0!important;
+  object-fit:fill!important;
+  object-position:initial!important;
+  transform:none!important;
+  transform-origin:center!important;
+}
+.detail-atmosphere{
+  position:absolute!important;
+  inset:auto!important;
+  left:50%!important;
+  top:50%!important;
+  width:min(72%,620px)!important;
+  height:min(78%,680px)!important;
+  aspect-ratio:auto!important;
+  z-index:1!important;
+  border-radius:50%;
+  background:radial-gradient(ellipse at center,var(--detail-halo) 0%,color-mix(in srgb,var(--detail-halo) 42%,transparent) 38%,transparent 72%)!important;
+  filter:blur(25px)!important;
+  opacity:calc(.9 - var(--detail-progress) * .45)!important;
+  transform:translate(-50%,-50%)!important;
+}
+.detail-brand-mark{
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  z-index:2!important;
+  color:color-mix(in srgb,var(--detail-accent) 15%,transparent)!important;
+  font-size:clamp(7rem,20vw,15rem)!important;
+  transform:translate(-50%,-50%)!important;
+  pointer-events:none;
+}
+.detail-reflection{z-index:2!important}
+.detail-stage-caption{z-index:5!important}
+.detail-scroll-cue{z-index:6!important}
+.dialog-close{z-index:30!important}
+.detail-gender-dama .detail-media-frame{border-color:rgba(91,63,55,.18)!important;box-shadow:inset 0 0 90px rgba(255,255,255,.12),0 0 0 1px rgba(76,48,42,.1)!important}
+.detail-gender-dama .dialog-close{color:#43332d!important;background:rgba(255,250,245,.62)!important;border-color:rgba(73,48,41,.2)!important}
+.detail-gender-dama .detail-stage-caption,.detail-gender-dama .detail-scroll-cue{color:rgba(62,44,39,.62)!important}
+.detail-gender-dama .detail-scroll-cue__arrows i{border-color:rgba(93,62,54,.75)!important}
+
+@media(min-width:900px){
+  .detail-product-composition{inset:clamp(66px,8vh,96px) clamp(42px,6vw,92px) clamp(94px,12vh,132px)}
+}
+@media(max-width:899px){
+  .detail-product-composition{inset:58px 18px 88px;gap:8px}
+  .detail-stage-identity{padding:0 48px!important}
+}
+@media(max-width:520px){
+  .detail-product-composition{inset:54px 12px 80px;gap:6px}
+  .detail-stage-identity{padding:0 42px!important}
+  .detail-stage-identity strong{font-size:clamp(1.08rem,5.4vw,1.48rem)!important}
+  .detail-stage-identity span{font-size:.53rem!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .detail-product-composition{transform:none!important}
+}

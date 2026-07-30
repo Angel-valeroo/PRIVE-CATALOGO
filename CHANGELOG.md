@@ -1,32 +1,36 @@
-# PRIVÉ — Sprint 3.2
+# CHANGELOG — PRIVÉ Sprint 3.4
 
-## Cambios implementados
+## Motor de composición universal
 
-- El nombre del perfume y su clave ahora aparecen en una zona superior fija y centrada.
-- Se reservó espacio para evitar que las botellas altas invadan o tapen la identificación.
-- La marca de agua PRIVÉ se movió detrás de la botella como elemento decorativo.
-- Se eliminó el texto genérico “Eau de Parfum”.
-- Se mantuvo “Colección PRIVÉ” en la esquina inferior derecha.
-- “Desliza para descubrir” se movió a una zona inferior independiente.
-- La guía de scroll muestra flechas elegantes y, después de tres segundos sin interacción, realiza una animación sutil.
-- La guía desaparece al comenzar a hacer scroll.
-- Se añadieron ajustes específicos para escritorio, tableta y móvil.
+- Se reconstruyó la composición principal de la ficha como un único bloque centrado: nombre, clave y botella.
+- El botón de cierre ya no desplaza el contenido hacia la izquierda.
+- Los nombres largos conservan el centro, permiten salto de línea y no invaden el botón de cierre.
+- Nombre, clave y botella mantienen una separación mínima consistente sin sentirse desconectados.
+- Se definieron límites superiores, laterales e inferiores para impedir que cualquier botella invada el marco o desaparezca por debajo.
 
-## Archivos modificados
+## Normalización automática de botellas
 
-- `index.html`
-- `styles.css`
-- `app.js`
+- Se añadió detección del área visible real de cada imagen mediante transparencia.
+- El sistema ignora márgenes transparentes irregulares de los archivos.
+- Cada botella se escala proporcionalmente para caber dentro de su zona segura.
+- La silueta visible queda centrada, incluso cuando el lienzo original de la imagen está desbalanceado.
+- La composición se recalcula al abrir la ficha y al cambiar el tamaño de la ventana.
 
-## Sprint 3.3 — Corrección de composición y estabilidad
+## Halo e identidad de marca
 
-- Se bajó el bloque de nombre y clave para integrarlo mejor con la botella.
-- Se creó una separación mínima protegida entre identidad y producto.
-- Se añadió un límite inferior para impedir que las botellas desaparezcan de la tarjeta.
-- Se alinearon las botellas hacia la base para estabilizar su posición.
-- El halo luminoso ahora resalta directamente el perfume.
-- Se aumentó ligeramente la legibilidad del nombre y la clave.
-- Se mantuvo una zona segura para nombres largos y el botón de cierre.
-- El botón circular se sustituyó por uno cuadrado con esquinas discretas.
-- Se corrigieron condiciones de carrera durante la carga de imágenes para evitar cambios visuales entre aperturas.
-- Se espera a que la imagen termine de decodificarse antes de mostrarla, reduciendo saltos de composición.
+- El halo fue integrado dentro del escenario de la botella y ahora permanece centrado detrás del producto.
+- La marca de agua PRIVÉ se mantiene detrás de la botella sin controlar la posición del halo.
+- Se conservaron la cuadrícula, el marco fino, “Colección PRIVÉ” y la guía animada de desplazamiento.
+
+## Identidad visual automática por clave
+
+- CP / C: paleta oscura para Caballero.
+- DP / D: paleta más clara, cálida y delicada para Dama.
+- UP / U: paleta neutra para Unisex.
+- La categoría modifica únicamente el ambiente visual; la estructura y las proporciones permanecen iguales.
+
+## Validación
+
+- JavaScript validado sin errores de sintaxis.
+- Adaptador Core validado.
+- Catálogo validado: 547 perfumes sin claves ni IDs duplicados.
