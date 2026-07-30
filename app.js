@@ -20,6 +20,7 @@ const TAG_ICONS = {
   Caballero: "■", Dama: "◆", Unisex: "●",
   Día: "☀️", Noche: "🌙", Diario: "📅", Oficina: "☕", Cita: "❤️", Fiesta: "🎉", Evento: "🎆",
   Playa: "🌴", Gimnasio: "🏋️", Escuela: "📚", Viaje: "✈️",
+  Casual: "👕", Profesional: "💼", Vacaciones: "🏖️", Deportivo: "🏃", Especial: "✨", Formal: "🎩", Romántico: "💞", Social: "🥂",
   Calor: "🔥", Templado: "☁️", Frío: "❄️",
   Primavera: "🌸", Verano: "☀️", Otoño: "🍁", Invierno: "☃️",
   Fresco: "🍃", Acuático: "🌊", Dulce: "🍬", Amaderado: "🪵", Aromático: "🌿",
@@ -37,7 +38,7 @@ const ADVISOR_WEIGHTS = { category: 30, occasion: 25, profile: 30, climate: 15 }
 const $ = selector => document.querySelector(selector);
 
 const elements = {
-  catalog: $("#catalog"), template: $("#perfumeCardTemplate"), search: $("#search"),
+  catalog: $("#catalog"), template: $("#perfumeCardTemplate"), search: $("#search"), submitSearch: $("#submitSearch"),
   clearSearch: $("#clearSearch"), designerFilter: $("#designerFilter"), familyFilter: $("#familyFilter"),
   familyFilterField: $("#familyFilterField"), resetFilters: $("#resetFilters"),
   resultCount: $("#resultCount"), resultLabel: $("#resultLabel"), emptyState: $("#emptyState"),
@@ -196,7 +197,12 @@ function loadImage(image, fallback, monogram, perfume) {
     if (!isCurrentRequest()) return;
     image.classList.remove("is-loading");
     fallback.hidden = true;
-    if (image === elements.detailImage) layoutDetailBottle();
+    if (image === elements.detailImage) {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        layoutDetailBottle();
+        elements.dialog.classList.remove("detail-switching");
+      }));
+    }
   };
   const tryNextExtension = () => {
     if (!isCurrentRequest()) return;
@@ -308,7 +314,25 @@ function updateDetailScrollProgress() {
   }
 }
 
+function resetDetailRenderState() {
+  cancelAnimationFrame(detailLayoutFrame);
+  const image = elements.detailImage;
+  if (image) {
+    image.style.removeProperty("width");
+    image.style.removeProperty("height");
+    image.style.removeProperty("left");
+    image.style.removeProperty("top");
+    image.classList.add("is-loading");
+  }
+  elements.dialog.scrollTop = 0;
+  elements.dialog.style.setProperty("--detail-progress", "0");
+  elements.dialog.classList.remove("detail-is-discovering", "detail-is-reading", "detail-cue-dismissed", "detail-cue-nudge");
+  elements.dialog.classList.add("detail-switching");
+}
+
 function openPerfume(perfume, updateHash = true) {
+  if (!perfume) return;
+  resetDetailRenderState();
   state.selectedPerfume = perfume;
   elements.detailDesigner.textContent = perfume.designer; elements.detailName.textContent = perfume.name;
   elements.detailCode.textContent = `CLAVE ${perfume.code}`;
@@ -335,11 +359,11 @@ function openPerfume(perfume, updateHash = true) {
   elements.viewDesigner.onclick = () => setFilter("designer", perfume.designer);
   elements.detailDesigner.onclick = () => setFilter("designer", perfume.designer);
   if (!elements.dialog.open) elements.dialog.showModal();
-  elements.dialog.scrollTop = 0;
-  elements.dialog.style.setProperty("--detail-progress", "0");
-  elements.dialog.classList.remove("detail-is-discovering", "detail-is-reading", "detail-cue-dismissed", "detail-cue-nudge");
   resetDetailScrollCue();
-  requestAnimationFrame(() => { updateDetailScrollProgress(); layoutDetailBottle(); });
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    updateDetailScrollProgress();
+    if (elements.detailImage.complete && elements.detailImage.naturalWidth) layoutDetailBottle();
+  }));
   document.body.classList.add("dialog-open");
   if (updateHash) history.pushState({ perfume: perfume.id }, "", `#perfume=${encodeURIComponent(perfume.id)}`);
 }
@@ -544,6 +568,13 @@ function startSearchPlaceholderRotation() {
   rotateSearchPlaceholder();
   searchPlaceholderTimer = window.setInterval(rotateSearchPlaceholder, 3200);
 }
+function executeSearch() {
+  state.query = elements.search.value.trim();
+  document.body.classList.toggle("search-has-query", Boolean(state.query));
+  render();
+  scrollToCatalog();
+}
+
 elements.categoryFilters.forEach(button => button.addEventListener("click", () => {
   state.category = button.dataset.category || "";
   render();
@@ -562,6 +593,13 @@ elements.search.addEventListener("input", event => {
   document.body.classList.toggle("search-has-query", Boolean(state.query.trim()));
   render();
 });
+elements.search.addEventListener("keydown", event => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    executeSearch();
+  }
+});
+elements.submitSearch.addEventListener("click", executeSearch);
 elements.clearSearch.addEventListener("click", () => {
   state.query = "";
   elements.search.value = "";

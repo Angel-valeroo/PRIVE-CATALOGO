@@ -41,7 +41,10 @@
           <label class="search-box" for="search">
             <svg class="search-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg>
             <input id="search" type="search" autocomplete="off" placeholder="Busca por nombre, diseñador o clave...">
-            <button id="clearSearch" type="button" aria-label="Limpiar búsqueda">×</button>
+            <button id="submitSearch" class="search-submit" type="button" aria-label="Buscar perfumes">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg>
+            </button>
+            <button id="clearSearch" class="search-clear" type="button" aria-label="Limpiar búsqueda">×</button>
           </label>
 
           <div class="category-filters" role="group" aria-label="Filtrar catálogo por género">
@@ -251,6 +254,6 @@
   </dialog>
 
   <script src="core-adapter.js" defer></script>
-  <script src="app.js?v=3.7" defer></script>
+  <script src="app.js?v=3.8" defer></script>
 </body>
 </html>

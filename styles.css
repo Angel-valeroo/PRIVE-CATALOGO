@@ -1225,3 +1225,53 @@ body.search-has-query .search-svg{
 @media(prefers-reduced-motion:reduce){
   .search-box,.search-box input,.search-svg{transition:none!important}
 }
+
+/* =========================================================
+   SPRINT 3.8 — ESTABILIDAD DE RUTAS, BÚSQUEDA Y FILTROS
+   ========================================================= */
+.search-submit{
+  opacity:1!important;
+  pointer-events:auto!important;
+  display:grid!important;
+  place-items:center;
+  color:#464b55!important;
+  background:rgba(23,21,18,.055)!important;
+  border:1px solid rgba(23,21,18,.08)!important;
+}
+.search-submit svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round}
+.search-submit:hover{background:rgba(23,21,18,.1)!important;color:#171512!important}
+.search-clear{order:3}
+.search-clear:not(.visible){display:none}
+
+.toolbar{
+  grid-template-columns:minmax(220px,320px) minmax(220px,320px) 1fr!important;
+  position:relative;
+  align-items:end!important;
+}
+#resetFilters{
+  justify-self:end;
+  align-self:center;
+  min-height:38px;
+  padding:8px 14px!important;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(23,21,18,.16)!important;
+  border-radius:10px;
+  background:rgba(255,255,255,.52)!important;
+  color:#4f4941!important;
+  font-size:.68rem!important;
+  font-weight:600;
+  letter-spacing:.055em;
+  cursor:pointer;
+  transition:background .25s ease,border-color .25s ease,transform .25s ease,color .25s ease;
+}
+#resetFilters:hover{background:#fff!important;border-color:rgba(183,150,93,.5)!important;color:#171512!important;transform:translateY(-1px)}
+
+.detail-switching .detail-image{opacity:0!important}
+.detail-switching .detail-fallback{opacity:1}
+
+@media(max-width:760px){
+  .toolbar{grid-template-columns:1fr!important}
+  #resetFilters{justify-self:end;margin-top:2px}
+}

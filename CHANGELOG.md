@@ -70,3 +70,11 @@
 - En móvil, la barra compacta conserva aire lateral y al activarse ocupa el ancho disponible.
 - Se eliminaron efectos de escala en el botón de limpiar para mantener un crecimiento físico y estable.
 - Se actualizó la versión de caché de estilos y JavaScript a 3.7.
+
+## Sprint 3.8 — Estabilidad y pulido funcional
+- Se unificó el reinicio visual de la ficha para todas las rutas de entrada: catálogo, recomendaciones, diseñador, filtros y asistente inteligente.
+- Se corrigió el primer render desalineado al cambiar de perfume dentro de una ficha abierta.
+- Se limpia la geometría anterior de la botella y se recalcula únicamente después de decodificar la nueva imagen.
+- Se agregó un botón de búsqueda con lupa y soporte para Enter; ambos desplazan suavemente hacia los resultados.
+- “Restablecer filtros” ahora es un botón visible, alineado a la derecha dentro de la barra de filtros.
+- Se asignaron emojis a contextos que antes aparecían con un punto genérico: Casual, Profesional, Vacaciones, Deportivo, Especial, Formal, Romántico y Social.
