@@ -1,0 +1,173 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp02431-paco-rabanne-invictus-aqua",
+  "status": "review",
+  "identity": {
+    "brand": "PACO RABANNE",
+    "name": "INVICTUS AQUA",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP02431",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Eau de Toilette",
+    "launchYear": 2024,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Aromática acuática",
+    "subfamily": null,
+    "accords": [
+      "Acuático",
+      "Aromático",
+      "Atalcado",
+      "Cítrico",
+      "Floral",
+      "Verde"
+    ],
+    "styleTags": [
+      "Acuático",
+      "Chispeante y moderno"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Mandarina verde",
+      "Toronja",
+      "Pimienta rosa"
+    ],
+    "heartNotes": [
+      "Notas marinas",
+      "Lavanda",
+      "Hojas de violeta"
+    ],
+    "baseNotes": [
+      "Ámbar gris",
+      "Sándalo",
+      "Almizcle"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Moderada",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 5,
+    "sweetness": 0,
+    "warmth": 4,
+    "woodiness": 2,
+    "spiciness": 2,
+    "floral": 5,
+    "citrus": 5,
+    "fruitiness": 0,
+    "aquatic": 4,
+    "powdery": 5,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Diario",
+      "Oficina",
+      "Viaje",
+      "Playa"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Vacaciones"
+    ],
+    "climates": [
+      "Calor",
+      "Templado"
+    ],
+    "seasons": [
+      "Primavera",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde"
+    ],
+    "formality": 3,
+    "versatility": 4,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 18,
+      "max": 42,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 42 años por su estilo acuático, chispeante y moderno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil acuático, aromático, atalcado, con una salida de mandarina verde, toronja, pimienta rosa que evoluciona hacia un fondo de ámbar gris, sándalo, almizcle. Su carácter acuático, chispeante y moderno ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil acuático, chispeante y moderno. Afinidad orientativa: 18 a 42 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima calor y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP02431.avif",
+      "alt": "PACO RABANNE INVICTUS AQUA"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 003",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=PACO+RABANNE+INVICTUS+AQUA",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP02431",
+        "url": "https://perfumoteca.com/catalogo?search=CP02431",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave CP02431",
+        "url": "https://glass-essence.com/?s=CP02431&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 003. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Nueva edición Invictus Aqua; conservar en review para contrastar pirámide exacta con la clave del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

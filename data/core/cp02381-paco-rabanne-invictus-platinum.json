@@ -1,0 +1,172 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp02381-paco-rabanne-invictus-platinum",
+  "status": "review",
+  "identity": {
+    "brand": "PACO RABANNE",
+    "name": "INVICTUS PLATINUM",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP02381",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Eau de Toilette",
+    "launchYear": 2022,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Aromática fougère",
+    "subfamily": null,
+    "accords": [
+      "Aromático",
+      "Amaderado",
+      "Cítrico",
+      "Fresco especiado",
+      "Verde"
+    ],
+    "styleTags": [
+      "Verde",
+      "Enérgico y competitivo"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Absenta",
+      "Toronja"
+    ],
+    "heartNotes": [
+      "Menta",
+      "Lavanda"
+    ],
+    "baseNotes": [
+      "Ciprés",
+      "Pachulí"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 5,
+    "sweetness": 0,
+    "warmth": 2,
+    "woodiness": 5,
+    "spiciness": 2,
+    "floral": 2,
+    "citrus": 4,
+    "fruitiness": 0,
+    "aquatic": 0,
+    "powdery": 0,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Noche",
+      "Diario",
+      "Oficina",
+      "Cita"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Social"
+    ],
+    "climates": [
+      "Templado",
+      "Calor",
+      "Frío"
+    ],
+    "seasons": [
+      "Primavera",
+      "Otoño",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 3,
+    "versatility": 5,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 18,
+      "max": 42,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 42 años por su estilo verde, enérgico y competitivo. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil aromático, amaderado, cítrico, con una salida de absenta, toronja que evoluciona hacia un fondo de ciprés, pachulí. Su carácter verde, enérgico y competitivo ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil verde, enérgico y competitivo. Afinidad orientativa: 18 a 42 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima templado y calor y frío.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP02381.avif",
+      "alt": "PACO RABANNE INVICTUS PLATINUM"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 003",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=PACO+RABANNE+INVICTUS+PLATINUM",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP02381",
+        "url": "https://perfumoteca.com/catalogo?search=CP02381",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave CP02381",
+        "url": "https://glass-essence.com/?s=CP02381&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 003. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Nombre e imagen conservados desde el catálogo operativo; la clave se utiliza para la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

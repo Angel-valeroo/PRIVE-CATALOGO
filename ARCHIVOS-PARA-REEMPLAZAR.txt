@@ -1,16 +1,17 @@
-PRIVÉ — Base Maestra Lote 002 (100 perfumes)
+PRIVÉ — Base Maestra Lote 003 (100 perfumes)
 
 Reemplaza los archivos conservando exactamente las carpetas incluidas en este ZIP.
 
 Incluye:
 - app.js
+- index.html
 - CHANGELOG.md
 - SOURCES.md
-- README-SPRINT-BASE-MAESTRA-LOTE-002.md
+- README-SPRINT-BASE-MAESTRA-LOTE-003.md
 - data/core/catalog.json
-- data/core/review-batch-002.csv
+- data/core/review-batch-003.csv
 - 100 fichas nuevas dentro de data/core/
-- tools/build-master-batch-002.py
-- tools/test-master-batch-002.mjs
+- tools/build-master-batch-003.py
+- tools/test-master-batch-003.mjs
 
-Después de reemplazar, la Base Maestra tendrá 150 fichas activas: 50 del Lote 001 y 100 del Lote 002.
+Después de reemplazar, la Base Maestra tendrá 250 fichas activas: 50 del Lote 001, 100 del Lote 002 y 100 del Lote 003.

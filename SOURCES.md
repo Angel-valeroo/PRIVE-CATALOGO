@@ -10,6 +10,7 @@ El catálogo operativo PRIVÉ conserva la clave, categoría y archivo de imagen 
 
 - **Fragrantica:** nombre correcto, versión/flanker, imagen de referencia y contraste de familia y pirámide olfativa.
 - **Perfumoteca:** búsqueda exacta mediante la clave PRIVÉ; sus notas representan la referencia empleada por el proveedor y por los pedidos de PRIVÉ.
+- **Glass Essence:** respaldo técnico por clave para contrastar la referencia olfativa del proveedor cuando está disponible.
 
 Si Perfumoteca presenta un nombre impreciso, se conserva el nombre identificado por Fragrantica y la imagen. Si las notas difieren, la ficha permanece en `review`, se documenta la diferencia y no se mezclan versiones ni se inventa información.
 
@@ -17,6 +18,9 @@ Si Perfumoteca presenta un nombre impreciso, se conserva el nombre identificado 
 
 - Lote 001: 50 fichas en `review`.
 - Lote 002: 100 fichas en `review`.
-- Total activo: 150 fichas.
+- Lote 003: 100 fichas en `review`.
+- Total activo: 250 fichas.
+
+Los estados de revisión son internos y no se muestran a clientes ni revendedores.
 
 Las descripciones y orientaciones son redacción original de PRIVÉ; no son copias textuales. La edad es una tendencia secundaria, amable y no restrictiva. El Asesor debe priorizar gustos, notas, ocasión, clima y la imagen que la persona desea proyectar.

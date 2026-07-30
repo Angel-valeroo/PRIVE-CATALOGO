@@ -1,0 +1,176 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp00879-jean-paul-gaultier-le-male",
+  "status": "review",
+  "identity": {
+    "brand": "JEAN PAUL GAULTIER",
+    "name": "LE MALE",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP00879",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Eau de Toilette",
+    "launchYear": 1995,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Ámbar fougère",
+    "subfamily": null,
+    "accords": [
+      "Amaderado",
+      "Aromático",
+      "Dulce",
+      "Fresco especiado",
+      "Ámbar",
+      "Atalcado"
+    ],
+    "styleTags": [
+      "Dulce",
+      "Clásico y carismático"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Lavanda",
+      "Menta",
+      "Cardamomo",
+      "Bergamota",
+      "Abrótano"
+    ],
+    "heartNotes": [
+      "Canela",
+      "Flor de azahar",
+      "Alcaravea"
+    ],
+    "baseNotes": [
+      "Vainilla",
+      "Haba tonka",
+      "Ámbar",
+      "Sándalo",
+      "Cedro"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Intensa",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 5,
+    "sweetness": 4,
+    "warmth": 5,
+    "woodiness": 5,
+    "spiciness": 5,
+    "floral": 4,
+    "citrus": 2,
+    "fruitiness": 0,
+    "aquatic": 0,
+    "powdery": 4,
+    "smoky": 0,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Noche",
+      "Cita",
+      "Fiesta",
+      "Evento"
+    ],
+    "contexts": [
+      "Romántico",
+      "Social",
+      "Especial"
+    ],
+    "climates": [
+      "Frío",
+      "Templado"
+    ],
+    "seasons": [
+      "Otoño",
+      "Invierno"
+    ],
+    "dayParts": [
+      "Tarde",
+      "Noche"
+    ],
+    "formality": 2,
+    "versatility": 3,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 22,
+      "max": 58,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 22 a 58 años por su estilo dulce, clásico y carismático. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil amaderado, aromático, dulce, con una salida de lavanda, menta, cardamomo que evoluciona hacia un fondo de vainilla, haba tonka, ámbar. Su carácter dulce, clásico y carismático ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil dulce, clásico y carismático. Afinidad orientativa: 22 a 58 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima frío y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP00879.avif",
+      "alt": "JEAN PAUL GAULTIER LE MALE"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 003",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=JEAN+PAUL+GAULTIER+LE+MALE",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP00879",
+        "url": "https://perfumoteca.com/catalogo?search=CP00879",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave CP00879",
+        "url": "https://glass-essence.com/?s=CP00879&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 003. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Nombre e imagen conservados desde el catálogo operativo; la clave se utiliza para la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}

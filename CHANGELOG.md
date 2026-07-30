@@ -130,3 +130,17 @@
 - La edad sigue siendo una tendencia orientativa y nunca una restricción.
 - Se actualizó la versión de caché Core a `master-002`.
 - Se añadieron generador y pruebas reproducibles del Lote 002.
+
+## Base Maestra — Lote 003 (100 perfumes) — 2026-07-30
+
+- Se incorporaron las posiciones 151–250 del catálogo operativo: 100 fichas nuevas.
+- La Base Maestra pasa de 150 a 250 perfumes activos.
+- Se mantuvo la metodología de fuentes principales complementarias:
+  - Fragrantica para nombre, versión e imagen.
+  - Perfumoteca para búsqueda exacta por clave y referencia olfativa del proveedor.
+  - Glass Essence como respaldo técnico por clave cuando está disponible.
+- Todas las fichas nuevas conservan estado interno `review`; este estado no se muestra en el catálogo público.
+- Se añadió `data/core/review-batch-003.csv` para controlar variantes, lanzamientos recientes y discrepancias sin mezclar versiones.
+- La edad continúa como tendencia orientativa, secundaria y nunca restrictiva.
+- Se actualizó la versión de caché Core a `master-003` y la carga de JavaScript a 5.1.
+- Se añadieron generador y pruebas reproducibles del Lote 003.

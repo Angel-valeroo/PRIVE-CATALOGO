@@ -1,0 +1,170 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "cp01024-perry-ellis-18-for-men",
+  "status": "review",
+  "identity": {
+    "brand": "PERRY ELLIS",
+    "name": "18 FOR MEN",
+    "line": null,
+    "flanker": null,
+    "priveCode": "CP01024",
+    "sku": null,
+    "audience": "Caballero",
+    "concentration": "Eau de Toilette",
+    "launchYear": 2006,
+    "perfumers": [],
+    "countryOfOrigin": null
+  },
+  "classification": {
+    "family": "Aromática acuática",
+    "subfamily": null,
+    "accords": [
+      "Aromático",
+      "Acuático",
+      "Floral",
+      "Afrutado",
+      "Cítrico"
+    ],
+    "styleTags": [
+      "Ligero",
+      "Acuático y limpio"
+    ]
+  },
+  "olfactory": {
+    "topNotes": [
+      "Melón",
+      "Bergamota",
+      "Notas marinas"
+    ],
+    "heartNotes": [
+      "Jazmín",
+      "Lavanda",
+      "Geranio"
+    ],
+    "baseNotes": [
+      "Abedul blanco"
+    ],
+    "notePyramidConfidence": "medium"
+  },
+  "performance": {
+    "intensity": "Moderada",
+    "longevity": "Desconocida",
+    "projection": "Desconocida",
+    "trail": "Desconocida",
+    "longevityHours": {
+      "min": null,
+      "max": null
+    }
+  },
+  "sensoryProfile": {
+    "freshness": 5,
+    "sweetness": 2,
+    "warmth": 0,
+    "woodiness": 2,
+    "spiciness": 0,
+    "floral": 5,
+    "citrus": 4,
+    "fruitiness": 4,
+    "aquatic": 4,
+    "powdery": 0,
+    "smoky": 2,
+    "leathery": 0
+  },
+  "recommendation": {
+    "occasions": [
+      "Día",
+      "Diario",
+      "Oficina",
+      "Viaje",
+      "Playa"
+    ],
+    "contexts": [
+      "Casual",
+      "Profesional",
+      "Vacaciones"
+    ],
+    "climates": [
+      "Calor",
+      "Templado"
+    ],
+    "seasons": [
+      "Primavera",
+      "Verano"
+    ],
+    "dayParts": [
+      "Mañana",
+      "Tarde"
+    ],
+    "formality": 3,
+    "versatility": 4,
+    "distinctiveness": 3,
+    "recommendedAge": {
+      "min": 18,
+      "max": 45,
+      "confidence": "low",
+      "framing": "tendency",
+      "isRestrictive": false,
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 45 años por su estilo ligero, acuático y limpio. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad. Si buscas una impresión más juvenil o más clásica, el Asesor PRIVÉ puede sugerirte alternativas cercanas."
+    }
+  },
+  "content": {
+    "shortDescription": "Una fragancia de perfil aromático, acuático, floral, con una salida de melón, bergamota, notas marinas que evoluciona hacia un fondo de abedul blanco. Su carácter ligero, acuático y limpio ayuda al Asesor PRIVÉ a ubicarla por gusto, ocasión y clima sin convertir la edad en una regla.",
+    "advisorSummary": "Perfil ligero, acuático y limpio. Afinidad orientativa: 18 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "wearingTips": [
+      "Suele rendir mejor en clima calor y templado.",
+      "La edad es solo una tendencia de afinidad; prioriza el aroma, la ocasión y la imagen que quieres proyectar."
+    ],
+    "image": {
+      "path": "IMAGES/Caballero/CP01024.avif",
+      "alt": "PERRY ELLIS 18 FOR MEN"
+    }
+  },
+  "provenance": {
+    "lastReviewedAt": "2026-07-30",
+    "reviewedBy": "PRIVÉ — Base Maestra Lote 003",
+    "confidence": "medium",
+    "sources": [
+      {
+        "type": "internal",
+        "title": "Catálogo operativo PRIVÉ — nombre, imagen, categoría y clave",
+        "url": null,
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity"
+        ]
+      },
+      {
+        "type": "community",
+        "title": "Fragrantica — nombre, versión, imagen y contraste olfativo",
+        "url": "https://www.fragrantica.com/search/?query=PERRY+ELLIS+18+FOR+MEN",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "classification",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "editorial",
+        "title": "Perfumoteca — búsqueda exacta por clave CP01024",
+        "url": "https://perfumoteca.com/catalogo?search=CP01024",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "identity",
+          "olfactory"
+        ]
+      },
+      {
+        "type": "supplier",
+        "title": "Glass Essence — respaldo técnico por clave CP01024",
+        "url": "https://glass-essence.com/?s=CP01024&post_type=product",
+        "accessedAt": "2026-07-30",
+        "supports": [
+          "classification",
+          "olfactory"
+        ]
+      }
+    ],
+    "notes": "Lote maestro 003. Fragrantica y Perfumoteca se mantienen como fuentes principales complementarias: Fragrantica conserva nombre/versión/imagen; Perfumoteca y la búsqueda técnica por clave representan la referencia olfativa usada por proveedor y pedidos PRIVÉ. Nombre e imagen conservados desde el catálogo operativo; la clave se utiliza para la consulta exacta del proveedor. La ficha permanece en review; no se inventan datos ante diferencias. La edad es orientativa y nunca restrictiva."
+  }
+}
