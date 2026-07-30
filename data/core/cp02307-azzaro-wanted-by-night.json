@@ -1,54 +1,60 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02446-afnan-9pm",
+  "id": "cp02307-azzaro-wanted-by-night",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "9PM",
+    "brand": "AZZARO",
+    "name": "WANTED BY NIGHT",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02446",
+    "priveCode": "CP02307",
     "sku": null,
     "audience": "Caballero",
     "concentration": "Eau de Parfum",
-    "launchYear": 2020,
+    "launchYear": 2018,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Ámbar vainilla",
+    "family": "Amaderada especiada",
     "subfamily": null,
     "accords": [
+      "Canela",
       "Dulce",
-      "Especiado",
-      "Afrutado"
+      "Tabaco",
+      "Amaderado"
     ],
     "styleTags": [
-      "Juvenil",
-      "Dulce y nocturno"
+      "Seductor",
+      "Especiado y nocturno"
     ]
   },
   "olfactory": {
     "topNotes": [
-      "Bergamota",
-      "Lavanda",
       "Canela",
-      "Manzana"
+      "Mandarina",
+      "Lavanda",
+      "Limón"
     ],
     "heartNotes": [
-      "Muguete",
-      "Flor de azahar"
+      "Notas frutales",
+      "Incienso",
+      "Comino",
+      "Cedro rojo"
     ],
     "baseNotes": [
-      "Pachulí",
-      "Ámbar",
+      "Tabaco",
       "Vainilla",
-      "Haba tonka"
+      "Cedro",
+      "Cuero",
+      "Benjuí",
+      "Ciprés",
+      "Pachulí"
     ],
-    "notePyramidConfidence": "medium"
+    "notePyramidConfidence": "low"
   },
   "performance": {
-    "intensity": "Intensa",
+    "intensity": "Muy intensa",
     "longevity": "Desconocida",
     "projection": "Desconocida",
     "trail": "Desconocida",
@@ -58,18 +64,18 @@
     }
   },
   "sensoryProfile": {
-    "freshness": 2,
-    "sweetness": 5,
+    "freshness": 4,
+    "sweetness": 4,
     "warmth": 5,
-    "woodiness": 2,
-    "spiciness": 2,
-    "floral": 5,
-    "citrus": 2,
+    "woodiness": 4,
+    "spiciness": 4,
+    "floral": 2,
+    "citrus": 4,
     "fruitiness": 2,
     "aquatic": 0,
-    "powdery": 2,
-    "smoky": 0,
-    "leathery": 0
+    "powdery": 0,
+    "smoky": 4,
+    "leathery": 2
   },
   "recommendation": {
     "occasions": [
@@ -96,32 +102,32 @@
     ],
     "formality": 2,
     "versatility": 4,
-    "distinctiveness": 3,
+    "distinctiveness": 4,
     "recommendedAge": {
-      "min": 18,
-      "max": 35,
-      "confidence": "medium",
+      "min": 22,
+      "max": 48,
+      "confidence": "low",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 35 años por su estilo juvenil, dulce y nocturno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 22 a 48 años por su estilo seductor, especiado y nocturno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil dulce, especiado, afrutado, con una salida de bergamota, lavanda, canela que evoluciona hacia un fondo de pachulí, ámbar, vainilla. Su carácter juvenil, dulce y nocturno la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil juvenil, dulce y nocturno. Afinidad orientativa: 18 a 35 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil canela, dulce, tabaco, con una salida de canela, mandarina, lavanda que evoluciona hacia un fondo de tabaco, vainilla, cedro. Su carácter seductor, especiado y nocturno la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil seductor, especiado y nocturno. Afinidad orientativa: 22 a 48 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
       "Rinde mejor en clima frío y templado.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02446.avif",
-      "alt": "AFNAN 9PM"
+      "path": "IMAGES/Caballero/CP02307.avif",
+      "alt": "AZZARO WANTED BY NIGHT"
     }
   },
   "provenance": {
     "lastReviewedAt": "2026-07-30",
     "reviewedBy": "PRIVÉ — revisión de lote",
-    "confidence": "medium",
+    "confidence": "low",
     "sources": [
       {
         "type": "internal",
@@ -133,9 +139,9 @@
         ]
       },
       {
-        "type": "official",
-        "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/9-pm",
+        "type": "internal",
+        "title": "Revisión documental PRIVÉ — Lote maestro 001",
+        "url": null,
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

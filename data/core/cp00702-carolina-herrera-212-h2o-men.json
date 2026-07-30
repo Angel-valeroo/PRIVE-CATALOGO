@@ -1,47 +1,49 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02518-afnan-turathi-blue",
+  "id": "cp00702-carolina-herrera-212-h2o-men",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "TURATHI BLUE",
+    "brand": "CAROLINA HERRERA",
+    "name": "212 H2O MEN",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02518",
+    "priveCode": "CP00702",
     "sku": null,
     "audience": "Caballero",
-    "concentration": "Eau de Parfum",
-    "launchYear": 2021,
+    "concentration": "Eau de Toilette",
+    "launchYear": 2003,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Cítrica aromática",
+    "family": "Aromática fresca",
     "subfamily": null,
     "accords": [
       "Cítrico",
+      "Afrutado",
       "Aromático",
-      "Amaderado",
-      "Fresco"
+      "Amaderado"
     ],
     "styleTags": [
-      "Moderno",
-      "Limpio y versátil"
+      "Fresco",
+      "Limpio y juvenil"
     ]
   },
   "olfactory": {
     "topNotes": [
-      "Bergamota",
-      "Mandarina"
+      "Toronja",
+      "Mandarina",
+      "Casia",
+      "Enebro"
     ],
     "heartNotes": [
-      "Ámbar",
-      "Notas amaderadas",
-      "Especias frescas"
+      "Grosella roja",
+      "Nuez moscada",
+      "Gardenia"
     ],
     "baseNotes": [
-      "Almizcle",
-      "Pachulí"
+      "Sándalo",
+      "Almizcle"
     ],
     "notePyramidConfidence": "medium"
   },
@@ -59,11 +61,11 @@
     "freshness": 4,
     "sweetness": 0,
     "warmth": 2,
-    "woodiness": 4,
+    "woodiness": 2,
     "spiciness": 2,
-    "floral": 0,
+    "floral": 2,
     "citrus": 4,
-    "fruitiness": 0,
+    "fruitiness": 2,
     "aquatic": 0,
     "powdery": 2,
     "smoky": 0,
@@ -74,6 +76,7 @@
       "Día",
       "Diario",
       "Oficina",
+      "Playa",
       "Viaje"
     ],
     "contexts": [
@@ -97,24 +100,24 @@
     "versatility": 4,
     "distinctiveness": 3,
     "recommendedAge": {
-      "min": 20,
-      "max": 45,
+      "min": 18,
+      "max": 42,
       "confidence": "medium",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 45 años por su estilo moderno, limpio y versátil. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 42 años por su estilo fresco, limpio y juvenil. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil cítrico, aromático, amaderado, con una salida de bergamota, mandarina que evoluciona hacia un fondo de almizcle, pachulí. Su carácter moderno, limpio y versátil la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil moderno, limpio y versátil. Afinidad orientativa: 20 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil cítrico, afrutado, aromático, con una salida de toronja, mandarina, casia que evoluciona hacia un fondo de sándalo, almizcle. Su carácter fresco, limpio y juvenil la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil fresco, limpio y juvenil. Afinidad orientativa: 18 a 42 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
       "Rinde mejor en clima calor y templado.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02518.avif",
-      "alt": "AFNAN TURATHI BLUE"
+      "path": "IMAGES/Caballero/CP00702.avif",
+      "alt": "CAROLINA HERRERA 212 H2O MEN"
     }
   },
   "provenance": {
@@ -132,9 +135,9 @@
         ]
       },
       {
-        "type": "official",
-        "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/turathi-blue-homme",
+        "type": "community",
+        "title": "Fragrantica — referencia comunitaria",
+        "url": "https://beta.fragrantica.com/perfume/Carolina-Herrera/212-H2O-Men-7045.html",
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

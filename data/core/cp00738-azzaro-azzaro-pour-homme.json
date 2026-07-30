@@ -1,52 +1,59 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02438-armaf-club-de-nuit-intense-man",
+  "id": "cp00738-azzaro-azzaro-pour-homme",
   "status": "review",
   "identity": {
-    "brand": "ARMAF",
-    "name": "CLUB DE NUIT INTENSE MAN",
+    "brand": "AZZARO",
+    "name": "AZZARO POUR HOMME",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02438",
+    "priveCode": "CP00738",
     "sku": null,
     "audience": "Caballero",
     "concentration": "Eau de Toilette",
-    "launchYear": 2015,
+    "launchYear": 1978,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Chipre frutal",
+    "family": "Aromática fougère",
     "subfamily": null,
     "accords": [
-      "Cítrico",
-      "Afrutado",
+      "Aromático",
+      "Especiado",
       "Amaderado",
-      "Ahumado"
+      "Cuero"
     ],
     "styleTags": [
-      "Moderno",
-      "Seguro y de presencia"
+      "Clásico",
+      "Masculino y formal"
     ]
   },
   "olfactory": {
     "topNotes": [
-      "Limón",
-      "Piña",
+      "Alcaravea",
+      "Iris",
+      "Lavanda",
+      "Salvia",
+      "Albahaca",
+      "Anís",
       "Bergamota",
-      "Grosella negra",
-      "Manzana"
+      "Limón"
     ],
     "heartNotes": [
-      "Abedul",
-      "Jazmín",
-      "Rosa"
+      "Sándalo",
+      "Enebro",
+      "Pachulí",
+      "Vetiver",
+      "Cedro",
+      "Cardamomo"
     ],
     "baseNotes": [
+      "Cuero",
+      "Haba tonka",
+      "Ámbar",
       "Almizcle",
-      "Ámbar gris",
-      "Pachulí",
-      "Vainilla"
+      "Musgo de roble"
     ],
     "notePyramidConfidence": "low"
   },
@@ -62,30 +69,28 @@
   },
   "sensoryProfile": {
     "freshness": 4,
-    "sweetness": 5,
+    "sweetness": 2,
     "warmth": 4,
-    "woodiness": 2,
-    "spiciness": 0,
+    "woodiness": 5,
+    "spiciness": 4,
     "floral": 4,
     "citrus": 4,
-    "fruitiness": 5,
-    "aquatic": 0,
-    "powdery": 2,
-    "smoky": 2,
-    "leathery": 0
+    "fruitiness": 0,
+    "aquatic": 2,
+    "powdery": 5,
+    "smoky": 0,
+    "leathery": 2
   },
   "recommendation": {
     "occasions": [
       "Día",
-      "Noche",
       "Oficina",
-      "Cita",
-      "Evento"
+      "Evento",
+      "Noche"
     ],
     "contexts": [
-      "Casual",
       "Profesional",
-      "Social",
+      "Formal",
       "Especial"
     ],
     "climates": [
@@ -93,36 +98,36 @@
       "Frío"
     ],
     "seasons": [
-      "Primavera",
       "Otoño",
-      "Invierno"
+      "Invierno",
+      "Primavera"
     ],
     "dayParts": [
       "Tarde",
       "Noche"
     ],
-    "formality": 3,
+    "formality": 4,
     "versatility": 4,
-    "distinctiveness": 3,
+    "distinctiveness": 4,
     "recommendedAge": {
-      "min": 20,
-      "max": 45,
+      "min": 32,
+      "max": 65,
       "confidence": "low",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 45 años por su estilo moderno, seguro y de presencia. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 32 a 65 años por su estilo clásico, masculino y formal. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil cítrico, afrutado, amaderado, con una salida de limón, piña, bergamota que evoluciona hacia un fondo de almizcle, ámbar gris, pachulí. Su carácter moderno, seguro y de presencia la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil moderno, seguro y de presencia. Afinidad orientativa: 20 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil aromático, especiado, amaderado, con una salida de alcaravea, iris, lavanda que evoluciona hacia un fondo de cuero, haba tonka, ámbar. Su carácter clásico, masculino y formal la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil clásico, masculino y formal. Afinidad orientativa: 32 a 65 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
       "Rinde mejor en clima templado y frío.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02438.avif",
-      "alt": "ARMAF CLUB DE NUIT INTENSE MAN"
+      "path": "IMAGES/Caballero/CP00738.avif",
+      "alt": "AZZARO AZZARO POUR HOMME"
     }
   },
   "provenance": {

@@ -1,52 +1,58 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02518-afnan-turathi-blue",
+  "id": "cp00764-carlo-corinto-carlo-corinto",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "TURATHI BLUE",
+    "brand": "CARLO CORINTO",
+    "name": "CARLO CORINTO",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02518",
+    "priveCode": "CP00764",
     "sku": null,
     "audience": "Caballero",
-    "concentration": "Eau de Parfum",
-    "launchYear": 2021,
+    "concentration": "Eau de Toilette",
+    "launchYear": 1984,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Cítrica aromática",
+    "family": "Amaderada aromática",
     "subfamily": null,
     "accords": [
-      "Cítrico",
-      "Aromático",
+      "Verde",
       "Amaderado",
-      "Fresco"
+      "Cuero",
+      "Afrutado"
     ],
     "styleTags": [
-      "Moderno",
-      "Limpio y versátil"
+      "Clásico",
+      "Verde y elegante"
     ]
   },
   "olfactory": {
     "topNotes": [
       "Bergamota",
-      "Mandarina"
+      "Limón",
+      "Lavanda",
+      "Albahaca",
+      "Frambuesa"
     ],
     "heartNotes": [
-      "Ámbar",
-      "Notas amaderadas",
-      "Especias frescas"
+      "Pino",
+      "Salvia",
+      "Tomillo",
+      "Clavel"
     ],
     "baseNotes": [
-      "Almizcle",
-      "Pachulí"
+      "Cuero",
+      "Pachulí",
+      "Cedro",
+      "Ámbar"
     ],
     "notePyramidConfidence": "medium"
   },
   "performance": {
-    "intensity": "Moderada",
+    "intensity": "Intensa",
     "longevity": "Desconocida",
     "projection": "Desconocida",
     "trail": "Desconocida",
@@ -58,63 +64,63 @@
   "sensoryProfile": {
     "freshness": 4,
     "sweetness": 0,
-    "warmth": 2,
-    "woodiness": 4,
-    "spiciness": 2,
-    "floral": 0,
+    "warmth": 4,
+    "woodiness": 5,
+    "spiciness": 0,
+    "floral": 2,
     "citrus": 4,
-    "fruitiness": 0,
-    "aquatic": 0,
-    "powdery": 2,
+    "fruitiness": 2,
+    "aquatic": 2,
+    "powdery": 0,
     "smoky": 0,
-    "leathery": 0
+    "leathery": 2
   },
   "recommendation": {
     "occasions": [
       "Día",
-      "Diario",
       "Oficina",
-      "Viaje"
+      "Evento"
     ],
     "contexts": [
-      "Casual",
       "Profesional",
-      "Vacaciones"
+      "Formal",
+      "Especial"
     ],
     "climates": [
-      "Calor",
-      "Templado"
+      "Templado",
+      "Frío"
     ],
     "seasons": [
-      "Primavera",
-      "Verano"
+      "Otoño",
+      "Invierno",
+      "Primavera"
     ],
     "dayParts": [
-      "Mañana",
-      "Tarde"
+      "Tarde",
+      "Noche"
     ],
-    "formality": 3,
-    "versatility": 4,
-    "distinctiveness": 3,
+    "formality": 4,
+    "versatility": 3,
+    "distinctiveness": 4,
     "recommendedAge": {
-      "min": 20,
-      "max": 45,
+      "min": 30,
+      "max": 65,
       "confidence": "medium",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 45 años por su estilo moderno, limpio y versátil. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 30 a 65 años por su estilo clásico, verde y elegante. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil cítrico, aromático, amaderado, con una salida de bergamota, mandarina que evoluciona hacia un fondo de almizcle, pachulí. Su carácter moderno, limpio y versátil la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil moderno, limpio y versátil. Afinidad orientativa: 20 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil verde, amaderado, cuero, con una salida de bergamota, limón, lavanda que evoluciona hacia un fondo de cuero, pachulí, cedro. Su carácter clásico, verde y elegante la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil clásico, verde y elegante. Afinidad orientativa: 30 a 65 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
-      "Rinde mejor en clima calor y templado.",
+      "Rinde mejor en clima templado y frío.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02518.avif",
-      "alt": "AFNAN TURATHI BLUE"
+      "path": "IMAGES/Caballero/CP00764.avif",
+      "alt": "CARLO CORINTO CARLO CORINTO"
     }
   },
   "provenance": {
@@ -132,9 +138,9 @@
         ]
       },
       {
-        "type": "official",
-        "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/turathi-blue-homme",
+        "type": "community",
+        "title": "Fragrantica — referencia comunitaria",
+        "url": "https://www.fragrantica.com/perfume/Carlo-Corinto/Carlo-Corinto-13309.html",
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

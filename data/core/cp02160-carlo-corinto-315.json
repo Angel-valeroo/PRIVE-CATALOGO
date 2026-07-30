@@ -1,47 +1,49 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02518-afnan-turathi-blue",
+  "id": "cp02160-carlo-corinto-315",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "TURATHI BLUE",
+    "brand": "CARLO CORINTO",
+    "name": "315",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02518",
+    "priveCode": "CP02160",
     "sku": null,
     "audience": "Caballero",
-    "concentration": "Eau de Parfum",
-    "launchYear": 2021,
+    "concentration": "Eau de Toilette",
+    "launchYear": 2011,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Cítrica aromática",
+    "family": "Amaderada aromática",
     "subfamily": null,
     "accords": [
-      "Cítrico",
       "Aromático",
-      "Amaderado",
-      "Fresco"
+      "Marino",
+      "Cítrico",
+      "Verde"
     ],
     "styleTags": [
-      "Moderno",
-      "Limpio y versátil"
+      "Fresco",
+      "Clásico y casual"
     ]
   },
   "olfactory": {
     "topNotes": [
       "Bergamota",
+      "Albahaca",
       "Mandarina"
     ],
     "heartNotes": [
-      "Ámbar",
-      "Notas amaderadas",
-      "Especias frescas"
+      "Notas marinas",
+      "Pimienta",
+      "Cardamomo"
     ],
     "baseNotes": [
-      "Almizcle",
-      "Pachulí"
+      "Pino",
+      "Musgo",
+      "Almizcle"
     ],
     "notePyramidConfidence": "medium"
   },
@@ -56,15 +58,15 @@
     }
   },
   "sensoryProfile": {
-    "freshness": 4,
+    "freshness": 5,
     "sweetness": 0,
-    "warmth": 2,
-    "woodiness": 4,
-    "spiciness": 2,
+    "warmth": 0,
+    "woodiness": 2,
+    "spiciness": 4,
     "floral": 0,
     "citrus": 4,
     "fruitiness": 0,
-    "aquatic": 0,
+    "aquatic": 4,
     "powdery": 2,
     "smoky": 0,
     "leathery": 0
@@ -74,7 +76,7 @@
       "Día",
       "Diario",
       "Oficina",
-      "Viaje"
+      "Playa"
     ],
     "contexts": [
       "Casual",
@@ -97,24 +99,24 @@
     "versatility": 4,
     "distinctiveness": 3,
     "recommendedAge": {
-      "min": 20,
-      "max": 45,
+      "min": 22,
+      "max": 50,
       "confidence": "medium",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 45 años por su estilo moderno, limpio y versátil. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 22 a 50 años por su estilo fresco, clásico y casual. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil cítrico, aromático, amaderado, con una salida de bergamota, mandarina que evoluciona hacia un fondo de almizcle, pachulí. Su carácter moderno, limpio y versátil la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil moderno, limpio y versátil. Afinidad orientativa: 20 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil aromático, marino, cítrico, con una salida de bergamota, albahaca, mandarina que evoluciona hacia un fondo de pino, musgo, almizcle. Su carácter fresco, clásico y casual la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil fresco, clásico y casual. Afinidad orientativa: 22 a 50 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
       "Rinde mejor en clima calor y templado.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02518.avif",
-      "alt": "AFNAN TURATHI BLUE"
+      "path": "IMAGES/Caballero/CP02160.avif",
+      "alt": "CARLO CORINTO 315"
     }
   },
   "provenance": {
@@ -132,9 +134,9 @@
         ]
       },
       {
-        "type": "official",
-        "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/turathi-blue-homme",
+        "type": "community",
+        "title": "Fragrantica — referencia comunitaria",
+        "url": "https://www.fragrantica.com/perfume/Carlo-Corinto/315-13321.html",
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

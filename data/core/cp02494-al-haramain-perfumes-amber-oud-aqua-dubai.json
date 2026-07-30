@@ -1,52 +1,56 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02518-afnan-turathi-blue",
+  "id": "cp02494-al-haramain-perfumes-amber-oud-aqua-dubai",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "TURATHI BLUE",
+    "brand": "AL HARAMAIN PERFUMES",
+    "name": "AMBER OUD AQUA DUBAI",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02518",
+    "priveCode": "CP02494",
     "sku": null,
     "audience": "Caballero",
-    "concentration": "Eau de Parfum",
-    "launchYear": 2021,
+    "concentration": "Extrait de Parfum",
+    "launchYear": 2024,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Cítrica aromática",
+    "family": "Aromática frutal",
     "subfamily": null,
     "accords": [
       "Cítrico",
-      "Aromático",
-      "Amaderado",
-      "Fresco"
+      "Afrutado",
+      "Fresco",
+      "Aromático"
     ],
     "styleTags": [
-      "Moderno",
-      "Limpio y versátil"
+      "Luminoso",
+      "Limpio y contemporáneo"
     ]
   },
   "olfactory": {
     "topNotes": [
       "Bergamota",
+      "Notas verdes",
       "Mandarina"
     ],
     "heartNotes": [
-      "Ámbar",
-      "Notas amaderadas",
-      "Especias frescas"
+      "Melón",
+      "Piña",
+      "Grosella negra",
+      "Ámbar"
     ],
     "baseNotes": [
       "Almizcle",
-      "Pachulí"
+      "Vainilla",
+      "Gálbano",
+      "Petitgrain"
     ],
     "notePyramidConfidence": "medium"
   },
   "performance": {
-    "intensity": "Moderada",
+    "intensity": "Intensa",
     "longevity": "Desconocida",
     "projection": "Desconocida",
     "trail": "Desconocida",
@@ -57,13 +61,13 @@
   },
   "sensoryProfile": {
     "freshness": 4,
-    "sweetness": 0,
-    "warmth": 2,
-    "woodiness": 4,
-    "spiciness": 2,
+    "sweetness": 5,
+    "warmth": 4,
+    "woodiness": 0,
+    "spiciness": 0,
     "floral": 0,
-    "citrus": 4,
-    "fruitiness": 0,
+    "citrus": 5,
+    "fruitiness": 5,
     "aquatic": 0,
     "powdery": 2,
     "smoky": 0,
@@ -74,6 +78,7 @@
       "Día",
       "Diario",
       "Oficina",
+      "Playa",
       "Viaje"
     ],
     "contexts": [
@@ -97,24 +102,24 @@
     "versatility": 4,
     "distinctiveness": 3,
     "recommendedAge": {
-      "min": 20,
+      "min": 18,
       "max": 45,
       "confidence": "medium",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 45 años por su estilo moderno, limpio y versátil. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 45 años por su estilo luminoso, limpio y contemporáneo. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil cítrico, aromático, amaderado, con una salida de bergamota, mandarina que evoluciona hacia un fondo de almizcle, pachulí. Su carácter moderno, limpio y versátil la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil moderno, limpio y versátil. Afinidad orientativa: 20 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil cítrico, afrutado, fresco, con una salida de bergamota, notas verdes, mandarina que evoluciona hacia un fondo de almizcle, vainilla, gálbano. Su carácter luminoso, limpio y contemporáneo la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil luminoso, limpio y contemporáneo. Afinidad orientativa: 18 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
       "Rinde mejor en clima calor y templado.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02518.avif",
-      "alt": "AFNAN TURATHI BLUE"
+      "path": "IMAGES/Caballero/CP02494.avif",
+      "alt": "AL HARAMAIN PERFUMES AMBER OUD AQUA DUBAI"
     }
   },
   "provenance": {
@@ -134,7 +139,7 @@
       {
         "type": "official",
         "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/turathi-blue-homme",
+        "url": "https://shop.alharamainperfumes.com/uae/haramain-amber-oud-gold-aqua-dubai-100ml-extrait-de-parfum.html",
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

@@ -1,54 +1,53 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02446-afnan-9pm",
+  "id": "cp01089-armani-eau-de-nuit",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "9PM",
+    "brand": "ARMANI",
+    "name": "EAU DE NUIT",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02446",
+    "priveCode": "CP01089",
     "sku": null,
     "audience": "Caballero",
-    "concentration": "Eau de Parfum",
-    "launchYear": 2020,
+    "concentration": "Eau de Toilette",
+    "launchYear": 2013,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Ámbar vainilla",
+    "family": "Ámbar especiada",
     "subfamily": null,
     "accords": [
-      "Dulce",
       "Especiado",
-      "Afrutado"
+      "Iris",
+      "Ámbar",
+      "Amaderado"
     ],
     "styleTags": [
-      "Juvenil",
-      "Dulce y nocturno"
+      "Refinado",
+      "Sobrio y nocturno"
     ]
   },
   "olfactory": {
     "topNotes": [
       "Bergamota",
-      "Lavanda",
-      "Canela",
-      "Manzana"
+      "Pimienta rosa"
     ],
     "heartNotes": [
-      "Muguete",
-      "Flor de azahar"
+      "Cardamomo",
+      "Iris",
+      "Heliotropo"
     ],
     "baseNotes": [
-      "Pachulí",
       "Ámbar",
-      "Vainilla",
-      "Haba tonka"
+      "Haba tonka",
+      "Cedro"
     ],
-    "notePyramidConfidence": "medium"
+    "notePyramidConfidence": "low"
   },
   "performance": {
-    "intensity": "Intensa",
+    "intensity": "Moderada",
     "longevity": "Desconocida",
     "projection": "Desconocida",
     "trail": "Desconocida",
@@ -59,15 +58,15 @@
   },
   "sensoryProfile": {
     "freshness": 2,
-    "sweetness": 5,
-    "warmth": 5,
+    "sweetness": 2,
+    "warmth": 2,
     "woodiness": 2,
-    "spiciness": 2,
-    "floral": 5,
+    "spiciness": 4,
+    "floral": 4,
     "citrus": 2,
-    "fruitiness": 2,
+    "fruitiness": 0,
     "aquatic": 0,
-    "powdery": 2,
+    "powdery": 5,
     "smoky": 0,
     "leathery": 0
   },
@@ -75,17 +74,16 @@
     "occasions": [
       "Noche",
       "Cita",
-      "Fiesta",
       "Evento"
     ],
     "contexts": [
+      "Formal",
       "Romántico",
-      "Social",
       "Especial"
     ],
     "climates": [
-      "Frío",
-      "Templado"
+      "Templado",
+      "Frío"
     ],
     "seasons": [
       "Otoño",
@@ -94,34 +92,34 @@
     "dayParts": [
       "Noche"
     ],
-    "formality": 2,
-    "versatility": 4,
+    "formality": 4,
+    "versatility": 3,
     "distinctiveness": 3,
     "recommendedAge": {
-      "min": 18,
-      "max": 35,
-      "confidence": "medium",
+      "min": 30,
+      "max": 60,
+      "confidence": "low",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 35 años por su estilo juvenil, dulce y nocturno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 30 a 60 años por su estilo refinado, sobrio y nocturno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil dulce, especiado, afrutado, con una salida de bergamota, lavanda, canela que evoluciona hacia un fondo de pachulí, ámbar, vainilla. Su carácter juvenil, dulce y nocturno la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil juvenil, dulce y nocturno. Afinidad orientativa: 18 a 35 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil especiado, iris, ámbar, con una salida de bergamota, pimienta rosa que evoluciona hacia un fondo de ámbar, haba tonka, cedro. Su carácter refinado, sobrio y nocturno la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil refinado, sobrio y nocturno. Afinidad orientativa: 30 a 60 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
-      "Rinde mejor en clima frío y templado.",
+      "Rinde mejor en clima templado y frío.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02446.avif",
-      "alt": "AFNAN 9PM"
+      "path": "IMAGES/Caballero/CP01089.avif",
+      "alt": "ARMANI EAU DE NUIT"
     }
   },
   "provenance": {
     "lastReviewedAt": "2026-07-30",
     "reviewedBy": "PRIVÉ — revisión de lote",
-    "confidence": "medium",
+    "confidence": "low",
     "sources": [
       {
         "type": "internal",
@@ -133,9 +131,9 @@
         ]
       },
       {
-        "type": "official",
-        "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/9-pm",
+        "type": "internal",
+        "title": "Revisión documental PRIVÉ — Lote maestro 001",
+        "url": null,
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

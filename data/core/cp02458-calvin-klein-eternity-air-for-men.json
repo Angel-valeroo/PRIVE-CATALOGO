@@ -1,52 +1,55 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02518-afnan-turathi-blue",
+  "id": "cp02458-calvin-klein-eternity-air-for-men",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "TURATHI BLUE",
+    "brand": "CALVIN KLEIN",
+    "name": "ETERNITY AIR FOR MEN",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02518",
+    "priveCode": "CP02458",
     "sku": null,
     "audience": "Caballero",
-    "concentration": "Eau de Parfum",
-    "launchYear": 2021,
+    "concentration": "Eau de Toilette",
+    "launchYear": 2018,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Cítrica aromática",
+    "family": "Aromática fougère",
     "subfamily": null,
     "accords": [
-      "Cítrico",
+      "Acuático",
+      "Ozónico",
       "Aromático",
-      "Amaderado",
       "Fresco"
     ],
     "styleTags": [
-      "Moderno",
-      "Limpio y versátil"
+      "Ligero",
+      "Aireado y deportivo"
     ]
   },
   "olfactory": {
     "topNotes": [
-      "Bergamota",
+      "Notas marinas",
+      "Notas ozónicas",
+      "Enebro",
       "Mandarina"
     ],
     "heartNotes": [
-      "Ámbar",
-      "Notas amaderadas",
-      "Especias frescas"
+      "Lavanda",
+      "Manzana verde",
+      "Hoja de violeta"
     ],
     "baseNotes": [
-      "Almizcle",
-      "Pachulí"
+      "Algas marinas",
+      "Pachulí",
+      "Ámbar gris"
     ],
-    "notePyramidConfidence": "medium"
+    "notePyramidConfidence": "low"
   },
   "performance": {
-    "intensity": "Moderada",
+    "intensity": "Suave",
     "longevity": "Desconocida",
     "projection": "Desconocida",
     "trail": "Desconocida",
@@ -56,15 +59,15 @@
     }
   },
   "sensoryProfile": {
-    "freshness": 4,
-    "sweetness": 0,
+    "freshness": 5,
+    "sweetness": 2,
     "warmth": 2,
-    "woodiness": 4,
-    "spiciness": 2,
-    "floral": 0,
-    "citrus": 4,
-    "fruitiness": 0,
-    "aquatic": 0,
+    "woodiness": 2,
+    "spiciness": 0,
+    "floral": 4,
+    "citrus": 2,
+    "fruitiness": 2,
+    "aquatic": 5,
     "powdery": 2,
     "smoky": 0,
     "leathery": 0
@@ -74,16 +77,16 @@
       "Día",
       "Diario",
       "Oficina",
-      "Viaje"
+      "Gimnasio",
+      "Playa"
     ],
     "contexts": [
       "Casual",
       "Profesional",
-      "Vacaciones"
+      "Deportivo"
     ],
     "climates": [
-      "Calor",
-      "Templado"
+      "Calor"
     ],
     "seasons": [
       "Primavera",
@@ -97,30 +100,30 @@
     "versatility": 4,
     "distinctiveness": 3,
     "recommendedAge": {
-      "min": 20,
+      "min": 18,
       "max": 45,
-      "confidence": "medium",
+      "confidence": "low",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 45 años por su estilo moderno, limpio y versátil. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 45 años por su estilo ligero, aireado y deportivo. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil cítrico, aromático, amaderado, con una salida de bergamota, mandarina que evoluciona hacia un fondo de almizcle, pachulí. Su carácter moderno, limpio y versátil la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil moderno, limpio y versátil. Afinidad orientativa: 20 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil acuático, ozónico, aromático, con una salida de notas marinas, notas ozónicas, enebro que evoluciona hacia un fondo de algas marinas, pachulí, ámbar gris. Su carácter ligero, aireado y deportivo la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil ligero, aireado y deportivo. Afinidad orientativa: 18 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
-      "Rinde mejor en clima calor y templado.",
+      "Rinde mejor en clima calor.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02518.avif",
-      "alt": "AFNAN TURATHI BLUE"
+      "path": "IMAGES/Caballero/CP02458.avif",
+      "alt": "CALVIN KLEIN ETERNITY AIR FOR MEN"
     }
   },
   "provenance": {
     "lastReviewedAt": "2026-07-30",
     "reviewedBy": "PRIVÉ — revisión de lote",
-    "confidence": "medium",
+    "confidence": "low",
     "sources": [
       {
         "type": "internal",
@@ -132,9 +135,9 @@
         ]
       },
       {
-        "type": "official",
-        "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/turathi-blue-homme",
+        "type": "internal",
+        "title": "Revisión documental PRIVÉ — Lote maestro 001",
+        "url": null,
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

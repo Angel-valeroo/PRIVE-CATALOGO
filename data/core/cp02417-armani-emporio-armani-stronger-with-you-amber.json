@@ -1,52 +1,51 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02518-afnan-turathi-blue",
+  "id": "cp02417-armani-emporio-armani-stronger-with-you-amber",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "TURATHI BLUE",
+    "brand": "ARMANI",
+    "name": "EMPORIO ARMANI STRONGER WITH YOU AMBER",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02518",
+    "priveCode": "CP02417",
     "sku": null,
     "audience": "Caballero",
     "concentration": "Eau de Parfum",
-    "launchYear": 2021,
+    "launchYear": 2023,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Cítrica aromática",
+    "family": "Ámbar vainilla",
     "subfamily": null,
     "accords": [
-      "Cítrico",
+      "Ámbar",
+      "Vainilla",
       "Aromático",
-      "Amaderado",
-      "Fresco"
+      "Cálido"
     ],
     "styleTags": [
-      "Moderno",
-      "Limpio y versátil"
+      "Cálido",
+      "Suave y envolvente"
     ]
   },
   "olfactory": {
     "topNotes": [
-      "Bergamota",
-      "Mandarina"
+      "Mandarina",
+      "Lavanda"
     ],
     "heartNotes": [
       "Ámbar",
-      "Notas amaderadas",
-      "Especias frescas"
+      "Vainilla"
     ],
     "baseNotes": [
-      "Almizcle",
-      "Pachulí"
+      "Notas amaderadas",
+      "Almizcle"
     ],
-    "notePyramidConfidence": "medium"
+    "notePyramidConfidence": "low"
   },
   "performance": {
-    "intensity": "Moderada",
+    "intensity": "Intensa",
     "longevity": "Desconocida",
     "projection": "Desconocida",
     "trail": "Desconocida",
@@ -56,13 +55,13 @@
     }
   },
   "sensoryProfile": {
-    "freshness": 4,
-    "sweetness": 0,
-    "warmth": 2,
-    "woodiness": 4,
-    "spiciness": 2,
-    "floral": 0,
-    "citrus": 4,
+    "freshness": 2,
+    "sweetness": 2,
+    "warmth": 4,
+    "woodiness": 2,
+    "spiciness": 0,
+    "floral": 2,
+    "citrus": 2,
     "fruitiness": 0,
     "aquatic": 0,
     "powdery": 2,
@@ -71,56 +70,53 @@
   },
   "recommendation": {
     "occasions": [
-      "Día",
-      "Diario",
-      "Oficina",
-      "Viaje"
+      "Noche",
+      "Cita",
+      "Evento"
     ],
     "contexts": [
-      "Casual",
-      "Profesional",
-      "Vacaciones"
+      "Romántico",
+      "Especial"
     ],
     "climates": [
-      "Calor",
+      "Frío",
       "Templado"
     ],
     "seasons": [
-      "Primavera",
-      "Verano"
+      "Otoño",
+      "Invierno"
     ],
     "dayParts": [
-      "Mañana",
-      "Tarde"
+      "Noche"
     ],
-    "formality": 3,
-    "versatility": 4,
+    "formality": 2,
+    "versatility": 3,
     "distinctiveness": 3,
     "recommendedAge": {
       "min": 20,
       "max": 45,
-      "confidence": "medium",
+      "confidence": "low",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 45 años por su estilo moderno, limpio y versátil. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 45 años por su estilo cálido, suave y envolvente. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil cítrico, aromático, amaderado, con una salida de bergamota, mandarina que evoluciona hacia un fondo de almizcle, pachulí. Su carácter moderno, limpio y versátil la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil moderno, limpio y versátil. Afinidad orientativa: 20 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil ámbar, vainilla, aromático, con una salida de mandarina, lavanda que evoluciona hacia un fondo de notas amaderadas, almizcle. Su carácter cálido, suave y envolvente la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil cálido, suave y envolvente. Afinidad orientativa: 20 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
-      "Rinde mejor en clima calor y templado.",
+      "Rinde mejor en clima frío y templado.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02518.avif",
-      "alt": "AFNAN TURATHI BLUE"
+      "path": "IMAGES/Caballero/CP02417.avif",
+      "alt": "ARMANI EMPORIO ARMANI STRONGER WITH YOU AMBER"
     }
   },
   "provenance": {
     "lastReviewedAt": "2026-07-30",
     "reviewedBy": "PRIVÉ — revisión de lote",
-    "confidence": "medium",
+    "confidence": "low",
     "sources": [
       {
         "type": "internal",
@@ -132,9 +128,9 @@
         ]
       },
       {
-        "type": "official",
-        "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/turathi-blue-homme",
+        "type": "internal",
+        "title": "Revisión documental PRIVÉ — Lote maestro 001",
+        "url": null,
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

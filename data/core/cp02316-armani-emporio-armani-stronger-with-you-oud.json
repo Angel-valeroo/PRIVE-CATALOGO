@@ -1,54 +1,48 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02446-afnan-9pm",
+  "id": "cp02316-armani-emporio-armani-stronger-with-you-oud",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "9PM",
+    "brand": "ARMANI",
+    "name": "EMPORIO ARMANI STRONGER WITH YOU OUD",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02446",
+    "priveCode": "CP02316",
     "sku": null,
     "audience": "Caballero",
     "concentration": "Eau de Parfum",
-    "launchYear": 2020,
+    "launchYear": 2022,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Ámbar vainilla",
+    "family": "Ámbar amaderada",
     "subfamily": null,
     "accords": [
-      "Dulce",
-      "Especiado",
-      "Afrutado"
+      "Oud",
+      "Vainilla",
+      "Aromático",
+      "Amaderado"
     ],
     "styleTags": [
-      "Juvenil",
-      "Dulce y nocturno"
+      "Oscuro",
+      "Lujoso y minimalista"
     ]
   },
   "olfactory": {
     "topNotes": [
-      "Bergamota",
-      "Lavanda",
-      "Canela",
-      "Manzana"
+      "Lavanda"
     ],
     "heartNotes": [
-      "Muguete",
-      "Flor de azahar"
+      "Oud"
     ],
     "baseNotes": [
-      "Pachulí",
-      "Ámbar",
-      "Vainilla",
-      "Haba tonka"
+      "Vainilla"
     ],
-    "notePyramidConfidence": "medium"
+    "notePyramidConfidence": "low"
   },
   "performance": {
-    "intensity": "Intensa",
+    "intensity": "Muy intensa",
     "longevity": "Desconocida",
     "projection": "Desconocida",
     "trail": "Desconocida",
@@ -58,16 +52,16 @@
     }
   },
   "sensoryProfile": {
-    "freshness": 2,
-    "sweetness": 5,
-    "warmth": 5,
+    "freshness": 0,
+    "sweetness": 2,
+    "warmth": 4,
     "woodiness": 2,
-    "spiciness": 2,
-    "floral": 5,
-    "citrus": 2,
-    "fruitiness": 2,
+    "spiciness": 0,
+    "floral": 2,
+    "citrus": 0,
+    "fruitiness": 0,
     "aquatic": 0,
-    "powdery": 2,
+    "powdery": 0,
     "smoky": 0,
     "leathery": 0
   },
@@ -75,17 +69,15 @@
     "occasions": [
       "Noche",
       "Cita",
-      "Fiesta",
       "Evento"
     ],
     "contexts": [
+      "Formal",
       "Romántico",
-      "Social",
       "Especial"
     ],
     "climates": [
-      "Frío",
-      "Templado"
+      "Frío"
     ],
     "seasons": [
       "Otoño",
@@ -94,34 +86,34 @@
     "dayParts": [
       "Noche"
     ],
-    "formality": 2,
-    "versatility": 4,
-    "distinctiveness": 3,
+    "formality": 4,
+    "versatility": 3,
+    "distinctiveness": 4,
     "recommendedAge": {
-      "min": 18,
-      "max": 35,
-      "confidence": "medium",
+      "min": 25,
+      "max": 50,
+      "confidence": "low",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 35 años por su estilo juvenil, dulce y nocturno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 25 a 50 años por su estilo oscuro, lujoso y minimalista. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil dulce, especiado, afrutado, con una salida de bergamota, lavanda, canela que evoluciona hacia un fondo de pachulí, ámbar, vainilla. Su carácter juvenil, dulce y nocturno la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil juvenil, dulce y nocturno. Afinidad orientativa: 18 a 35 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil oud, vainilla, aromático, con una salida de lavanda que evoluciona hacia un fondo de vainilla. Su carácter oscuro, lujoso y minimalista la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil oscuro, lujoso y minimalista. Afinidad orientativa: 25 a 50 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
-      "Rinde mejor en clima frío y templado.",
+      "Rinde mejor en clima frío.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02446.avif",
-      "alt": "AFNAN 9PM"
+      "path": "IMAGES/Caballero/CP02316.avif",
+      "alt": "ARMANI EMPORIO ARMANI STRONGER WITH YOU OUD"
     }
   },
   "provenance": {
     "lastReviewedAt": "2026-07-30",
     "reviewedBy": "PRIVÉ — revisión de lote",
-    "confidence": "medium",
+    "confidence": "low",
     "sources": [
       {
         "type": "internal",
@@ -133,9 +125,9 @@
         ]
       },
       {
-        "type": "official",
-        "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/9-pm",
+        "type": "internal",
+        "title": "Revisión documental PRIVÉ — Lote maestro 001",
+        "url": null,
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

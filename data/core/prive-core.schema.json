@@ -5,65 +5,236 @@
   "description": "Estructura maestra de una fragancia en PRIVÉ. Los datos describen el perfume; la lógica de recomendación vive fuera de este archivo.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schemaVersion", "id", "status", "identity", "classification", "olfactory", "recommendation", "content", "provenance"],
+  "required": [
+    "schemaVersion",
+    "id",
+    "status",
+    "identity",
+    "classification",
+    "olfactory",
+    "recommendation",
+    "content",
+    "provenance"
+  ],
   "properties": {
-    "schemaVersion": { "const": "1.0.0" },
-    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
-    "status": { "enum": ["draft", "review", "verified", "archived"] },
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "review",
+        "verified",
+        "archived"
+      ]
+    },
     "identity": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["brand", "name", "priveCode", "audience"],
+      "required": [
+        "brand",
+        "name",
+        "priveCode",
+        "audience"
+      ],
       "properties": {
-        "brand": { "type": "string", "minLength": 1 },
-        "name": { "type": "string", "minLength": 1 },
-        "line": { "type": ["string", "null"] },
-        "flanker": { "type": ["string", "null"] },
-        "priveCode": { "type": "string", "pattern": "^[A-Z]{2}[0-9]{5}$" },
-        "sku": { "type": ["string", "null"] },
-        "audience": { "enum": ["Caballero", "Dama", "Unisex"] },
-        "concentration": { "enum": ["Cologne", "Eau de Cologne", "Eau de Toilette", "Eau de Parfum", "Parfum", "Extrait de Parfum", "Aceite", "Otra", "Desconocida"] },
-        "launchYear": { "type": ["integer", "null"], "minimum": 1800, "maximum": 2100 },
-        "perfumers": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
-        "countryOfOrigin": { "type": ["string", "null"] }
+        "brand": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "line": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "flanker": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "priveCode": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}[0-9]{5}$"
+        },
+        "sku": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "audience": {
+          "enum": [
+            "Caballero",
+            "Dama",
+            "Unisex"
+          ]
+        },
+        "concentration": {
+          "enum": [
+            "Cologne",
+            "Eau de Cologne",
+            "Eau de Toilette",
+            "Eau de Parfum",
+            "Parfum",
+            "Extrait de Parfum",
+            "Aceite",
+            "Otra",
+            "Desconocida"
+          ]
+        },
+        "launchYear": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1800,
+          "maximum": 2100
+        },
+        "perfumers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "countryOfOrigin": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       }
     },
     "classification": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["family", "accords"],
+      "required": [
+        "family",
+        "accords"
+      ],
       "properties": {
-        "family": { "type": ["string", "null"] },
-        "subfamily": { "type": ["string", "null"] },
-        "accords": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true, "maxItems": 12 },
-        "styleTags": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true, "maxItems": 12 }
+        "family": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "subfamily": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "accords": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "maxItems": 12
+        },
+        "styleTags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "maxItems": 12
+        }
       }
     },
     "olfactory": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["topNotes", "heartNotes", "baseNotes"],
+      "required": [
+        "topNotes",
+        "heartNotes",
+        "baseNotes"
+      ],
       "properties": {
-        "topNotes": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
-        "heartNotes": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
-        "baseNotes": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
-        "notePyramidConfidence": { "enum": ["unknown", "low", "medium", "high"] }
+        "topNotes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "heartNotes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "baseNotes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "notePyramidConfidence": {
+          "enum": [
+            "unknown",
+            "low",
+            "medium",
+            "high"
+          ]
+        }
       }
     },
     "performance": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "intensity": { "$ref": "#/$defs/rating" },
-        "longevity": { "$ref": "#/$defs/rating" },
-        "projection": { "$ref": "#/$defs/rating" },
-        "trail": { "$ref": "#/$defs/rating" },
+        "intensity": {
+          "$ref": "#/$defs/rating"
+        },
+        "longevity": {
+          "$ref": "#/$defs/rating"
+        },
+        "projection": {
+          "$ref": "#/$defs/rating"
+        },
+        "trail": {
+          "$ref": "#/$defs/rating"
+        },
         "longevityHours": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "min": { "type": ["number", "null"], "minimum": 0, "maximum": 48 },
-            "max": { "type": ["number", "null"], "minimum": 0, "maximum": 48 }
+            "min": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 48
+            },
+            "max": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 48
+            }
           }
         }
       }
@@ -72,57 +243,206 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "freshness": { "$ref": "#/$defs/scale" },
-        "sweetness": { "$ref": "#/$defs/scale" },
-        "warmth": { "$ref": "#/$defs/scale" },
-        "woodiness": { "$ref": "#/$defs/scale" },
-        "spiciness": { "$ref": "#/$defs/scale" },
-        "floral": { "$ref": "#/$defs/scale" },
-        "citrus": { "$ref": "#/$defs/scale" },
-        "fruitiness": { "$ref": "#/$defs/scale" },
-        "aquatic": { "$ref": "#/$defs/scale" },
-        "powdery": { "$ref": "#/$defs/scale" },
-        "smoky": { "$ref": "#/$defs/scale" },
-        "leathery": { "$ref": "#/$defs/scale" }
+        "freshness": {
+          "$ref": "#/$defs/scale"
+        },
+        "sweetness": {
+          "$ref": "#/$defs/scale"
+        },
+        "warmth": {
+          "$ref": "#/$defs/scale"
+        },
+        "woodiness": {
+          "$ref": "#/$defs/scale"
+        },
+        "spiciness": {
+          "$ref": "#/$defs/scale"
+        },
+        "floral": {
+          "$ref": "#/$defs/scale"
+        },
+        "citrus": {
+          "$ref": "#/$defs/scale"
+        },
+        "fruitiness": {
+          "$ref": "#/$defs/scale"
+        },
+        "aquatic": {
+          "$ref": "#/$defs/scale"
+        },
+        "powdery": {
+          "$ref": "#/$defs/scale"
+        },
+        "smoky": {
+          "$ref": "#/$defs/scale"
+        },
+        "leathery": {
+          "$ref": "#/$defs/scale"
+        }
       }
     },
     "recommendation": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["occasions", "contexts", "climates", "seasons"],
+      "required": [
+        "occasions",
+        "contexts",
+        "climates",
+        "seasons"
+      ],
       "properties": {
-        "occasions": { "type": "array", "items": { "$ref": "#/$defs/occasion" }, "uniqueItems": true },
-        "contexts": { "type": "array", "items": { "$ref": "#/$defs/context" }, "uniqueItems": true },
-        "climates": { "type": "array", "items": { "enum": ["Calor", "Templado", "Frío"] }, "uniqueItems": true },
-        "seasons": { "type": "array", "items": { "enum": ["Primavera", "Verano", "Otoño", "Invierno"] }, "uniqueItems": true },
-        "dayParts": { "type": "array", "items": { "enum": ["Mañana", "Tarde", "Noche"] }, "uniqueItems": true },
-        "formality": { "$ref": "#/$defs/scale" },
-        "versatility": { "$ref": "#/$defs/scale" },
-        "distinctiveness": { "$ref": "#/$defs/scale" },
+        "occasions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/occasion"
+          },
+          "uniqueItems": true
+        },
+        "contexts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/context"
+          },
+          "uniqueItems": true
+        },
+        "climates": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "Calor",
+              "Templado",
+              "Frío"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "seasons": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "Primavera",
+              "Verano",
+              "Otoño",
+              "Invierno"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "dayParts": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "Mañana",
+              "Tarde",
+              "Noche"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "formality": {
+          "$ref": "#/$defs/scale"
+        },
+        "versatility": {
+          "$ref": "#/$defs/scale"
+        },
+        "distinctiveness": {
+          "$ref": "#/$defs/scale"
+        },
         "recommendedAge": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "min": { "type": ["integer", "null"], "minimum": 0, "maximum": 100 },
-            "max": { "type": ["integer", "null"], "minimum": 0, "maximum": 100 }
-          }
+            "min": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 100
+            },
+            "max": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 100
+            },
+            "confidence": {
+              "enum": [
+                "unknown",
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "framing": {
+              "const": "tendency"
+            },
+            "isRestrictive": {
+              "const": false
+            },
+            "guidance": {
+              "type": "string",
+              "minLength": 40,
+              "maxLength": 500
+            }
+          },
+          "required": [
+            "min",
+            "max",
+            "confidence",
+            "framing",
+            "isRestrictive",
+            "guidance"
+          ]
         }
       }
     },
     "content": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["shortDescription"],
+      "required": [
+        "shortDescription"
+      ],
       "properties": {
-        "shortDescription": { "type": "string", "minLength": 1, "maxLength": 500 },
-        "advisorSummary": { "type": ["string", "null"], "maxLength": 280 },
-        "wearingTips": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true, "maxItems": 6 },
+        "shortDescription": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "advisorSummary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 280
+        },
+        "wearingTips": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "maxItems": 6
+        },
         "image": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "path": { "type": ["string", "null"] },
-            "alt": { "type": ["string", "null"] }
+            "path": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "alt": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
           }
         }
       }
@@ -130,34 +450,131 @@
     "provenance": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["lastReviewedAt", "sources"],
+      "required": [
+        "lastReviewedAt",
+        "sources"
+      ],
       "properties": {
-        "lastReviewedAt": { "type": ["string", "null"], "format": "date" },
-        "reviewedBy": { "type": ["string", "null"] },
-        "confidence": { "enum": ["unknown", "low", "medium", "high"] },
+        "lastReviewedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "reviewedBy": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "unknown",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
         "sources": {
           "type": "array",
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "title"],
+            "required": [
+              "type",
+              "title"
+            ],
             "properties": {
-              "type": { "enum": ["official", "retailer", "editorial", "community", "internal"] },
-              "title": { "type": "string", "minLength": 1 },
-              "url": { "type": ["string", "null"] },
-              "accessedAt": { "type": ["string", "null"], "format": "date" },
-              "supports": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+              "type": {
+                "enum": [
+                  "official",
+                  "retailer",
+                  "editorial",
+                  "community",
+                  "internal"
+                ]
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "url": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "accessedAt": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date"
+              },
+              "supports": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": true
+              }
             }
           }
         },
-        "notes": { "type": ["string", "null"] }
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       }
     }
   },
   "$defs": {
-    "scale": { "type": ["integer", "null"], "minimum": 0, "maximum": 5 },
-    "rating": { "enum": ["Desconocida", "Suave", "Moderada", "Intensa", "Muy intensa"] },
-    "occasion": { "enum": ["Día", "Noche", "Diario", "Oficina", "Cita", "Fiesta", "Evento", "Playa", "Gimnasio", "Escuela", "Viaje"] },
-    "context": { "enum": ["Casual", "Profesional", "Romántico", "Social", "Formal", "Deportivo", "Vacaciones", "Especial"] }
+    "scale": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 5
+    },
+    "rating": {
+      "enum": [
+        "Desconocida",
+        "Suave",
+        "Moderada",
+        "Intensa",
+        "Muy intensa"
+      ]
+    },
+    "occasion": {
+      "enum": [
+        "Día",
+        "Noche",
+        "Diario",
+        "Oficina",
+        "Cita",
+        "Fiesta",
+        "Evento",
+        "Playa",
+        "Gimnasio",
+        "Escuela",
+        "Viaje"
+      ]
+    },
+    "context": {
+      "enum": [
+        "Casual",
+        "Profesional",
+        "Romántico",
+        "Social",
+        "Formal",
+        "Deportivo",
+        "Vacaciones",
+        "Especial"
+      ]
+    }
   }
 }

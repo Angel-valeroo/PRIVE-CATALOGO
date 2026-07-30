@@ -1,14 +1,97 @@
 {
   "taxonomyVersion": "1.0.0",
-  "audiences": ["Caballero", "Dama", "Unisex"],
-  "concentrations": ["Cologne", "Eau de Cologne", "Eau de Toilette", "Eau de Parfum", "Parfum", "Extrait de Parfum", "Aceite", "Otra", "Desconocida"],
-  "climates": ["Calor", "Templado", "Frío"],
-  "seasons": ["Primavera", "Verano", "Otoño", "Invierno"],
-  "dayParts": ["Mañana", "Tarde", "Noche"],
-  "occasions": ["Día", "Noche", "Diario", "Oficina", "Cita", "Fiesta", "Evento", "Playa", "Gimnasio", "Escuela", "Viaje"],
-  "contexts": ["Casual", "Profesional", "Romántico", "Social", "Formal", "Deportivo", "Vacaciones", "Especial"],
-  "performanceRatings": ["Desconocida", "Suave", "Moderada", "Intensa", "Muy intensa"],
-  "reviewStatuses": ["draft", "review", "verified", "archived"],
-  "confidenceLevels": ["unknown", "low", "medium", "high"],
-  "scale": { "min": 0, "max": 5, "meaning": "0 = ausente o no aplica; 5 = dominante o muy alto; null = sin validar" }
+  "audiences": [
+    "Caballero",
+    "Dama",
+    "Unisex"
+  ],
+  "concentrations": [
+    "Cologne",
+    "Eau de Cologne",
+    "Eau de Toilette",
+    "Eau de Parfum",
+    "Parfum",
+    "Extrait de Parfum",
+    "Aceite",
+    "Otra",
+    "Desconocida"
+  ],
+  "climates": [
+    "Calor",
+    "Templado",
+    "Frío"
+  ],
+  "seasons": [
+    "Primavera",
+    "Verano",
+    "Otoño",
+    "Invierno"
+  ],
+  "dayParts": [
+    "Mañana",
+    "Tarde",
+    "Noche"
+  ],
+  "occasions": [
+    "Día",
+    "Noche",
+    "Diario",
+    "Oficina",
+    "Cita",
+    "Fiesta",
+    "Evento",
+    "Playa",
+    "Gimnasio",
+    "Escuela",
+    "Viaje"
+  ],
+  "contexts": [
+    "Casual",
+    "Profesional",
+    "Romántico",
+    "Social",
+    "Formal",
+    "Deportivo",
+    "Vacaciones",
+    "Especial"
+  ],
+  "performanceRatings": [
+    "Desconocida",
+    "Suave",
+    "Moderada",
+    "Intensa",
+    "Muy intensa"
+  ],
+  "reviewStatuses": [
+    "draft",
+    "review",
+    "verified",
+    "archived"
+  ],
+  "confidenceLevels": [
+    "unknown",
+    "low",
+    "medium",
+    "high"
+  ],
+  "scale": {
+    "min": 0,
+    "max": 5,
+    "meaning": "0 = ausente o no aplica; 5 = dominante o muy alto; null = sin validar"
+  },
+  "ageTrend": {
+    "framing": "tendency",
+    "isRestrictive": false,
+    "confidenceLevels": [
+      "unknown",
+      "low",
+      "medium",
+      "high"
+    ],
+    "policy": "Dato secundario y orientativo; nunca excluye una fragancia ni reemplaza los gustos del usuario."
+  },
+  "batchPolicy": {
+    "size": 50,
+    "nextBatchRequiresValidation": true
+  }
 }

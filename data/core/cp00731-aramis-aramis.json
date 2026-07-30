@@ -1,52 +1,54 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02438-armaf-club-de-nuit-intense-man",
+  "id": "cp00731-aramis-aramis",
   "status": "review",
   "identity": {
-    "brand": "ARMAF",
-    "name": "CLUB DE NUIT INTENSE MAN",
+    "brand": "ARAMIS",
+    "name": "ARAMIS",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02438",
+    "priveCode": "CP00731",
     "sku": null,
     "audience": "Caballero",
     "concentration": "Eau de Toilette",
-    "launchYear": 2015,
+    "launchYear": 1966,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Chipre frutal",
+    "family": "Chipre amaderada",
     "subfamily": null,
     "accords": [
-      "Cítrico",
-      "Afrutado",
       "Amaderado",
-      "Ahumado"
+      "Aromático",
+      "Cuero",
+      "Especiado"
     ],
     "styleTags": [
-      "Moderno",
-      "Seguro y de presencia"
+      "Clásico",
+      "Formal y distinguido"
     ]
   },
   "olfactory": {
     "topNotes": [
-      "Limón",
-      "Piña",
+      "Aldehídos",
+      "Mirra",
       "Bergamota",
-      "Grosella negra",
-      "Manzana"
+      "Trébol",
+      "Gardenia"
     ],
     "heartNotes": [
-      "Abedul",
+      "Pachulí",
+      "Salvia",
       "Jazmín",
-      "Rosa"
+      "Cardamomo"
     ],
     "baseNotes": [
-      "Almizcle",
-      "Ámbar gris",
-      "Pachulí",
-      "Vainilla"
+      "Cuero",
+      "Musgo de roble",
+      "Sándalo",
+      "Ámbar",
+      "Almizcle"
     ],
     "notePyramidConfidence": "low"
   },
@@ -61,31 +63,29 @@
     }
   },
   "sensoryProfile": {
-    "freshness": 4,
-    "sweetness": 5,
+    "freshness": 2,
+    "sweetness": 0,
     "warmth": 4,
-    "woodiness": 2,
-    "spiciness": 0,
+    "woodiness": 4,
+    "spiciness": 2,
     "floral": 4,
-    "citrus": 4,
-    "fruitiness": 5,
-    "aquatic": 0,
+    "citrus": 2,
+    "fruitiness": 0,
+    "aquatic": 2,
     "powdery": 2,
     "smoky": 2,
-    "leathery": 0
+    "leathery": 2
   },
   "recommendation": {
     "occasions": [
       "Día",
-      "Noche",
       "Oficina",
-      "Cita",
-      "Evento"
+      "Evento",
+      "Noche"
     ],
     "contexts": [
-      "Casual",
       "Profesional",
-      "Social",
+      "Formal",
       "Especial"
     ],
     "climates": [
@@ -93,36 +93,36 @@
       "Frío"
     ],
     "seasons": [
-      "Primavera",
       "Otoño",
-      "Invierno"
+      "Invierno",
+      "Primavera"
     ],
     "dayParts": [
       "Tarde",
       "Noche"
     ],
-    "formality": 3,
+    "formality": 4,
     "versatility": 4,
-    "distinctiveness": 3,
+    "distinctiveness": 4,
     "recommendedAge": {
-      "min": 20,
-      "max": 45,
+      "min": 32,
+      "max": 65,
       "confidence": "low",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 45 años por su estilo moderno, seguro y de presencia. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 32 a 65 años por su estilo clásico, formal y distinguido. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil cítrico, afrutado, amaderado, con una salida de limón, piña, bergamota que evoluciona hacia un fondo de almizcle, ámbar gris, pachulí. Su carácter moderno, seguro y de presencia la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil moderno, seguro y de presencia. Afinidad orientativa: 20 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil amaderado, aromático, cuero, con una salida de aldehídos, mirra, bergamota que evoluciona hacia un fondo de cuero, musgo de roble, sándalo. Su carácter clásico, formal y distinguido la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil clásico, formal y distinguido. Afinidad orientativa: 32 a 65 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
       "Rinde mejor en clima templado y frío.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02438.avif",
-      "alt": "ARMAF CLUB DE NUIT INTENSE MAN"
+      "path": "IMAGES/Caballero/CP00731.avif",
+      "alt": "ARAMIS ARAMIS"
     }
   },
   "provenance": {

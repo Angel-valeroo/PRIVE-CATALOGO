@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02518-afnan-turathi-blue",
+  "id": "cp02453-bharara-king-bharara",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "TURATHI BLUE",
+    "brand": "BHARARA",
+    "name": "KING BHARARA",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02518",
+    "priveCode": "CP02453",
     "sku": null,
     "audience": "Caballero",
     "concentration": "Eau de Parfum",
@@ -16,37 +16,37 @@
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Cítrica aromática",
+    "family": "Ámbar vainilla",
     "subfamily": null,
     "accords": [
       "Cítrico",
-      "Aromático",
-      "Amaderado",
-      "Fresco"
+      "Afrutado",
+      "Vainilla",
+      "Ámbar"
     ],
     "styleTags": [
-      "Moderno",
-      "Limpio y versátil"
+      "Dulce",
+      "Llamativo y moderno"
     ]
   },
   "olfactory": {
     "topNotes": [
+      "Naranja",
       "Bergamota",
-      "Mandarina"
+      "Limón"
     ],
     "heartNotes": [
-      "Ámbar",
-      "Notas amaderadas",
-      "Especias frescas"
+      "Notas frutales"
     ],
     "baseNotes": [
+      "Vainilla",
       "Almizcle",
-      "Pachulí"
+      "Ámbar"
     ],
-    "notePyramidConfidence": "medium"
+    "notePyramidConfidence": "low"
   },
   "performance": {
-    "intensity": "Moderada",
+    "intensity": "Muy intensa",
     "longevity": "Desconocida",
     "projection": "Desconocida",
     "trail": "Desconocida",
@@ -57,13 +57,13 @@
   },
   "sensoryProfile": {
     "freshness": 4,
-    "sweetness": 0,
-    "warmth": 2,
-    "woodiness": 4,
-    "spiciness": 2,
+    "sweetness": 4,
+    "warmth": 4,
+    "woodiness": 0,
+    "spiciness": 0,
     "floral": 0,
-    "citrus": 4,
-    "fruitiness": 0,
+    "citrus": 5,
+    "fruitiness": 2,
     "aquatic": 0,
     "powdery": 2,
     "smoky": 0,
@@ -71,56 +71,55 @@
   },
   "recommendation": {
     "occasions": [
-      "Día",
-      "Diario",
-      "Oficina",
-      "Viaje"
+      "Noche",
+      "Cita",
+      "Fiesta"
     ],
     "contexts": [
-      "Casual",
-      "Profesional",
-      "Vacaciones"
+      "Romántico",
+      "Social"
     ],
     "climates": [
-      "Calor",
-      "Templado"
+      "Templado",
+      "Frío"
     ],
     "seasons": [
-      "Primavera",
-      "Verano"
+      "Otoño",
+      "Invierno",
+      "Primavera"
     ],
     "dayParts": [
-      "Mañana",
-      "Tarde"
+      "Tarde",
+      "Noche"
     ],
-    "formality": 3,
-    "versatility": 4,
+    "formality": 2,
+    "versatility": 3,
     "distinctiveness": 3,
     "recommendedAge": {
-      "min": 20,
-      "max": 45,
-      "confidence": "medium",
+      "min": 18,
+      "max": 40,
+      "confidence": "low",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 45 años por su estilo moderno, limpio y versátil. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 18 a 40 años por su estilo dulce, llamativo y moderno. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil cítrico, aromático, amaderado, con una salida de bergamota, mandarina que evoluciona hacia un fondo de almizcle, pachulí. Su carácter moderno, limpio y versátil la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil moderno, limpio y versátil. Afinidad orientativa: 20 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil cítrico, afrutado, vainilla, con una salida de naranja, bergamota, limón que evoluciona hacia un fondo de vainilla, almizcle, ámbar. Su carácter dulce, llamativo y moderno la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil dulce, llamativo y moderno. Afinidad orientativa: 18 a 40 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
-      "Rinde mejor en clima calor y templado.",
+      "Rinde mejor en clima templado y frío.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02518.avif",
-      "alt": "AFNAN TURATHI BLUE"
+      "path": "IMAGES/Caballero/CP02453.avif",
+      "alt": "BHARARA KING BHARARA"
     }
   },
   "provenance": {
     "lastReviewedAt": "2026-07-30",
     "reviewedBy": "PRIVÉ — revisión de lote",
-    "confidence": "medium",
+    "confidence": "low",
     "sources": [
       {
         "type": "internal",
@@ -132,9 +131,9 @@
         ]
       },
       {
-        "type": "official",
-        "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/turathi-blue-homme",
+        "type": "internal",
+        "title": "Revisión documental PRIVÉ — Lote maestro 001",
+        "url": null,
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",

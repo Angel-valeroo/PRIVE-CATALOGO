@@ -1,52 +1,54 @@
 {
   "schemaVersion": "1.0.0",
-  "id": "cp02518-afnan-turathi-blue",
+  "id": "cp02524-armaf-odyssey-aoud",
   "status": "review",
   "identity": {
-    "brand": "AFNAN",
-    "name": "TURATHI BLUE",
+    "brand": "ARMAF",
+    "name": "ODYSSEY AOUD",
     "line": null,
     "flanker": null,
-    "priveCode": "CP02518",
+    "priveCode": "CP02524",
     "sku": null,
     "audience": "Caballero",
     "concentration": "Eau de Parfum",
-    "launchYear": 2021,
+    "launchYear": 2023,
     "perfumers": [],
     "countryOfOrigin": null
   },
   "classification": {
-    "family": "Cítrica aromática",
+    "family": "Amaderada especiada",
     "subfamily": null,
     "accords": [
-      "Cítrico",
-      "Aromático",
       "Amaderado",
-      "Fresco"
+      "Oud",
+      "Especiado",
+      "Aromático"
     ],
     "styleTags": [
-      "Moderno",
-      "Limpio y versátil"
+      "Oscuro",
+      "Intenso y exótico"
     ]
   },
   "olfactory": {
     "topNotes": [
       "Bergamota",
-      "Mandarina"
+      "Lavanda",
+      "Azafrán"
     ],
     "heartNotes": [
-      "Ámbar",
+      "Oud",
       "Notas amaderadas",
-      "Especias frescas"
+      "Especias"
     ],
     "baseNotes": [
       "Almizcle",
+      "Ámbar",
       "Pachulí"
     ],
-    "notePyramidConfidence": "medium"
+    "notePyramidConfidence": "low"
   },
   "performance": {
-    "intensity": "Moderada",
+    "intensity": "Intensa",
     "longevity": "Desconocida",
     "projection": "Desconocida",
     "trail": "Desconocida",
@@ -56,13 +58,13 @@
     }
   },
   "sensoryProfile": {
-    "freshness": 4,
+    "freshness": 2,
     "sweetness": 0,
-    "warmth": 2,
-    "woodiness": 4,
-    "spiciness": 2,
-    "floral": 0,
-    "citrus": 4,
+    "warmth": 4,
+    "woodiness": 5,
+    "spiciness": 4,
+    "floral": 2,
+    "citrus": 2,
     "fruitiness": 0,
     "aquatic": 0,
     "powdery": 2,
@@ -71,56 +73,54 @@
   },
   "recommendation": {
     "occasions": [
-      "Día",
-      "Diario",
-      "Oficina",
-      "Viaje"
+      "Noche",
+      "Cita",
+      "Evento"
     ],
     "contexts": [
-      "Casual",
-      "Profesional",
-      "Vacaciones"
+      "Formal",
+      "Romántico",
+      "Especial"
     ],
     "climates": [
-      "Calor",
+      "Frío",
       "Templado"
     ],
     "seasons": [
-      "Primavera",
-      "Verano"
+      "Otoño",
+      "Invierno"
     ],
     "dayParts": [
-      "Mañana",
-      "Tarde"
+      "Noche"
     ],
-    "formality": 3,
-    "versatility": 4,
-    "distinctiveness": 3,
+    "formality": 4,
+    "versatility": 3,
+    "distinctiveness": 4,
     "recommendedAge": {
-      "min": 20,
-      "max": 45,
+      "min": 25,
+      "max": 50,
       "confidence": "medium",
       "framing": "tendency",
       "isRestrictive": false,
-      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 20 a 45 años por su estilo moderno, limpio y versátil. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
+      "guidance": "Tendencia orientativa: suele conectar especialmente con personas de 25 a 50 años por su estilo oscuro, intenso y exótico. No es una regla ni limita su uso: si te atraen sus notas y la imagen que proyecta, puede funcionar muy bien a cualquier edad."
     }
   },
   "content": {
-    "shortDescription": "Una fragancia de perfil cítrico, aromático, amaderado, con una salida de bergamota, mandarina que evoluciona hacia un fondo de almizcle, pachulí. Su carácter moderno, limpio y versátil la hace fácil de ubicar según ocasión y clima.",
-    "advisorSummary": "Perfil moderno, limpio y versátil. Afinidad orientativa: 20 a 45 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
+    "shortDescription": "Una fragancia de perfil amaderado, oud, especiado, con una salida de bergamota, lavanda, azafrán que evoluciona hacia un fondo de almizcle, ámbar, pachulí. Su carácter oscuro, intenso y exótico la hace fácil de ubicar según ocasión y clima.",
+    "advisorSummary": "Perfil oscuro, intenso y exótico. Afinidad orientativa: 25 a 50 años; sus notas pueden funcionar a cualquier edad según tus gustos y la imagen que deseas proyectar.",
     "wearingTips": [
-      "Rinde mejor en clima calor y templado.",
+      "Rinde mejor en clima frío y templado.",
       "El rango de edad es orientativo; prioriza siempre tus gustos y la imagen que quieres proyectar."
     ],
     "image": {
-      "path": "IMAGES/Caballero/CP02518.avif",
-      "alt": "AFNAN TURATHI BLUE"
+      "path": "IMAGES/Caballero/CP02524.avif",
+      "alt": "ARMAF ODYSSEY AOUD"
     }
   },
   "provenance": {
     "lastReviewedAt": "2026-07-30",
     "reviewedBy": "PRIVÉ — revisión de lote",
-    "confidence": "medium",
+    "confidence": "low",
     "sources": [
       {
         "type": "internal",
@@ -134,7 +134,7 @@
       {
         "type": "official",
         "title": "Sitio oficial de la marca",
-        "url": "https://afnan.com/products/turathi-blue-homme",
+        "url": "https://armaf.com/products/odyssey-aoud-edition",
         "accessedAt": "2026-07-30",
         "supports": [
           "classification",
