@@ -1,1 +1,9 @@
-Reemplaza o agrega estos archivos conservando la misma estructura de carpetas. Después realiza commit y Push origin en GitHub Desktop.
+PRIVÉ — Búsqueda rápida contextual
+
+Reemplaza en la raíz del repositorio estos cuatro archivos:
+- index.html
+- app.js
+- styles.css
+- CHANGELOG.md
+
+La nueva búsqueda aparece únicamente al entrar a la colección de perfumes. Se oculta al regresar al Home, salir de la colección o abrir una ficha/Asesor Inteligente.

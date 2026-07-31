@@ -221,3 +221,11 @@
 - Se añadieron generador y prueba reproducible del Lote 006.
 - La trazabilidad conserva Fragrantica y Perfumoteca por clave como fuentes principales, con contraste de sitios oficiales, Glass Essence y fuentes especializadas.
 - Las variantes recientes o con información pública limitada permanecen señaladas internamente con confianza baja o media.
+
+## 2026-07-31 — Sprint 4.9 · búsqueda rápida contextual
+- Se agregó una barra de búsqueda compacta y minimalista que aparece únicamente al entrar a la colección de perfumes.
+- La barra permanece centrada y accesible durante el recorrido del catálogo, sin cubrir las tarjetas ni alterar el Home.
+- Se oculta automáticamente al regresar al inicio, al salir de la colección o al abrir una ficha/Asesor Inteligente.
+- La búsqueda rápida está sincronizada con el buscador principal, conserva filtros y actualiza resultados en tiempo real.
+- Incluye expansión al enfocarse, limpieza de consulta y soporte para Enter/Escape, safe areas y movimiento reducido.
+- Caché actualizada a styles 4.7 / app 5.8.

@@ -1501,3 +1501,103 @@ body.search-has-query .search-svg{
   .perfume-card{contain:layout paint style;transform:none;backface-visibility:visible}
   .perfume-card:hover{transform:none}
 }
+
+/* =========================================================
+   SPRINT 4.9 — BÚSQUEDA RÁPIDA CONTEXTUAL EN LA COLECCIÓN
+   ========================================================= */
+.catalog-search-dock{
+  position:fixed;
+  z-index:80;
+  top:max(12px,env(safe-area-inset-top));
+  left:50%;
+  width:min(430px,calc(100% - 28px));
+  transform:translate(-50%,-18px) scale(.96);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .24s ease,transform .3s cubic-bezier(.2,.78,.2,1),visibility 0s linear .3s;
+}
+.catalog-search-dock.is-visible{
+  transform:translate(-50%,0) scale(1);
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transition-delay:0s;
+}
+.catalog-search-dock__box{
+  width:min(220px,100%);
+  min-height:44px;
+  margin-inline:auto;
+  padding:0 10px 0 15px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:15px;
+  color:#e9e5dc;
+  background:rgba(18,19,22,.82);
+  box-shadow:0 10px 34px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.055);
+  -webkit-backdrop-filter:blur(18px) saturate(125%);
+  backdrop-filter:blur(18px) saturate(125%);
+  transition:width .32s cubic-bezier(.2,.78,.2,1),background .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.catalog-search-dock__box:focus-within{
+  width:100%;
+  background:rgba(15,16,19,.94);
+  border-color:rgba(214,198,159,.34);
+  box-shadow:0 16px 46px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.07);
+}
+.catalog-search-dock__icon{
+  width:17px;
+  height:17px;
+  flex:0 0 auto;
+  fill:none;
+  stroke:rgba(242,238,229,.76);
+  stroke-width:1.65;
+  stroke-linecap:round;
+}
+.catalog-search-dock input{
+  width:100%;
+  min-width:0;
+  border:0;
+  outline:0;
+  appearance:none;
+  -webkit-appearance:none;
+  color:#fff;
+  background:transparent;
+  font-size:16px;
+  line-height:1.2;
+}
+.catalog-search-dock input::placeholder{color:rgba(242,238,229,.62)}
+.catalog-search-dock input::-webkit-search-decoration,
+.catalog-search-dock input::-webkit-search-cancel-button,
+.catalog-search-dock input::-webkit-search-results-button,
+.catalog-search-dock input::-webkit-search-results-decoration{display:none}
+.catalog-search-dock__clear{
+  width:30px;
+  height:30px;
+  flex:0 0 auto;
+  display:grid;
+  place-items:center;
+  border:0;
+  border-radius:9px;
+  color:rgba(255,255,255,.76);
+  background:rgba(255,255,255,.08);
+  font-size:1.15rem;
+  line-height:1;
+}
+.catalog-search-dock__clear:hover{color:#fff;background:rgba(255,255,255,.14)}
+.catalog-search-dock__clear[hidden]{display:none}
+body.dialog-open .catalog-search-dock{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+@media(max-width:700px){
+  .catalog-search-dock{
+    top:max(9px,env(safe-area-inset-top));
+    width:calc(100% - 22px);
+  }
+  .catalog-search-dock__box{width:min(196px,100%);min-height:43px;border-radius:14px}
+  .catalog-search-dock__box:focus-within{width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+  .catalog-search-dock,.catalog-search-dock__box{transition:none!important}
+}

@@ -48,7 +48,7 @@ const $ = selector => document.querySelector(selector);
 
 const elements = {
   catalog: $("#catalog"), template: $("#perfumeCardTemplate"), search: $("#search"), submitSearch: $("#submitSearch"),
-  clearSearch: $("#clearSearch"), designerFilter: $("#designerFilter"), familyFilter: $("#familyFilter"),
+  clearSearch: $("#clearSearch"), catalogSearchDock: $("#catalogSearchDock"), catalogSearch: $("#catalogSearch"), catalogSearchClear: $("#catalogSearchClear"), designerFilter: $("#designerFilter"), familyFilter: $("#familyFilter"),
   familyFilterField: $("#familyFilterField"), resetFilters: $("#resetFilters"),
   resultCount: $("#resultCount"), resultLabel: $("#resultLabel"), emptyState: $("#emptyState"),
   activeFilters: $("#activeFilters"), categoryFilters: [...document.querySelectorAll(".category-filter")],
@@ -562,6 +562,7 @@ function openPerfume(perfume, updateHash = true) {
   resetDetailScrollCue();
   stabilizeDetailOpening(openingSequence);
   document.body.classList.add("dialog-open");
+  scheduleCatalogSearchDockUpdate();
   if (updateHash) history.pushState({ perfume: perfume.id }, "", `#perfume=${encodeURIComponent(perfume.id)}`);
 }
 function closePerfume(updateHash = true) {
@@ -571,6 +572,7 @@ function closePerfume(updateHash = true) {
   elements.dialog.classList.remove("detail-resetting-scroll", "detail-switching");
   if (elements.dialog.open) elements.dialog.close();
   if (!elements.advisorDialog.open) document.body.classList.remove("dialog-open");
+  scheduleCatalogSearchDockUpdate();
   if (updateHash && location.hash.startsWith("#perfume=")) history.pushState({}, "", location.pathname + location.search);
 }
 function createCatalogCard(perfume, index) {
@@ -732,10 +734,12 @@ function openAdvisor() {
   renderAdvisorOptions(); updateAdvisorStep();
   if (!elements.advisorDialog.open) elements.advisorDialog.showModal();
   document.body.classList.add("dialog-open");
+  scheduleCatalogSearchDockUpdate();
 }
 function closeAdvisor() {
   if (elements.advisorDialog.open) elements.advisorDialog.close();
   if (!elements.dialog.open) document.body.classList.remove("dialog-open");
+  scheduleCatalogSearchDockUpdate();
 }
 function updateAdvisorStep() {
   document.querySelectorAll(".advisor-step").forEach((step, index) => step.classList.toggle("is-active", index === state.advisor.step));
@@ -846,11 +850,21 @@ function startSearchPlaceholderRotation() {
   rotateSearchPlaceholder();
   searchPlaceholderTimer = window.setInterval(rotateSearchPlaceholder, 3200);
 }
-function executeSearch() {
-  state.query = elements.search.value.trim();
-  document.body.classList.toggle("search-has-query", Boolean(state.query));
+function syncSearchInputs(value, source = null) {
+  const nextValue = String(value ?? "");
+  if (elements.search && elements.search !== source) elements.search.value = nextValue;
+  if (elements.catalogSearch && elements.catalogSearch !== source) elements.catalogSearch.value = nextValue;
+  if (elements.catalogSearchClear) elements.catalogSearchClear.hidden = !nextValue.trim();
+  document.body.classList.toggle("search-has-query", Boolean(nextValue.trim()));
+}
+function applySearch(value, { scroll = false, source = null } = {}) {
+  state.query = String(value ?? "").trim();
+  syncSearchInputs(value, source);
   render();
-  scrollToCatalog();
+  if (scroll) scrollToCatalog();
+}
+function executeSearch() {
+  applySearch(elements.search.value, { scroll: true, source: elements.search });
 }
 
 elements.categoryFilters.forEach(button => button.addEventListener("click", () => {
@@ -867,9 +881,7 @@ elements.search.addEventListener("blur", () => {
   if (!state.query) rotateSearchPlaceholder();
 });
 elements.search.addEventListener("input", event => {
-  state.query = event.target.value;
-  document.body.classList.toggle("search-has-query", Boolean(state.query.trim()));
-  render();
+  applySearch(event.target.value, { source: elements.search });
 });
 elements.search.addEventListener("keydown", event => {
   if (event.key === "Enter") {
@@ -878,16 +890,35 @@ elements.search.addEventListener("keydown", event => {
   }
 });
 elements.submitSearch.addEventListener("click", executeSearch);
+if (elements.catalogSearch) {
+  elements.catalogSearch.addEventListener("input", event => {
+    applySearch(event.target.value, { source: elements.catalogSearch });
+  });
+  elements.catalogSearch.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      applySearch(event.currentTarget.value, { source: elements.catalogSearch });
+      event.currentTarget.blur();
+    }
+    if (event.key === "Escape") {
+      event.preventDefault();
+      event.currentTarget.blur();
+    }
+  });
+}
+if (elements.catalogSearchClear) {
+  elements.catalogSearchClear.addEventListener("click", () => {
+    applySearch("", { source: elements.catalogSearch });
+    elements.catalogSearch?.focus();
+  });
+}
 elements.clearSearch.addEventListener("click", () => {
-  state.query = "";
-  elements.search.value = "";
-  document.body.classList.remove("search-has-query");
+  applySearch("", { source: elements.search });
   elements.search.focus();
-  render();
 });
 elements.designerFilter.addEventListener("change",event=>setFilter("designer",event.target.value));
 elements.familyFilter.addEventListener("change",event=>setFilter("family",event.target.value));
-elements.resetFilters.addEventListener("click",()=>{state.query="";state.category="";state.designer="";state.family="";state.tags.clear();elements.search.value="";document.body.classList.remove("search-has-query");elements.designerFilter.value="";elements.familyFilter.value="";render();});
+elements.resetFilters.addEventListener("click",()=>{state.query="";state.category="";state.designer="";state.family="";state.tags.clear();syncSearchInputs("");elements.designerFilter.value="";elements.familyFilter.value="";render();});
 elements.closeDialog.addEventListener("click",()=>closePerfume());
 elements.dialog.addEventListener("click",event=>{if(event.target===elements.dialog)closePerfume();});
 elements.dialog.addEventListener("cancel",event=>{event.preventDefault();closePerfume();});
@@ -932,6 +963,28 @@ async function loadCorePerfumes() {
   }
 }
 
+let catalogDockFrame = 0;
+function updateCatalogSearchDock() {
+  catalogDockFrame = 0;
+  if (!elements.catalogSearchDock) return;
+  const catalogSection = document.getElementById("catalogo");
+  const catalogGrid = elements.catalog;
+  if (!catalogSection || !catalogGrid) return;
+  const gridRect = catalogGrid.getBoundingClientRect();
+  const sectionRect = catalogSection.getBoundingClientRect();
+  const dialogOpen = document.body.classList.contains("dialog-open");
+  const shouldShow = !dialogOpen
+    && gridRect.top <= Math.min(window.innerHeight * .58, 520)
+    && sectionRect.bottom > 96;
+  elements.catalogSearchDock.classList.toggle("is-visible", shouldShow);
+  elements.catalogSearchDock.setAttribute("aria-hidden", String(!shouldShow));
+  if (!shouldShow && document.activeElement === elements.catalogSearch) elements.catalogSearch.blur();
+}
+function scheduleCatalogSearchDockUpdate() {
+  if (catalogDockFrame) return;
+  catalogDockFrame = requestAnimationFrame(updateCatalogSearchDock);
+}
+
 async function init(){
   if (!location.hash.startsWith("#perfume=")) {
     history.scrollRestoration = "manual";
@@ -946,7 +999,7 @@ async function init(){
       ? window.PriveCoreAdapter.mergeCatalogs(legacyPerfumes, corePerfumes)
       : legacyPerfumes;
     console.info(`PRIVÉ: ${state.perfumes.length} fragancias cargadas (${corePerfumes.length} desde Core).`);
-    populateFilters(); render(); renderAdvisorOptions(); startSearchPlaceholderRotation(); openFromHash();
+    populateFilters(); render(); syncSearchInputs(state.query); renderAdvisorOptions(); startSearchPlaceholderRotation(); openFromHash(); scheduleCatalogSearchDockUpdate();
   }catch(error){
     elements.catalog.innerHTML='<p class="load-error">No se pudo cargar el catálogo. Intenta actualizar la página.</p>';
     console.error(error);
@@ -954,6 +1007,7 @@ async function init(){
 }
 
 window.addEventListener("scroll", () => {
+  scheduleCatalogSearchDockUpdate();
   const now = performance.now();
   const deltaY = Math.abs(window.scrollY - lastCatalogScrollY);
   const deltaT = Math.max(1, now - lastCatalogScrollTime);
@@ -984,4 +1038,4 @@ if (typeof ResizeObserver !== "undefined" && elements.detailBottleStage) {
   const detailStageObserver = new ResizeObserver(() => layoutDetailBottle());
   detailStageObserver.observe(elements.detailBottleStage);
 }
-window.addEventListener("resize", layoutDetailBottle, { passive: true });
+window.addEventListener("resize", () => { layoutDetailBottle(); scheduleCatalogSearchDockUpdate(); }, { passive: true });
