@@ -401,18 +401,6 @@ function configureImage(card, perfume) {
 function scrollToCatalog(behavior = "smooth") {
   $("#catalogo").scrollIntoView({ behavior, block: "start" });
 }
-function scrollToCatalogResults(behavior = "auto") {
-  // La búsqueda contextual debe llevar al inicio real de las tarjetas, no al
-  // encabezado de la sección. Así el dock permanece visible y el usuario puede
-  // seguir escribiendo mientras los resultados se actualizan letra por letra.
-  if (!elements.catalog) return;
-  const dockHeight = elements.catalogSearchDock?.getBoundingClientRect().height || 54;
-  const safeTop = Math.max(10, Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-top")) || 0);
-  const topOffset = dockHeight + safeTop + 18;
-  const targetTop = Math.max(0, window.scrollY + elements.catalog.getBoundingClientRect().top - topOffset);
-  window.scrollTo({ top: targetTop, left: 0, behavior });
-  scheduleCatalogSearchDockUpdate();
-}
 function setFilter(type, value, shouldScroll = true) {
   state[type] = value || "";
   if (type === "designer") elements.designerFilter.value = state.designer;
@@ -879,6 +867,17 @@ function applySearch(value, { scroll = false, scrollBehavior = "smooth" } = {}) 
   render();
   if (scroll) scrollToCatalog(scrollBehavior);
 }
+
+function positionCatalogCardsForContextSearch(behavior = "smooth") {
+  const catalogGrid = elements.catalog;
+  if (!catalogGrid) return;
+  const dockHeight = elements.catalogSearchDock?.getBoundingClientRect().height || 52;
+  const safeTop = Math.max(12, dockHeight + 18);
+  const absoluteGridTop = window.scrollY + catalogGrid.getBoundingClientRect().top;
+  const targetTop = Math.max(0, absoluteGridTop - safeTop);
+  if (Math.abs(window.scrollY - targetTop) < 8) return;
+  window.scrollTo({ top: targetTop, left: 0, behavior });
+}
 function executeSearch() {
   applySearch(elements.search.value, { scroll: true });
 }
@@ -907,16 +906,22 @@ elements.search.addEventListener("keydown", event => {
 });
 elements.submitSearch.addEventListener("click", executeSearch);
 if (elements.catalogSearch) {
+  elements.catalogSearch.addEventListener("focus", () => {
+    // Al entrar a la búsqueda rápida, colocamos una sola vez la primera fila
+    // debajo del dock. Desde este punto, escribir nunca vuelve a mover la página.
+    requestAnimationFrame(() => positionCatalogCardsForContextSearch("smooth"));
+    scheduleCatalogSearchDockUpdate();
+  });
   elements.catalogSearch.addEventListener("input", event => {
-    // Actualiza en vivo y conserva el dock visible sobre el inicio de las tarjetas.
+    // Los resultados cambian en tiempo real conservando exactamente el scroll.
     applySearch(event.target.value);
-    scrollToCatalogResults("auto");
   });
   elements.catalogSearch.addEventListener("keydown", event => {
     if (event.key === "Enter") {
       event.preventDefault();
       applySearch(event.currentTarget.value);
-      scrollToCatalogResults("smooth");
+      // Enter confirma la consulta y únicamente cierra el teclado móvil.
+      event.currentTarget.blur();
     }
     if (event.key === "Escape") {
       event.preventDefault();
@@ -927,8 +932,7 @@ if (elements.catalogSearch) {
 if (elements.catalogSearchClear) {
   elements.catalogSearchClear.addEventListener("click", () => {
     applySearch("");
-    scrollToCatalogResults("smooth");
-    elements.catalogSearch?.focus();
+    elements.catalogSearch?.focus({ preventScroll: true });
   });
 }
 elements.clearSearch.addEventListener("click", () => {
@@ -992,12 +996,14 @@ function updateCatalogSearchDock() {
   const gridRect = catalogGrid.getBoundingClientRect();
   const sectionRect = catalogSection.getBoundingClientRect();
   const dialogOpen = document.body.classList.contains("dialog-open");
+  const searchFocused = document.activeElement === elements.catalogSearch;
   const shouldShow = !dialogOpen
-    && gridRect.top <= Math.min(window.innerHeight * .58, 520)
-    && sectionRect.bottom > 96;
+    && (searchFocused || (
+      gridRect.top <= Math.min(window.innerHeight * .58, 520)
+      && sectionRect.bottom > 96
+    ));
   elements.catalogSearchDock.classList.toggle("is-visible", shouldShow);
   elements.catalogSearchDock.setAttribute("aria-hidden", String(!shouldShow));
-  if (!shouldShow && document.activeElement === elements.catalogSearch) elements.catalogSearch.blur();
 }
 function scheduleCatalogSearchDockUpdate() {
   if (catalogDockFrame) return;

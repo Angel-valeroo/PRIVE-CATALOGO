@@ -235,3 +235,11 @@
 - La búsqueda rápida está sincronizada con el buscador principal, conserva filtros y actualiza resultados en tiempo real.
 - Incluye expansión al enfocarse, limpieza de consulta y soporte para Enter/Escape, safe areas y movimiento reducido.
 - Caché actualizada a styles 4.7 / app 5.8.
+
+## 2026-07-31 — Corrección raíz de búsqueda contextual
+
+- La búsqueda contextual se posiciona una sola vez al inicio real de las tarjetas cuando recibe foco.
+- Escribir ya no ejecuta desplazamientos automáticos ni encadena animaciones.
+- Enter confirma la búsqueda y únicamente cierra el teclado móvil.
+- El dock permanece visible mientras el campo está enfocado, evitando que se cierre durante el ajuste inicial.
+- Limpiar la consulta conserva la posición y vuelve a enfocar sin desplazar la página.
