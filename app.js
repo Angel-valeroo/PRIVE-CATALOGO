@@ -401,6 +401,18 @@ function configureImage(card, perfume) {
 function scrollToCatalog(behavior = "smooth") {
   $("#catalogo").scrollIntoView({ behavior, block: "start" });
 }
+function scrollToCatalogResults(behavior = "auto") {
+  // La búsqueda contextual debe llevar al inicio real de las tarjetas, no al
+  // encabezado de la sección. Así el dock permanece visible y el usuario puede
+  // seguir escribiendo mientras los resultados se actualizan letra por letra.
+  if (!elements.catalog) return;
+  const dockHeight = elements.catalogSearchDock?.getBoundingClientRect().height || 54;
+  const safeTop = Math.max(10, Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-top")) || 0);
+  const topOffset = dockHeight + safeTop + 18;
+  const targetTop = Math.max(0, window.scrollY + elements.catalog.getBoundingClientRect().top - topOffset);
+  window.scrollTo({ top: targetTop, left: 0, behavior });
+  scheduleCatalogSearchDockUpdate();
+}
 function setFilter(type, value, shouldScroll = true) {
   state[type] = value || "";
   if (type === "designer") elements.designerFilter.value = state.designer;
@@ -896,15 +908,15 @@ elements.search.addEventListener("keydown", event => {
 elements.submitSearch.addEventListener("click", executeSearch);
 if (elements.catalogSearch) {
   elements.catalogSearch.addEventListener("input", event => {
-    // Cada búsqueda contextual comienza desde el encabezado de resultados.
-    // Se usa desplazamiento inmediato para que escribir varias letras no encadene animaciones.
-    applySearch(event.target.value, { scroll: true, scrollBehavior: "auto" });
+    // Actualiza en vivo y conserva el dock visible sobre el inicio de las tarjetas.
+    applySearch(event.target.value);
+    scrollToCatalogResults("auto");
   });
   elements.catalogSearch.addEventListener("keydown", event => {
     if (event.key === "Enter") {
       event.preventDefault();
-      applySearch(event.currentTarget.value, { scroll: true });
-      event.currentTarget.blur();
+      applySearch(event.currentTarget.value);
+      scrollToCatalogResults("smooth");
     }
     if (event.key === "Escape") {
       event.preventDefault();
@@ -914,7 +926,8 @@ if (elements.catalogSearch) {
 }
 if (elements.catalogSearchClear) {
   elements.catalogSearchClear.addEventListener("click", () => {
-    applySearch("", { scroll: true });
+    applySearch("");
+    scrollToCatalogResults("smooth");
     elements.catalogSearch?.focus();
   });
 }
