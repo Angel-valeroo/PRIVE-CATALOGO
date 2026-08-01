@@ -1525,28 +1525,35 @@ body.search-has-query .search-svg{
   transition-delay:0s;
 }
 .catalog-search-dock__box{
-  width:min(220px,100%);
-  min-height:44px;
+  width:min(292px,100%);
+  min-height:46px;
   margin-inline:auto;
   padding:0 10px 0 15px;
   display:flex;
   align-items:center;
   gap:9px;
   overflow:hidden;
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:15px;
-  color:#e9e5dc;
-  background:rgba(18,19,22,.82);
-  box-shadow:0 10px 34px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.055);
-  -webkit-backdrop-filter:blur(18px) saturate(125%);
-  backdrop-filter:blur(18px) saturate(125%);
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:18px;
+  color:#f4f0e8;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.055) 42%,rgba(8,10,14,.24)),
+    rgba(18,20,25,.42);
+  box-shadow:
+    0 12px 36px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.28),
+    inset 0 -1px 0 rgba(255,255,255,.055);
+  -webkit-backdrop-filter:blur(24px) saturate(155%);
+  backdrop-filter:blur(24px) saturate(155%);
   transition:width .32s cubic-bezier(.2,.78,.2,1),background .25s ease,border-color .25s ease,box-shadow .25s ease;
 }
 .catalog-search-dock__box:focus-within{
   width:100%;
-  background:rgba(15,16,19,.94);
-  border-color:rgba(214,198,159,.34);
-  box-shadow:0 16px 46px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.07);
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.19),rgba(255,255,255,.07) 42%,rgba(8,10,14,.31)),
+    rgba(15,17,22,.5);
+  border-color:rgba(232,219,184,.46);
+  box-shadow:0 16px 46px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.34);
 }
 .catalog-search-dock__icon{
   width:17px;
@@ -1569,7 +1576,7 @@ body.search-has-query .search-svg{
   font-size:16px;
   line-height:1.2;
 }
-.catalog-search-dock input::placeholder{color:rgba(242,238,229,.62)}
+.catalog-search-dock input::placeholder{color:rgba(248,245,238,.78)}
 .catalog-search-dock input::-webkit-search-decoration,
 .catalog-search-dock input::-webkit-search-cancel-button,
 .catalog-search-dock input::-webkit-search-results-button,
@@ -1595,7 +1602,7 @@ body.dialog-open .catalog-search-dock{opacity:0!important;visibility:hidden!impo
     top:max(9px,env(safe-area-inset-top));
     width:calc(100% - 22px);
   }
-  .catalog-search-dock__box{width:min(196px,100%);min-height:43px;border-radius:14px}
+  .catalog-search-dock__box{width:min(276px,100%);min-height:45px;border-radius:17px}
   .catalog-search-dock__box:focus-within{width:100%}
 }
 @media(prefers-reduced-motion:reduce){

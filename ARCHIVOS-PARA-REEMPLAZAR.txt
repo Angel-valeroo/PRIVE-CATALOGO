@@ -1,9 +1,4 @@
-SPRINT 4.6
-
-Reemplaza estos archivos en la raíz del repositorio:
+ARCHIVOS PARA REEMPLAZAR EN LA RAÍZ DEL PROYECTO:
 - app.js
 - styles.css
-- index.html
 - CHANGELOG.md
-
-REPORTE_SPRINT_4.6.txt es informativo.

@@ -1,3 +1,9 @@
+## 2026-07-31 — Corrección búsqueda contextual
+
+- La “X” limpia visualmente ambas barras además de restablecer resultados.
+- Cada nueva búsqueda contextual regresa al inicio de la colección filtrada.
+- Barra contextual más ancha y acabado de cristal translúcido tipo Liquid Glass.
+
 ## Sprint 4.3 — Safari scroll memory hardening
 
 - Carga del catálogo reducida a lotes de 16 tarjetas.

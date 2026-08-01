@@ -398,7 +398,9 @@ function configureImage(card, perfume) {
   if (catalogImageObserver) catalogImageObserver.observe(image);
   else loadImage(image, fallback, monogram, perfume);
 }
-function scrollToCatalog() { $("#catalogo").scrollIntoView({ behavior: "smooth", block: "start" }); }
+function scrollToCatalog(behavior = "smooth") {
+  $("#catalogo").scrollIntoView({ behavior, block: "start" });
+}
 function setFilter(type, value, shouldScroll = true) {
   state[type] = value || "";
   if (type === "designer") elements.designerFilter.value = state.designer;
@@ -850,21 +852,23 @@ function startSearchPlaceholderRotation() {
   rotateSearchPlaceholder();
   searchPlaceholderTimer = window.setInterval(rotateSearchPlaceholder, 3200);
 }
-function syncSearchInputs(value, source = null) {
+function syncSearchInputs(value) {
   const nextValue = String(value ?? "");
-  if (elements.search && elements.search !== source) elements.search.value = nextValue;
-  if (elements.catalogSearch && elements.catalogSearch !== source) elements.catalogSearch.value = nextValue;
+  // Asignar el valor a ambas barras no dispara eventos input, por lo que es seguro
+  // y evita que la barra que originó una limpieza conserve texto visualmente.
+  if (elements.search) elements.search.value = nextValue;
+  if (elements.catalogSearch) elements.catalogSearch.value = nextValue;
   if (elements.catalogSearchClear) elements.catalogSearchClear.hidden = !nextValue.trim();
   document.body.classList.toggle("search-has-query", Boolean(nextValue.trim()));
 }
-function applySearch(value, { scroll = false, source = null } = {}) {
+function applySearch(value, { scroll = false, scrollBehavior = "smooth" } = {}) {
   state.query = String(value ?? "").trim();
-  syncSearchInputs(value, source);
+  syncSearchInputs(value);
   render();
-  if (scroll) scrollToCatalog();
+  if (scroll) scrollToCatalog(scrollBehavior);
 }
 function executeSearch() {
-  applySearch(elements.search.value, { scroll: true, source: elements.search });
+  applySearch(elements.search.value, { scroll: true });
 }
 
 elements.categoryFilters.forEach(button => button.addEventListener("click", () => {
@@ -881,7 +885,7 @@ elements.search.addEventListener("blur", () => {
   if (!state.query) rotateSearchPlaceholder();
 });
 elements.search.addEventListener("input", event => {
-  applySearch(event.target.value, { source: elements.search });
+  applySearch(event.target.value);
 });
 elements.search.addEventListener("keydown", event => {
   if (event.key === "Enter") {
@@ -892,12 +896,14 @@ elements.search.addEventListener("keydown", event => {
 elements.submitSearch.addEventListener("click", executeSearch);
 if (elements.catalogSearch) {
   elements.catalogSearch.addEventListener("input", event => {
-    applySearch(event.target.value, { source: elements.catalogSearch });
+    // Cada búsqueda contextual comienza desde el encabezado de resultados.
+    // Se usa desplazamiento inmediato para que escribir varias letras no encadene animaciones.
+    applySearch(event.target.value, { scroll: true, scrollBehavior: "auto" });
   });
   elements.catalogSearch.addEventListener("keydown", event => {
     if (event.key === "Enter") {
       event.preventDefault();
-      applySearch(event.currentTarget.value, { source: elements.catalogSearch });
+      applySearch(event.currentTarget.value, { scroll: true });
       event.currentTarget.blur();
     }
     if (event.key === "Escape") {
@@ -908,12 +914,12 @@ if (elements.catalogSearch) {
 }
 if (elements.catalogSearchClear) {
   elements.catalogSearchClear.addEventListener("click", () => {
-    applySearch("", { source: elements.catalogSearch });
+    applySearch("", { scroll: true });
     elements.catalogSearch?.focus();
   });
 }
 elements.clearSearch.addEventListener("click", () => {
-  applySearch("", { source: elements.search });
+  applySearch("");
   elements.search.focus();
 });
 elements.designerFilter.addEventListener("change",event=>setFilter("designer",event.target.value));
