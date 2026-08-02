@@ -766,6 +766,8 @@ function advisorThemeColor(field, value) {
 }
 
 const DEFAULT_BROWSER_THEME_COLOR = "#07090d";
+let advisorBrowserThemeFrame = 0;
+let currentAdvisorBrowserColor = "#171a1f";
 function forceBrowserThemeMeta(color) {
   const current = document.querySelector('meta[name="theme-color"]');
   const meta = current ? current.cloneNode(false) : document.createElement("meta");
@@ -774,20 +776,65 @@ function forceBrowserThemeMeta(color) {
   if (current) current.replaceWith(meta);
   else document.head.appendChild(meta);
 }
-function setAdvisorBrowserChrome(color, fill = null, { commitMeta = true } = {}) {
+function hexToRgb(hex) {
+  const normalized = String(hex || "").replace("#", "").trim();
+  if (!/^[0-9a-f]{6}$/i.test(normalized)) return { r: 23, g: 26, b: 31 };
+  return {
+    r: parseInt(normalized.slice(0,2),16),
+    g: parseInt(normalized.slice(2,4),16),
+    b: parseInt(normalized.slice(4,6),16)
+  };
+}
+function rgbToHex({ r, g, b }) {
+  const part = value => Math.max(0, Math.min(255, Math.round(value))).toString(16).padStart(2,"0");
+  return `#${part(r)}${part(g)}${part(b)}`;
+}
+function mixHex(from, to, progress) {
+  const a = hexToRgb(from), b = hexToRgb(to);
+  return rgbToHex({
+    r: a.r + (b.r-a.r)*progress,
+    g: a.g + (b.g-a.g)*progress,
+    b: a.b + (b.b-a.b)*progress
+  });
+}
+function applyAdvisorBrowserColor(color) {
   const resolved = color || "#171a1f";
-  const backgroundFill = fill || resolved;
+  currentAdvisorBrowserColor = resolved;
   document.documentElement.style.setProperty("--advisor-browser-bg", resolved);
   document.body.style.setProperty("--advisor-browser-bg", resolved);
+  forceBrowserThemeMeta(resolved);
+}
+function setAdvisorBrowserChrome(color, fill = null, { commitMeta = true } = {}) {
+  cancelAnimationFrame(advisorBrowserThemeFrame);
+  const resolved = color || "#171a1f";
+  const backgroundFill = fill || resolved;
   document.documentElement.style.setProperty("--advisor-browser-fill", backgroundFill);
   document.body.style.setProperty("--advisor-browser-fill", backgroundFill);
+  document.documentElement.style.setProperty("--advisor-browser-bg", resolved);
+  document.body.style.setProperty("--advisor-browser-bg", resolved);
+  currentAdvisorBrowserColor = resolved;
   if (commitMeta) forceBrowserThemeMeta(resolved);
 }
+function animateAdvisorBrowserChrome(targetColor, duration = 2180) {
+  cancelAnimationFrame(advisorBrowserThemeFrame);
+  const from = currentAdvisorBrowserColor || "#171a1f";
+  const startTime = performance.now();
+  const tick = now => {
+    const t = Math.min(1, Math.max(0, (now - startTime) / duration));
+    // suave y continua; no hay pasos discretos.
+    const eased = t * t * (3 - 2 * t);
+    applyAdvisorBrowserColor(mixHex(from, targetColor, eased));
+    if (t < 1) advisorBrowserThemeFrame = requestAnimationFrame(tick);
+  };
+  advisorBrowserThemeFrame = requestAnimationFrame(tick);
+}
 function resetBrowserChrome() {
+  cancelAnimationFrame(advisorBrowserThemeFrame);
   document.documentElement.style.removeProperty("--advisor-browser-bg");
   document.body.style.removeProperty("--advisor-browser-bg");
   document.documentElement.style.removeProperty("--advisor-browser-fill");
   document.body.style.removeProperty("--advisor-browser-fill");
+  currentAdvisorBrowserColor = "#171a1f";
   forceBrowserThemeMeta(DEFAULT_BROWSER_THEME_COLOR);
 }
 
@@ -814,13 +861,9 @@ function animateAdvisorThemeFromButton(button, field, value) {
   const targetColor = advisorThemeColor(field, value);
   const targetBackground = advisorThemeBackground(field, value);
 
-  // La superficie exterior de Safari no puede ser dibujada por el DOM. Por eso
-  // se sincroniza con el mismo tema desde el primer frame, mientras el fondo del
-  // Asesor se construye visualmente con la máscara circular.
-  setAdvisorBrowserChrome(targetColor, targetBackground, { commitMeta: true });
-
   if (!ripple || reducedMotion) {
     updateAdvisorAtmosphere();
+    setAdvisorBrowserChrome(targetColor, targetBackground);
     return;
   }
 
@@ -830,8 +873,9 @@ function animateAdvisorThemeFromButton(button, field, value) {
   const y = buttonRect.top + buttonRect.height / 2 - dialogRect.top;
   const farX = Math.max(x, dialogRect.width - x);
   const farY = Math.max(y, dialogRect.height - y);
-  const radius = Math.ceil(Math.hypot(farX, farY) + 72);
+  const radius = Math.ceil(Math.hypot(farX, farY) + 96);
 
+  // IMPORTANTE: no se cambia el fondo permanente aquí. Primero se revela.
   ripple.style.setProperty("--advisor-ripple-x", `${x}px`);
   ripple.style.setProperty("--advisor-ripple-y", `${y}px`);
   ripple.style.setProperty("--advisor-ripple-radius", `${radius}px`);
@@ -841,19 +885,24 @@ function animateAdvisorThemeFromButton(button, field, value) {
   void ripple.offsetWidth;
   ripple.classList.add("is-animating");
 
-  // El tema permanente se fija un instante antes de retirar la capa. Como ambos
-  // usan exactamente el mismo background, visualmente no existe un segundo cambio.
+  // Safari no permite dibujar dentro de su UI nativa; theme-color es la vía
+  // disponible. La interpolamos en paralelo en lugar de cambiarla de golpe.
+  animateAdvisorBrowserChrome(targetColor, 2180);
+
+  // Solo cuando la máscara ya cubrió todo fijamos el mismo fondo como estado
+  // permanente. La capa continúa encima unos frames para ocultar el commit.
   advisorThemeCommitTimer = window.setTimeout(() => {
     elements.advisorDialog.classList.add("is-theme-committing");
     updateAdvisorAtmosphere();
+    setAdvisorBrowserChrome(targetColor, targetBackground);
     requestAnimationFrame(() => requestAnimationFrame(() => {
       elements.advisorDialog.classList.remove("is-theme-committing");
     }));
-  }, 2120);
+  }, 2180);
 
   advisorThemeCleanupTimer = window.setTimeout(() => {
     ripple.classList.remove("is-animating");
-  }, 2220);
+  }, 2360);
 }
 
 function updateAdvisorAtmosphere() {

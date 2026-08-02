@@ -3133,3 +3133,47 @@ body.advisor-open{
   background-size:cover!important;
 }
 
+
+
+/* =========================================================
+   SPRINT 5.9 · REVEAL ÚNICO + SAFARI SIN CAMBIO PREVIO
+   ========================================================= */
+/* El lienzo exterior usa color sólido para que Safari pueda tintar sus barras;
+   el gradiente vive dentro del diálogo y en la capa de reveal. */
+html.advisor-open,
+body.advisor-open{
+  background:var(--advisor-browser-bg,#171a1f)!important;
+  background-color:var(--advisor-browser-bg,#171a1f)!important;
+  transition:none!important;
+}
+.advisor-dialog[open]::backdrop,
+.advisor-dialog[open]::before{
+  background:var(--advisor-browser-bg,var(--advisor-bg,#171a1f))!important;
+  background-color:var(--advisor-browser-bg,var(--advisor-bg,#171a1f))!important;
+  transition:none!important;
+}
+/* La animación es una sola interpolación continua y permanece totalmente opaca
+   mientras cubre la pantalla. */
+.advisor-theme-ripple.is-animating{
+  opacity:1!important;
+  animation:advisorSingleReveal 2.18s linear both!important;
+}
+@keyframes advisorSingleReveal{
+  from{clip-path:circle(0 at var(--advisor-ripple-x,50%) var(--advisor-ripple-y,50%));}
+  to{clip-path:circle(var(--advisor-ripple-radius,1800px) at var(--advisor-ripple-x,50%) var(--advisor-ripple-y,50%));}
+}
+/* Al comprometer el estado final se desactiva cualquier transición heredada;
+   la capa de reveal aún está encima, por lo que no hay frame visible de cambio. */
+.advisor-dialog.is-theme-committing,
+.advisor-dialog.is-theme-committing *{
+  transition-property:none!important;
+}
+.advisor-dialog.is-results[open]{
+  width:100vw!important;
+  height:100dvh!important;
+  min-height:100dvh!important;
+  max-width:none!important;
+  max-height:none!important;
+  margin:0!important;
+  border-radius:0!important;
+}

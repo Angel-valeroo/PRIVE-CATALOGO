@@ -329,3 +329,10 @@
 - `html`, `body`, backdrop y overscan del Asesor comparten una única variable de relleno para conservar la experiencia de borde a borde.
 - El `theme-color` de Safari se fuerza recreando el meta en cada cambio de tema para mejorar la actualización de las barras superior e inferior en iPhone.
 - La pantalla de resultados conserva el mismo lienzo inmersivo.
+
+
+## Sprint 5.9 · Reveal único + Safari sincronizado
+- Se eliminó el cambio de fondo previo a la animación en categoría y clima.
+- El color de `theme-color`/Safari se interpola durante la misma duración del reveal en vez de cambiar de golpe.
+- El fondo permanente se confirma solo cuando la máscara ya cubrió toda la vista y se mantiene cubierta durante el commit para evitar el salto final.
+- Resultados conservan arquitectura full-screen sin modificar la lógica del Asesor ni del catálogo.
