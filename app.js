@@ -773,21 +773,23 @@ let advisorThemePending = null;
 let currentAdvisorBrowserColor = ADVISOR_NEUTRAL_COLOR;
 
 function forceBrowserThemeMeta(color) {
-  const meta = document.querySelector('meta[name="theme-color"]');
-  if (!meta) return;
+  const existing = document.querySelector('meta[name="theme-color"]');
+  if (!existing) return;
   const value = String(color || DEFAULT_BROWSER_THEME_COLOR).trim();
   const match = /^#([0-9a-f]{6})$/i.exec(value);
-  if (!match) {
-    meta.setAttribute("content", value);
-    return;
+  let resolved = value;
+  if (match) {
+    const raw = match[1];
+    const r = parseInt(raw.slice(0,2),16);
+    const g = parseInt(raw.slice(2,4),16);
+    const b = parseInt(raw.slice(4,6),16);
+    resolved = `rgb(${r}, ${g}, ${b})`;
   }
-  const raw = match[1];
-  const r = parseInt(raw.slice(0,2),16);
-  const g = parseInt(raw.slice(2,4),16);
-  const b = parseInt(raw.slice(4,6),16);
-  // Safari histórico ha mostrado diferencias con ciertos hex en theme-color;
-  // rgb() mantiene el tono final alineado con el CSS de la página.
-  meta.setAttribute("content", `rgb(${r}, ${g}, ${b})`);
+  // Algunos Safari mantienen en caché el primer theme-color. Reinsertar el nodo
+  // al confirmar el tema fuerza una nueva lectura sin alterar la transición visual.
+  const replacement = existing.cloneNode(false);
+  replacement.setAttribute("content", resolved);
+  existing.replaceWith(replacement);
 }
 
 function advisorThemeDescriptor(theme) {
@@ -809,6 +811,10 @@ function setAdvisorExtendedBackground(color, { animate = false, commitMeta = fal
   document.body.classList.toggle("advisor-chrome-animating", animate);
   document.documentElement.style.setProperty("--advisor-browser-bg", resolved);
   document.body.style.setProperty("--advisor-browser-bg", resolved);
+  // Safari obtiene el color de las zonas externas principalmente del lienzo raíz.
+  // Lo escribimos también como background-color real (no solo variable CSS).
+  document.documentElement.style.setProperty("background-color", resolved, "important");
+  document.body.style.setProperty("background-color", resolved, "important");
   elements.advisorDialog?.style.setProperty("--advisor-browser-bg", resolved);
   if (commitMeta) forceBrowserThemeMeta(resolved);
 }
@@ -823,6 +829,8 @@ function resetBrowserChrome() {
   document.body.classList.remove("advisor-chrome-animating");
   document.documentElement.style.removeProperty("--advisor-browser-bg");
   document.body.style.removeProperty("--advisor-browser-bg");
+  document.documentElement.style.removeProperty("background-color");
+  document.body.style.removeProperty("background-color");
   elements.advisorDialog?.style.removeProperty("--advisor-browser-bg");
   currentAdvisorBrowserColor = ADVISOR_NEUTRAL_COLOR;
   forceBrowserThemeMeta(DEFAULT_BROWSER_THEME_COLOR);

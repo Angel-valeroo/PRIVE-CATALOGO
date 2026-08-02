@@ -346,3 +346,10 @@
 - El `theme-color` se confirma una sola vez al terminar la animación y se expresa como `rgb()` para conservar el tono CSS.
 - Resultados conserva el mismo fondo full-screen del clima seleccionado.
 - Prueba visual real: los seis temas terminan con RGB idéntico en diálogo/html/body; la expansión mantiene composición fluida en la prueba de navegador.
+
+
+## Sprint 6.1 · Safari safe-area / under-page real
+- Se mantuvo intacto el motor visual del Sprint 6.0.
+- Mientras el Asesor está abierto, el Home/catálogo subyacente se oculta para que Safari no derive sus barras de una superficie gris/clara detrás del diálogo.
+- `html` y `body` reciben el color real del tema como `background-color` inline y se añadió una superficie under-page sólida para overscroll y zonas expuestas por el navegador.
+- El `theme-color` se reinserta al confirmar un tema para forzar su relectura en Safari compatibles.

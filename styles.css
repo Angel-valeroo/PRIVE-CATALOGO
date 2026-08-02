@@ -3323,3 +3323,51 @@ body.advisor-chrome-animating .advisor-dialog[open]::before{
   -webkit-backdrop-filter:blur(24px) saturate(135%)!important;
   backdrop-filter:blur(24px) saturate(135%)!important;
 }
+
+
+/* =========================================================
+   SPRINT 6.1 · SAFARI SAFE-AREA / UNDER-PAGE REAL
+   Solo afecta el lienzo que Safari ve detrás de su Liquid Glass.
+   ========================================================= */
+html.advisor-open,
+body.advisor-open{
+  width:100%!important;
+  min-width:100%!important;
+  min-height:100%!important;
+  background-image:none!important;
+  background-color:var(--advisor-browser-bg,#171a1f)!important;
+}
+/* Safari puede derivar el tinte de la página que existe debajo de un elemento
+   del top-layer. Mientras el Asesor está abierto, ocultamos el Home/catálogo
+   subyacente para que la única superficie disponible sea el color del tema. */
+body.advisor-open > main,
+body.advisor-open > .site-footer,
+body.advisor-open > #catalogSearchDock{
+  visibility:hidden!important;
+}
+/* Under-page sólido: cubre rebote, overscroll y cualquier franja que Safari
+   revele al expandir/contraer sus barras. El dialog, al vivir en top-layer,
+   permanece por encima de esta superficie. */
+body.advisor-open::before{
+  content:"";
+  position:fixed;
+  inset:-100lvh -20vw;
+  z-index:2147480000;
+  pointer-events:none;
+  background:var(--advisor-browser-bg,#171a1f)!important;
+  transition:none!important;
+}
+body.advisor-open.advisor-chrome-animating::before{
+  transition:background-color var(--advisor-theme-duration) cubic-bezier(.18,.72,.16,1)!important;
+}
+/* El propio top-layer cubre siempre el viewport físico disponible. */
+.advisor-dialog[open]{
+  inset:0!important;
+  width:100vw!important;
+  height:100dvh!important;
+  min-width:100vw!important;
+  min-height:100dvh!important;
+}
+@supports(height:100lvh){
+  .advisor-dialog[open]::before{min-height:220lvh!important}
+}
