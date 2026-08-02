@@ -251,3 +251,17 @@
 - Enter confirma la búsqueda y únicamente cierra el teclado móvil.
 - El dock permanece visible mientras el campo está enfocado, evitando que se cierre durante el ajuste inicial.
 - Limpiar la consulta conserva la posición y vuelve a enfocar sin desplazar la página.
+
+
+## 2026-08-01 — Sprint 5.0 · Asesor Inteligente PRIVÉ 2.0
+- El Asesor pasa de 4 a 6 criterios: categoría, rango de edad orientativo, ocasión, perfil aromático, intensidad y clima.
+- La edad se usa como afinidad no restrictiva, apoyándose en `recommendedAge` de la Base Maestra.
+- La intensidad aprovecha `performance.intensity` y admite coincidencias exactas o cercanas para no forzar resultados artificiales.
+- El motor reemplaza la coincidencia binaria por ponderación parcial y eleva la salida de 3 a 5 recomendaciones.
+- En empates cercanos se favorece diversidad de diseñadores sin sacrificar las mejores coincidencias.
+- Se rediseñó el Asesor con una interfaz minimalista y elegante, tarjetas tipo cristal y atmósferas reactivas.
+- Al elegir Caballero, Dama o Unisex, el fondo adopta la identidad aprobada de esa categoría.
+- En la pregunta de clima, Calor, Templado y Frío activan fondos y animaciones ambientales sutiles.
+- Se agregó en Home la entrada “Top más vendidos” entre el Asesor y Explorar catálogo, marcada como “Próximamente” y aún sin lógica comercial.
+- No se modificaron las 547 fichas de la Base Maestra.
+- Caché actualizada a styles 4.8 / app 5.9.

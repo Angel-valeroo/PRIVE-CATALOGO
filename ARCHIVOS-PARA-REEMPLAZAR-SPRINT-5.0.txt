@@ -1,0 +1,10 @@
+PRIVÉ — Sprint 5.0 · Asesor Inteligente PRIVÉ 2.0
+
+Reemplazar / agregar en la raíz del repositorio:
+- index.html
+- app.js
+- styles.css
+- CHANGELOG.md
+- REPORTE_SPRINT_5.0.txt
+
+No se modifica data/core ni las imágenes.

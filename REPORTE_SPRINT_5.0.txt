@@ -1,0 +1,39 @@
+PRIVÉ — REPORTE SPRINT 5.0
+Asesor Inteligente PRIVÉ 2.0
+Fecha: 2026-08-01
+
+OBJETIVO
+Hacer el Asesor más preciso, expresivo y útil antes del lanzamiento público, sin modificar la Base Maestra.
+
+CAMBIOS FUNCIONALES
+- 6 preguntas: categoría, edad orientativa, ocasión, perfil aromático, intensidad y clima.
+- 5 recomendaciones en lugar de 3.
+- Ponderación parcial para edad e intensidad.
+- Edad tratada como afinidad, nunca como restricción.
+- Diversidad moderada de diseñadores cuando existen empates cercanos.
+
+REDISEÑO
+- Interfaz minimalista premium con superficies translúcidas.
+- Categoría Caballero: atmósfera azul marino.
+- Categoría Dama: atmósfera vino/borgoña.
+- Categoría Unisex: atmósfera gris neutra.
+- Clima Calor: fondo cálido y pulso luminoso.
+- Clima Templado: fondo neutro con nubes sutiles.
+- Clima Frío: fondo azul con nieve ambiental sutil.
+- Respeta prefers-reduced-motion.
+
+HOME
+- Nueva tarjeta “Top más vendidos”.
+- Estado visible: “Próximamente”.
+- Sin datos de ventas ni comportamiento interactivo todavía.
+
+DATOS
+- No se modificaron fichas Core.
+- El Asesor consume ageTrend e intensity ya expuestos por core-adapter.
+- Base Maestra vigente: 547 fragancias activas.
+
+VALIDACIONES
+- node --check app.js
+- test-core-adapter.mjs
+- test-identity.mjs
+- test-master-batch-006.mjs

@@ -1,12 +1,12 @@
 const state = {
   perfumes: [], query: "", designer: "", family: "", category: "",
   tags: new Set(), selectedPerfume: null,
-  advisor: { step: 0, answers: { category: "", occasion: "", profile: "", climate: "" } }
+  advisor: { step: 0, answers: { category: "", age: "", occasion: "", profile: "", intensity: "", climate: "" } }
 };
 
 const IMAGE_BASE_PATH = "IMAGES";
 const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
-const MIN_RECOMMENDATION_SCORE = 85;
+const MIN_RECOMMENDATION_SCORE = 62;
 const CORE_DATA_VERSION = "master-004-scrollfix-v50";
 const IS_MOBILE_CATALOG = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.matchMedia("(pointer: coarse)").matches;
 const CATALOG_BATCH_SIZE = IS_MOBILE_CATALOG ? 24 : 40;
@@ -38,12 +38,19 @@ const TAG_ICONS = {
 
 const ADVISOR_FIELDS = [
   { key: "category", values: ["Caballero", "Dama", "Unisex"] },
+  { key: "age", values: ["Menos de 20", "20–29", "30–44", "45+"] },
   { key: "occasion", values: ["Día", "Noche", "Diario", "Oficina", "Cita", "Fiesta", "Evento", "Playa", "Gimnasio", "Escuela", "Viaje"] },
   { key: "profile", values: ["Fresco", "Acuático", "Dulce", "Amaderado", "Aromático", "Cítrico", "Afrutado", "Floral", "Especiado"] },
+  { key: "intensity", values: ["Sutil", "Equilibrado", "Intenso"] },
   { key: "climate", values: ["Calor", "Templado", "Frío"] }
 ];
 
-const ADVISOR_WEIGHTS = { category: 30, occasion: 25, profile: 30, climate: 15 };
+const ADVISOR_WEIGHTS = { category: 24, age: 12, occasion: 20, profile: 20, intensity: 12, climate: 12 };
+const ADVISOR_OPTION_ICONS = {
+  Caballero: "🕴️", Dama: "🌹", Unisex: "⚖️",
+  "Menos de 20": "✦", "20–29": "◒", "30–44": "◐", "45+": "◆",
+  Sutil: "○", Equilibrado: "◉", Intenso: "●"
+};
 const $ = selector => document.querySelector(selector);
 
 const elements = {
@@ -709,7 +716,7 @@ function openFromHash() {
 function advisorAvailableValues(field) {
   const config = ADVISOR_FIELDS.find(item => item.key === field);
   if (!config) return [];
-  if (field === "category") return config.values;
+  if (["category", "age", "intensity"].includes(field)) return config.values;
   const allTags = new Set(state.perfumes.flatMap(perfumeTags));
   return config.values.filter(value => allTags.has(value));
 }
@@ -723,23 +730,37 @@ function renderAdvisorOptions() {
       button.dataset.value = value;
       button.setAttribute("aria-pressed", String(state.advisor.answers[field] === value));
       if (state.advisor.answers[field] === value) button.classList.add("is-selected");
-      button.innerHTML = `<span aria-hidden="true">${TAG_ICONS[value] || "•"}</span><strong>${value}</strong>`;
+      button.innerHTML = `<span aria-hidden="true">${ADVISOR_OPTION_ICONS[value] || TAG_ICONS[value] || "•"}</span><strong>${value}</strong>`;
       button.addEventListener("click", () => {
         state.advisor.answers[field] = state.advisor.answers[field] === value ? "" : value;
-        renderAdvisorOptions(); updateAdvisorNavigation();
+        renderAdvisorOptions(); updateAdvisorAtmosphere(); updateAdvisorNavigation();
       });
       return button;
     });
     container.replaceChildren(...buttons);
   });
 }
+function advisorThemeKey(value) {
+  return normalize(value).replace(/\s+/g, "-");
+}
+function updateAdvisorAtmosphere() {
+  if (!elements.advisorDialog) return;
+  const field = ADVISOR_FIELDS[state.advisor.step]?.key;
+  const category = state.advisor.answers.category;
+  const climate = state.advisor.answers.climate;
+  let theme = "neutral";
+  if (field === "category" && category) theme = `category-${advisorThemeKey(category)}`;
+  if (field === "climate" && climate) theme = `climate-${advisorThemeKey(climate)}`;
+  if (elements.advisorResults && !elements.advisorResults.hidden && climate) theme = `climate-${advisorThemeKey(climate)}`;
+  elements.advisorDialog.dataset.advisorTheme = theme;
+}
 function openAdvisor() {
   state.advisor.step = 0;
-  state.advisor.answers = { category: "", occasion: "", profile: "", climate: "" };
+  state.advisor.answers = { category: "", age: "", occasion: "", profile: "", intensity: "", climate: "" };
   elements.advisorResults.hidden = true; elements.advisorSteps.hidden = false;
   elements.advisorRestart.hidden = true; elements.advisorNext.hidden = false;
   elements.advisorBack.hidden = false; elements.advisorSkip.hidden = false;
-  renderAdvisorOptions(); updateAdvisorStep();
+  renderAdvisorOptions(); updateAdvisorStep(); updateAdvisorAtmosphere();
   if (!elements.advisorDialog.open) elements.advisorDialog.showModal();
   document.body.classList.add("dialog-open");
   scheduleCatalogSearchDockUpdate();
@@ -754,6 +775,7 @@ function updateAdvisorStep() {
   const progress = ((state.advisor.step + 1) / ADVISOR_FIELDS.length) * 100;
   elements.advisorProgressBar.style.width = `${progress}%`;
   elements.advisorProgressText.textContent = `Paso ${state.advisor.step + 1} de ${ADVISOR_FIELDS.length}`;
+  updateAdvisorAtmosphere();
   updateAdvisorNavigation();
 }
 function updateAdvisorNavigation() {
@@ -763,19 +785,57 @@ function updateAdvisorNavigation() {
   elements.advisorNext.textContent = state.advisor.step === ADVISOR_FIELDS.length - 1 ? "Ver recomendaciones" : "Continuar";
   elements.advisorSkip.textContent = hasAnswer ? "Quitar respuesta" : "Omitir";
 }
-function advisorMatch(perfume, field, value) {
-  if (!value) return false;
+function advisorAgeRange(value) {
+  const ranges = {
+    "Menos de 20": [0, 19],
+    "20–29": [20, 29],
+    "30–44": [30, 44],
+    "45+": [45, 100]
+  };
+  return ranges[value] || null;
+}
+function advisorMatchScore(perfume, field, value) {
+  if (!value) return 0;
   if (field === "category") {
-    return normalize(perfume.category) === normalize(value)
-      || normalize(perfume.category) === "unisex"
-      || normalize(value) === "unisex";
+    if (normalize(perfume.category) === normalize(value)) return 1;
+    if (normalize(perfume.category) === "unisex" && normalize(value) !== "unisex") return .35;
+    return 0;
+  }
+  if (field === "age") {
+    const target = advisorAgeRange(value);
+    const min = Number(perfume.ageTrend?.min);
+    const max = Number(perfume.ageTrend?.max);
+    if (!target || !Number.isFinite(min) || !Number.isFinite(max)) return .45;
+    const overlap = Math.max(0, Math.min(max, target[1]) - Math.max(min, target[0]) + 1);
+    const targetSize = Math.max(1, target[1] - target[0] + 1);
+    if (overlap > 0) return Math.min(1, .62 + .38 * (overlap / targetSize));
+    const distance = target[1] < min ? min - target[1] : target[0] - max;
+    return distance <= 5 ? .35 : 0;
   }
   if (field === "occasion") {
-    return includesNormalized(perfume.occasions, value) || includesNormalized(perfume.contexts, value);
+    return (includesNormalized(perfume.occasions, value) || includesNormalized(perfume.contexts, value)) ? 1 : 0;
   }
-  if (field === "profile") return includesNormalized(perfume.accords, value);
-  if (field === "climate") return includesNormalized(perfume.climates, value);
-  return false;
+  if (field === "profile") {
+    if (includesNormalized(perfume.accords, value)) return 1;
+    if (includesNormalized(perfume.styleTags, value)) return .72;
+    return 0;
+  }
+  if (field === "intensity") {
+    const raw = normalize(perfume.intensity);
+    const groups = {
+      sutil: ["suave", "sutil"],
+      equilibrado: ["moderada", "moderado", "equilibrado", "media"],
+      intenso: ["intenso", "muy intenso", "intensa", "muy intensa"]
+    };
+    const target = normalize(value);
+    if ((groups[target] || []).some(item => raw.includes(normalize(item)))) return 1;
+    if (target === "equilibrado" && (raw.includes("intens") || raw.includes("suav"))) return .42;
+    if ((target === "sutil" && raw.includes("moder")) || (target === "intenso" && raw.includes("moder"))) return .55;
+    if (!raw || raw === "desconocida") return .35;
+    return 0;
+  }
+  if (field === "climate") return includesNormalized(perfume.climates, value) ? 1 : 0;
+  return 0;
 }
 function scoreAdvisorPerfume(perfume) {
   const selected = Object.entries(state.advisor.answers).filter(([, value]) => value);
@@ -783,30 +843,53 @@ function scoreAdvisorPerfume(perfume) {
   const maxWeight = selected.reduce((sum, [field]) => sum + ADVISOR_WEIGHTS[field], 0);
   let earned = 0; const reasons = [];
   selected.forEach(([field, value]) => {
-    if (advisorMatch(perfume, field, value)) {
-      earned += ADVISOR_WEIGHTS[field];
-      const labels = {
-        category: `Coincide con ${value}`,
-        occasion: `Ideal para ${value.toLowerCase()}`,
-        profile: `Perfil ${value.toLowerCase()}`,
-        climate: `Funciona en clima ${value.toLowerCase()}`
-      };
-      reasons.push(labels[field]);
-    }
+    const match = advisorMatchScore(perfume, field, value);
+    if (match <= 0) return;
+    earned += ADVISOR_WEIGHTS[field] * match;
+    if (match < .5 && field !== "age" && field !== "intensity") return;
+    const labels = {
+      category: match === 1 ? `Coincide con ${value}` : "Perfil unisex compatible",
+      age: `Afinidad orientativa con ${value.toLowerCase()}`,
+      occasion: `Encaja con ${value.toLowerCase()}`,
+      profile: `Perfil ${value.toLowerCase()}`,
+      intensity: `Intensidad ${value.toLowerCase()}`,
+      climate: `Funciona en clima ${value.toLowerCase()}`
+    };
+    reasons.push(labels[field]);
   });
   const percentage = Math.round((earned / maxWeight) * 100);
-  return { perfume, percentage, reasons, matched: reasons.length, criteria: selected.length };
+  return { perfume, percentage, reasons: reasons.slice(0, 5), matched: reasons.length, criteria: selected.length };
 }
 function advisorRecommendations() {
-  return state.perfumes.map(scoreAdvisorPerfume).filter(Boolean)
+  const ranked = state.perfumes.map(scoreAdvisorPerfume).filter(Boolean)
     .filter(item => item.percentage >= MIN_RECOMMENDATION_SCORE)
-    .sort((a,b) => b.percentage - a.percentage || b.matched - a.matched || a.perfume.name.localeCompare(b.perfume.name,"es"))
-    .slice(0,3);
+    .sort((a,b) => b.percentage - a.percentage || b.matched - a.matched || a.perfume.name.localeCompare(b.perfume.name,"es"));
+
+  // Mantiene precisión, pero evita que cinco empates del mismo diseñador hagan
+  // sentir al Asesor repetitivo cuando existen alternativas casi igual de fuertes.
+  const selected = [];
+  const usedDesigners = new Set();
+  for (const item of ranked) {
+    if (selected.length >= 5) break;
+    const designer = normalize(item.perfume.designer);
+    const bestScore = ranked[0]?.percentage || item.percentage;
+    if (!usedDesigners.has(designer) || bestScore - item.percentage > 7 || selected.length >= 4) {
+      selected.push(item);
+      usedDesigners.add(designer);
+    }
+  }
+  if (selected.length < 5) {
+    for (const item of ranked) {
+      if (selected.length >= 5) break;
+      if (!selected.includes(item)) selected.push(item);
+    }
+  }
+  return selected.slice(0,5);
 }
 function recommendationCard(result, index) {
   const card = document.createElement("article");
   card.className = "advisor-result-card";
-  const medal = ["🥇","🥈","🥉"][index] || "✦";
+  const medal = ["🥇","🥈","🥉","④","⑤"][index] || "✦";
   card.innerHTML = `
     <div class="advisor-result-top">
       <span class="advisor-rank" aria-hidden="true">${medal}</span>
@@ -825,7 +908,7 @@ function showAdvisorResults() {
   if (!selectedCount) {
     elements.advisorResultsIntro.textContent = "Selecciona por lo menos un criterio para poder calcular una coincidencia.";
   } else {
-    elements.advisorResultsIntro.textContent = `Calculado con ${selectedCount} ${selectedCount === 1 ? "criterio" : "criterios"} seleccionados. Solo mostramos coincidencias de ${MIN_RECOMMENDATION_SCORE}% o más.`;
+    elements.advisorResultsIntro.textContent = `Calculado con ${selectedCount} ${selectedCount === 1 ? "criterio" : "criterios"} seleccionados. Comparamos categoría, afinidad de edad, ocasión, perfil, intensidad y clima para mostrar hasta cinco coincidencias sólidas.`;
   }
   const results = selectedCount ? advisorRecommendations() : [];
   elements.advisorRecommendations.replaceChildren(...results.map(recommendationCard));
@@ -835,10 +918,11 @@ function showAdvisorResults() {
   elements.advisorRestart.hidden = false;
   elements.advisorProgressBar.style.width = "100%";
   elements.advisorProgressText.textContent = "Recomendación lista";
+  updateAdvisorAtmosphere();
 }
 function restartAdvisor() {
   state.advisor.step = 0;
-  state.advisor.answers = { category: "", occasion: "", profile: "", climate: "" };
+  state.advisor.answers = { category: "", age: "", occasion: "", profile: "", intensity: "", climate: "" };
   elements.advisorResults.hidden = true; elements.advisorSteps.hidden = false;
   elements.advisorRestart.hidden = true; elements.advisorNext.hidden = false;
   elements.advisorBack.hidden = false; elements.advisorSkip.hidden = false;

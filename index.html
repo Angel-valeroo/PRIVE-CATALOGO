@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=4.7">
+  <link rel="stylesheet" href="styles.css?v=4.8">
   <script>
     if (location.hash === "#catalogo" || location.hash === "#inicio") {
       history.replaceState(null, "", location.pathname + location.search);
@@ -66,8 +66,13 @@
             <span class="entry-copy"><strong>Ayúdame a elegir</strong><small>Deja que el Asesor Inteligente PRIVÉ encuentre tu fragancia ideal.</small></span>
             <span class="entry-arrow entry-arrow--advisor" aria-hidden="true">✦</span>
           </button>
-          <a class="entry-card" href="#catalogo">
+          <article class="entry-card entry-card--coming" aria-label="Top más vendidos, próximamente">
             <span class="entry-index">02</span>
+            <span class="entry-copy"><strong>Top más vendidos</strong><small>Las fragancias favoritas de la comunidad PRIVÉ.</small></span>
+            <span class="entry-coming-badge">Próximamente</span>
+          </article>
+          <a class="entry-card" href="#catalogo">
+            <span class="entry-index">03</span>
             <span class="entry-copy"><strong>Explorar catálogo</strong><small>Conoce la colección completa de PRIVÉ.</small></span>
             <span class="entry-arrow" aria-hidden="true">↓</span>
           </a>
@@ -142,37 +147,56 @@
   <dialog id="advisorDialog" class="advisor-dialog" aria-labelledby="advisorTitle">
     <div class="advisor-shell">
       <button id="closeAdvisor" class="dialog-close advisor-close" type="button" aria-label="Cerrar asesor">×</button>
+      <div class="advisor-atmosphere" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
       <div class="advisor-head">
-        <p class="detail-eyebrow">ASESOR INTELIGENTE PRIVÉ · EXPERIMENTAL</p>
-        <h2 id="advisorTitle">Vamos a encontrar tu perfume ideal.</h2>
-        <p>Responde solo lo que quieras. Entre más datos nos des, más precisa será la recomendación.</p>
+        <p class="detail-eyebrow">ASESOR INTELIGENTE PRIVÉ</p>
+        <h2 id="advisorTitle">Encuentra una fragancia que se sienta tuya.</h2>
+        <p>Seis señales simples nos ayudan a afinar el perfil. Puedes omitir cualquiera; la edad siempre se usa como orientación, nunca como regla.</p>
         <div class="advisor-progress" aria-hidden="true"><span id="advisorProgressBar"></span></div>
-        <p id="advisorProgressText" class="advisor-progress-text">Paso 1 de 4</p>
+        <p id="advisorProgressText" class="advisor-progress-text">Paso 1 de 6</p>
       </div>
 
       <div id="advisorSteps" class="advisor-steps">
         <section class="advisor-step is-active" data-step="0">
+          <p class="advisor-step-label">01 · Categoría</p>
           <p class="advisor-question">¿Para quién buscas el perfume?</p>
-          <div class="advisor-options" data-field="category"></div>
+          <div class="advisor-options advisor-options--category" data-field="category"></div>
         </section>
         <section class="advisor-step" data-step="1">
+          <p class="advisor-step-label">02 · Afinidad</p>
+          <p class="advisor-question">¿Qué rango de edad quieres orientar?</p>
+          <p class="advisor-question-note">Es una tendencia de afinidad, no una restricción de uso.</p>
+          <div class="advisor-options advisor-options--age" data-field="age"></div>
+        </section>
+        <section class="advisor-step" data-step="2">
+          <p class="advisor-step-label">03 · Momento</p>
           <p class="advisor-question">¿Cuándo lo usarás?</p>
           <div class="advisor-options" data-field="occasion"></div>
         </section>
-        <section class="advisor-step" data-step="2">
+        <section class="advisor-step" data-step="3">
+          <p class="advisor-step-label">04 · Aroma</p>
           <p class="advisor-question">¿Qué estilo aromático prefieres?</p>
           <div class="advisor-options advisor-options--profiles" data-field="profile"></div>
         </section>
-        <section class="advisor-step" data-step="3">
+        <section class="advisor-step" data-step="4">
+          <p class="advisor-step-label">05 · Presencia</p>
+          <p class="advisor-question">¿Qué tan intenso quieres que se sienta?</p>
+          <p class="advisor-question-note">Desde algo discreto y cómodo hasta una fragancia con mucha presencia.</p>
+          <div class="advisor-options advisor-options--intensity" data-field="intensity"></div>
+        </section>
+        <section class="advisor-step" data-step="5">
+          <p class="advisor-step-label">06 · Clima</p>
           <p class="advisor-question">¿En qué clima lo usarás?</p>
-          <div class="advisor-options" data-field="climate"></div>
+          <div class="advisor-options advisor-options--climate" data-field="climate"></div>
         </section>
       </div>
 
       <section id="advisorResults" class="advisor-results" hidden>
         <div class="advisor-results-heading">
           <p class="detail-eyebrow">RESULTADO</p>
-          <h3>Tus mejores coincidencias</h3>
+          <h3>Tus cinco mejores coincidencias</h3>
           <p id="advisorResultsIntro"></p>
         </div>
         <div id="advisorRecommendations" class="advisor-recommendations"></div>
@@ -262,6 +286,6 @@
   </dialog>
 
   <script src="core-adapter.js?v=5.2" defer></script>
-  <script src="app.js?v=5.8" defer></script>
+  <script src="app.js?v=5.9" defer></script>
 </body>
 </html>
