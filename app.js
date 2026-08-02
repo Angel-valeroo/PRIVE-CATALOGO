@@ -766,106 +766,105 @@ function advisorThemeColor(field, value) {
 }
 
 const DEFAULT_BROWSER_THEME_COLOR = "#07090d";
-let advisorBrowserThemeFrame = 0;
-let currentAdvisorBrowserColor = "#171a1f";
+const ADVISOR_NEUTRAL_COLOR = "#171a1f";
+const ADVISOR_THEME_DURATION = 1680;
+let advisorThemeAnimation = null;
+let advisorThemePending = null;
+let currentAdvisorBrowserColor = ADVISOR_NEUTRAL_COLOR;
+
 function forceBrowserThemeMeta(color) {
-  const current = document.querySelector('meta[name="theme-color"]');
-  const meta = current ? current.cloneNode(false) : document.createElement("meta");
-  meta.setAttribute("name", "theme-color");
-  meta.setAttribute("content", color || DEFAULT_BROWSER_THEME_COLOR);
-  if (current) current.replaceWith(meta);
-  else document.head.appendChild(meta);
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (!meta) return;
+  const value = String(color || DEFAULT_BROWSER_THEME_COLOR).trim();
+  const match = /^#([0-9a-f]{6})$/i.exec(value);
+  if (!match) {
+    meta.setAttribute("content", value);
+    return;
+  }
+  const raw = match[1];
+  const r = parseInt(raw.slice(0,2),16);
+  const g = parseInt(raw.slice(2,4),16);
+  const b = parseInt(raw.slice(4,6),16);
+  // Safari histórico ha mostrado diferencias con ciertos hex en theme-color;
+  // rgb() mantiene el tono final alineado con el CSS de la página.
+  meta.setAttribute("content", `rgb(${r}, ${g}, ${b})`);
 }
-function hexToRgb(hex) {
-  const normalized = String(hex || "").replace("#", "").trim();
-  if (!/^[0-9a-f]{6}$/i.test(normalized)) return { r: 23, g: 26, b: 31 };
-  return {
-    r: parseInt(normalized.slice(0,2),16),
-    g: parseInt(normalized.slice(2,4),16),
-    b: parseInt(normalized.slice(4,6),16)
+
+function advisorThemeDescriptor(theme) {
+  const descriptors = {
+    "category-caballero": { field: "category", value: "caballero", color: "#0d2742" },
+    "category-dama": { field: "category", value: "dama", color: "#671b34" },
+    "category-unisex": { field: "category", value: "unisex", color: "#555b61" },
+    "climate-calor": { field: "climate", value: "calor", color: "#7a3d10" },
+    "climate-templado": { field: "climate", value: "templado", color: "#45504d" },
+    "climate-frio": { field: "climate", value: "frio", color: "#123a5c" }
   };
+  return descriptors[theme] || { field: "neutral", value: "neutral", color: ADVISOR_NEUTRAL_COLOR };
 }
-function rgbToHex({ r, g, b }) {
-  const part = value => Math.max(0, Math.min(255, Math.round(value))).toString(16).padStart(2,"0");
-  return `#${part(r)}${part(g)}${part(b)}`;
-}
-function mixHex(from, to, progress) {
-  const a = hexToRgb(from), b = hexToRgb(to);
-  return rgbToHex({
-    r: a.r + (b.r-a.r)*progress,
-    g: a.g + (b.g-a.g)*progress,
-    b: a.b + (b.b-a.b)*progress
-  });
-}
-function applyAdvisorBrowserColor(color) {
-  const resolved = color || "#171a1f";
+
+function setAdvisorExtendedBackground(color, { animate = false, commitMeta = false } = {}) {
+  const resolved = color || ADVISOR_NEUTRAL_COLOR;
   currentAdvisorBrowserColor = resolved;
+  document.documentElement.classList.toggle("advisor-chrome-animating", animate);
+  document.body.classList.toggle("advisor-chrome-animating", animate);
   document.documentElement.style.setProperty("--advisor-browser-bg", resolved);
   document.body.style.setProperty("--advisor-browser-bg", resolved);
-  forceBrowserThemeMeta(resolved);
-}
-function setAdvisorBrowserChrome(color, fill = null, { commitMeta = true } = {}) {
-  cancelAnimationFrame(advisorBrowserThemeFrame);
-  const resolved = color || "#171a1f";
-  const backgroundFill = fill || resolved;
-  document.documentElement.style.setProperty("--advisor-browser-fill", backgroundFill);
-  document.body.style.setProperty("--advisor-browser-fill", backgroundFill);
-  document.documentElement.style.setProperty("--advisor-browser-bg", resolved);
-  document.body.style.setProperty("--advisor-browser-bg", resolved);
-  currentAdvisorBrowserColor = resolved;
+  elements.advisorDialog?.style.setProperty("--advisor-browser-bg", resolved);
   if (commitMeta) forceBrowserThemeMeta(resolved);
 }
-function animateAdvisorBrowserChrome(targetColor, duration = 2180) {
-  cancelAnimationFrame(advisorBrowserThemeFrame);
-  const from = currentAdvisorBrowserColor || "#171a1f";
-  const startTime = performance.now();
-  const tick = now => {
-    const t = Math.min(1, Math.max(0, (now - startTime) / duration));
-    // suave y continua; no hay pasos discretos.
-    const eased = t * t * (3 - 2 * t);
-    applyAdvisorBrowserColor(mixHex(from, targetColor, eased));
-    if (t < 1) advisorBrowserThemeFrame = requestAnimationFrame(tick);
-  };
-  advisorBrowserThemeFrame = requestAnimationFrame(tick);
-}
+
 function resetBrowserChrome() {
-  cancelAnimationFrame(advisorBrowserThemeFrame);
+  if (advisorThemeAnimation) {
+    try { advisorThemeAnimation.cancel(); } catch (_) {}
+    advisorThemeAnimation = null;
+  }
+  advisorThemePending = null;
+  document.documentElement.classList.remove("advisor-chrome-animating");
+  document.body.classList.remove("advisor-chrome-animating");
   document.documentElement.style.removeProperty("--advisor-browser-bg");
   document.body.style.removeProperty("--advisor-browser-bg");
-  document.documentElement.style.removeProperty("--advisor-browser-fill");
-  document.body.style.removeProperty("--advisor-browser-fill");
-  currentAdvisorBrowserColor = "#171a1f";
+  elements.advisorDialog?.style.removeProperty("--advisor-browser-bg");
+  currentAdvisorBrowserColor = ADVISOR_NEUTRAL_COLOR;
   forceBrowserThemeMeta(DEFAULT_BROWSER_THEME_COLOR);
 }
 
 function advisorThemeBackground(field, value) {
-  const key = `${field}-${advisorThemeKey(value)}`;
-  return {
-    "category-caballero": "radial-gradient(circle at 72% 18%,rgba(52,91,137,.32),transparent 38%),linear-gradient(145deg,#07101b,#0d1724 64%,#111820)",
-    "category-dama": "radial-gradient(circle at 72% 16%,rgba(150,38,73,.32),transparent 40%),linear-gradient(145deg,#260710,#491224 65%,#2a0b14)",
-    "category-unisex": "radial-gradient(circle at 70% 16%,rgba(185,189,194,.18),transparent 40%),linear-gradient(145deg,#1f2226,#353a40 68%,#24282c)",
-    "climate-calor": "linear-gradient(180deg,#4b2610 0%,#7b421b 48%,#b56a2b 100%)",
-    "climate-templado": "linear-gradient(155deg,#202827 0%,#45504d 64%,#2a3331 100%)",
-    "climate-frio": "linear-gradient(155deg,#081827 0%,#123a5c 68%,#0c2438 100%)"
-  }[key] || "radial-gradient(circle at 78% 14%,rgba(189,166,120,.10),transparent 38%),linear-gradient(145deg,#14171b,#1d2127 68%,#121519)";
+  return advisorThemeColor(field, value);
 }
 
-let advisorThemeCommitTimer = 0;
-let advisorThemeCleanupTimer = 0;
+function commitAdvisorTheme(theme, { commitMeta = true } = {}) {
+  const descriptor = advisorThemeDescriptor(theme);
+  elements.advisorDialog.dataset.advisorTheme = theme;
+  setAdvisorExtendedBackground(descriptor.color, { animate: false, commitMeta });
+}
+
+function cancelAdvisorThemeAnimation({ commitPending = true } = {}) {
+  if (!advisorThemeAnimation) return;
+  try { advisorThemeAnimation.cancel(); } catch (_) {}
+  advisorThemeAnimation = null;
+  const ripple = elements.advisorDialog?.querySelector(".advisor-theme-ripple");
+  const rippleFill = ripple?.querySelector(".advisor-theme-ripple__fill");
+  if (ripple) ripple.classList.remove("is-animating");
+  if (rippleFill) rippleFill.style.transform = "translateZ(0) scale(0.001)";
+  if (commitPending && advisorThemePending) commitAdvisorTheme(advisorThemePending.theme);
+  advisorThemePending = null;
+}
+
 function animateAdvisorThemeFromButton(button, field, value) {
   const ripple = elements.advisorDialog?.querySelector(".advisor-theme-ripple");
+  const rippleFill = ripple?.querySelector(".advisor-theme-ripple__fill");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  window.clearTimeout(advisorThemeCommitTimer);
-  window.clearTimeout(advisorThemeCleanupTimer);
-
+  const theme = `${field}-${advisorThemeKey(value)}`;
   const targetColor = advisorThemeColor(field, value);
-  const targetBackground = advisorThemeBackground(field, value);
 
-  if (!ripple || reducedMotion) {
-    updateAdvisorAtmosphere();
-    setAdvisorBrowserChrome(targetColor, targetBackground);
+  if (!ripple || !rippleFill || reducedMotion) {
+    commitAdvisorTheme(theme);
     return;
   }
+
+  // Si el usuario toca otra opción antes de terminar, fijamos primero el estado
+  // que ya estaba en transición. Así nunca quedan dos animaciones compitiendo.
+  cancelAdvisorThemeAnimation({ commitPending: true });
 
   const dialogRect = elements.advisorDialog.getBoundingClientRect();
   const buttonRect = button.getBoundingClientRect();
@@ -873,40 +872,53 @@ function animateAdvisorThemeFromButton(button, field, value) {
   const y = buttonRect.top + buttonRect.height / 2 - dialogRect.top;
   const farX = Math.max(x, dialogRect.width - x);
   const farY = Math.max(y, dialogRect.height - y);
-  const radius = Math.ceil(Math.hypot(farX, farY) + 96);
+  const radius = Math.ceil(Math.hypot(farX, farY) + 48);
+  const size = radius * 2;
 
-  // IMPORTANTE: no se cambia el fondo permanente aquí. Primero se revela.
   ripple.style.setProperty("--advisor-ripple-x", `${x}px`);
   ripple.style.setProperty("--advisor-ripple-y", `${y}px`);
-  ripple.style.setProperty("--advisor-ripple-radius", `${radius}px`);
+  ripple.style.setProperty("--advisor-ripple-size", `${size}px`);
   ripple.style.setProperty("--advisor-ripple-color", targetColor);
-  ripple.style.setProperty("--advisor-ripple-background", targetBackground);
-  ripple.classList.remove("is-animating");
-  void ripple.offsetWidth;
+  rippleFill.style.backgroundColor = targetColor;
+  rippleFill.style.transform = "translateZ(0) scale(0.001)";
   ripple.classList.add("is-animating");
 
-  // Safari no permite dibujar dentro de su UI nativa; theme-color es la vía
-  // disponible. La interpolamos en paralelo en lugar de cambiarla de golpe.
-  animateAdvisorBrowserChrome(targetColor, 2180);
+  // El fondo extendido de la página cambia con una transición CSS nativa. En
+  // Safari 26 esa superficie es la que se usa detrás del Liquid Glass.
+  setAdvisorExtendedBackground(targetColor, { animate: true, commitMeta: false });
 
-  // Solo cuando la máscara ya cubrió todo fijamos el mismo fondo como estado
-  // permanente. La capa continúa encima unos frames para ocultar el commit.
-  advisorThemeCommitTimer = window.setTimeout(() => {
-    elements.advisorDialog.classList.add("is-theme-committing");
-    updateAdvisorAtmosphere();
-    setAdvisorBrowserChrome(targetColor, targetBackground);
+  advisorThemePending = { theme, color: targetColor };
+  advisorThemeAnimation = rippleFill.animate([
+    { transform: "translateZ(0) scale(0.001)" },
+    { transform: "translateZ(0) scale(1)" }
+  ], {
+    duration: ADVISOR_THEME_DURATION,
+    easing: "cubic-bezier(.18,.72,.16,1)",
+    fill: "forwards"
+  });
+
+  advisorThemeAnimation.finished.then(() => {
+    if (!advisorThemePending || advisorThemePending.theme !== theme) return;
+    // La burbuja todavía cubre toda la pantalla cuando fijamos el mismo color
+    // debajo. Como ambos son idénticos, no puede existir un salto visual.
+    commitAdvisorTheme(theme, { commitMeta: true });
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      elements.advisorDialog.classList.remove("is-theme-committing");
+      if (advisorThemeAnimation) {
+        try { advisorThemeAnimation.cancel(); } catch (_) {}
+      }
+      advisorThemeAnimation = null;
+      advisorThemePending = null;
+      ripple.classList.remove("is-animating");
+      rippleFill.style.transform = "translateZ(0) scale(0.001)";
+      document.documentElement.classList.remove("advisor-chrome-animating");
+      document.body.classList.remove("advisor-chrome-animating");
     }));
-  }, 2180);
-
-  advisorThemeCleanupTimer = window.setTimeout(() => {
-    ripple.classList.remove("is-animating");
-  }, 2360);
+  }).catch(() => {});
 }
 
 function updateAdvisorAtmosphere() {
   if (!elements.advisorDialog) return;
+  if (advisorThemeAnimation) return;
   const field = ADVISOR_FIELDS[state.advisor.step]?.key;
   const category = state.advisor.answers.category;
   const climate = state.advisor.answers.climate;
@@ -914,17 +926,7 @@ function updateAdvisorAtmosphere() {
   if (field === "category" && category) theme = `category-${advisorThemeKey(category)}`;
   if (field === "climate" && climate) theme = `climate-${advisorThemeKey(climate)}`;
   if (elements.advisorResults && !elements.advisorResults.hidden && climate) theme = `climate-${advisorThemeKey(climate)}`;
-  elements.advisorDialog.dataset.advisorTheme = theme;
-  if (elements.advisorDialog.open) {
-    const fieldKey = theme.startsWith("category-") ? "category" : "climate";
-    const valueKey = theme.replace(/^category-|^climate-/, "");
-    const color = theme === "neutral" ? "#171a1f" : advisorThemeColor(fieldKey, valueKey);
-    const fill = theme === "neutral"
-      ? "radial-gradient(circle at 78% 14%,rgba(189,166,120,.10),transparent 38%),linear-gradient(145deg,#14171b,#1d2127 68%,#121519)"
-      : advisorThemeBackground(fieldKey, valueKey);
-    const ripple = elements.advisorDialog.querySelector(".advisor-theme-ripple");
-    if (!ripple?.classList.contains("is-animating")) setAdvisorBrowserChrome(color, fill);
-  }
+  commitAdvisorTheme(theme, { commitMeta: elements.advisorDialog.open });
 }
 function openAdvisor() {
   state.advisor.step = 0;
@@ -938,7 +940,7 @@ function openAdvisor() {
   document.body.classList.add("dialog-open", "advisor-open");
   document.documentElement.classList.add("advisor-open");
   elements.advisorDialog.classList.remove("is-results");
-  setAdvisorBrowserChrome("#171a1f", "radial-gradient(circle at 78% 14%,rgba(189,166,120,.10),transparent 38%),linear-gradient(145deg,#14171b,#1d2127 68%,#121519)");
+  setAdvisorExtendedBackground(ADVISOR_NEUTRAL_COLOR, { animate: false, commitMeta: true });
   elements.advisorSteps?.scrollTo({ top: 0, behavior: "auto" });
   scheduleCatalogSearchDockUpdate();
 }

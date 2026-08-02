@@ -336,3 +336,13 @@
 - El color de `theme-color`/Safari se interpola durante la misma duración del reveal en vez de cambiar de golpe.
 - El fondo permanente se confirma solo cuando la máscara ya cubrió toda la vista y se mantiene cubierta durante el commit para evitar el salto final.
 - Resultados conservan arquitectura full-screen sin modificar la lógica del Asesor ni del catálogo.
+
+
+## Sprint 6.0 · Motor visual único del Asesor
+- Se reemplazó la expansión con `clip-path` por una burbuja física escalada con `transform`, evitando el lag de composición observado en iPhone.
+- Categoría y clima comparten una sola fuente de color entre revelación, fondo final y lienzo extendido (`html/body`).
+- Se eliminó una regla `[open]` heredada que pintaba el diálogo con el color destino antes de comenzar la animación.
+- La barra inferior del Asesor quedó como Liquid Glass translúcido para no tapar la revelación del fondo.
+- El `theme-color` se confirma una sola vez al terminar la animación y se expresa como `rgb()` para conservar el tono CSS.
+- Resultados conserva el mismo fondo full-screen del clima seleccionado.
+- Prueba visual real: los seis temas terminan con RGB idéntico en diálogo/html/body; la expansión mantiene composición fluida en la prueba de navegador.
