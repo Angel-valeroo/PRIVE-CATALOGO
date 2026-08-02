@@ -1,7 +1,7 @@
 const state = {
   perfumes: [], query: "", designer: "", family: "", category: "",
   tags: new Set(), selectedPerfume: null,
-  advisor: { step: 0, answers: { category: "", age: "", occasion: "", profile: "", intensity: "", climate: "" } }
+  advisor: { step: 0, answers: { category: "", age: "", occasion: "", profile: "", intensity: "", climate: "" }, resultReturnActive: false }
 };
 
 const IMAGE_BASE_PATH = "IMAGES";
@@ -59,7 +59,7 @@ const elements = {
   familyFilterField: $("#familyFilterField"), resetFilters: $("#resetFilters"),
   resultCount: $("#resultCount"), resultLabel: $("#resultLabel"), emptyState: $("#emptyState"),
   activeFilters: $("#activeFilters"), categoryFilters: [...document.querySelectorAll(".category-filter")],
-  dialog: $("#perfumeDialog"), closeDialog: $("#closeDialog"),
+  dialog: $("#perfumeDialog"), closeDialog: $("#closeDialog"), detailBackToAdvisor: $("#detailBackToAdvisor"),
   detailImage: $("#detailImage"), detailFallback: $("#detailFallback"), detailMonogram: $("#detailMonogram"),
   detailBottleStage: $(".detail-bottle-stage"), detailComposition: $(".detail-product-composition"),
   detailStageName: $("#detailStageName"), detailStageCode: $("#detailStageCode"),
@@ -458,7 +458,7 @@ function recommendationsFor(perfume) {
 function createRelatedButton(perfume) {
   const button = document.createElement("button"); button.className = "related-card"; button.type = "button";
   button.innerHTML = `<span>${perfume.name}</span><small>${perfume.designer} · ${perfume.code}</small>`;
-  button.addEventListener("click", () => openPerfume(perfume)); return button;
+  button.addEventListener("click", () => openPerfume(perfume, true, { fromAdvisorResults: state.advisor.resultReturnActive })); return button;
 }
 function renderNoteGroup(group, output, notes) {
   const list = asList(notes); group.hidden = list.length === 0; output.textContent = list.join(" · "); return list.length > 0;
@@ -537,8 +537,9 @@ function resetDetailRenderState() {
   elements.dialog.classList.add("detail-switching");
 }
 
-function openPerfume(perfume, updateHash = true) {
+function openPerfume(perfume, updateHash = true, options = {}) {
   if (!perfume) return;
+  setAdvisorResultReturnActive(Boolean(options.fromAdvisorResults));
   const openingSequence = ++detailOpenSequence;
   resetDetailRenderState();
   state.selectedPerfume = perfume;
@@ -574,12 +575,13 @@ function openPerfume(perfume, updateHash = true) {
   scheduleCatalogSearchDockUpdate();
   if (updateHash) history.pushState({ perfume: perfume.id }, "", `#perfume=${encodeURIComponent(perfume.id)}`);
 }
-function closePerfume(updateHash = true) {
+function closePerfume(updateHash = true, options = {}) {
   detailOpenSequence += 1;
   clearTimeout(detailCueTimer);
   state.selectedPerfume = null;
   elements.dialog.classList.remove("detail-resetting-scroll", "detail-switching");
   if (elements.dialog.open) elements.dialog.close();
+  if (!options.preserveAdvisorReturn) setAdvisorResultReturnActive(false);
   if (!elements.advisorDialog.open) document.body.classList.remove("dialog-open");
   scheduleCatalogSearchDockUpdate();
   // showModal()/close() puede restaurar foco y viewport un frame después, sobre todo
@@ -764,16 +766,21 @@ function advisorThemeColor(field, value) {
 }
 
 const DEFAULT_BROWSER_THEME_COLOR = "#07090d";
-function setAdvisorBrowserChrome(color) {
+function setAdvisorBrowserChrome(color, fill = null) {
   const resolved = color || "#171a1f";
+  const backgroundFill = fill || resolved;
   document.documentElement.style.setProperty("--advisor-browser-bg", resolved);
   document.body.style.setProperty("--advisor-browser-bg", resolved);
+  document.documentElement.style.setProperty("--advisor-browser-fill", backgroundFill);
+  document.body.style.setProperty("--advisor-browser-fill", backgroundFill);
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.setAttribute("content", resolved);
 }
 function resetBrowserChrome() {
   document.documentElement.style.removeProperty("--advisor-browser-bg");
   document.body.style.removeProperty("--advisor-browser-bg");
+  document.documentElement.style.removeProperty("--advisor-browser-fill");
+  document.body.style.removeProperty("--advisor-browser-fill");
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.setAttribute("content", DEFAULT_BROWSER_THEME_COLOR);
 }
@@ -813,25 +820,28 @@ function animateAdvisorThemeFromButton(button, field, value) {
 
   // La capa vive DETRÁS del contenido. Revela el nuevo fondo con un círculo
   // continuo que nace en el botón; no hay cambio brusco al final.
+  const targetColor = advisorThemeColor(field, value);
+  const targetBackground = advisorThemeBackground(field, value);
   ripple.style.setProperty("--advisor-ripple-x", `${x}px`);
   ripple.style.setProperty("--advisor-ripple-y", `${y}px`);
   ripple.style.setProperty("--advisor-ripple-radius", `${radius}px`);
-  ripple.style.setProperty("--advisor-ripple-color", advisorThemeColor(field, value));
-  ripple.style.setProperty("--advisor-ripple-background", advisorThemeBackground(field, value));
+  ripple.style.setProperty("--advisor-ripple-color", targetColor);
+  ripple.style.setProperty("--advisor-ripple-background", targetBackground);
+  // Safari/iPhone: el color/gradiente externo también cambia desde el inicio
+  // para que la vista completa se sienta inmersiva y no quede un marco aparte.
+  setAdvisorBrowserChrome(targetColor, targetBackground);
   ripple.classList.remove("is-animating");
   void ripple.offsetWidth;
   ripple.classList.add("is-animating");
 
-  // Al cubrir por completo el diálogo, hacemos permanente exactamente el mismo
-  // tema que ya está viendo el usuario; así no existe un "salto" de fondo.
+  // Comprometemos el mismo tema que la animación ya está revelando.
   advisorThemeCommitTimer = window.setTimeout(() => {
     updateAdvisorAtmosphere();
-    setAdvisorBrowserChrome(advisorThemeColor(field, value));
-  }, 2180);
+  }, 2040);
 
   advisorThemeCleanupTimer = window.setTimeout(() => {
     ripple.classList.remove("is-animating");
-  }, 2260);
+  }, 2240);
 }
 
 function updateAdvisorAtmosphere() {
@@ -845,8 +855,11 @@ function updateAdvisorAtmosphere() {
   if (elements.advisorResults && !elements.advisorResults.hidden && climate) theme = `climate-${advisorThemeKey(climate)}`;
   elements.advisorDialog.dataset.advisorTheme = theme;
   if (elements.advisorDialog.open) {
-    const color = theme === "neutral" ? "#171a1f" : advisorThemeColor(theme.startsWith("category-") ? "category" : "climate", theme.replace(/^category-|^climate-/, ""));
-    setAdvisorBrowserChrome(color);
+    const fieldKey = theme.startsWith("category-") ? "category" : "climate";
+    const valueKey = theme.replace(/^category-|^climate-/, "");
+    const color = theme === "neutral" ? "#171a1f" : advisorThemeColor(fieldKey, valueKey);
+    const fill = theme === "neutral" ? "linear-gradient(145deg,#14171b,#1d2127 68%,#121519)" : advisorThemeBackground(fieldKey, valueKey);
+    setAdvisorBrowserChrome(color, fill);
   }
 }
 function openAdvisor() {
@@ -993,6 +1006,32 @@ function advisorRecommendations() {
   }
   return selected.slice(0,5);
 }
+
+function setAdvisorResultReturnActive(active) {
+  state.advisor.resultReturnActive = Boolean(active);
+  if (elements.detailBackToAdvisor) {
+    elements.detailBackToAdvisor.hidden = !active;
+    elements.detailBackToAdvisor.setAttribute("aria-hidden", String(!active));
+  }
+  elements.dialog?.classList.toggle("detail-has-advisor-return", Boolean(active));
+}
+
+function reopenAdvisorResults() {
+  if (!state.advisor.resultReturnActive) return;
+  if (!elements.advisorDialog.open) elements.advisorDialog.showModal();
+  document.body.classList.add("dialog-open", "advisor-open");
+  document.documentElement.classList.add("advisor-open");
+  elements.advisorDialog.classList.add("is-results");
+  elements.advisorResults.hidden = false;
+  elements.advisorSteps.hidden = true;
+  elements.advisorNext.hidden = true;
+  elements.advisorBack.hidden = true;
+  elements.advisorSkip.hidden = true;
+  elements.advisorRestart.hidden = false;
+  showAdvisorResults();
+  updateAdvisorAtmosphere();
+  scheduleCatalogSearchDockUpdate();
+}
 function recommendationCard(result, index) {
   const card = document.createElement("article");
   card.className = "advisor-result-card";
@@ -1006,7 +1045,9 @@ function recommendationCard(result, index) {
     <div class="advisor-why"><span>Por qué coincide</span><ul>${result.reasons.map(reason => `<li>${reason}</li>`).join("")}</ul></div>
     <button type="button">Ver perfil completo →</button>`;
   card.querySelector("button").addEventListener("click", () => {
-    closeAdvisor(); openPerfume(result.perfume);
+    setAdvisorResultReturnActive(true);
+    closeAdvisor();
+    openPerfume(result.perfume, true, { fromAdvisorResults: true });
   });
   return card;
 }
@@ -1231,6 +1272,13 @@ elements.designerFilter.addEventListener("change",event=>setFilter("designer",ev
 elements.familyFilter.addEventListener("change",event=>setFilter("family",event.target.value));
 elements.resetFilters.addEventListener("click",()=>{state.query="";state.category="";state.designer="";state.family="";state.tags.clear();syncSearchInputs("");elements.designerFilter.value="";elements.familyFilter.value="";render();});
 elements.closeDialog.addEventListener("click",()=>closePerfume());
+if (elements.detailBackToAdvisor) {
+  elements.detailBackToAdvisor.addEventListener("click", () => {
+    if (!state.advisor.resultReturnActive) return;
+    closePerfume(false, { preserveAdvisorReturn: true });
+    reopenAdvisorResults();
+  });
+}
 elements.dialog.addEventListener("click",event=>{if(event.target===elements.dialog)closePerfume();});
 elements.dialog.addEventListener("cancel",event=>{event.preventDefault();closePerfume();});
 elements.dialog.addEventListener("scroll", updateDetailScrollProgress, { passive: true });

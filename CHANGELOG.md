@@ -309,3 +309,9 @@
 - Intensidad normalizada: Sutil, Equilibrado e Intenso usan el mismo diámetro visual.
 - Clima Calor enriquecido con paisaje, cactus, sol y fuego en elementos emoji reales.
 - Resultados rediseñados como pantalla independiente y centrada, sin la introducción de los pasos.
+
+
+## Sprint 5.6 · Transición continua + retorno a resultados
+- Se sincronizó el fondo del Asesor con las zonas externas de Safari/iPhone usando `--advisor-browser-fill`, para evitar que el color final quede solo dentro del cuadro del diálogo.
+- La expansión visual de categoría y clima ahora usa exactamente el mismo fondo del estado final, reduciendo el salto perceptible al terminar la animación.
+- Se añadió una flecha exclusiva en la ficha abierta desde resultados del Asesor para volver a las coincidencias; la `X` sigue cerrando hacia Home.

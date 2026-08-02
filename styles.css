@@ -2931,3 +2931,61 @@ html.advisor-open body{
   }
   .advisor-results-heading{margin-bottom:18px!important}
 }
+
+
+/* =========================================================
+   SPRINT 5.6 · TRANSICIÓN CONTINUA + RETORNO A RESULTADOS
+   ========================================================= */
+html.advisor-open,
+body.advisor-open{
+  background:var(--advisor-browser-fill,var(--advisor-browser-bg,#171a1f))!important;
+  background-attachment:fixed!important;
+}
+.advisor-dialog[open]::before,
+.advisor-dialog[open]::backdrop{
+  background:var(--advisor-browser-fill,var(--advisor-browser-bg,#171a1f))!important;
+}
+.advisor-theme-ripple{
+  background:var(--advisor-ripple-background,var(--advisor-ripple-color,transparent))!important;
+}
+.advisor-theme-ripple.is-animating{
+  animation:advisorImmersiveRevealContinuous 2.18s linear both!important;
+}
+@keyframes advisorImmersiveRevealContinuous{
+  from{opacity:1;clip-path:circle(0 at var(--advisor-ripple-x,50%) var(--advisor-ripple-y,50%));}
+  to{opacity:1;clip-path:circle(var(--advisor-ripple-radius,1400px) at var(--advisor-ripple-x,50%) var(--advisor-ripple-y,50%));}
+}
+/* El diálogo también hereda el mismo color base para que el corte con el área
+   del navegador no se perciba como un cuadro separado. */
+.advisor-dialog[data-advisor-theme="category-caballero"]{--advisor-bg:#07101b!important;}
+.advisor-dialog[data-advisor-theme="category-dama"]{--advisor-bg:#260710!important;}
+.advisor-dialog[data-advisor-theme="category-unisex"]{--advisor-bg:#1f2226!important;}
+.advisor-dialog[data-advisor-theme="climate-calor"]{--advisor-bg:#4b2610!important;}
+.advisor-dialog[data-advisor-theme="climate-templado"]{--advisor-bg:#202827!important;}
+.advisor-dialog[data-advisor-theme="climate-frio"]{--advisor-bg:#081827!important;}
+
+/* Botón exclusivo para volver a resultados del asesor desde una ficha abierta
+   a partir de esas recomendaciones. */
+.dialog-back{
+  position:fixed;
+  top:max(14px,env(safe-area-inset-top));
+  left:14px;
+  z-index:31;
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(229,208,167,.22);
+  border-radius:50%;
+  background:rgba(19,17,14,.54);
+  color:#eee3cf;
+  font-size:1.15rem;
+  line-height:1;
+  box-shadow:0 10px 30px rgba(0,0,0,.24);
+  backdrop-filter:blur(14px);
+}
+.dialog-back:hover{transform:translateY(-1px);background:rgba(19,17,14,.78);border-color:rgba(229,208,167,.38)}
+.dialog-back[hidden]{display:none!important}
+@media(max-width:700px){
+  .dialog-back{top:max(14px,env(safe-area-inset-top))!important;left:14px!important;width:38px!important;height:38px!important}
+}
