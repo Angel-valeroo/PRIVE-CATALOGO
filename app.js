@@ -49,7 +49,7 @@ const ADVISOR_WEIGHTS = { category: 24, age: 12, occasion: 20, profile: 20, inte
 const ADVISOR_OPTION_ICONS = {
   Caballero: "🕴️", Dama: "🌹", Unisex: "⚖️",
   "Menos de 20": "✦", "20–29": "◒", "30–44": "◐", "45+": "◆",
-  Sutil: "○", Equilibrado: "◉", Intenso: "●"
+  Sutil: "○", Equilibrado: "◐", Intenso: "●"
 };
 const $ = selector => document.querySelector(selector);
 
@@ -732,7 +732,11 @@ function renderAdvisorOptions() {
       if (state.advisor.answers[field] === value) button.classList.add("is-selected");
       button.innerHTML = `<span aria-hidden="true">${ADVISOR_OPTION_ICONS[value] || TAG_ICONS[value] || "•"}</span><strong>${value}</strong>`;
       button.addEventListener("click", () => {
-        state.advisor.answers[field] = state.advisor.answers[field] === value ? "" : value;
+        const selecting = state.advisor.answers[field] !== value;
+        if (selecting && (field === "category" || field === "climate")) {
+          animateAdvisorThemeFromButton(button, field, value);
+        }
+        state.advisor.answers[field] = selecting ? value : "";
         renderAdvisorOptions(); updateAdvisorAtmosphere(); updateAdvisorNavigation();
       });
       return button;
@@ -743,6 +747,38 @@ function renderAdvisorOptions() {
 function advisorThemeKey(value) {
   return normalize(value).replace(/\s+/g, "-");
 }
+
+function advisorThemeColor(field, value) {
+  const key = `${field}-${advisorThemeKey(value)}`;
+  return {
+    "category-caballero": "#0d2742",
+    "category-dama": "#671b34",
+    "category-unisex": "#555b61",
+    "climate-calor": "#b45e1a",
+    "climate-templado": "#66736f",
+    "climate-frio": "#25638f"
+  }[key] || "#6b6254";
+}
+function animateAdvisorThemeFromButton(button, field, value) {
+  const ripple = elements.advisorDialog?.querySelector(".advisor-theme-ripple");
+  if (!ripple || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const dialogRect = elements.advisorDialog.getBoundingClientRect();
+  const buttonRect = button.getBoundingClientRect();
+  const x = buttonRect.left + buttonRect.width / 2 - dialogRect.left;
+  const y = buttonRect.top + buttonRect.height / 2 - dialogRect.top;
+  const farX = Math.max(x, dialogRect.width - x);
+  const farY = Math.max(y, dialogRect.height - y);
+  const radius = Math.hypot(farX, farY);
+  ripple.style.setProperty("--advisor-ripple-x", `${x}px`);
+  ripple.style.setProperty("--advisor-ripple-y", `${y}px`);
+  ripple.style.setProperty("--advisor-ripple-size", `${radius * 2}px`);
+  ripple.style.setProperty("--advisor-ripple-color", advisorThemeColor(field, value));
+  ripple.classList.remove("is-animating");
+  void ripple.offsetWidth;
+  ripple.classList.add("is-animating");
+  window.setTimeout(() => ripple.classList.remove("is-animating"), 720);
+}
+
 function updateAdvisorAtmosphere() {
   if (!elements.advisorDialog) return;
   const field = ADVISOR_FIELDS[state.advisor.step]?.key;
@@ -772,6 +808,7 @@ function closeAdvisor() {
 }
 function updateAdvisorStep() {
   document.querySelectorAll(".advisor-step").forEach((step, index) => step.classList.toggle("is-active", index === state.advisor.step));
+  if (elements.advisorDialog?.open) elements.advisorDialog.scrollTo({ top: 0, behavior: "auto" });
   const progress = ((state.advisor.step + 1) / ADVISOR_FIELDS.length) * 100;
   elements.advisorProgressBar.style.width = `${progress}%`;
   elements.advisorProgressText.textContent = `Paso ${state.advisor.step + 1} de ${ADVISOR_FIELDS.length}`;
@@ -919,6 +956,7 @@ function showAdvisorResults() {
   elements.advisorProgressBar.style.width = "100%";
   elements.advisorProgressText.textContent = "Recomendación lista";
   updateAdvisorAtmosphere();
+  elements.advisorDialog?.scrollTo({ top: 0, behavior: "auto" });
 }
 function restartAdvisor() {
   state.advisor.step = 0;
@@ -1097,6 +1135,22 @@ if (elements.catalogSearchClear) {
     elements.catalogSearch?.focus({ preventScroll: true });
   });
 }
+// La barra contextual es una capa interactiva completa: ningún toque dentro de
+// su rectángulo puede atravesarla y activar una tarjeta que esté detrás.
+if (elements.catalogSearchDock) {
+  ["pointerdown", "mousedown", "touchstart", "click"].forEach(type => {
+    elements.catalogSearchDock.addEventListener(type, event => {
+      event.stopPropagation();
+    }, { capture: true, passive: type === "touchstart" });
+  });
+  const dockBox = elements.catalogSearchDock.querySelector(".catalog-search-dock__box");
+  dockBox?.addEventListener("click", event => {
+    if (event.target === dockBox || event.target === elements.catalogSearchDock.querySelector(".catalog-search-dock__icon")) {
+      elements.catalogSearch?.focus({ preventScroll: true });
+    }
+  });
+}
+
 elements.clearSearch.addEventListener("click", () => {
   applySearch("");
   elements.search.focus();

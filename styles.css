@@ -1822,3 +1822,166 @@ body.dialog-open .catalog-search-dock{opacity:0!important;visibility:hidden!impo
 @media(prefers-reduced-motion:reduce){
   .advisor-atmosphere,.advisor-atmosphere span,.advisor-step{animation:none!important}
 }
+
+
+/* =========================================================
+   SPRINT 5.1 · PULIDO DEL ASESOR + BÚSQUEDA CONTEXTUAL
+   ========================================================= */
+.entry-card--coming .entry-arrow--bestsellers{
+  position:absolute;
+  right:18px;
+  top:18px;
+  display:grid;
+  place-items:center;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  font-size:1.18rem;
+  filter:drop-shadow(0 0 7px rgba(216,199,159,.5));
+  animation:bestSellerMedalGlow 2.8s ease-in-out infinite;
+}
+@keyframes bestSellerMedalGlow{50%{filter:drop-shadow(0 0 13px rgba(216,199,159,.8));transform:translateY(-1px)}}
+
+/* El diálogo completo es la superficie de scroll. Así ninguna opción ni resultado
+   queda atrapado detrás de la barra sticky de acciones en iPhone/Safari. */
+.advisor-dialog{
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  scroll-behavior:auto;
+}
+.advisor-shell{
+  min-height:100dvh!important;
+  padding-bottom:calc(94px + var(--safe-bottom))!important;
+}
+.advisor-steps,.advisor-results{
+  flex:0 0 auto!important;
+  min-height:0;
+}
+.advisor-step{
+  padding-bottom:34px!important;
+}
+.advisor-results{
+  padding-bottom:34px!important;
+}
+.advisor-actions{
+  position:sticky!important;
+  bottom:0!important;
+  margin-top:auto!important;
+}
+
+/* Expansión de color nacida exactamente en el botón seleccionado. */
+.advisor-theme-ripple{
+  position:fixed;
+  z-index:1;
+  left:var(--advisor-ripple-x,50%);
+  top:var(--advisor-ripple-y,50%);
+  width:var(--advisor-ripple-size,20px);
+  height:var(--advisor-ripple-size,20px);
+  border-radius:50%;
+  pointer-events:none;
+  background:var(--advisor-ripple-color,transparent);
+  opacity:0;
+  transform:translate(-50%,-50%) scale(0);
+  will-change:transform,opacity;
+}
+.advisor-theme-ripple.is-animating{
+  animation:advisorThemeBloom .68s cubic-bezier(.2,.72,.18,1) both;
+}
+@keyframes advisorThemeBloom{
+  0%{opacity:.62;transform:translate(-50%,-50%) scale(0)}
+  70%{opacity:.34}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1)}
+}
+
+/* Climas: paisajes abstractos, no ilustraciones pesadas. */
+.advisor-atmosphere::before,.advisor-atmosphere::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .45s ease;
+}
+.advisor-dialog[data-advisor-theme="climate-calor"] .advisor-atmosphere::before{
+  opacity:.48;
+  background:
+    radial-gradient(ellipse at 50% 88%,rgba(182,92,22,.5) 0 22%,transparent 23%),
+    radial-gradient(ellipse at 12% 100%,rgba(94,42,10,.5) 0 28%,transparent 29%),
+    linear-gradient(to top,rgba(111,48,9,.42),transparent 48%);
+  clip-path:polygon(0 58%,12% 52%,28% 61%,43% 48%,62% 60%,78% 50%,100% 59%,100% 100%,0 100%);
+}
+.advisor-dialog[data-advisor-theme="climate-calor"] .advisor-atmosphere::after{
+  opacity:.42;
+  background:
+    radial-gradient(ellipse at 18% 94%,rgba(255,159,57,.65) 0 2%,transparent 4%),
+    radial-gradient(ellipse at 28% 97%,rgba(255,114,36,.55) 0 2%,transparent 5%),
+    radial-gradient(ellipse at 82% 96%,rgba(255,153,47,.55) 0 2%,transparent 5%);
+  filter:blur(2px);
+  animation:advisorFlameFlicker 2.4s ease-in-out infinite alternate;
+}
+@keyframes advisorFlameFlicker{to{transform:translateY(-12px) scaleY(1.18);opacity:.22}}
+.advisor-dialog[data-advisor-theme="climate-templado"] .advisor-atmosphere::before{
+  opacity:.38;
+  background:
+    radial-gradient(ellipse at 18% 26%,rgba(232,238,237,.28) 0 12%,transparent 13%),
+    radial-gradient(ellipse at 35% 22%,rgba(232,238,237,.22) 0 16%,transparent 17%),
+    radial-gradient(ellipse at 72% 34%,rgba(222,230,228,.24) 0 18%,transparent 19%),
+    linear-gradient(145deg,transparent 0 55%,rgba(228,237,236,.06) 56% 100%);
+  filter:blur(7px);
+  animation:advisorCloudLayer 10s ease-in-out infinite alternate;
+}
+.advisor-dialog[data-advisor-theme="climate-templado"] .advisor-atmosphere::after{
+  opacity:.14;
+  background:linear-gradient(112deg,transparent 48%,rgba(255,255,240,.95) 49% 49.6%,transparent 50.5%);
+  animation:advisorLightning 6.5s steps(1,end) infinite;
+}
+@keyframes advisorCloudLayer{to{transform:translate3d(28px,8px,0) scale(1.05)}}
+@keyframes advisorLightning{0%,82%,86%,100%{opacity:0}83%{opacity:.32}84%{opacity:.08}85%{opacity:.22}}
+.advisor-dialog[data-advisor-theme="climate-frio"] .advisor-atmosphere::before{
+  opacity:.35;
+  background:
+    radial-gradient(ellipse at 20% 22%,rgba(237,247,255,.22) 0 15%,transparent 16%),
+    radial-gradient(ellipse at 68% 27%,rgba(237,247,255,.18) 0 20%,transparent 21%),
+    repeating-linear-gradient(170deg,transparent 0 28px,rgba(219,240,255,.10) 30px 32px,transparent 34px 66px);
+  filter:blur(5px);
+  animation:advisorColdWind 5.5s linear infinite;
+}
+.advisor-dialog[data-advisor-theme="climate-frio"] .advisor-atmosphere::after{
+  opacity:.58;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.82) 0 1.2px,transparent 1.8px),
+    radial-gradient(circle,rgba(239,249,255,.58) 0 1px,transparent 1.6px);
+  background-size:54px 64px,82px 92px;
+  background-position:0 0,21px 17px;
+  animation:advisorSnowStorm 7s linear infinite;
+}
+@keyframes advisorColdWind{to{transform:translate3d(-36px,12px,0)}}
+@keyframes advisorSnowStorm{to{background-position:-80px 150px,-45px 190px}}
+
+/* La barra flotante es una única zona táctil sólida. Nada de su rectángulo
+   permite click-through a una tarjeta situada detrás. */
+.catalog-search-dock{
+  z-index:500!important;
+  pointer-events:none;
+  isolation:isolate;
+}
+.catalog-search-dock.is-visible{pointer-events:auto!important}
+.catalog-search-dock__box{
+  position:relative;
+  z-index:2;
+  pointer-events:auto!important;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+.catalog-search-dock__box *{pointer-events:auto}
+
+@media(max-width:700px){
+  .advisor-dialog{height:100dvh!important;max-height:100dvh!important}
+  .advisor-shell{padding-bottom:calc(104px + var(--safe-bottom))!important}
+  .advisor-actions{padding-bottom:calc(16px + var(--safe-bottom))!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .advisor-theme-ripple,.entry-arrow--bestsellers,.advisor-atmosphere::before,.advisor-atmosphere::after{animation:none!important}
+}

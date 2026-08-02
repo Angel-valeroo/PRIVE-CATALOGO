@@ -265,3 +265,13 @@
 - Se agregó en Home la entrada “Top más vendidos” entre el Asesor y Explorar catálogo, marcada como “Próximamente” y aún sin lógica comercial.
 - No se modificaron las 547 fichas de la Base Maestra.
 - Caché actualizada a styles 4.8 / app 5.9.
+
+## Sprint 5.1 — Pulido Asesor Inteligente y búsqueda contextual
+- Top más vendidos: medalla con brillo y copy simplificado.
+- Asesor: animación de expansión desde selección en categoría y clima.
+- Edad: pregunta más natural para cliente final.
+- Scroll corregido en todos los pasos y resultados del Asesor.
+- Intensidad: iconografía ○ / ◐ / ●.
+- Clima: atmósferas sutiles de calor, templado y frío.
+- Búsqueda contextual: zona táctil protegida contra clics a tarjetas detrás.
+- Limpieza de reportes, instrucciones y README de sprints históricos no necesarios para producción.
