@@ -733,11 +733,14 @@ function renderAdvisorOptions() {
       button.innerHTML = `<span aria-hidden="true">${ADVISOR_OPTION_ICONS[value] || TAG_ICONS[value] || "•"}</span><strong>${value}</strong>`;
       button.addEventListener("click", () => {
         const selecting = state.advisor.answers[field] !== value;
+        state.advisor.answers[field] = selecting ? value : "";
         if (selecting && (field === "category" || field === "climate")) {
           animateAdvisorThemeFromButton(button, field, value);
+        } else {
+          updateAdvisorAtmosphere();
         }
-        state.advisor.answers[field] = selecting ? value : "";
-        renderAdvisorOptions(); updateAdvisorAtmosphere(); updateAdvisorNavigation();
+        renderAdvisorOptions();
+        updateAdvisorNavigation();
       });
       return button;
     });
@@ -759,9 +762,17 @@ function advisorThemeColor(field, value) {
     "climate-frio": "#25638f"
   }[key] || "#6b6254";
 }
+let advisorThemeCommitTimer = 0;
 function animateAdvisorThemeFromButton(button, field, value) {
   const ripple = elements.advisorDialog?.querySelector(".advisor-theme-ripple");
-  if (!ripple || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.clearTimeout(advisorThemeCommitTimer);
+
+  if (!ripple || reducedMotion) {
+    updateAdvisorAtmosphere();
+    return;
+  }
+
   const dialogRect = elements.advisorDialog.getBoundingClientRect();
   const buttonRect = button.getBoundingClientRect();
   const x = buttonRect.left + buttonRect.width / 2 - dialogRect.left;
@@ -769,6 +780,7 @@ function animateAdvisorThemeFromButton(button, field, value) {
   const farX = Math.max(x, dialogRect.width - x);
   const farY = Math.max(y, dialogRect.height - y);
   const radius = Math.hypot(farX, farY);
+
   ripple.style.setProperty("--advisor-ripple-x", `${x}px`);
   ripple.style.setProperty("--advisor-ripple-y", `${y}px`);
   ripple.style.setProperty("--advisor-ripple-size", `${radius * 2}px`);
@@ -776,7 +788,16 @@ function animateAdvisorThemeFromButton(button, field, value) {
   ripple.classList.remove("is-animating");
   void ripple.offsetWidth;
   ripple.classList.add("is-animating");
-  window.setTimeout(() => ripple.classList.remove("is-animating"), 720);
+
+  // El fondo definitivo se aplica casi al final de la expansión. Así el cliente
+  // ve claramente que el color nace en el botón y se propaga por la pantalla.
+  advisorThemeCommitTimer = window.setTimeout(() => {
+    updateAdvisorAtmosphere();
+  }, 1380);
+
+  window.setTimeout(() => {
+    ripple.classList.remove("is-animating");
+  }, 1850);
 }
 
 function updateAdvisorAtmosphere() {
@@ -798,17 +819,24 @@ function openAdvisor() {
   elements.advisorBack.hidden = false; elements.advisorSkip.hidden = false;
   renderAdvisorOptions(); updateAdvisorStep(); updateAdvisorAtmosphere();
   if (!elements.advisorDialog.open) elements.advisorDialog.showModal();
-  document.body.classList.add("dialog-open");
+  document.body.classList.add("dialog-open", "advisor-open");
+  document.documentElement.classList.add("advisor-open");
+  elements.advisorSteps?.scrollTo({ top: 0, behavior: "auto" });
   scheduleCatalogSearchDockUpdate();
 }
 function closeAdvisor() {
   if (elements.advisorDialog.open) elements.advisorDialog.close();
+  document.body.classList.remove("advisor-open");
+  document.documentElement.classList.remove("advisor-open");
   if (!elements.dialog.open) document.body.classList.remove("dialog-open");
   scheduleCatalogSearchDockUpdate();
 }
 function updateAdvisorStep() {
   document.querySelectorAll(".advisor-step").forEach((step, index) => step.classList.toggle("is-active", index === state.advisor.step));
-  if (elements.advisorDialog?.open) elements.advisorDialog.scrollTo({ top: 0, behavior: "auto" });
+  if (elements.advisorDialog?.open) {
+    elements.advisorSteps?.scrollTo({ top: 0, behavior: "auto" });
+    elements.advisorResults?.scrollTo({ top: 0, behavior: "auto" });
+  }
   const progress = ((state.advisor.step + 1) / ADVISOR_FIELDS.length) * 100;
   elements.advisorProgressBar.style.width = `${progress}%`;
   elements.advisorProgressText.textContent = `Paso ${state.advisor.step + 1} de ${ADVISOR_FIELDS.length}`;
@@ -956,7 +984,7 @@ function showAdvisorResults() {
   elements.advisorProgressBar.style.width = "100%";
   elements.advisorProgressText.textContent = "Recomendación lista";
   updateAdvisorAtmosphere();
-  elements.advisorDialog?.scrollTo({ top: 0, behavior: "auto" });
+  elements.advisorResults?.scrollTo({ top: 0, behavior: "auto" });
 }
 function restartAdvisor() {
   state.advisor.step = 0;

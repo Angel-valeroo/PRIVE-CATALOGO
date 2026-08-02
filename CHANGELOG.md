@@ -275,3 +275,11 @@
 - Clima: atmósferas sutiles de calor, templado y frío.
 - Búsqueda contextual: zona táctil protegida contra clics a tarjetas detrás.
 - Limpieza de reportes, instrucciones y README de sprints históricos no necesarios para producción.
+
+## Sprint 5.2 — Asesor full-screen y pulido visual (2026-08-01)
+- Asesor móvil reestructurado: encabezado fijo, opciones/resultados con scroll propio y acciones ancladas al borde inferior.
+- Cobertura de fondo reforzada para Safari/iPhone para evitar que el Home aparezca detrás de las barras del navegador.
+- Transiciones de categoría y clima más lentas, nacidas desde el botón y con ondas múltiples.
+- Clima rediseñado con llamas, nubes y copos de nieve reconocibles.
+- Medalla de “Top más vendidos” centrada en su tarjeta.
+- Limpieza del repositorio: retirados reportes, instrucciones y README históricos de sprints que no intervienen en el funcionamiento.
