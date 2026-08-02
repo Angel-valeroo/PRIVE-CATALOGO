@@ -717,10 +717,10 @@ function openFromHash() {
 /* Asesor Inteligente */
 function advisorAvailableValues(field) {
   const config = ADVISOR_FIELDS.find(item => item.key === field);
-  if (!config) return [];
-  if (["category", "age", "intensity"].includes(field)) return config.values;
-  const allTags = new Set(state.perfumes.flatMap(perfumeTags));
-  return config.values.filter(value => allTags.has(value));
+  // Las opciones del Asesor son parte de la interfaz y no deben desaparecer
+  // por una carrera de carga de la Base Maestra. El motor decide después qué
+  // tan bien coincide cada criterio con cada perfume.
+  return config ? [...config.values] : [];
 }
 function renderAdvisorOptions() {
   document.querySelectorAll(".advisor-options").forEach(container => {
@@ -766,21 +766,18 @@ function advisorThemeColor(field, value) {
 }
 
 const DEFAULT_BROWSER_THEME_COLOR = "#07090d";
-function setAdvisorBrowserChrome(color, fill = null) {
+function setAdvisorBrowserChrome(color, { commitMeta = true } = {}) {
   const resolved = color || "#171a1f";
-  const backgroundFill = fill || resolved;
   document.documentElement.style.setProperty("--advisor-browser-bg", resolved);
   document.body.style.setProperty("--advisor-browser-bg", resolved);
-  document.documentElement.style.setProperty("--advisor-browser-fill", backgroundFill);
-  document.body.style.setProperty("--advisor-browser-fill", backgroundFill);
-  const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute("content", resolved);
+  if (commitMeta) {
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", resolved);
+  }
 }
 function resetBrowserChrome() {
   document.documentElement.style.removeProperty("--advisor-browser-bg");
   document.body.style.removeProperty("--advisor-browser-bg");
-  document.documentElement.style.removeProperty("--advisor-browser-fill");
-  document.body.style.removeProperty("--advisor-browser-fill");
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.setAttribute("content", DEFAULT_BROWSER_THEME_COLOR);
 }
@@ -827,17 +824,26 @@ function animateAdvisorThemeFromButton(button, field, value) {
   ripple.style.setProperty("--advisor-ripple-radius", `${radius}px`);
   ripple.style.setProperty("--advisor-ripple-color", targetColor);
   ripple.style.setProperty("--advisor-ripple-background", targetBackground);
-  // Safari/iPhone: el color/gradiente externo también cambia desde el inicio
-  // para que la vista completa se sienta inmersiva y no quede un marco aparte.
-  setAdvisorBrowserChrome(targetColor, targetBackground);
+
+  // Las zonas transparentes superior/inferior de Safari cambian de color en
+  // paralelo a la expansión. No aplicamos el gradiente final al diálogo antes
+  // de tiempo: la capa de reveal es la que construye visualmente el fondo.
+  setAdvisorBrowserChrome(targetColor, { commitMeta: false });
   ripple.classList.remove("is-animating");
   void ripple.offsetWidth;
   ripple.classList.add("is-animating");
 
-  // Comprometemos el mismo tema que la animación ya está revelando.
+  // Cuando el reveal ya cubrió la pantalla, fijamos exactamente ese mismo
+  // tema sin una segunda transición de background (el salto histórico).
   advisorThemeCommitTimer = window.setTimeout(() => {
+    elements.advisorDialog.classList.add("is-theme-committing");
     updateAdvisorAtmosphere();
-  }, 2040);
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", targetColor);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      elements.advisorDialog.classList.remove("is-theme-committing");
+    }));
+  }, 2160);
 
   advisorThemeCleanupTimer = window.setTimeout(() => {
     ripple.classList.remove("is-animating");
@@ -858,13 +864,14 @@ function updateAdvisorAtmosphere() {
     const fieldKey = theme.startsWith("category-") ? "category" : "climate";
     const valueKey = theme.replace(/^category-|^climate-/, "");
     const color = theme === "neutral" ? "#171a1f" : advisorThemeColor(fieldKey, valueKey);
-    const fill = theme === "neutral" ? "linear-gradient(145deg,#14171b,#1d2127 68%,#121519)" : advisorThemeBackground(fieldKey, valueKey);
-    setAdvisorBrowserChrome(color, fill);
+    const ripple = elements.advisorDialog.querySelector(".advisor-theme-ripple");
+    if (!ripple?.classList.contains("is-animating")) setAdvisorBrowserChrome(color);
   }
 }
 function openAdvisor() {
   state.advisor.step = 0;
   state.advisor.answers = { category: "", age: "", occasion: "", profile: "", intensity: "", climate: "" };
+  setAdvisorResultReturnActive(false);
   elements.advisorResults.hidden = true; elements.advisorSteps.hidden = false;
   elements.advisorRestart.hidden = true; elements.advisorNext.hidden = false;
   elements.advisorBack.hidden = false; elements.advisorSkip.hidden = false;
@@ -886,6 +893,15 @@ function closeAdvisor() {
   if (!elements.dialog.open) document.body.classList.remove("dialog-open");
   scheduleCatalogSearchDockUpdate();
 }
+function exitAdvisorToHome() {
+  // Salida deliberadamente limpia: elimina hash/historial de ficha y cualquier
+  // estado temporal del Asesor antes de reconstruir el Home desde cero.
+  setAdvisorResultReturnActive(false);
+  resetBrowserChrome();
+  const cleanUrl = `${location.pathname}${location.search}`;
+  location.replace(cleanUrl);
+}
+
 function updateAdvisorStep() {
   document.querySelectorAll(".advisor-step").forEach((step, index) => step.classList.toggle("is-active", index === state.advisor.step));
   if (elements.advisorDialog?.open) {
@@ -1271,7 +1287,10 @@ elements.clearSearch.addEventListener("click", () => {
 elements.designerFilter.addEventListener("change",event=>setFilter("designer",event.target.value));
 elements.familyFilter.addEventListener("change",event=>setFilter("family",event.target.value));
 elements.resetFilters.addEventListener("click",()=>{state.query="";state.category="";state.designer="";state.family="";state.tags.clear();syncSearchInputs("");elements.designerFilter.value="";elements.familyFilter.value="";render();});
-elements.closeDialog.addEventListener("click",()=>closePerfume());
+elements.closeDialog.addEventListener("click",()=>{
+  if (state.advisor.resultReturnActive) exitAdvisorToHome();
+  else closePerfume();
+});
 if (elements.detailBackToAdvisor) {
   elements.detailBackToAdvisor.addEventListener("click", () => {
     if (!state.advisor.resultReturnActive) return;
@@ -1283,9 +1302,9 @@ elements.dialog.addEventListener("click",event=>{if(event.target===elements.dial
 elements.dialog.addEventListener("cancel",event=>{event.preventDefault();closePerfume();});
 elements.dialog.addEventListener("scroll", updateDetailScrollProgress, { passive: true });
 elements.openAdvisor.addEventListener("click", openAdvisor);
-elements.closeAdvisor.addEventListener("click", closeAdvisor);
-elements.advisorDialog.addEventListener("click", event => { if (event.target === elements.advisorDialog) closeAdvisor(); });
-elements.advisorDialog.addEventListener("cancel", event => { event.preventDefault(); closeAdvisor(); });
+elements.closeAdvisor.addEventListener("click", exitAdvisorToHome);
+elements.advisorDialog.addEventListener("click", event => { if (event.target === elements.advisorDialog) exitAdvisorToHome(); });
+elements.advisorDialog.addEventListener("cancel", event => { event.preventDefault(); exitAdvisorToHome(); });
 elements.advisorBack.addEventListener("click", () => { if (state.advisor.step > 0) { state.advisor.step -= 1; updateAdvisorStep(); } });
 elements.advisorSkip.addEventListener("click", () => {
   const field = ADVISOR_FIELDS[state.advisor.step].key;

@@ -315,3 +315,10 @@
 - Se sincronizó el fondo del Asesor con las zonas externas de Safari/iPhone usando `--advisor-browser-fill`, para evitar que el color final quede solo dentro del cuadro del diálogo.
 - La expansión visual de categoría y clima ahora usa exactamente el mismo fondo del estado final, reduciendo el salto perceptible al terminar la animación.
 - Se añadió una flecha exclusiva en la ficha abierta desde resultados del Asesor para volver a las coincidencias; la `X` sigue cerrando hacia Home.
+
+## Sprint 5.7 · Fondo inmersivo estable + salida limpia
+- Se eliminó la segunda transición de fondo que producía un salto al terminar la expansión de categoría o clima.
+- Las zonas superior e inferior expuestas por Safari ahora interpolan el color de página en paralelo al reveal del Asesor.
+- Las opciones de las seis preguntas del Asesor ya no dependen del momento de carga de la Base Maestra y permanecen estables.
+- La X del Asesor/resultados queda por encima de todas las tarjetas y capas con `backdrop-filter`.
+- Al salir mediante la X desde el flujo del Asesor se vuelve al Home con una recarga limpia, eliminando estado/hash temporal antes de volver a abrir perfumes del catálogo.

@@ -2989,3 +2989,80 @@ body.advisor-open{
 @media(max-width:700px){
   .dialog-back{top:max(14px,env(safe-area-inset-top))!important;left:14px!important;width:38px!important;height:38px!important}
 }
+
+/* =========================================================
+   SPRINT 5.7 · FONDO INMERSIVO ESTABLE + ESTADO LIMPIO
+   ========================================================= */
+
+/* Safari/iPhone: las zonas visibles detrás de las barras del navegador usan
+   un color real de página y lo interpolan durante la misma duración que el
+   reveal. El diálogo no recibe el fondo final antes de que termine la animación. */
+html.advisor-open,
+body.advisor-open{
+  background-color:var(--advisor-browser-bg,#171a1f)!important;
+  background-image:none!important;
+  transition:background-color 2.18s linear!important;
+}
+.advisor-dialog[open]::before{
+  background:var(--advisor-bg,#171a1f)!important;
+}
+.advisor-dialog[open]::backdrop{
+  background:var(--advisor-browser-bg,var(--advisor-bg,#171a1f))!important;
+  transition:background-color 2.18s linear!important;
+}
+
+/* El background definitivo nunca hace una segunda interpolación al finalizar
+   el círculo: la propia capa animada ya mostró exactamente ese mismo fondo. */
+.advisor-dialog{
+  transition:color .36s ease!important;
+}
+.advisor-dialog.is-theme-committing{
+  transition:none!important;
+}
+
+/* Reveal continuo, sin escalones intermedios. */
+.advisor-theme-ripple.is-animating{
+  animation:advisorFullScreenReveal 2.2s linear both!important;
+}
+@keyframes advisorFullScreenReveal{
+  from{
+    opacity:1;
+    clip-path:circle(0 at var(--advisor-ripple-x,50%) var(--advisor-ripple-y,50%));
+  }
+  to{
+    opacity:1;
+    clip-path:circle(var(--advisor-ripple-radius,1500px) at var(--advisor-ripple-x,50%) var(--advisor-ripple-y,50%));
+  }
+}
+
+/* La X del Asesor/resultados siempre es la capa superior, incluso cuando las
+   tarjetas con backdrop-filter crean sus propios contextos de composición. */
+.advisor-close,
+.advisor-dialog.is-results .advisor-close{
+  position:fixed!important;
+  z-index:2147483000!important;
+  pointer-events:auto!important;
+  isolation:isolate!important;
+  transform:translateZ(0);
+}
+.advisor-results,
+.advisor-recommendations,
+.advisor-result-card{
+  z-index:auto!important;
+}
+
+/* Mantiene el área de resultados por debajo de los controles flotantes. */
+.advisor-dialog.is-results .advisor-results{
+  position:relative!important;
+  z-index:4!important;
+}
+
+/* La flecha de retorno desde una coincidencia sigue siendo exclusiva de ese
+   flujo y queda claramente separada de la X de salida al Home. */
+.dialog-back{
+  z-index:2147482999!important;
+}
+
+@media(prefers-reduced-motion:reduce){
+  html.advisor-open,body.advisor-open{transition:none!important}
+}
