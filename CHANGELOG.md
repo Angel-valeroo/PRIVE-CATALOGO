@@ -1,3 +1,11 @@
+## 2026-08-01 — Búsqueda contextual: sesión y anclaje determinístico
+
+- Cada nueva interacción con la búsqueda contextual inicia una sesión independiente.
+- Al comenzar una nueva consulta, la vista vuelve al inicio real de las tarjetas y recalcula el ancla después del primer render.
+- Las teclas posteriores actualizan resultados sin volver a desplazar la página.
+- Se refuerza el mismo comportamiento después de cerrar fichas y navegar desde “También te puede gustar”.
+- Se conserva la barra contextual visible mientras el usuario permanezca en la colección.
+
 ## 2026-07-31 — Corrección búsqueda contextual
 
 - La “X” limpia visualmente ambas barras además de restablecer resultados.

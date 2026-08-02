@@ -877,38 +877,61 @@ function applySearch(value, { scroll = false, scrollBehavior = "smooth" } = {}) 
 let catalogSearchEngaged = false;
 let catalogSearchPositioning = false;
 let catalogSearchPositioningTimer = 0;
+let catalogSearchAnchorPending = false;
+let catalogSearchAnchorFrame = 0;
 
 function catalogCardsSearchTarget() {
   const catalogGrid = elements.catalog;
   if (!catalogGrid) return null;
   const dockHeight = elements.catalogSearchDock?.getBoundingClientRect().height || 52;
-  const safeTop = Math.max(14, dockHeight + 16);
+  const viewportOffset = window.visualViewport ? Math.max(0, window.visualViewport.offsetTop || 0) : 0;
+  const safeTop = Math.max(14, dockHeight + 16 + viewportOffset);
   const absoluteGridTop = window.scrollY + catalogGrid.getBoundingClientRect().top;
   return Math.max(0, absoluteGridTop - safeTop);
 }
 
-function positionCatalogCardsForContextSearch(behavior = "smooth") {
+function positionCatalogCardsForContextSearch(behavior = "auto") {
   const targetTop = catalogCardsSearchTarget();
   if (targetTop == null) return;
   catalogSearchEngaged = true;
   scheduleCatalogSearchDockUpdate();
-  if (Math.abs(window.scrollY - targetTop) < 10) return;
+  if (Math.abs(window.scrollY - targetTop) < 8) return;
 
-  // El desplazamiento pertenece al acto de volver a usar la búsqueda, no a cada
-  // tecla. Durante este movimiento el dock se mantiene fijado explícitamente.
   catalogSearchPositioning = true;
   clearTimeout(catalogSearchPositioningTimer);
   window.scrollTo({ top: targetTop, left: 0, behavior });
   catalogSearchPositioningTimer = window.setTimeout(() => {
     catalogSearchPositioning = false;
     scheduleCatalogSearchDockUpdate();
-  }, behavior === "smooth" ? 520 : 80);
+  }, behavior === "smooth" ? 520 : 120);
 }
 
-function engageCatalogSearch({ reposition = true } = {}) {
+function scheduleCatalogSearchAnchor(behavior = "auto") {
+  cancelAnimationFrame(catalogSearchAnchorFrame);
+  catalogSearchAnchorFrame = requestAnimationFrame(() => {
+    // Esperar un segundo frame permite que render() reconstruya la primera fila
+    // antes de calcular su posición definitiva. Esto evita anclar usando la altura
+    // de la consulta anterior.
+    catalogSearchAnchorFrame = requestAnimationFrame(() => {
+      catalogSearchAnchorFrame = 0;
+      positionCatalogCardsForContextSearch(behavior);
+    });
+  });
+}
+
+function beginCatalogSearchSession() {
   catalogSearchEngaged = true;
+  catalogSearchAnchorPending = true;
   scheduleCatalogSearchDockUpdate();
-  if (reposition) requestAnimationFrame(() => positionCatalogCardsForContextSearch("smooth"));
+  // Movimiento preventivo al tocar la barra. La primera edición de texto vuelve a
+  // verificar el ancla después del render, por lo que Safari no puede dejarla a medias.
+  scheduleCatalogSearchAnchor("auto");
+}
+
+function anchorCatalogSearchAfterFirstEdit() {
+  if (!catalogSearchAnchorPending) return;
+  catalogSearchAnchorPending = false;
+  scheduleCatalogSearchAnchor("auto");
 }
 
 function updateCatalogSearchVisualViewport() {
@@ -948,25 +971,30 @@ elements.search.addEventListener("keydown", event => {
 elements.submitSearch.addEventListener("click", executeSearch);
 if (elements.catalogSearch) {
   elements.catalogSearch.addEventListener("pointerdown", () => {
-    // pointerdown también se dispara cuando el input ya tenía foco. Esto resuelve
-    // el caso: buscar -> bajar varias tarjetas -> tocar de nuevo el buscador.
-    engageCatalogSearch({ reposition: true });
+    // Cada nueva interacción con la barra inicia una sesión. Si el cliente bajó
+    // dentro de Valentino/Dior/etc., el primer resultado vuelve a quedar arriba.
+    beginCatalogSearchSession();
   });
   elements.catalogSearch.addEventListener("focus", () => {
     catalogSearchEngaged = true;
+    if (!catalogSearchAnchorPending) catalogSearchAnchorPending = true;
     updateCatalogSearchVisualViewport();
     scheduleCatalogSearchDockUpdate();
+    scheduleCatalogSearchAnchor("auto");
   });
   elements.catalogSearch.addEventListener("input", event => {
-    // Cada tecla únicamente filtra. Nunca provoca scroll ni cambia la visibilidad.
     catalogSearchEngaged = true;
     applySearch(event.target.value);
+    // Solo la PRIMERA edición de esta sesión reposiciona, y se hace después de
+    // renderizar los resultados nuevos. Las letras siguientes jamás hacen scroll.
+    anchorCatalogSearchAfterFirstEdit();
     scheduleCatalogSearchDockUpdate();
   });
   elements.catalogSearch.addEventListener("keydown", event => {
     if (event.key === "Enter") {
       event.preventDefault();
       applySearch(event.currentTarget.value);
+      anchorCatalogSearchAfterFirstEdit();
       // Enter confirma la consulta y únicamente cierra el teclado móvil.
       event.currentTarget.blur();
     }
@@ -978,7 +1006,10 @@ if (elements.catalogSearch) {
 }
 if (elements.catalogSearchClear) {
   elements.catalogSearchClear.addEventListener("click", () => {
+    catalogSearchEngaged = true;
+    catalogSearchAnchorPending = false;
     applySearch("");
+    scheduleCatalogSearchAnchor("auto");
     elements.catalogSearch?.focus({ preventScroll: true });
   });
 }
