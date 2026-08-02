@@ -766,20 +766,29 @@ function advisorThemeColor(field, value) {
 }
 
 const DEFAULT_BROWSER_THEME_COLOR = "#07090d";
-function setAdvisorBrowserChrome(color, { commitMeta = true } = {}) {
+function forceBrowserThemeMeta(color) {
+  const current = document.querySelector('meta[name="theme-color"]');
+  const meta = current ? current.cloneNode(false) : document.createElement("meta");
+  meta.setAttribute("name", "theme-color");
+  meta.setAttribute("content", color || DEFAULT_BROWSER_THEME_COLOR);
+  if (current) current.replaceWith(meta);
+  else document.head.appendChild(meta);
+}
+function setAdvisorBrowserChrome(color, fill = null, { commitMeta = true } = {}) {
   const resolved = color || "#171a1f";
+  const backgroundFill = fill || resolved;
   document.documentElement.style.setProperty("--advisor-browser-bg", resolved);
   document.body.style.setProperty("--advisor-browser-bg", resolved);
-  if (commitMeta) {
-    const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", resolved);
-  }
+  document.documentElement.style.setProperty("--advisor-browser-fill", backgroundFill);
+  document.body.style.setProperty("--advisor-browser-fill", backgroundFill);
+  if (commitMeta) forceBrowserThemeMeta(resolved);
 }
 function resetBrowserChrome() {
   document.documentElement.style.removeProperty("--advisor-browser-bg");
   document.body.style.removeProperty("--advisor-browser-bg");
-  const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute("content", DEFAULT_BROWSER_THEME_COLOR);
+  document.documentElement.style.removeProperty("--advisor-browser-fill");
+  document.body.style.removeProperty("--advisor-browser-fill");
+  forceBrowserThemeMeta(DEFAULT_BROWSER_THEME_COLOR);
 }
 
 function advisorThemeBackground(field, value) {
@@ -802,6 +811,14 @@ function animateAdvisorThemeFromButton(button, field, value) {
   window.clearTimeout(advisorThemeCommitTimer);
   window.clearTimeout(advisorThemeCleanupTimer);
 
+  const targetColor = advisorThemeColor(field, value);
+  const targetBackground = advisorThemeBackground(field, value);
+
+  // La superficie exterior de Safari no puede ser dibujada por el DOM. Por eso
+  // se sincroniza con el mismo tema desde el primer frame, mientras el fondo del
+  // Asesor se construye visualmente con la máscara circular.
+  setAdvisorBrowserChrome(targetColor, targetBackground, { commitMeta: true });
+
   if (!ripple || reducedMotion) {
     updateAdvisorAtmosphere();
     return;
@@ -813,41 +830,30 @@ function animateAdvisorThemeFromButton(button, field, value) {
   const y = buttonRect.top + buttonRect.height / 2 - dialogRect.top;
   const farX = Math.max(x, dialogRect.width - x);
   const farY = Math.max(y, dialogRect.height - y);
-  const radius = Math.ceil(Math.hypot(farX, farY) + 36);
+  const radius = Math.ceil(Math.hypot(farX, farY) + 72);
 
-  // La capa vive DETRÁS del contenido. Revela el nuevo fondo con un círculo
-  // continuo que nace en el botón; no hay cambio brusco al final.
-  const targetColor = advisorThemeColor(field, value);
-  const targetBackground = advisorThemeBackground(field, value);
   ripple.style.setProperty("--advisor-ripple-x", `${x}px`);
   ripple.style.setProperty("--advisor-ripple-y", `${y}px`);
   ripple.style.setProperty("--advisor-ripple-radius", `${radius}px`);
   ripple.style.setProperty("--advisor-ripple-color", targetColor);
   ripple.style.setProperty("--advisor-ripple-background", targetBackground);
-
-  // Las zonas transparentes superior/inferior de Safari cambian de color en
-  // paralelo a la expansión. No aplicamos el gradiente final al diálogo antes
-  // de tiempo: la capa de reveal es la que construye visualmente el fondo.
-  setAdvisorBrowserChrome(targetColor, { commitMeta: false });
   ripple.classList.remove("is-animating");
   void ripple.offsetWidth;
   ripple.classList.add("is-animating");
 
-  // Cuando el reveal ya cubrió la pantalla, fijamos exactamente ese mismo
-  // tema sin una segunda transición de background (el salto histórico).
+  // El tema permanente se fija un instante antes de retirar la capa. Como ambos
+  // usan exactamente el mismo background, visualmente no existe un segundo cambio.
   advisorThemeCommitTimer = window.setTimeout(() => {
     elements.advisorDialog.classList.add("is-theme-committing");
     updateAdvisorAtmosphere();
-    const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", targetColor);
     requestAnimationFrame(() => requestAnimationFrame(() => {
       elements.advisorDialog.classList.remove("is-theme-committing");
     }));
-  }, 2160);
+  }, 2120);
 
   advisorThemeCleanupTimer = window.setTimeout(() => {
     ripple.classList.remove("is-animating");
-  }, 2240);
+  }, 2220);
 }
 
 function updateAdvisorAtmosphere() {
@@ -864,8 +870,11 @@ function updateAdvisorAtmosphere() {
     const fieldKey = theme.startsWith("category-") ? "category" : "climate";
     const valueKey = theme.replace(/^category-|^climate-/, "");
     const color = theme === "neutral" ? "#171a1f" : advisorThemeColor(fieldKey, valueKey);
+    const fill = theme === "neutral"
+      ? "radial-gradient(circle at 78% 14%,rgba(189,166,120,.10),transparent 38%),linear-gradient(145deg,#14171b,#1d2127 68%,#121519)"
+      : advisorThemeBackground(fieldKey, valueKey);
     const ripple = elements.advisorDialog.querySelector(".advisor-theme-ripple");
-    if (!ripple?.classList.contains("is-animating")) setAdvisorBrowserChrome(color);
+    if (!ripple?.classList.contains("is-animating")) setAdvisorBrowserChrome(color, fill);
   }
 }
 function openAdvisor() {
@@ -880,7 +889,7 @@ function openAdvisor() {
   document.body.classList.add("dialog-open", "advisor-open");
   document.documentElement.classList.add("advisor-open");
   elements.advisorDialog.classList.remove("is-results");
-  setAdvisorBrowserChrome("#171a1f");
+  setAdvisorBrowserChrome("#171a1f", "radial-gradient(circle at 78% 14%,rgba(189,166,120,.10),transparent 38%),linear-gradient(145deg,#14171b,#1d2127 68%,#121519)");
   elements.advisorSteps?.scrollTo({ top: 0, behavior: "auto" });
   scheduleCatalogSearchDockUpdate();
 }

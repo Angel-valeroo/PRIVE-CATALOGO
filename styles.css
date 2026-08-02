@@ -3066,3 +3066,70 @@ body.advisor-open{
 @media(prefers-reduced-motion:reduce){
   html.advisor-open,body.advisor-open{transition:none!important}
 }
+
+
+/* =========================================================
+   SPRINT 5.8 · FULL-SCREEN REAL + TRANSICIÓN SIN CORTE
+   ========================================================= */
+/* Una sola fuente visual para el fondo exterior del navegador y del Asesor. */
+html.advisor-open,
+body.advisor-open{
+  background:var(--advisor-browser-fill,var(--advisor-browser-bg,#171a1f))!important;
+  background-color:var(--advisor-browser-bg,#171a1f)!important;
+  background-repeat:no-repeat!important;
+  background-size:cover!important;
+  background-attachment:fixed!important;
+  transition:none!important;
+}
+.advisor-dialog[open]::backdrop,
+.advisor-dialog[open]::before{
+  background:var(--advisor-browser-fill,var(--advisor-browser-bg,var(--advisor-bg,#171a1f)))!important;
+  background-color:var(--advisor-browser-bg,var(--advisor-bg,#171a1f))!important;
+  background-size:cover!important;
+  transition:none!important;
+}
+
+/* El estado permanente usa EXACTAMENTE el mismo background de la capa de reveal. */
+.advisor-dialog[data-advisor-theme="category-caballero"]{
+  --advisor-bg:#07101b!important;
+  background:radial-gradient(circle at 72% 18%,rgba(52,91,137,.32),transparent 38%),linear-gradient(145deg,#07101b,#0d1724 64%,#111820)!important;
+}
+.advisor-dialog[data-advisor-theme="category-dama"]{
+  --advisor-bg:#260710!important;
+  background:radial-gradient(circle at 72% 16%,rgba(150,38,73,.32),transparent 40%),linear-gradient(145deg,#260710,#491224 65%,#2a0b14)!important;
+}
+.advisor-dialog[data-advisor-theme="category-unisex"]{
+  --advisor-bg:#1f2226!important;
+  background:radial-gradient(circle at 70% 16%,rgba(185,189,194,.18),transparent 40%),linear-gradient(145deg,#1f2226,#353a40 68%,#24282c)!important;
+}
+.advisor-dialog[data-advisor-theme="climate-calor"]{
+  --advisor-bg:#4b2610!important;
+  background:linear-gradient(180deg,#4b2610 0%,#7b421b 48%,#b56a2b 100%)!important;
+}
+.advisor-dialog[data-advisor-theme="climate-templado"]{
+  --advisor-bg:#202827!important;
+  background:linear-gradient(155deg,#202827 0%,#45504d 64%,#2a3331 100%)!important;
+}
+.advisor-dialog[data-advisor-theme="climate-frio"]{
+  --advisor-bg:#081827!important;
+  background:linear-gradient(155deg,#081827 0%,#123a5c 68%,#0c2438 100%)!important;
+}
+
+/* El reveal no cambia de opacidad al final: solo crece hasta cubrir la vista. */
+.advisor-theme-ripple.is-animating{
+  opacity:1!important;
+  animation:advisorSeamlessFullReveal 2.2s cubic-bezier(.18,.70,.20,1) both!important;
+}
+@keyframes advisorSeamlessFullReveal{
+  from{clip-path:circle(0 at var(--advisor-ripple-x,50%) var(--advisor-ripple-y,50%));}
+  to{clip-path:circle(var(--advisor-ripple-radius,1600px) at var(--advisor-ripple-x,50%) var(--advisor-ripple-y,50%));}
+}
+.advisor-dialog.is-theme-committing{transition:none!important}
+
+/* Resultados: el mismo lienzo inmersivo se conserva de borde a borde. */
+.advisor-dialog.is-results[open]{
+  min-width:100vw!important;
+  min-height:100dvh!important;
+  background-size:cover!important;
+}
+

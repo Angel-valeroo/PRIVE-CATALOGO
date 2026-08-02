@@ -322,3 +322,10 @@
 - Las opciones de las seis preguntas del Asesor ya no dependen del momento de carga de la Base Maestra y permanecen estables.
 - La X del Asesor/resultados queda por encima de todas las tarjetas y capas con `backdrop-filter`.
 - Al salir mediante la X desde el flujo del Asesor se vuelve al Home con una recarga limpia, eliminando estado/hash temporal antes de volver a abrir perfumes del catálogo.
+
+
+## Sprint 5.8 · Full-screen real + transición sin corte
+- El fondo permanente de categoría/clima usa exactamente los mismos gradientes que la capa de animación, eliminando el cambio final perceptible.
+- `html`, `body`, backdrop y overscan del Asesor comparten una única variable de relleno para conservar la experiencia de borde a borde.
+- El `theme-color` de Safari se fuerza recreando el meta en cada cambio de tema para mejorar la actualización de las barras superior e inferior en iPhone.
+- La pantalla de resultados conserva el mismo lienzo inmersivo.
