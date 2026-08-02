@@ -760,7 +760,22 @@ function advisorThemeColor(field, value) {
     "climate-calor": "#7a3d10",
     "climate-templado": "#45504d",
     "climate-frio": "#123a5c"
-  }[key] || "#6b6254";
+  }[key] || "#171a1f";
+}
+
+const DEFAULT_BROWSER_THEME_COLOR = "#07090d";
+function setAdvisorBrowserChrome(color) {
+  const resolved = color || "#171a1f";
+  document.documentElement.style.setProperty("--advisor-browser-bg", resolved);
+  document.body.style.setProperty("--advisor-browser-bg", resolved);
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute("content", resolved);
+}
+function resetBrowserChrome() {
+  document.documentElement.style.removeProperty("--advisor-browser-bg");
+  document.body.style.removeProperty("--advisor-browser-bg");
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute("content", DEFAULT_BROWSER_THEME_COLOR);
 }
 
 function advisorThemeBackground(field, value) {
@@ -772,7 +787,7 @@ function advisorThemeBackground(field, value) {
     "climate-calor": "linear-gradient(180deg,#4b2610 0%,#7b421b 48%,#b56a2b 100%)",
     "climate-templado": "linear-gradient(155deg,#202827 0%,#45504d 64%,#2a3331 100%)",
     "climate-frio": "linear-gradient(155deg,#081827 0%,#123a5c 68%,#0c2438 100%)"
-  }[key] || "linear-gradient(145deg,#f3f0ea,#fbfaf7 68%)";
+  }[key] || "radial-gradient(circle at 78% 14%,rgba(189,166,120,.10),transparent 38%),linear-gradient(145deg,#14171b,#1d2127 68%,#121519)";
 }
 
 let advisorThemeCommitTimer = 0;
@@ -811,11 +826,12 @@ function animateAdvisorThemeFromButton(button, field, value) {
   // tema que ya está viendo el usuario; así no existe un "salto" de fondo.
   advisorThemeCommitTimer = window.setTimeout(() => {
     updateAdvisorAtmosphere();
-  }, 1900);
+    setAdvisorBrowserChrome(advisorThemeColor(field, value));
+  }, 2180);
 
   advisorThemeCleanupTimer = window.setTimeout(() => {
     ripple.classList.remove("is-animating");
-  }, 1980);
+  }, 2260);
 }
 
 function updateAdvisorAtmosphere() {
@@ -828,6 +844,10 @@ function updateAdvisorAtmosphere() {
   if (field === "climate" && climate) theme = `climate-${advisorThemeKey(climate)}`;
   if (elements.advisorResults && !elements.advisorResults.hidden && climate) theme = `climate-${advisorThemeKey(climate)}`;
   elements.advisorDialog.dataset.advisorTheme = theme;
+  if (elements.advisorDialog.open) {
+    const color = theme === "neutral" ? "#171a1f" : advisorThemeColor(theme.startsWith("category-") ? "category" : "climate", theme.replace(/^category-|^climate-/, ""));
+    setAdvisorBrowserChrome(color);
+  }
 }
 function openAdvisor() {
   state.advisor.step = 0;
@@ -839,6 +859,8 @@ function openAdvisor() {
   if (!elements.advisorDialog.open) elements.advisorDialog.showModal();
   document.body.classList.add("dialog-open", "advisor-open");
   document.documentElement.classList.add("advisor-open");
+  elements.advisorDialog.classList.remove("is-results");
+  setAdvisorBrowserChrome("#171a1f");
   elements.advisorSteps?.scrollTo({ top: 0, behavior: "auto" });
   scheduleCatalogSearchDockUpdate();
 }
@@ -846,6 +868,8 @@ function closeAdvisor() {
   if (elements.advisorDialog.open) elements.advisorDialog.close();
   document.body.classList.remove("advisor-open");
   document.documentElement.classList.remove("advisor-open");
+  elements.advisorDialog.classList.remove("is-results");
+  resetBrowserChrome();
   if (!elements.dialog.open) document.body.classList.remove("dialog-open");
   scheduleCatalogSearchDockUpdate();
 }
@@ -991,12 +1015,13 @@ function showAdvisorResults() {
   if (!selectedCount) {
     elements.advisorResultsIntro.textContent = "Selecciona por lo menos un criterio para poder calcular una coincidencia.";
   } else {
-    elements.advisorResultsIntro.textContent = `Calculado con ${selectedCount} ${selectedCount === 1 ? "criterio" : "criterios"} seleccionados. Comparamos categoría, afinidad de edad, ocasión, perfil, intensidad y clima para mostrar hasta cinco coincidencias sólidas.`;
+    elements.advisorResultsIntro.textContent = `Estos resultados se eligieron en base a tus ${selectedCount} ${selectedCount === 1 ? "criterio seleccionado" : "criterios seleccionados"}, priorizando las fragancias que mejor coinciden con tus gustos.`;
   }
   const results = selectedCount ? advisorRecommendations() : [];
   elements.advisorRecommendations.replaceChildren(...results.map(recommendationCard));
   elements.advisorNoMatch.hidden = results.length > 0;
   elements.advisorSteps.hidden = true; elements.advisorResults.hidden = false;
+  elements.advisorDialog.classList.add("is-results");
   elements.advisorNext.hidden = true; elements.advisorBack.hidden = true; elements.advisorSkip.hidden = true;
   elements.advisorRestart.hidden = false;
   elements.advisorProgressBar.style.width = "100%";
@@ -1005,6 +1030,7 @@ function showAdvisorResults() {
   elements.advisorResults?.scrollTo({ top: 0, behavior: "auto" });
 }
 function restartAdvisor() {
+  elements.advisorDialog.classList.remove("is-results");
   state.advisor.step = 0;
   state.advisor.answers = { category: "", age: "", occasion: "", profile: "", intensity: "", climate: "" };
   elements.advisorResults.hidden = true; elements.advisorSteps.hidden = false;

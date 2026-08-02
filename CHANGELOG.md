@@ -301,3 +301,11 @@
 - Opciones y navegación refinadas con tratamiento Liquid Glass.
 - Corregida la transición de categoría/clima: una regla de opacidad impedía ver el reveal; ahora el fondo se expande visiblemente desde la selección durante ~1.95 s.
 - Clima templado enriquecido con más nubes y rayos emoji; calor con mayor presencia de desierto/fuego; frío añade viento visible.
+
+## Sprint 5.5 — Pulido inmersivo del Asesor
+- Fondo neutro del Asesor cambiado de claro a grafito para resaltar Liquid Glass.
+- Cobertura de safe-area y color del navegador reforzados en Safari/iPhone mediante theme-color dinámico y fondo compartido con html/body.
+- Transiciones de categoría y clima suavizadas con una interpolación continua de 2.2 s.
+- Intensidad normalizada: Sutil, Equilibrado e Intenso usan el mismo diámetro visual.
+- Clima Calor enriquecido con paisaje, cactus, sol y fuego en elementos emoji reales.
+- Resultados rediseñados como pantalla independiente y centrada, sin la introducción de los pasos.

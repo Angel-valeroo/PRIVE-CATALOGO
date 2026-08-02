@@ -2756,3 +2756,178 @@ main{background:#eeeae2}
   .advisor-theme-ripple.is-animating,
   .advisor-weather--wind i{animation:none!important}
 }
+
+/* =========================================================
+   SPRINT 5.5 · PULIDO INMERSIVO DEL ASESOR
+   Cambios aislados: fondo neutro, safe-area/Safari, intensidad,
+   transición continua, clima cálido y pantalla de resultados.
+   ========================================================= */
+
+/* Fondo neutro oscuro: hace visible el Liquid Glass sin tocar el resto del sitio. */
+.advisor-dialog{
+  --advisor-bg:#171a1f!important;
+  --advisor-ink:#f7f5f1!important;
+  --advisor-muted:rgba(247,245,241,.68)!important;
+  --advisor-line:rgba(255,255,255,.14)!important;
+  --advisor-glow:rgba(189,166,120,.12)!important;
+  background:
+    radial-gradient(circle at 78% 14%,rgba(189,166,120,.10),transparent 38%),
+    linear-gradient(145deg,#14171b,#1d2127 68%,#121519)!important;
+}
+.advisor-dialog[data-advisor-theme="category-caballero"],
+.advisor-dialog[data-advisor-theme="category-dama"],
+.advisor-dialog[data-advisor-theme="category-unisex"],
+.advisor-dialog[data-advisor-theme="climate-calor"],
+.advisor-dialog[data-advisor-theme="climate-templado"],
+.advisor-dialog[data-advisor-theme="climate-frio"]{
+  color:var(--advisor-ink)!important;
+}
+
+/* Safari/iPhone: el color de la vista del asesor también vive en html/body,
+   de modo que las zonas expuestas por las barras del navegador nunca queden blancas. */
+html.advisor-open,
+html.advisor-open body{
+  background:var(--advisor-browser-bg,#171a1f)!important;
+  overscroll-behavior:none!important;
+}
+.advisor-dialog[open],
+.advisor-dialog[open]::backdrop,
+.advisor-dialog[open]::before{
+  background-color:var(--advisor-browser-bg,var(--advisor-bg,#171a1f))!important;
+}
+.advisor-dialog[open]::before{
+  inset:-60vh -30vw!important;
+  width:auto!important;
+  height:auto!important;
+  min-height:220vh!important;
+}
+
+/* Liquid Glass un poco más evidente sobre el nuevo fondo neutro. */
+.advisor-option{
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.055) 58%,rgba(255,255,255,.025)),
+    rgba(21,24,29,.34)!important;
+  border-color:rgba(255,255,255,.17)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.19),0 12px 30px rgba(0,0,0,.16)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(150%)!important;
+  backdrop-filter:blur(24px) saturate(150%)!important;
+}
+.advisor-option.is-selected{
+  background:linear-gradient(145deg,rgba(255,255,255,.24),rgba(255,255,255,.10))!important;
+  border-color:rgba(255,255,255,.36)!important;
+}
+
+/* Los tres símbolos de intensidad tienen exactamente el mismo diámetro. */
+.advisor-options--intensity .advisor-option span{
+  width:28px!important;
+  height:28px!important;
+  display:grid!important;
+  place-items:center!important;
+  font-size:0!important;
+  line-height:1!important;
+}
+.advisor-options--intensity .advisor-option span::before{
+  content:"";
+  width:22px;
+  height:22px;
+  box-sizing:border-box;
+  border:2px solid currentColor;
+  border-radius:50%;
+  display:block;
+}
+.advisor-options--intensity .advisor-option[data-value="Equilibrado"] span::before{
+  background:linear-gradient(90deg,currentColor 0 50%,transparent 50% 100%);
+}
+.advisor-options--intensity .advisor-option[data-value="Intenso"] span::before{
+  background:currentColor;
+}
+
+/* Expansión continua: solo inicio y final para que el navegador interpole cada frame.
+   Se elimina la sensación de pum/pum causada por etapas discretas. */
+.advisor-theme-ripple.is-animating{
+  animation:advisorImmersiveReveal 2.2s cubic-bezier(.16,.72,.18,1) both!important;
+}
+@keyframes advisorImmersiveReveal{
+  from{
+    opacity:1;
+    clip-path:circle(0 at var(--advisor-ripple-x,50%) var(--advisor-ripple-y,50%));
+  }
+  to{
+    opacity:1;
+    clip-path:circle(var(--advisor-ripple-radius,1200px) at var(--advisor-ripple-x,50%) var(--advisor-ripple-y,50%));
+  }
+}
+
+/* Calor: usamos los emojis reales del HTML y sumamos cactus/paisaje/sol.
+   Se anulan las antiguas llamas construidas con formas CSS. */
+.advisor-dialog[data-advisor-theme="climate-calor"] .advisor-weather--heat{opacity:.78!important}
+.advisor-weather--heat i{
+  width:auto!important;height:auto!important;
+  border-radius:0!important;
+  background:none!important;
+  filter:drop-shadow(0 8px 14px rgba(33,12,3,.18))!important;
+  font-family:system-ui,"Apple Color Emoji","Segoe UI Emoji",sans-serif!important;
+  font-size:clamp(2.4rem,12vw,5.4rem)!important;
+  opacity:.54!important;
+  bottom:auto!important;
+  scale:1!important;
+  animation:advisorDesertFloat 7s ease-in-out infinite alternate!important;
+}
+.advisor-weather--heat i:nth-child(1){left:4%!important;top:66%!important;font-size:clamp(4.6rem,21vw,9rem)!important;opacity:.34!important}
+.advisor-weather--heat i:nth-child(2){left:15%!important;top:43%!important;animation-delay:-2.1s!important}
+.advisor-weather--heat i:nth-child(3){left:39%!important;top:63%!important;animation-delay:-4.2s!important}
+.advisor-weather--heat i:nth-child(4){right:12%!important;left:auto!important;top:48%!important;animation-delay:-1.4s!important}
+.advisor-weather--heat i:nth-child(5){right:23%!important;left:auto!important;top:72%!important;animation-delay:-5.1s!important}
+.advisor-weather--heat i:nth-child(6){right:8%!important;left:auto!important;top:15%!important;font-size:clamp(3rem,14vw,6rem)!important;opacity:.42!important}
+.advisor-weather--heat i:nth-child(7){left:58%!important;top:35%!important;animation-delay:-3.2s!important}
+.advisor-weather--heat i:nth-child(8){left:7%!important;top:21%!important;animation-delay:-6s!important}
+@keyframes advisorDesertFloat{to{transform:translate3d(0,-8px,0) scale(1.025)}}
+
+/* Pantalla de resultados independiente: desaparece la introducción de los pasos
+   y el contenido arranca arriba, centrado, con scroll propio intacto. */
+.advisor-dialog.is-results .advisor-head{display:none!important}
+.advisor-dialog.is-results .advisor-shell{
+  grid-template-rows:minmax(0,1fr) auto!important;
+  grid-template-areas:"content" "actions"!important;
+  padding-top:calc(34px + env(safe-area-inset-top))!important;
+}
+.advisor-dialog.is-results .advisor-results{
+  display:block!important;
+  padding-top:12px!important;
+}
+.advisor-results-heading{
+  max-width:620px;
+  margin:0 auto 24px!important;
+  text-align:center!important;
+  padding:0 10px!important;
+}
+.advisor-results-heading .detail-eyebrow{
+  margin:0 0 12px!important;
+  color:var(--prive-gold-light,var(--accent))!important;
+}
+.advisor-results-heading h3{
+  margin:0!important;
+  font-size:clamp(2.15rem,10vw,4rem)!important;
+  line-height:1!important;
+  letter-spacing:-.035em!important;
+}
+.advisor-results-heading #advisorResultsIntro{
+  max-width:520px;
+  margin:16px auto 0!important;
+  color:var(--advisor-muted)!important;
+  font-size:.88rem!important;
+  line-height:1.65!important;
+}
+.advisor-results-subtitle{
+  margin:22px 0 0!important;
+  color:var(--advisor-ink)!important;
+  font-family:"Playfair Display",serif!important;
+  font-size:1.22rem!important;
+}
+
+@media(max-width:700px){
+  .advisor-dialog.is-results .advisor-shell{
+    padding-top:calc(30px + env(safe-area-inset-top))!important;
+  }
+  .advisor-results-heading{margin-bottom:18px!important}
+}

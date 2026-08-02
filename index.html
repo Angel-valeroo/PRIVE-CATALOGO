@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=4.8">
+  <link rel="stylesheet" href="styles.css?v=5.5">
   <script>
     if (location.hash === "#catalogo" || location.hash === "#inicio") {
       history.replaceState(null, "", location.pathname + location.search);
@@ -151,7 +151,7 @@
       <div class="advisor-atmosphere" aria-hidden="true">
         <span class="advisor-orb"></span><span class="advisor-orb"></span><span class="advisor-orb"></span>
         <div class="advisor-weather advisor-weather--heat">
-          <i>🏜️</i><i>🔥</i><i>🔥</i><i>🔥</i><i>🔥</i>
+          <i>🏜️</i><i>🌵</i><i>🔥</i><i>🌵</i><i>🔥</i><i>☀️</i><i>🌵</i><i>🔥</i>
         </div>
         <div class="advisor-weather advisor-weather--clouds">
           <i>☁️</i><i>☁️</i><i>☁️</i><i>☁️</i><i>☁️</i><i>☁️</i>
@@ -212,9 +212,10 @@
 
       <section id="advisorResults" class="advisor-results" hidden>
         <div class="advisor-results-heading">
-          <p class="detail-eyebrow">RESULTADO</p>
-          <h3>Tus cinco mejores coincidencias</h3>
+          <p class="detail-eyebrow">ASESOR INTELIGENTE PRIVÉ</p>
+          <h3>Estos son tus resultados</h3>
           <p id="advisorResultsIntro"></p>
+          <p class="advisor-results-subtitle">Tus cinco mejores coincidencias</p>
         </div>
         <div id="advisorRecommendations" class="advisor-recommendations"></div>
         <div id="advisorNoMatch" class="advisor-no-match" hidden>
@@ -303,6 +304,6 @@
   </dialog>
 
   <script src="core-adapter.js?v=5.2" defer></script>
-  <script src="app.js?v=5.9" defer></script>
+  <script src="app.js?v=6.0" defer></script>
 </body>
 </html>
