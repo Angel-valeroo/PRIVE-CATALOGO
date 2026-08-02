@@ -1508,7 +1508,7 @@ body.search-has-query .search-svg{
 .catalog-search-dock{
   position:fixed;
   z-index:80;
-  top:max(12px,env(safe-area-inset-top));
+  top:calc(max(12px,env(safe-area-inset-top)) + var(--catalog-search-viewport-offset,0px));
   left:50%;
   width:min(430px,calc(100% - 28px));
   transform:translate(-50%,-18px) scale(.96);
@@ -1599,7 +1599,7 @@ body.search-has-query .search-svg{
 body.dialog-open .catalog-search-dock{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
 @media(max-width:700px){
   .catalog-search-dock{
-    top:max(9px,env(safe-area-inset-top));
+    top:calc(max(9px,env(safe-area-inset-top)) + var(--catalog-search-viewport-offset,0px));
     width:calc(100% - 22px);
   }
   .catalog-search-dock__box{width:min(276px,100%);min-height:45px;border-radius:17px}

@@ -575,6 +575,12 @@ function closePerfume(updateHash = true) {
   if (elements.dialog.open) elements.dialog.close();
   if (!elements.advisorDialog.open) document.body.classList.remove("dialog-open");
   scheduleCatalogSearchDockUpdate();
+  // showModal()/close() puede restaurar foco y viewport un frame después, sobre todo
+  // en Safari. Revalidamos cuando el navegador ya terminó esa restauración.
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    updateCatalogSearchVisualViewport();
+    scheduleCatalogSearchDockUpdate();
+  }));
   if (updateHash && location.hash.startsWith("#perfume=")) history.pushState({}, "", location.pathname + location.search);
 }
 function createCatalogCard(perfume, index) {
@@ -868,15 +874,50 @@ function applySearch(value, { scroll = false, scrollBehavior = "smooth" } = {}) 
   if (scroll) scrollToCatalog(scrollBehavior);
 }
 
-function positionCatalogCardsForContextSearch(behavior = "smooth") {
+let catalogSearchEngaged = false;
+let catalogSearchPositioning = false;
+let catalogSearchPositioningTimer = 0;
+
+function catalogCardsSearchTarget() {
   const catalogGrid = elements.catalog;
-  if (!catalogGrid) return;
+  if (!catalogGrid) return null;
   const dockHeight = elements.catalogSearchDock?.getBoundingClientRect().height || 52;
-  const safeTop = Math.max(12, dockHeight + 18);
+  const safeTop = Math.max(14, dockHeight + 16);
   const absoluteGridTop = window.scrollY + catalogGrid.getBoundingClientRect().top;
-  const targetTop = Math.max(0, absoluteGridTop - safeTop);
-  if (Math.abs(window.scrollY - targetTop) < 8) return;
+  return Math.max(0, absoluteGridTop - safeTop);
+}
+
+function positionCatalogCardsForContextSearch(behavior = "smooth") {
+  const targetTop = catalogCardsSearchTarget();
+  if (targetTop == null) return;
+  catalogSearchEngaged = true;
+  scheduleCatalogSearchDockUpdate();
+  if (Math.abs(window.scrollY - targetTop) < 10) return;
+
+  // El desplazamiento pertenece al acto de volver a usar la búsqueda, no a cada
+  // tecla. Durante este movimiento el dock se mantiene fijado explícitamente.
+  catalogSearchPositioning = true;
+  clearTimeout(catalogSearchPositioningTimer);
   window.scrollTo({ top: targetTop, left: 0, behavior });
+  catalogSearchPositioningTimer = window.setTimeout(() => {
+    catalogSearchPositioning = false;
+    scheduleCatalogSearchDockUpdate();
+  }, behavior === "smooth" ? 520 : 80);
+}
+
+function engageCatalogSearch({ reposition = true } = {}) {
+  catalogSearchEngaged = true;
+  scheduleCatalogSearchDockUpdate();
+  if (reposition) requestAnimationFrame(() => positionCatalogCardsForContextSearch("smooth"));
+}
+
+function updateCatalogSearchVisualViewport() {
+  if (!elements.catalogSearchDock) return;
+  const viewport = window.visualViewport;
+  // iOS/Safari puede desplazar el visual viewport cuando aparece el teclado.
+  // Compensamos ese offset para que el buscador nunca quede arriba de la zona visible.
+  const offsetTop = viewport ? Math.max(0, viewport.offsetTop || 0) : 0;
+  elements.catalogSearchDock.style.setProperty("--catalog-search-viewport-offset", `${offsetTop}px`);
 }
 function executeSearch() {
   applySearch(elements.search.value, { scroll: true });
@@ -906,15 +947,21 @@ elements.search.addEventListener("keydown", event => {
 });
 elements.submitSearch.addEventListener("click", executeSearch);
 if (elements.catalogSearch) {
+  elements.catalogSearch.addEventListener("pointerdown", () => {
+    // pointerdown también se dispara cuando el input ya tenía foco. Esto resuelve
+    // el caso: buscar -> bajar varias tarjetas -> tocar de nuevo el buscador.
+    engageCatalogSearch({ reposition: true });
+  });
   elements.catalogSearch.addEventListener("focus", () => {
-    // Al entrar a la búsqueda rápida, colocamos una sola vez la primera fila
-    // debajo del dock. Desde este punto, escribir nunca vuelve a mover la página.
-    requestAnimationFrame(() => positionCatalogCardsForContextSearch("smooth"));
+    catalogSearchEngaged = true;
+    updateCatalogSearchVisualViewport();
     scheduleCatalogSearchDockUpdate();
   });
   elements.catalogSearch.addEventListener("input", event => {
-    // Los resultados cambian en tiempo real conservando exactamente el scroll.
+    // Cada tecla únicamente filtra. Nunca provoca scroll ni cambia la visibilidad.
+    catalogSearchEngaged = true;
     applySearch(event.target.value);
+    scheduleCatalogSearchDockUpdate();
   });
   elements.catalogSearch.addEventListener("keydown", event => {
     if (event.key === "Enter") {
@@ -993,15 +1040,21 @@ function updateCatalogSearchDock() {
   const catalogSection = document.getElementById("catalogo");
   const catalogGrid = elements.catalog;
   if (!catalogSection || !catalogGrid) return;
+  updateCatalogSearchVisualViewport();
   const gridRect = catalogGrid.getBoundingClientRect();
   const sectionRect = catalogSection.getBoundingClientRect();
   const dialogOpen = document.body.classList.contains("dialog-open");
   const searchFocused = document.activeElement === elements.catalogSearch;
-  const shouldShow = !dialogOpen
-    && (searchFocused || (
-      gridRect.top <= Math.min(window.innerHeight * .58, 520)
-      && sectionRect.bottom > 96
-    ));
+  const catalogThreshold = Math.min(window.innerHeight * .58, 520);
+  const inCatalogZone = gridRect.top <= catalogThreshold && sectionRect.bottom > 96;
+
+  // Solo abandonamos el modo de búsqueda cuando el usuario realmente volvió al Home.
+  // No lo apagamos por pequeños saltos de layout, re-render, teclado o cierre de ficha.
+  if (!dialogOpen && !searchFocused && !catalogSearchPositioning && sectionRect.top > catalogThreshold + 80) {
+    catalogSearchEngaged = false;
+  }
+
+  const shouldShow = !dialogOpen && (searchFocused || catalogSearchPositioning || catalogSearchEngaged || inCatalogZone);
   elements.catalogSearchDock.classList.toggle("is-visible", shouldShow);
   elements.catalogSearchDock.setAttribute("aria-hidden", String(!shouldShow));
 }
@@ -1063,4 +1116,8 @@ if (typeof ResizeObserver !== "undefined" && elements.detailBottleStage) {
   const detailStageObserver = new ResizeObserver(() => layoutDetailBottle());
   detailStageObserver.observe(elements.detailBottleStage);
 }
-window.addEventListener("resize", () => { layoutDetailBottle(); scheduleCatalogSearchDockUpdate(); }, { passive: true });
+window.addEventListener("resize", () => { layoutDetailBottle(); updateCatalogSearchVisualViewport(); scheduleCatalogSearchDockUpdate(); }, { passive: true });
+if (window.visualViewport) {
+  window.visualViewport.addEventListener("resize", () => { updateCatalogSearchVisualViewport(); scheduleCatalogSearchDockUpdate(); }, { passive: true });
+  window.visualViewport.addEventListener("scroll", () => { updateCatalogSearchVisualViewport(); scheduleCatalogSearchDockUpdate(); }, { passive: true });
+}
