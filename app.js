@@ -757,16 +757,31 @@ function advisorThemeColor(field, value) {
     "category-caballero": "#0d2742",
     "category-dama": "#671b34",
     "category-unisex": "#555b61",
-    "climate-calor": "#b45e1a",
-    "climate-templado": "#66736f",
-    "climate-frio": "#25638f"
+    "climate-calor": "#7a3d10",
+    "climate-templado": "#45504d",
+    "climate-frio": "#123a5c"
   }[key] || "#6b6254";
 }
+
+function advisorThemeBackground(field, value) {
+  const key = `${field}-${advisorThemeKey(value)}`;
+  return {
+    "category-caballero": "radial-gradient(circle at 72% 18%,rgba(52,91,137,.32),transparent 38%),linear-gradient(145deg,#07101b,#0d1724 64%,#111820)",
+    "category-dama": "radial-gradient(circle at 72% 16%,rgba(150,38,73,.32),transparent 40%),linear-gradient(145deg,#260710,#491224 65%,#2a0b14)",
+    "category-unisex": "radial-gradient(circle at 70% 16%,rgba(185,189,194,.18),transparent 40%),linear-gradient(145deg,#1f2226,#353a40 68%,#24282c)",
+    "climate-calor": "linear-gradient(180deg,#4b2610 0%,#7b421b 48%,#b56a2b 100%)",
+    "climate-templado": "linear-gradient(155deg,#202827 0%,#45504d 64%,#2a3331 100%)",
+    "climate-frio": "linear-gradient(155deg,#081827 0%,#123a5c 68%,#0c2438 100%)"
+  }[key] || "linear-gradient(145deg,#f3f0ea,#fbfaf7 68%)";
+}
+
 let advisorThemeCommitTimer = 0;
+let advisorThemeCleanupTimer = 0;
 function animateAdvisorThemeFromButton(button, field, value) {
   const ripple = elements.advisorDialog?.querySelector(".advisor-theme-ripple");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   window.clearTimeout(advisorThemeCommitTimer);
+  window.clearTimeout(advisorThemeCleanupTimer);
 
   if (!ripple || reducedMotion) {
     updateAdvisorAtmosphere();
@@ -779,25 +794,28 @@ function animateAdvisorThemeFromButton(button, field, value) {
   const y = buttonRect.top + buttonRect.height / 2 - dialogRect.top;
   const farX = Math.max(x, dialogRect.width - x);
   const farY = Math.max(y, dialogRect.height - y);
-  const radius = Math.hypot(farX, farY);
+  const radius = Math.ceil(Math.hypot(farX, farY) + 36);
 
+  // La capa vive DETRÁS del contenido. Revela el nuevo fondo con un círculo
+  // continuo que nace en el botón; no hay cambio brusco al final.
   ripple.style.setProperty("--advisor-ripple-x", `${x}px`);
   ripple.style.setProperty("--advisor-ripple-y", `${y}px`);
-  ripple.style.setProperty("--advisor-ripple-size", `${radius * 2}px`);
+  ripple.style.setProperty("--advisor-ripple-radius", `${radius}px`);
   ripple.style.setProperty("--advisor-ripple-color", advisorThemeColor(field, value));
+  ripple.style.setProperty("--advisor-ripple-background", advisorThemeBackground(field, value));
   ripple.classList.remove("is-animating");
   void ripple.offsetWidth;
   ripple.classList.add("is-animating");
 
-  // El fondo definitivo se aplica casi al final de la expansión. Así el cliente
-  // ve claramente que el color nace en el botón y se propaga por la pantalla.
+  // Al cubrir por completo el diálogo, hacemos permanente exactamente el mismo
+  // tema que ya está viendo el usuario; así no existe un "salto" de fondo.
   advisorThemeCommitTimer = window.setTimeout(() => {
     updateAdvisorAtmosphere();
-  }, 1380);
+  }, 1760);
 
-  window.setTimeout(() => {
+  advisorThemeCleanupTimer = window.setTimeout(() => {
     ripple.classList.remove("is-animating");
-  }, 1850);
+  }, 1840);
 }
 
 function updateAdvisorAtmosphere() {

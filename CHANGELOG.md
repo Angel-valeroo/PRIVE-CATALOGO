@@ -1,5 +1,14 @@
 ## 2026-08-01 — Búsqueda contextual: sesión y anclaje determinístico
 
+## Sprint 5.3 — Home unificado y transiciones orgánicas del Asesor
+
+- Home: “Ayúdame a elegir”, “Top más vendidos” y “Explorar catálogo” comparten tarjetas grandes, centradas y consistentes.
+- Asesor: la transición de categoría y clima ahora revela el fondo de forma progresiva desde el botón seleccionado, detrás de toda la interfaz y sin salto final.
+- Clima: se sustituyeron formas geométricas por elementos visuales reconocibles (desierto/fuego, nubes/rayos y nieve/viento).
+- Se conservaron las 547 fichas y la lógica de recomendación existente.
+- Limpieza de archivos históricos y reportes que no intervienen en la ejecución ni mantenimiento canónico.
+
+
 - Cada nueva interacción con la búsqueda contextual inicia una sesión independiente.
 - Al comenzar una nueva consulta, la vista vuelve al inicio real de las tarjetas y recalcula el ancla después del primer render.
 - Las teclas posteriores actualizan resultados sin volver a desplazar la página.
