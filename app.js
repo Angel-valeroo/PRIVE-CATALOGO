@@ -811,11 +811,11 @@ function animateAdvisorThemeFromButton(button, field, value) {
   // tema que ya está viendo el usuario; así no existe un "salto" de fondo.
   advisorThemeCommitTimer = window.setTimeout(() => {
     updateAdvisorAtmosphere();
-  }, 1760);
+  }, 1900);
 
   advisorThemeCleanupTimer = window.setTimeout(() => {
     ripple.classList.remove("is-animating");
-  }, 1840);
+  }, 1980);
 }
 
 function updateAdvisorAtmosphere() {

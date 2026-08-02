@@ -292,3 +292,12 @@
 - Clima rediseñado con llamas, nubes y copos de nieve reconocibles.
 - Medalla de “Top más vendidos” centrada en su tarjeta.
 - Limpieza del repositorio: retirados reportes, instrucciones y README históricos de sprints que no intervienen en el funcionamiento.
+
+## Sprint 5.4 — Corrección estructural del Asesor y Safari
+- El fondo del Home se extiende al lienzo raíz para evitar blanco detrás de la interfaz transparente de Safari.
+- Medalla de Top más vendidos centrada nuevamente.
+- Botón de cierre del Asesor restaurado a la esquina superior derecha y fuera del layout interno.
+- Cabecera, contenido desplazable y acciones del Asesor separados en áreas de grid explícitas para evitar superposiciones.
+- Opciones y navegación refinadas con tratamiento Liquid Glass.
+- Corregida la transición de categoría/clima: una regla de opacidad impedía ver el reveal; ahora el fondo se expande visiblemente desde la selección durante ~1.95 s.
+- Clima templado enriquecido con más nubes y rayos emoji; calor con mayor presencia de desierto/fuego; frío añade viento visible.

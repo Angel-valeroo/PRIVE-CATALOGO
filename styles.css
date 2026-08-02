@@ -2603,3 +2603,156 @@ a.entry-card:hover{
   .advisor-theme-ripple.is-animating{animation-duration:.01ms!important}
   .advisor-weather i,.entry-arrow{animation:none!important}
 }
+
+/* =========================================================
+   SPRINT 5.4 · CORRECCIÓN ESTRUCTURAL DEL ASESOR + SAFE AREA
+   ========================================================= */
+
+/* Safari/iPhone: el lienzo que existe detrás de la interfaz del navegador
+   comparte el negro PRIVÉ del Home. El contenido normal conserva su fondo claro. */
+html{background:#07090d!important}
+body{background:#07090d!important}
+main{background:#eeeae2}
+.hero{background-color:#07090d!important}
+
+/* Las tres rutas del Home mantienen sus iconos geométricamente centrados.
+   La animación histórica de la medalla tenía translateX(-50%) heredado de
+   cuando era position:absolute y por eso la desplazaba. */
+.entry-card--coming .entry-arrow--bestsellers{
+  margin-inline:auto!important;
+  transform:none!important;
+  animation:bestSellerMedalCenteredGlow 2.8s ease-in-out infinite!important;
+}
+@keyframes bestSellerMedalCenteredGlow{
+  0%,100%{filter:drop-shadow(0 0 7px rgba(216,199,159,.48));transform:translateY(0)}
+  50%{filter:drop-shadow(0 0 14px rgba(216,199,159,.84));transform:translateY(-1px)}
+}
+
+/* Arquitectura inequívoca del asesor:
+   1 cabecera, 2 zona desplazable, 3 navegación. Nada más participa del grid. */
+.advisor-shell{
+  position:relative!important;
+  z-index:2!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto minmax(0,1fr) auto!important;
+  grid-template-areas:"head" "content" "actions"!important;
+  gap:0!important;
+}
+.advisor-head{
+  grid-area:head!important;
+  position:relative!important;
+  z-index:4!important;
+  margin:0!important;
+  padding:0 44px 16px 0!important;
+  border-bottom:1px solid var(--advisor-line)!important;
+}
+.advisor-steps,.advisor-results{
+  grid-area:content!important;
+  position:relative!important;
+  z-index:4!important;
+  align-self:stretch!important;
+  min-height:0!important;
+  padding-top:18px!important;
+}
+.advisor-actions{
+  grid-area:actions!important;
+  position:relative!important;
+  z-index:6!important;
+}
+
+/* La X queda fuera del flujo y siempre en la esquina superior derecha. */
+.advisor-close{
+  position:fixed!important;
+  top:calc(max(12px,env(safe-area-inset-top)) + 2px)!important;
+  right:14px!important;
+  left:auto!important;
+  z-index:30!important;
+  margin:0!important;
+}
+
+/* Liquid Glass en opciones y navegación: superficie propia, legible y separada. */
+.advisor-option{
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.035) 55%,rgba(0,0,0,.035)),
+    color-mix(in srgb,var(--advisor-bg) 52%,transparent)!important;
+  border-color:color-mix(in srgb,var(--advisor-line) 88%,rgba(255,255,255,.18))!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.16),
+    inset 0 -1px 0 rgba(255,255,255,.035),
+    0 10px 28px rgba(0,0,0,.055)!important;
+  -webkit-backdrop-filter:blur(22px) saturate(145%)!important;
+  backdrop-filter:blur(22px) saturate(145%)!important;
+}
+.advisor-secondary{
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.035)),
+    color-mix(in srgb,var(--advisor-bg) 64%,transparent)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(135%)!important;
+  backdrop-filter:blur(20px) saturate(135%)!important;
+}
+
+/* CORRECCIÓN DE RAÍZ: la regla anterior opacity:0!important impedía que la
+   animación pudiera hacerse visible. La capa se ve mientras la clase está activa. */
+.advisor-theme-ripple.is-animating{
+  opacity:1!important;
+  z-index:2!important;
+}
+.advisor-theme-ripple{
+  z-index:2!important;
+}
+.advisor-atmosphere{z-index:1!important}
+.advisor-head,.advisor-steps,.advisor-results,.advisor-actions,.advisor-close{z-index:5!important}
+
+/* El reveal tarda lo suficiente para leer el nacimiento en el botón y el fondo
+   queda cubierto gradualmente, sin aparecer de golpe al final. */
+.advisor-theme-ripple.is-animating{
+  animation:advisorOrganicRevealVisible 1.95s cubic-bezier(.2,.63,.16,1) both!important;
+}
+@keyframes advisorOrganicRevealVisible{
+  0%{clip-path:circle(0 at var(--advisor-ripple-x,50%) var(--advisor-ripple-y,50%))}
+  16%{clip-path:circle(calc(var(--advisor-ripple-radius,1000px) * .10) at var(--advisor-ripple-x,50%) var(--advisor-ripple-y,50%))}
+  38%{clip-path:circle(calc(var(--advisor-ripple-radius,1000px) * .32) at var(--advisor-ripple-x,50%) var(--advisor-ripple-y,50%))}
+  66%{clip-path:circle(calc(var(--advisor-ripple-radius,1000px) * .66) at var(--advisor-ripple-x,50%) var(--advisor-ripple-y,50%))}
+  100%{clip-path:circle(var(--advisor-ripple-radius,1000px) at var(--advisor-ripple-x,50%) var(--advisor-ripple-y,50%))}
+}
+
+/* Clima cálido: paisaje y fuego más visibles, siempre detrás de la interfaz. */
+.advisor-dialog[data-advisor-theme="climate-calor"] .advisor-weather--heat{opacity:.74!important}
+.advisor-weather--heat i:nth-child(1){opacity:.42!important}
+.advisor-weather--heat i:not(:first-child){opacity:.58!important}
+
+/* Templado: más nubes y una tormenta eléctrica reconocible, sin figuras CSS. */
+.advisor-dialog[data-advisor-theme="climate-templado"] .advisor-weather--clouds{opacity:.52!important}
+.advisor-weather--clouds i:nth-child(5){left:-3%!important;top:73%!important;font-size:clamp(3.6rem,17vw,7.5rem)!important;animation-delay:-9s!important}
+.advisor-weather--clouds i:nth-child(6){right:-4%!important;top:66%!important;font-size:clamp(4.4rem,19vw,8.5rem)!important;animation-delay:-5.5s!important}
+.advisor-dialog[data-advisor-theme="climate-templado"] .advisor-weather--storm{opacity:.38!important}
+.advisor-weather--storm i:nth-child(3){left:54%!important;top:68%!important;animation-delay:-5.2s!important}
+
+/* Frío conserva nieve y suma viento visible sin invadir el contenido. */
+.advisor-dialog[data-advisor-theme="climate-frio"] .advisor-weather--wind{opacity:.26!important}
+.advisor-weather--wind i{
+  font-size:clamp(2.4rem,10vw,4.6rem)!important;
+  opacity:.55!important;
+  animation:advisorWindEmoji 5.8s ease-in-out infinite alternate!important;
+}
+.advisor-weather--wind i:nth-child(1){left:-4%!important;top:33%!important}
+.advisor-weather--wind i:nth-child(2){right:9%!important;top:52%!important;animation-delay:-2s!important}
+.advisor-weather--wind i:nth-child(3){left:24%!important;top:76%!important;animation-delay:-3.7s!important}
+@keyframes advisorWindEmoji{to{transform:translateX(38px);opacity:.72}}
+
+@media(max-width:700px){
+  .advisor-head{
+    padding-right:42px!important;
+    padding-bottom:13px!important;
+  }
+  .advisor-head h2{margin-top:8px!important}
+  .advisor-steps,.advisor-results{padding-top:14px!important}
+  .advisor-close{right:12px!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .entry-card--coming .entry-arrow--bestsellers,
+  .advisor-theme-ripple.is-animating,
+  .advisor-weather--wind i{animation:none!important}
+}
