@@ -1337,8 +1337,11 @@ if (elements.catalogSearchClear) {
 if (elements.catalogSearchDock) {
   ["pointerdown", "mousedown", "touchstart", "click"].forEach(type => {
     elements.catalogSearchDock.addEventListener(type, event => {
+      // El dock sigue bloqueando cualquier propagación hacia el catálogo, pero
+      // en fase burbuja: así los controles internos (incluida la X) reciben
+      // primero su evento y funcionan normalmente.
       event.stopPropagation();
-    }, { capture: true, passive: type === "touchstart" });
+    }, { capture: false, passive: type === "touchstart" });
   });
   const dockBox = elements.catalogSearchDock.querySelector(".catalog-search-dock__box");
   dockBox?.addEventListener("click", event => {

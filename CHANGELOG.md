@@ -353,3 +353,9 @@
 - Mientras el Asesor está abierto, el Home/catálogo subyacente se oculta para que Safari no derive sus barras de una superficie gris/clara detrás del diálogo.
 - `html` y `body` reciben el color real del tema como `background-color` inline y se añadió una superficie under-page sólida para overscroll y zonas expuestas por el navegador.
 - El `theme-color` se reinserta al confirmar un tema para forzar su relectura en Safari compatibles.
+
+
+## Sprint 6.2 · Corrección X de búsqueda contextual
+- Se corrigió el bloqueo del botón X de la búsqueda flotante de la colección.
+- La protección anti click-through permanece, pero ahora detiene propagación en fase burbuja para permitir que los controles internos reciban primero sus eventos.
+- La X limpia ambas barras, restablece resultados y mantiene el buscador contextual activo sin tocar la navegación ni el scroll existentes.
