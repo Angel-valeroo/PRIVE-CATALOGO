@@ -359,3 +359,13 @@
 - Se corrigió el bloqueo del botón X de la búsqueda flotante de la colección.
 - La protección anti click-through permanece, pero ahora detiene propagación en fase burbuja para permitir que los controles internos reciban primero sus eventos.
 - La X limpia ambas barras, restablece resultados y mantiene el buscador contextual activo sin tocar la navegación ni el scroll existentes.
+
+## Producción + SEO técnico · Sprint 7.0
+- Catálogo de producción consolidado en `data/prive-catalog.json`: las 547 fichas enriquecidas se cargan con una sola solicitud; la ruta histórica de JSON individuales queda como respaldo.
+- El HTML inicial ya publica 547 fragancias en lugar de `0 fragancias` mientras JavaScript termina de cargar.
+- Canonical, Open Graph, Twitter Card, favicon, Apple Touch Icon, manifest y JSON-LD integrados para `https://www.perfumeriaprive.com/`.
+- `robots.txt` y `sitemap.xml` añadidos.
+- 547 páginas SEO estáticas generadas bajo `/perfumes/<slug>/`, además de `/perfumes/` como índice rastreable.
+- Se añadieron `404.html` y recursos de identidad web en `/assets/`.
+- Se eliminaron las imágenes huérfanas `CP00735.avif` y `CP02414.avif`; quedan 547 imágenes para 547 perfumes activos.
+- Se retiraron reportes e instrucciones históricas obsoletas del repositorio.

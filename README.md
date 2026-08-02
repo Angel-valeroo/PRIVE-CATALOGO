@@ -57,3 +57,21 @@ node tools/test-master-batch-003.mjs
 ## Publicación
 
 Sube el contenido de esta carpeta a la raíz del repositorio de GitHub Pages, reemplazando los archivos existentes.
+
+## Producción y SEO
+
+El sitio público usa `https://www.perfumeriaprive.com/` como URL canónica.
+
+Antes de publicar cambios en la Base Maestra o en `data/core/`, regenera los artefactos de producción:
+
+```bash
+node tools/build-production.mjs
+```
+
+El comando genera:
+- `data/prive-catalog.json`: bundle de producción con las 547 fichas enriquecidas.
+- `perfumes/`: una URL HTML indexable por fragancia y un índice textual.
+- `sitemap.xml`: listado de URLs para buscadores.
+- `robots.txt`: permite rastreo y declara el sitemap.
+
+Después de desplegar, conviene verificar `https://www.perfumeriaprive.com/sitemap.xml` y enviar ese sitemap en Google Search Console. GitHub Pages debe mantener activada la opción **Enforce HTTPS**.

@@ -7,7 +7,7 @@ const state = {
 const IMAGE_BASE_PATH = "IMAGES";
 const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
 const MIN_RECOMMENDATION_SCORE = 62;
-const CORE_DATA_VERSION = "master-004-scrollfix-v50";
+const CORE_DATA_VERSION = "production-bundle-v70";
 const IS_MOBILE_CATALOG = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.matchMedia("(pointer: coarse)").matches;
 const CATALOG_BATCH_SIZE = IS_MOBILE_CATALOG ? 24 : 40;
 const CATALOG_INITIAL_BATCH_SIZE = IS_MOBILE_CATALOG ? 48 : 72;
@@ -1412,6 +1412,24 @@ async function loadCorePerfumes() {
   }
 }
 
+async function loadProductionCatalog() {
+  try {
+    const bundled = await fetchJson(`data/prive-catalog.json?v=${CORE_DATA_VERSION}`);
+    if (!Array.isArray(bundled) || bundled.length === 0) throw new Error("El bundle de producción está vacío.");
+    return { perfumes: bundled, source: "bundle" };
+  } catch (bundleError) {
+    console.warn("PRIVÉ: el bundle de producción no estuvo disponible; se activa la ruta de respaldo.", bundleError);
+    const [legacyPerfumes, corePerfumes] = await Promise.all([
+      fetchJson("data/perfumes.json"),
+      loadCorePerfumes()
+    ]);
+    const perfumes = window.PriveCoreAdapter
+      ? window.PriveCoreAdapter.mergeCatalogs(legacyPerfumes, corePerfumes)
+      : legacyPerfumes;
+    return { perfumes, source: `fallback:${corePerfumes.length}` };
+  }
+}
+
 let catalogDockFrame = 0;
 function updateCatalogSearchDock() {
   catalogDockFrame = 0;
@@ -1448,14 +1466,11 @@ async function init(){
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }
   try{
-    const [legacyPerfumes, corePerfumes] = await Promise.all([
-      fetchJson("data/perfumes.json"),
-      loadCorePerfumes()
-    ]);
-    state.perfumes = window.PriveCoreAdapter
-      ? window.PriveCoreAdapter.mergeCatalogs(legacyPerfumes, corePerfumes)
-      : legacyPerfumes;
-    console.info(`PRIVÉ: ${state.perfumes.length} fragancias cargadas (${corePerfumes.length} desde Core).`);
+    // Producción: una sola solicitud de datos. La ruta histórica de 547 JSON
+    // individuales queda únicamente como respaldo si el bundle no existe.
+    const production = await loadProductionCatalog();
+    state.perfumes = production.perfumes;
+    console.info(`PRIVÉ: ${state.perfumes.length} fragancias cargadas desde ${production.source}.`);
     populateFilters(); render(); syncSearchInputs(state.query); renderAdvisorOptions(); startSearchPlaceholderRotation(); openFromHash(); scheduleCatalogSearchDockUpdate();
   }catch(error){
     elements.catalog.innerHTML='<p class="load-error">No se pudo cargar el catálogo. Intenta actualizar la página.</p>';

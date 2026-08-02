@@ -1,0 +1,11 @@
+import fs from 'node:fs/promises';
+const bundle = JSON.parse(await fs.readFile(new URL('../data/prive-catalog.json', import.meta.url), 'utf8'));
+if (!Array.isArray(bundle)) throw new Error('El bundle no es una lista.');
+if (bundle.length !== 547) throw new Error(`Se esperaban 547 perfumes y hay ${bundle.length}.`);
+const codes = bundle.map(x => x.code);
+const ids = bundle.map(x => x.id);
+if (new Set(codes).size !== codes.length) throw new Error('Hay claves duplicadas en producción.');
+if (new Set(ids).size !== ids.length) throw new Error('Hay IDs duplicados en producción.');
+const missing = bundle.filter(x => !x.designer || !x.name || !x.code || !x.category);
+if (missing.length) throw new Error(`Hay ${missing.length} fichas sin identidad suficiente.`);
+console.log('✅ Bundle de producción validado: 547 fichas, sin claves ni IDs duplicados.');

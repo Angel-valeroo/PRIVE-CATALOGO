@@ -1,4 +1,0 @@
-ARCHIVOS PARA REEMPLAZAR EN LA RAÍZ DEL PROYECTO:
-- app.js
-- styles.css
-- CHANGELOG.md

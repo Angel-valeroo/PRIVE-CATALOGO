@@ -1,15 +1,67 @@
 <!doctype html>
-<html lang="es">
+<html lang="es-MX">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Catálogo inteligente de fragancias PRIVÉ">
+  <meta name="description" content="Descubre tu fragancia ideal en Perfumería PRIVÉ. Explora nuestro catálogo inteligente por diseñador, categoría, ocasión, clima y perfil olfativo.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#07090d">
-  <title>PRIVÉ — Catálogo inteligente</title>
+  <link rel="canonical" href="https://www.perfumeriaprive.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:site_name" content="Perfumería PRIVÉ">
+  <meta property="og:title" content="Perfumería PRIVÉ | Catálogo inteligente de fragancias">
+  <meta property="og:description" content="Encuentra la fragancia ideal para ti con el catálogo y Asesor Inteligente PRIVÉ.">
+  <meta property="og:url" content="https://www.perfumeriaprive.com/">
+  <meta property="og:image" content="https://www.perfumeriaprive.com/assets/og-prive.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Perfumería PRIVÉ — Catálogo inteligente de fragancias">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Perfumería PRIVÉ | Catálogo inteligente de fragancias">
+  <meta name="twitter:description" content="Encuentra la fragancia ideal para ti con el catálogo y Asesor Inteligente PRIVÉ.">
+  <meta name="twitter:image" content="https://www.perfumeriaprive.com/assets/og-prive.png">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/assets/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <title>Perfumería PRIVÉ | Catálogo inteligente de fragancias</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://www.perfumeriaprive.com/#website",
+        "url": "https://www.perfumeriaprive.com/",
+        "name": "Perfumería PRIVÉ",
+        "description": "Catálogo inteligente de fragancias PRIVÉ.",
+        "inLanguage": "es-MX"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://www.perfumeriaprive.com/#organization",
+        "name": "Perfumería PRIVÉ",
+        "url": "https://www.perfumeriaprive.com/",
+        "logo": "https://www.perfumeriaprive.com/assets/icon-512.png"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://www.perfumeriaprive.com/#webpage",
+        "url": "https://www.perfumeriaprive.com/",
+        "name": "Perfumería PRIVÉ | Catálogo inteligente de fragancias",
+        "description": "Descubre tu fragancia ideal en Perfumería PRIVÉ.",
+        "isPartOf": {"@id": "https://www.perfumeriaprive.com/#website"},
+        "about": {"@id": "https://www.perfumeriaprive.com/#organization"},
+        "inLanguage": "es-MX"
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=6.1">
+  <link rel="stylesheet" href="styles.css?v=7.0">
   <script>
     if (location.hash === "#catalogo" || location.hash === "#inicio") {
       history.replaceState(null, "", location.pathname + location.search);
@@ -17,6 +69,7 @@
   </script>
 </head>
 <body>
+  <noscript><p style="margin:0;padding:12px 18px;background:#07090d;color:#f5f2eb;text-align:center">Para usar el catálogo interactivo activa JavaScript. También puedes consultar el <a href="/perfumes/" style="color:#d8c79f">índice de fragancias</a>.</p></noscript>
   <main>
     <section id="inicio" class="hero">
       <div class="hero-atmosphere" aria-hidden="true">
@@ -55,7 +108,7 @@
           </div>
 
           <div class="summary" aria-live="polite">
-            <strong id="resultCount">0</strong>
+            <strong id="resultCount">547</strong>
             <span id="resultLabel">fragancias</span>
           </div>
         </div>
@@ -304,7 +357,7 @@
     </div>
   </dialog>
 
-  <script src="core-adapter.js?v=5.2" defer></script>
-  <script src="app.js?v=6.4" defer></script>
+  <script src="core-adapter.js?v=7.0" defer></script>
+  <script src="app.js?v=7.0" defer></script>
 </body>
 </html>
