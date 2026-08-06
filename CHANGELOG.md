@@ -1,3 +1,8 @@
+## 2026-08-06 — Mantenimiento de despliegue
+
+- Reintento limpio de publicación en GitHub Pages tras un trabajo detenido en cola antes de adquirir runner.
+- Sin cambios funcionales en catálogo, Asesor, búsqueda, fichas ni acceso temporal.
+
 ## 2026-08-01 — Búsqueda contextual: sesión y anclaje determinístico
 
 ## Sprint 5.3 — Home unificado y transiciones orgánicas del Asesor
@@ -377,3 +382,7 @@
 - Se integró el canal oficial de Instagram `@prive_trc` como alternativa pública para clientes que deseen consultar disponibilidad, información o cotizaciones.
 - El generador de producción incorpora la misma capa temporal a las 547 páginas SEO y al índice de fragancias para mantener una experiencia consistente mientras dure esta medida.
 - Esta capa está diseñada para retirarse posteriormente eliminando sus dos archivos y sus referencias, sin alterar la lógica del catálogo.
+
+## 2026-08-06 — Reintento de publicación GitHub Pages
+- Marcador de publicación sin cambios funcionales para generar un deployment nuevo después de que el runner anterior permaneciera en cola.
+- No modifica catálogo, búsqueda, Asesor, fichas, SEO ni acceso temporal.
