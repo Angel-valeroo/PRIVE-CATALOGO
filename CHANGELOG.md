@@ -369,3 +369,11 @@
 - Se añadieron `404.html` y recursos de identidad web en `/assets/`.
 - Se eliminaron las imágenes huérfanas `CP00735.avif` y `CP02414.avif`; quedan 547 imágenes para 547 perfumes activos.
 - Se retiraron reportes e instrucciones históricas obsoletas del repositorio.
+
+## Sprint 7.1 · Acceso temporal para distribuidores
+- Se añadió una pantalla de acceso temporal completamente desacoplada del catálogo mediante `access-gate.css` y `access-gate.js`.
+- La sesión de acceso se conserva únicamente durante la sesión actual del navegador; no se guarda la contraseña.
+- Las credenciales se comparan mediante SHA-256 en el cliente para evitar dejar la contraseña escrita literalmente en el archivo JavaScript.
+- Se integró el canal oficial de Instagram `@prive_trc` como alternativa pública para clientes que deseen consultar disponibilidad, información o cotizaciones.
+- El generador de producción incorpora la misma capa temporal a las 547 páginas SEO y al índice de fragancias para mantener una experiencia consistente mientras dure esta medida.
+- Esta capa está diseñada para retirarse posteriormente eliminando sus dos archivos y sus referencias, sin alterar la lógica del catálogo.
