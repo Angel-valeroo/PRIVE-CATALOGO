@@ -389,3 +389,10 @@
 
 ## 2026-08-06 — Reintento final de publicación GitHub Pages
 - Marcador técnico sin cambios funcionales para generar un commit/deployment completamente nuevo.
+## Sprint 7.2 — Sesión temporal controlada
+- Invalida una sola vez las sesiones anteriores del acceso temporal mediante una nueva versión interna de sesión.
+- Mantiene el acceso durante recargas y navegación dentro de la misma sesión del navegador.
+- La sesión expira automáticamente a las 12 horas y vuelve a solicitar credenciales.
+- Al cerrar la sesión/pestaña del navegador, `sessionStorage` se descarta y el acceso vuelve a solicitarse al regresar.
+- Se actualiza el cache-busting de `access-gate.js` a `v=1.1` en todas las páginas públicas/SEO para que la nueva política de sesión se cargue tras la publicación.
+
