@@ -386,3 +386,6 @@
 ## 2026-08-06 — Reintento de publicación GitHub Pages
 - Marcador de publicación sin cambios funcionales para generar un deployment nuevo después de que el runner anterior permaneciera en cola.
 - No modifica catálogo, búsqueda, Asesor, fichas, SEO ni acceso temporal.
+
+## 2026-08-06 — Reintento final de publicación GitHub Pages
+- Marcador técnico sin cambios funcionales para generar un commit/deployment completamente nuevo.
