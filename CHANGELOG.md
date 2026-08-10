@@ -1,3 +1,12 @@
+## 2026-08-10 — Sprint 7.3 · Compra con confianza y directorio oficial
+
+- Nuevo aviso institucional “Compra con confianza” al ingresar al catálogo, mostrado una vez por sesión y sin interferir con las recargas internas del sitio.
+- El aviso aclara que compartir el catálogo no acredita a nadie como distribuidor autorizado y dirige al directorio oficial.
+- Nueva página `distribuidores.html` preparada para credenciales de distribuidores autorizados, con fuente de datos independiente en `data/distributors.json`.
+- Mientras se incorporan las credenciales reales, el directorio ofrece verificación directa mediante el Instagram oficial `@prive_trc`.
+- Se añadió acceso permanente al directorio desde el pie del catálogo y se incorporó la nueva URL al sitemap.
+- No se modificaron catálogo, Asesor, búsqueda, fichas ni animaciones existentes.
+
 ## 2026-08-06 — Mantenimiento de despliegue
 
 - Reintento limpio de publicación en GitHub Pages tras un trabajo detenido en cola antes de adquirir runner.
