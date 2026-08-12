@@ -451,3 +451,9 @@
 - El lema y el mensaje del fundador tienen respaldo directo en el renderer, por lo que aparecen incluso si un JSON antiguo llegara a quedar en caché o sin reemplazar.
 - `Perfil oficial` queda protegido como distintivo exclusivo del fundador.
 - Se actualiza el cache-busting de `distributors.js`.
+
+
+## Sprint 7.10 — Mensaje del fundador
+- Se actualiza el mensaje oficial del fundador para agradecer primero a Dios, a la familia, a quienes creyeron en el proyecto y a cada cliente que ha dado su confianza a PRIVÉ.
+- Cierre aprobado: `Gracias por formar parte de este emprendimiento y de esta historia.`
+- Se sincronizan ambas fuentes históricas de distribuidores y el respaldo del renderer para evitar inconsistencias.
