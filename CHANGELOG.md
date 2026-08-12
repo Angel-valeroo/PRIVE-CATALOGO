@@ -405,3 +405,10 @@
 - Al cerrar la sesión/pestaña del navegador, `sessionStorage` se descarta y el acceso vuelve a solicitarse al regresar.
 - Se actualiza el cache-busting de `access-gate.js` a `v=1.1` en todas las páginas públicas/SEO para que la nueva política de sesión se cargue tras la publicación.
 
+
+
+## Sprint 7.4 · Credenciales oficiales
+- Se incorpora la primera credencial oficial del directorio: Angel Valero, CEO de PRIVÉ.
+- La credencial muestra nombre, alias, ciudad, teléfono e Instagram autorizados por el titular.
+- Se agrega la fotografía oficial al directorio y se prepara el diseño reutilizable para futuros distribuidores autorizados.
+- Se consolida `data/distributors.json` como fuente canónica del directorio.

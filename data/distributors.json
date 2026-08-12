@@ -1,0 +1,18 @@
+{
+  "updatedAt": "2026-08-12",
+  "instagram": "https://www.instagram.com/prive_trc/",
+  "distributors": [
+    {
+      "type": "owner",
+      "name": "Angel Valero",
+      "alias": "Valero",
+      "role": "CEO de PRIVÉ",
+      "city": "Torreón, Coahuila",
+      "phone": "871 483 9533",
+      "phoneHref": "tel:+528714839533",
+      "instagram": "https://www.instagram.com/angel_valeroo/",
+      "instagramHandle": "@angel_valeroo",
+      "photo": "/assets/distributors/angel-valero.jpg"
+    }
+  ]
+}
