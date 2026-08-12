@@ -31,7 +31,7 @@
       })).filter(member => member.name || member.alias)
     : [];
 
-  const roleFor = item => item.role || (item.type === 'owner' ? 'Fundador & CEO de PRIVÉ' : 'Distribuidor autorizado');
+  const roleFor = item => item.role || (item.type === 'owner' ? 'Fundador - CEO de PRIVÉ' : 'Distribuidor autorizado');
 
   const renderEmpty = () => {
     grid.innerHTML = `
@@ -55,7 +55,7 @@
 
     return `
       <article class="dist-card${isOwner ? ' dist-card--owner' : ''}" data-distributor-index="${index}">
-        <button class="dist-card-button" type="button" aria-label="Ver perfil de ${name}" data-open-profile="${index}">
+        <button class="dist-card-button" type="button" aria-label="Más detalles de ${name}" data-open-profile="${index}">
           <div class="dist-card-inner">
             <div class="dist-photo-frame">
               ${photo ? `<img class="dist-photo" src="${esc(photo)}" alt="Foto de ${name}" loading="lazy" decoding="async">` : '<div class="dist-photo dist-photo--placeholder" aria-hidden="true">PRIVÉ</div>'}
@@ -68,7 +68,7 @@
               ${city ? `<p class="dist-meta">${city}</p>` : ''}
               <div class="dist-card-footer">
                 ${networkLabel}
-                <span class="dist-view-profile">Ver perfil <span aria-hidden="true">↗</span></span>
+                <span class="dist-view-profile">Más detalles <span aria-hidden="true">↗</span></span>
               </div>
             </div>
           </div>
@@ -105,7 +105,7 @@
     const instagram = safeUrl(item.instagram);
     const instagramHandle = esc(item.instagramHandle || 'Instagram');
     const id = esc(item.id || '');
-    const badge = esc(item.badge || (isOwner ? 'PERFIL OFICIAL · FUNDADOR' : 'DISTRIBUIDOR AUTORIZADO'));
+    const badge = esc(item.badge || (isOwner ? 'PERFIL OFICIAL' : 'DISTRIBUIDOR AUTORIZADO'));
     const quote = esc(item.quote || '');
     const founderMessage = esc(item.founderMessage || '');
     const network = normalizeNetwork(item.network);
@@ -118,7 +118,9 @@
             ${photo ? `<img class="dist-profile-photo" src="${esc(photo)}" alt="Foto de ${name}">` : '<div class="dist-profile-photo dist-photo--placeholder" aria-hidden="true">PRIVÉ</div>'}
           </div>
           <div class="dist-profile-heading">
-            <span class="dist-profile-badge">${badge}</span>
+            ${isOwner
+              ? `<span class="dist-profile-badge dist-profile-badge--verified"><span>${badge}</span><span class="dist-verified-check" aria-label="Perfil verificado">✓</span></span>`
+              : `<span class="dist-profile-badge">${badge}</span>`}
             <p class="dist-profile-role">${role}</p>
             <h2 id="distributorProfileTitle">${name}</h2>
             ${alias ? `<p class="dist-profile-alias">“${alias}”</p>` : ''}
@@ -169,10 +171,16 @@
     lastTrigger = trigger || null;
     modalContent.innerHTML = profileHtml(item);
     document.body.classList.add('dist-profile-open');
+    modal.classList.remove('is-closing', 'is-open');
     modal.showModal();
-    modal.classList.remove('is-closing');
-    modalPanel?.scrollTo?.({ top: 0, behavior: 'auto' });
-    window.requestAnimationFrame(() => modal.classList.add('is-open'));
+    if (modalPanel) {
+      modalPanel.scrollTop = 0;
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    window.requestAnimationFrame(() => {
+      if (modalPanel) modalPanel.scrollTop = 0;
+      modal.classList.add('is-open');
+    });
   };
 
   const render = distributors => {

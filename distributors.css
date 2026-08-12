@@ -240,31 +240,32 @@ body.dist-profile-open{overflow:hidden}
 }
 .dist-profile-panel{
   position:absolute;
-  inset:auto 50% 0 auto;
-  transform:translate(50%,24px) scale(.975);
+  top:max(16px,env(safe-area-inset-top));
+  left:50%;
+  transform:translate(-50%,-12px) scale(.985);
   width:min(720px,calc(100% - 22px));
-  max-height:calc(100dvh - max(24px,env(safe-area-inset-top)));
+  max-height:calc(100dvh - max(32px,env(safe-area-inset-top)) - max(16px,env(safe-area-inset-bottom)));
   overflow:auto;
   overscroll-behavior:contain;
   padding:clamp(26px,5vw,42px);
   padding-top:52px;
   border:1px solid rgba(216,199,159,.23);
-  border-bottom:0;
-  border-radius:30px 30px 0 0;
+  border-radius:30px;
   background:
     radial-gradient(circle at 50% -8%,rgba(216,199,159,.13),transparent 32%),
     linear-gradient(155deg,rgba(255,255,255,.045),rgba(255,255,255,.01)),
     #0d0f14;
-  box-shadow:0 -20px 70px rgba(0,0,0,.46);
+  box-shadow:0 24px 80px rgba(0,0,0,.52);
   opacity:0;
   transition:transform .28s cubic-bezier(.2,.8,.2,1),opacity .2s ease
 }
-.dist-profile-modal[open] .dist-profile-panel{
-  transform:translate(50%,0) scale(1);
+.dist-profile-modal[open] .dist-profile-panel,
+.dist-profile-modal.is-open .dist-profile-panel{
+  transform:translate(-50%,0) scale(1);
   opacity:1
 }
 .dist-profile-modal.is-closing .dist-profile-panel{
-  transform:translate(50%,24px) scale(.985);
+  transform:translate(-50%,-10px) scale(.988);
   opacity:0
 }
 .dist-profile-close{
@@ -288,12 +289,38 @@ body.dist-profile-open{overflow:hidden}
   gap:20px
 }
 .dist-profile-photo-frame{
+  position:relative;
   width:112px;
   height:112px;
   padding:3px;
   border-radius:50%;
-  background:linear-gradient(145deg,#ead8a8,rgba(216,199,159,.18) 48%,#b9a36f);
-  box-shadow:0 16px 36px rgba(0,0,0,.3)
+  overflow:hidden;
+  background:#16181e;
+  box-shadow:0 16px 36px rgba(0,0,0,.3);
+  isolation:isolate
+}
+.dist-profile-photo-frame::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:-42%;
+  background:conic-gradient(
+    from 0deg,
+    rgba(216,199,159,.12),
+    rgba(242,224,178,.98),
+    rgba(216,199,159,.18),
+    rgba(184,158,99,.9),
+    rgba(216,199,159,.12)
+  );
+  animation:distProfileRing 5.8s linear infinite
+}
+.dist-profile-photo-frame::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:3px;
+  border-radius:50%;
+  background:#111319
 }
 .dist-profile-photo{
   display:block;
@@ -446,9 +473,11 @@ body.dist-profile-open{overflow:hidden}
 
 @media(max-width:560px){
   .dist-profile-panel{
-    width:100%;
+    top:max(10px,env(safe-area-inset-top));
+    width:calc(100% - 14px);
+    max-height:calc(100dvh - max(20px,env(safe-area-inset-top)) - max(10px,env(safe-area-inset-bottom)));
     padding:48px 18px max(24px,env(safe-area-inset-bottom));
-    border-radius:24px 24px 0 0
+    border-radius:24px
   }
   .dist-profile-hero{
     grid-template-columns:82px minmax(0,1fr);
@@ -462,4 +491,30 @@ body.dist-profile-open{overflow:hidden}
 @media(prefers-reduced-motion:reduce){
   .dist-profile-panel,
   .dist-card-inner{transition:none}
+  .dist-profile-photo-frame::before{animation:none}
+}
+
+
+/* Sprint 7.7 — perfil fundador refinado */
+.dist-profile-badge--verified{
+  gap:6px;
+  background:rgba(216,199,159,.08);
+  border-color:rgba(216,199,159,.28);
+  color:#efe6d4
+}
+.dist-verified-check{
+  display:inline-grid;
+  place-items:center;
+  width:17px;
+  height:17px;
+  border-radius:50%;
+  background:var(--gold);
+  color:#111319;
+  font-size:11px;
+  font-weight:900;
+  line-height:1;
+  box-shadow:0 0 0 2px rgba(216,199,159,.12)
+}
+@keyframes distProfileRing{
+  to{transform:rotate(360deg)}
 }

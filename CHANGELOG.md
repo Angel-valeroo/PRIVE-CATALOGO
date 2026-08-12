@@ -433,3 +433,13 @@
 - Se dejó preparada la estructura `network` para que cada distribuidor pueda mostrar después únicamente nombre y alias de sus propios revendedores.
 - Las tarjetas de distribuidores con red mostrarán un contador de revendedores en la vista compacta.
 - El aviso “Compra con confianza” conserva las dos decisiones: ver distribuidores autorizados o continuar al catálogo; no existe redirección automática al directorio.
+
+
+## Sprint 7.7 — Perfil fundador refinado
+- “Ver perfil” cambia a “Más detalles”.
+- El perfil ampliado deja de comportarse como hoja inferior: abre anclado desde la parte superior y siempre inicia con scroll en cero.
+- Se conserva y muestra la frase del fundador y el mensaje completo.
+- El aro de la foto del perfil ampliado incorpora una animación dorada sutil.
+- El distintivo del fundador queda como “Perfil oficial” con check de verificación.
+- Cargo del fundador: “Fundador - CEO de PRIVÉ”.
+- Se mantiene intacto el flujo “Compra con confianza” y sus dos opciones.
