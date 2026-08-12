@@ -31,7 +31,7 @@
       })).filter(member => member.name || member.alias)
     : [];
 
-  const roleFor = item => item.role || (item.type === 'owner' ? 'Fundador - CEO de PRIVÉ' : 'Distribuidor autorizado');
+  const roleFor = item => item.type === 'owner' ? 'Fundador - CEO de PRIVÉ' : (item.role || 'Distribuidor autorizado');
 
   const renderEmpty = () => {
     grid.innerHTML = `

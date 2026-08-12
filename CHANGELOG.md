@@ -443,3 +443,12 @@
 - El distintivo del fundador queda como “Perfil oficial” con check de verificación.
 - Cargo del fundador: “Fundador - CEO de PRIVÉ”.
 - Se mantiene intacto el flujo “Compra con confianza” y sus dos opciones.
+
+
+## Sprint 7.8 — Corrección perfil fundador
+- Se restaura en la fuente canónica el cargo `Fundador - CEO de PRIVÉ`.
+- Se restaura el distintivo `PERFIL OFICIAL`.
+- Se restaura el lema del fundador: `La calidad nos unió; la confianza nos hace crecer.`
+- Se restaura el mensaje completo del fundador.
+- El cargo del perfil owner queda protegido en la lógica de render para que un valor antiguo no lo degrade nuevamente a `CEO de PRIVÉ`.
+- Se actualiza el cache-busting de la página de distribuidores.
