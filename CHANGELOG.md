@@ -421,3 +421,15 @@
 - Instagram conserva acceso directo.
 - Borde dorado animado y sutil para distinguir visualmente las credenciales.
 - Diseño responsive preparado para mostrar varias credenciales por pantalla.
+
+
+## Sprint 7.6 — Perfil institucional y tarjetas expandibles
+- La vista inicial conserva credenciales compactas y ahora todas las tarjetas pueden abrirse para ver el perfil completo.
+- El perfil de Angel Valero se distingue como “Fundador & CEO de PRIVÉ” con sello exclusivo de perfil oficial.
+- Frase del fundador: “La calidad nos unió; la confianza nos hace crecer.”
+- Se integró un mensaje breve del fundador sobre calidad, confianza y apoyo.
+- Teléfono se mantiene como texto plano; Instagram conserva acceso directo.
+- La ficha ampliada muestra dinámicamente el número de distribuidores autorizados activos.
+- Se dejó preparada la estructura `network` para que cada distribuidor pueda mostrar después únicamente nombre y alias de sus propios revendedores.
+- Las tarjetas de distribuidores con red mostrarán un contador de revendedores en la vista compacta.
+- El aviso “Compra con confianza” conserva las dos decisiones: ver distribuidores autorizados o continuar al catálogo; no existe redirección automática al directorio.

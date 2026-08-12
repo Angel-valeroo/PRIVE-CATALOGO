@@ -1,7 +1,15 @@
 (() => {
   'use strict';
+
   const grid = document.getElementById('distributorGrid');
+  const modal = document.getElementById('distributorProfileModal');
+  const modalPanel = document.getElementById('distributorProfilePanel');
+  const modalContent = document.getElementById('distributorProfileContent');
+  const modalClose = document.getElementById('distributorProfileClose');
   if (!grid) return;
+
+  let directory = [];
+  let lastTrigger = null;
 
   const esc = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
@@ -10,11 +18,20 @@
   const safeUrl = value => {
     try {
       const url = new URL(String(value || ''), window.location.origin);
-      return ['https:', 'http:', 'tel:'].includes(url.protocol) ? url.href : '';
+      return ['https:', 'http:'].includes(url.protocol) ? url.href : '';
     } catch {
       return '';
     }
   };
+
+  const normalizeNetwork = value => Array.isArray(value)
+    ? value.filter(Boolean).map(member => ({
+        name: esc(member?.name || ''),
+        alias: esc(member?.alias || '')
+      })).filter(member => member.name || member.alias)
+    : [];
+
+  const roleFor = item => item.role || (item.type === 'owner' ? 'Fundador & CEO de PRIVÉ' : 'Distribuidor autorizado');
 
   const renderEmpty = () => {
     grid.innerHTML = `
@@ -24,38 +41,138 @@
       </div>`;
   };
 
-  const renderCard = item => {
+  const renderCard = (item, index) => {
     const isOwner = item.type === 'owner';
     const name = esc(item.name || '');
     const alias = esc(item.alias || '');
-    const role = esc(item.role || (isOwner ? 'CEO de PRIVÉ' : 'Distribuidor autorizado'));
+    const role = esc(roleFor(item));
+    const city = esc(item.city || '');
+    const photo = safeUrl(item.photo);
+    const network = normalizeNetwork(item.network);
+    const networkLabel = network.length
+      ? `<span class="dist-network-count">${network.length} ${network.length === 1 ? 'revendedor' : 'revendedores'}</span>`
+      : '';
+
+    return `
+      <article class="dist-card${isOwner ? ' dist-card--owner' : ''}" data-distributor-index="${index}">
+        <button class="dist-card-button" type="button" aria-label="Ver perfil de ${name}" data-open-profile="${index}">
+          <div class="dist-card-inner">
+            <div class="dist-photo-frame">
+              ${photo ? `<img class="dist-photo" src="${esc(photo)}" alt="Foto de ${name}" loading="lazy" decoding="async">` : '<div class="dist-photo dist-photo--placeholder" aria-hidden="true">PRIVÉ</div>'}
+            </div>
+            <div class="dist-card-body">
+              <span class="dist-status${isOwner ? ' dist-status--owner' : ''}">${role}</span>
+              <p class="dist-eyebrow">${isOwner ? 'DIRECCIÓN OFICIAL' : 'RED OFICIAL PRIVÉ'}</p>
+              <h2>${name}</h2>
+              ${alias ? `<p class="dist-alias">“${alias}”</p>` : ''}
+              ${city ? `<p class="dist-meta">${city}</p>` : ''}
+              <div class="dist-card-footer">
+                ${networkLabel}
+                <span class="dist-view-profile">Ver perfil <span aria-hidden="true">↗</span></span>
+              </div>
+            </div>
+          </div>
+        </button>
+      </article>`;
+  };
+
+  const renderNetwork = network => {
+    if (!network.length) return '';
+    return `
+      <section class="dist-profile-network" aria-labelledby="distNetworkTitle">
+        <div class="dist-profile-section-head">
+          <p class="dist-profile-kicker">RED DEL DISTRIBUIDOR</p>
+          <h3 id="distNetworkTitle">${network.length} ${network.length === 1 ? 'revendedor' : 'revendedores'}</h3>
+        </div>
+        <div class="dist-network-list">
+          ${network.map(member => `
+            <div class="dist-network-member">
+              <strong>${member.name || member.alias}</strong>
+              ${member.alias && member.name ? `<span>“${member.alias}”</span>` : ''}
+            </div>`).join('')}
+        </div>
+      </section>`;
+  };
+
+  const profileHtml = item => {
+    const isOwner = item.type === 'owner';
+    const name = esc(item.name || '');
+    const alias = esc(item.alias || '');
+    const role = esc(roleFor(item));
     const city = esc(item.city || '');
     const phone = esc(item.phone || '');
     const photo = safeUrl(item.photo);
     const instagram = safeUrl(item.instagram);
     const instagramHandle = esc(item.instagramHandle || 'Instagram');
     const id = esc(item.id || '');
+    const badge = esc(item.badge || (isOwner ? 'PERFIL OFICIAL · FUNDADOR' : 'DISTRIBUIDOR AUTORIZADO'));
+    const quote = esc(item.quote || '');
+    const founderMessage = esc(item.founderMessage || '');
+    const network = normalizeNetwork(item.network);
+    const activeDistributorCount = directory.filter(entry => entry && entry.type !== 'owner').length;
 
     return `
-      <article class="dist-card${isOwner ? ' dist-card--owner' : ''}">
-        <div class="dist-card-inner">
-          <div class="dist-photo-frame">
-            ${photo ? `<img class="dist-photo" src="${esc(photo)}" alt="Foto de ${name}" loading="lazy" decoding="async">` : '<div class="dist-photo dist-photo--placeholder" aria-hidden="true">PRIVÉ</div>'}
+      <div class="dist-profile${isOwner ? ' dist-profile--owner' : ''}">
+        <div class="dist-profile-hero">
+          <div class="dist-profile-photo-frame">
+            ${photo ? `<img class="dist-profile-photo" src="${esc(photo)}" alt="Foto de ${name}">` : '<div class="dist-profile-photo dist-photo--placeholder" aria-hidden="true">PRIVÉ</div>'}
           </div>
-          <div class="dist-card-body">
-            <span class="dist-status${isOwner ? ' dist-status--owner' : ''}">${role}</span>
-            <p class="dist-eyebrow">${isOwner ? 'DIRECCIÓN OFICIAL' : 'RED OFICIAL PRIVÉ'}</p>
-            <h2>${name}</h2>
-            ${alias ? `<p class="dist-alias">“${alias}”</p>` : ''}
-            ${city ? `<p class="dist-meta">${city}</p>` : ''}
-            <div class="dist-contact-list">
-              ${phone ? `<div class="dist-contact dist-contact--phone" aria-label="Teléfono de ${name}"><span>Teléfono</span><strong>${phone}</strong></div>` : ''}
-              ${instagram ? `<a class="dist-contact dist-contact--instagram" href="${esc(instagram)}" target="_blank" rel="noopener noreferrer" aria-label="Instagram de ${name}"><span>Instagram</span><strong>${instagramHandle}</strong></a>` : ''}
-            </div>
-            ${id ? `<p class="dist-id">ID PRIVÉ · ${id}</p>` : ''}
+          <div class="dist-profile-heading">
+            <span class="dist-profile-badge">${badge}</span>
+            <p class="dist-profile-role">${role}</p>
+            <h2 id="distributorProfileTitle">${name}</h2>
+            ${alias ? `<p class="dist-profile-alias">“${alias}”</p>` : ''}
+            ${city ? `<p class="dist-profile-city">${city}</p>` : ''}
           </div>
         </div>
-      </article>`;
+
+        ${quote ? `<blockquote class="dist-founder-quote">“${quote}”</blockquote>` : ''}
+
+        ${founderMessage ? `
+          <section class="dist-founder-message">
+            <p class="dist-profile-kicker">MENSAJE DEL FUNDADOR</p>
+            <p>${founderMessage}</p>
+          </section>` : ''}
+
+        ${isOwner ? `
+          <div class="dist-founder-stat">
+            <span>Distribuidores autorizados activos</span>
+            <strong>${activeDistributorCount}</strong>
+          </div>` : ''}
+
+        <section class="dist-profile-contact" aria-label="Información de contacto">
+          ${phone ? `<div class="dist-profile-contact-row"><span>Teléfono</span><strong>${phone}</strong></div>` : ''}
+          ${instagram ? `<a class="dist-profile-instagram" href="${esc(instagram)}" target="_blank" rel="noopener noreferrer"><span>Instagram</span><strong>${instagramHandle}</strong></a>` : ''}
+          ${id ? `<div class="dist-profile-contact-row"><span>ID PRIVÉ</span><strong>${id}</strong></div>` : ''}
+        </section>
+
+        ${renderNetwork(network)}
+      </div>`;
+  };
+
+  const closeProfile = () => {
+    if (!modal || !modal.open) return;
+    modal.classList.add('is-closing');
+    window.setTimeout(() => {
+      modal.close();
+      modal.classList.remove('is-closing');
+      document.body.classList.remove('dist-profile-open');
+      if (modalContent) modalContent.innerHTML = '';
+      lastTrigger?.focus?.({ preventScroll: true });
+      lastTrigger = null;
+    }, 180);
+  };
+
+  const openProfile = (index, trigger) => {
+    const item = directory[index];
+    if (!item || !modal || !modalContent) return;
+    lastTrigger = trigger || null;
+    modalContent.innerHTML = profileHtml(item);
+    document.body.classList.add('dist-profile-open');
+    modal.showModal();
+    modal.classList.remove('is-closing');
+    modalPanel?.scrollTo?.({ top: 0, behavior: 'auto' });
+    window.requestAnimationFrame(() => modal.classList.add('is-open'));
   };
 
   const render = distributors => {
@@ -63,8 +180,21 @@
       renderEmpty();
       return;
     }
+    directory = distributors;
     grid.innerHTML = distributors.map(renderCard).join('');
+    grid.querySelectorAll('[data-open-profile]').forEach(button => {
+      button.addEventListener('click', () => openProfile(Number(button.dataset.openProfile), button));
+    });
   };
+
+  modalClose?.addEventListener('click', closeProfile);
+  modal?.addEventListener('click', event => {
+    if (event.target === modal) closeProfile();
+  });
+  modal?.addEventListener('cancel', event => {
+    event.preventDefault();
+    closeProfile();
+  });
 
   fetch('/data/distributors.json', { cache: 'no-store' })
     .then(response => response.ok ? response.json() : Promise.reject(new Error('No disponible')))

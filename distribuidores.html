@@ -22,7 +22,7 @@
   <script>document.documentElement.classList.add('prive-access-locked')</script>
   <link rel="stylesheet" href="/access-gate.css?v=1.0">
   <script src="/access-gate.js?v=1.1" defer></script>
-  <link rel="stylesheet" href="/distributors.css?v=1.2">
+  <link rel="stylesheet" href="/distributors.css?v=1.3">
 </head>
 <body>
   <main class="dist-shell">
@@ -47,6 +47,13 @@
       <p class="dist-note">PRIVÉ no puede verificar la procedencia, calidad o desempeño de productos ofrecidos por terceros no autorizados. La inclusión en este directorio es la referencia oficial para identificar a nuestra red vigente.</p>
     </section>
   </main>
-  <script src="/distributors.js?v=1.2" defer></script>
+
+  <dialog id="distributorProfileModal" class="dist-profile-modal" aria-labelledby="distributorProfileTitle">
+    <div id="distributorProfilePanel" class="dist-profile-panel">
+      <button id="distributorProfileClose" class="dist-profile-close" type="button" aria-label="Cerrar perfil">×</button>
+      <div id="distributorProfileContent"></div>
+    </div>
+  </dialog>
+  <script src="/distributors.js?v=1.3" defer></script>
 </body>
 </html>
