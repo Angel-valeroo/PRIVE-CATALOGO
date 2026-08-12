@@ -34,25 +34,26 @@
     const photo = safeUrl(item.photo);
     const instagram = safeUrl(item.instagram);
     const instagramHandle = esc(item.instagramHandle || 'Instagram');
-    const phoneHref = safeUrl(item.phoneHref || (item.phone ? `tel:${String(item.phone).replace(/[^+\d]/g, '')}` : ''));
     const id = esc(item.id || '');
 
     return `
       <article class="dist-card${isOwner ? ' dist-card--owner' : ''}">
-        <div class="dist-photo-frame">
-          ${photo ? `<img class="dist-photo" src="${esc(photo)}" alt="Foto de ${name}" loading="lazy" decoding="async">` : '<div class="dist-photo dist-photo--placeholder" aria-hidden="true">PRIVÉ</div>'}
-          <span class="dist-status${isOwner ? ' dist-status--owner' : ''}">${role}</span>
-        </div>
-        <div class="dist-card-body">
-          <p class="dist-eyebrow">${isOwner ? 'DIRECCIÓN OFICIAL' : 'RED OFICIAL PRIVÉ'}</p>
-          <h2>${name}</h2>
-          ${alias ? `<p class="dist-alias">“${alias}”</p>` : ''}
-          ${city ? `<p class="dist-meta">${city}</p>` : ''}
-          <div class="dist-contact-list">
-            ${phone ? `<a class="dist-contact" href="${esc(phoneHref)}" aria-label="Llamar a ${name}"><span>Teléfono</span><strong>${phone}</strong></a>` : ''}
-            ${instagram ? `<a class="dist-contact" href="${esc(instagram)}" target="_blank" rel="noopener noreferrer" aria-label="Instagram de ${name}"><span>Instagram</span><strong>${instagramHandle}</strong></a>` : ''}
+        <div class="dist-card-inner">
+          <div class="dist-photo-frame">
+            ${photo ? `<img class="dist-photo" src="${esc(photo)}" alt="Foto de ${name}" loading="lazy" decoding="async">` : '<div class="dist-photo dist-photo--placeholder" aria-hidden="true">PRIVÉ</div>'}
           </div>
-          ${id ? `<p class="dist-id">ID PRIVÉ · ${id}</p>` : ''}
+          <div class="dist-card-body">
+            <span class="dist-status${isOwner ? ' dist-status--owner' : ''}">${role}</span>
+            <p class="dist-eyebrow">${isOwner ? 'DIRECCIÓN OFICIAL' : 'RED OFICIAL PRIVÉ'}</p>
+            <h2>${name}</h2>
+            ${alias ? `<p class="dist-alias">“${alias}”</p>` : ''}
+            ${city ? `<p class="dist-meta">${city}</p>` : ''}
+            <div class="dist-contact-list">
+              ${phone ? `<div class="dist-contact dist-contact--phone" aria-label="Teléfono de ${name}"><span>Teléfono</span><strong>${phone}</strong></div>` : ''}
+              ${instagram ? `<a class="dist-contact dist-contact--instagram" href="${esc(instagram)}" target="_blank" rel="noopener noreferrer" aria-label="Instagram de ${name}"><span>Instagram</span><strong>${instagramHandle}</strong></a>` : ''}
+            </div>
+            ${id ? `<p class="dist-id">ID PRIVÉ · ${id}</p>` : ''}
+          </div>
         </div>
       </article>`;
   };

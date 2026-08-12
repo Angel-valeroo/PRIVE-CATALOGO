@@ -412,3 +412,12 @@
 - La credencial muestra nombre, alias, ciudad, teléfono e Instagram autorizados por el titular.
 - Se agrega la fotografía oficial al directorio y se prepara el diseño reutilizable para futuros distribuidores autorizados.
 - Se consolida `data/distributors.json` como fuente canónica del directorio.
+
+## Sprint 7.5 — Credenciales compactas
+- Se conserva el aviso emergente “Compra con confianza” con las dos rutas: ver distribuidores o continuar al catálogo.
+- Credenciales de distribuidores más compactas y centradas.
+- Foto de perfil circular.
+- Teléfono en texto plano, sin acción de llamada.
+- Instagram conserva acceso directo.
+- Borde dorado animado y sutil para distinguir visualmente las credenciales.
+- Diseño responsive preparado para mostrar varias credenciales por pantalla.
