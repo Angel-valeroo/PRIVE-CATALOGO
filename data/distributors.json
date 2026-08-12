@@ -27,6 +27,19 @@
       "photo": "/assets/distributors/ruben-albores.jpg",
       "badge": "DISTRIBUIDOR AUTORIZADO",
       "network": []
+    },
+    {
+      "type": "distributor",
+      "name": "Adalaaí Cabrera",
+      "alias": "Cabrera",
+      "role": "Distribuidor autorizado",
+      "city": "Torreón, Coahuila",
+      "phone": "871 571 9087",
+      "instagram": "https://www.instagram.com/adalaaicabreraa?igsh=ZHI4cG9zdTh5ZTJ3",
+      "instagramHandle": "@adalaaicabreraa",
+      "photo": "/assets/distributors/adalaai-cabrera.jpg",
+      "badge": "DISTRIBUIDOR AUTORIZADO",
+      "network": []
     }
   ]
 }
