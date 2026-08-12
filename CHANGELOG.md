@@ -467,3 +467,14 @@
 - Se agrega su fotografía oficial al directorio.
 - El contador del perfil del fundador pasa a reflejar 1 distribuidor autorizado activo.
 - Se sincronizan `distributors.json` y `data/distributors.json` para evitar inconsistencias.
+
+
+## Sprint 7.12 — Adalaaí Cabrera + contacto condicional
+- Se integra a Adalaaí Cabrera, alias `Cabrera`, como Distribuidor autorizado.
+- Ciudad: Torreón, Coahuila.
+- Teléfono: `871 571 9087`.
+- Instagram oficial de su perfil: `@adalaaicabreraa`.
+- Se agrega su fotografía y su red inicia vacía.
+- Se corrige de raíz `safeUrl`: los valores vacíos ya no se convierten en la URL principal del sitio.
+- En consecuencia, Ruben Albores y cualquier distribuidor futuro sin Instagram ya no muestran botón, texto ni espacio de Instagram.
+- Se sincronizan `data/distributors.json` y `distributors.json`.

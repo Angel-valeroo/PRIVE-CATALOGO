@@ -16,8 +16,10 @@
   }[char]));
 
   const safeUrl = value => {
+    const raw = String(value ?? '').trim();
+    if (!raw) return '';
     try {
-      const url = new URL(String(value || ''), window.location.origin);
+      const url = new URL(raw, window.location.origin);
       return ['https:', 'http:'].includes(url.protocol) ? url.href : '';
     } catch {
       return '';
