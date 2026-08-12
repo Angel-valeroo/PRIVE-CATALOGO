@@ -105,9 +105,9 @@
     const instagram = safeUrl(item.instagram);
     const instagramHandle = esc(item.instagramHandle || 'Instagram');
     const id = esc(item.id || '');
-    const badge = esc(item.badge || (isOwner ? 'PERFIL OFICIAL' : 'DISTRIBUIDOR AUTORIZADO'));
-    const quote = esc(item.quote || '');
-    const founderMessage = esc(item.founderMessage || '');
+    const badge = esc(isOwner ? 'PERFIL OFICIAL' : (item.badge || 'DISTRIBUIDOR AUTORIZADO'));
+    const quote = esc(item.quote || (isOwner ? "La calidad nos unió; la confianza nos hace crecer." : ''));
+    const founderMessage = esc(item.founderMessage || (isOwner ? "PRIVÉ nació con una idea sencilla: ofrecer perfumes de gran calidad a un precio justo. Con el tiempo entendimos que lo más valioso no eran solo los aromas, sino la confianza de quienes nos eligieron y el apoyo de quienes decidieron crecer con nosotros. Gracias por formar parte de esta historia." : ''));
     const network = normalizeNetwork(item.network);
     const activeDistributorCount = directory.filter(entry => entry && entry.type !== 'owner').length;
 

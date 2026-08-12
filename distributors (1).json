@@ -1,0 +1,21 @@
+{
+  "updatedAt": "2026-08-12",
+  "instagram": "https://www.instagram.com/prive_trc/",
+  "distributors": [
+    {
+      "type": "owner",
+      "name": "Angel Valero",
+      "alias": "Valero",
+      "role": "Fundador - CEO de PRIVÉ",
+      "city": "Torreón, Coahuila",
+      "phone": "871 483 9533",
+      "instagram": "https://www.instagram.com/angel_valeroo/",
+      "instagramHandle": "@angel_valeroo",
+      "photo": "/assets/distributors/angel-valero.jpg",
+      "badge": "PERFIL OFICIAL",
+      "quote": "La calidad nos unió; la confianza nos hace crecer.",
+      "founderMessage": "PRIVÉ nació con una idea sencilla: ofrecer perfumes de gran calidad a un precio justo. Con el tiempo entendimos que lo más valioso no eran solo los aromas, sino la confianza de quienes nos eligieron y el apoyo de quienes decidieron crecer con nosotros. Gracias por formar parte de esta historia.",
+      "network": []
+    }
+  ]
+}

@@ -445,10 +445,9 @@
 - Se mantiene intacto el flujo “Compra con confianza” y sus dos opciones.
 
 
-## Sprint 7.8 — Corrección perfil fundador
-- Se restaura en la fuente canónica el cargo `Fundador - CEO de PRIVÉ`.
-- Se restaura el distintivo `PERFIL OFICIAL`.
-- Se restaura el lema del fundador: `La calidad nos unió; la confianza nos hace crecer.`
-- Se restaura el mensaje completo del fundador.
-- El cargo del perfil owner queda protegido en la lógica de render para que un valor antiguo no lo degrade nuevamente a `CEO de PRIVÉ`.
-- Se actualiza el cache-busting de la página de distribuidores.
+## Sprint 7.9 — Perfil fundador garantizado
+- Se sincronizan las dos fuentes históricas de distribuidores para evitar datos desfasados.
+- El perfil `owner` fuerza el cargo `Fundador - CEO de PRIVÉ`.
+- El lema y el mensaje del fundador tienen respaldo directo en el renderer, por lo que aparecen incluso si un JSON antiguo llegara a quedar en caché o sin reemplazar.
+- `Perfil oficial` queda protegido como distintivo exclusivo del fundador.
+- Se actualiza el cache-busting de `distributors.js`.
