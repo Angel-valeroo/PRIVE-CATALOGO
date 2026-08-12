@@ -457,3 +457,13 @@
 - Se actualiza el mensaje oficial del fundador para agradecer primero a Dios, a la familia, a quienes creyeron en el proyecto y a cada cliente que ha dado su confianza a PRIVÉ.
 - Cierre aprobado: `Gracias por formar parte de este emprendimiento y de esta historia.`
 - Se sincronizan ambas fuentes históricas de distribuidores y el respaldo del renderer para evitar inconsistencias.
+
+
+## Sprint 7.11 — Primer distribuidor autorizado
+- Se integra a Ruben Albores, alias `Chaparro`, como primer Distribuidor autorizado de PRIVÉ.
+- Ciudad: Torreón, Coahuila.
+- Teléfono visible únicamente como texto: `871 594 5420`.
+- Perfil sin Instagram y sin red de revendedores por el momento.
+- Se agrega su fotografía oficial al directorio.
+- El contador del perfil del fundador pasa a reflejar 1 distribuidor autorizado activo.
+- Se sincronizan `distributors.json` y `data/distributors.json` para evitar inconsistencias.

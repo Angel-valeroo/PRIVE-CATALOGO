@@ -16,6 +16,17 @@
       "badge": "PERFIL OFICIAL",
       "quote": "La calidad nos unió; la confianza nos hace crecer.",
       "founderMessage": "PRIVÉ nació con una idea sencilla: ofrecer perfumes de gran calidad a un precio justo. Todo lo que hemos construido ha sido posible, primero, gracias a Dios; también gracias a mi familia, a las personas que creyeron en este proyecto desde el comienzo y a cada cliente que nos dio su confianza al elegir nuestros perfumes. Con el tiempo entendí que lo más valioso no son solo las fragancias, sino la confianza, el apoyo y las personas que han decidido crecer junto a nosotros. Gracias por formar parte de este emprendimiento y de esta historia."
+    },
+    {
+      "type": "distributor",
+      "name": "Ruben Albores",
+      "alias": "Chaparro",
+      "role": "Distribuidor autorizado",
+      "city": "Torreón, Coahuila",
+      "phone": "871 594 5420",
+      "photo": "/assets/distributors/ruben-albores.jpg",
+      "badge": "DISTRIBUIDOR AUTORIZADO",
+      "network": []
     }
   ]
 }
