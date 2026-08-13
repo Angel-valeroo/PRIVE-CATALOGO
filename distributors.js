@@ -34,6 +34,8 @@
     : [];
 
   const roleFor = item => item.type === 'owner' ? 'Fundador - CEO de PRIVÉ' : (item.role || 'Distribuidor autorizado');
+  const isVerifiedProfile = item => Boolean(item?.verified || item?.type === 'owner');
+  const isOfficialLeadership = item => item?.type === 'owner' || item?.type === 'executive';
 
   const renderEmpty = () => {
     grid.innerHTML = `
@@ -45,6 +47,7 @@
 
   const renderCard = (item, index) => {
     const isOwner = item.type === 'owner';
+    const isLeadership = isOfficialLeadership(item);
     const name = esc(item.name || '');
     const alias = esc(item.alias || '');
     const role = esc(roleFor(item));
@@ -56,15 +59,15 @@
       : '';
 
     return `
-      <article class="dist-card${isOwner ? ' dist-card--owner' : ''}" data-distributor-index="${index}">
+      <article class="dist-card${isLeadership ? ' dist-card--owner' : ''}" data-distributor-index="${index}">
         <button class="dist-card-button" type="button" aria-label="Más detalles de ${name}" data-open-profile="${index}">
           <div class="dist-card-inner">
             <div class="dist-photo-frame">
               ${photo ? `<img class="dist-photo" src="${esc(photo)}" alt="Foto de ${name}" loading="lazy" decoding="async">` : '<div class="dist-photo dist-photo--placeholder" aria-hidden="true">PRIVÉ</div>'}
             </div>
             <div class="dist-card-body">
-              <span class="dist-status${isOwner ? ' dist-status--owner' : ''}">${role}</span>
-              <p class="dist-eyebrow">${isOwner ? 'DIRECCIÓN OFICIAL' : 'RED OFICIAL PRIVÉ'}</p>
+              <span class="dist-status${isLeadership ? ' dist-status--owner' : ''}">${role}</span>
+              <p class="dist-eyebrow">${isLeadership ? 'DIRECCIÓN OFICIAL' : 'RED OFICIAL PRIVÉ'}</p>
               <h2>${name}</h2>
               ${alias ? `<p class="dist-alias">“${alias}”</p>` : ''}
               ${city ? `<p class="dist-meta">${city}</p>` : ''}
@@ -98,6 +101,8 @@
 
   const profileHtml = item => {
     const isOwner = item.type === 'owner';
+    const isVerified = isVerifiedProfile(item);
+    const isLeadership = isOfficialLeadership(item);
     const name = esc(item.name || '');
     const alias = esc(item.alias || '');
     const role = esc(roleFor(item));
@@ -107,20 +112,20 @@
     const instagram = safeUrl(item.instagram);
     const instagramHandle = esc(item.instagramHandle || 'Instagram');
     const id = esc(item.id || '');
-    const badge = esc(isOwner ? 'PERFIL OFICIAL' : (item.badge || 'DISTRIBUIDOR AUTORIZADO'));
+    const badge = esc(isVerified ? 'PERFIL OFICIAL' : (item.badge || 'DISTRIBUIDOR AUTORIZADO'));
     const quote = esc(item.quote || (isOwner ? "La calidad nos unió; la confianza nos hace crecer." : ''));
     const founderMessage = esc(item.founderMessage || (isOwner ? "PRIVÉ nació con una idea sencilla: ofrecer perfumes de gran calidad a un precio justo. Todo lo que hemos construido ha sido posible, primero, gracias a Dios; también gracias a mi familia, a las personas que creyeron en este proyecto desde el comienzo y a cada cliente que nos dio su confianza al elegir nuestros perfumes. Con el tiempo entendí que lo más valioso no son solo las fragancias, sino la confianza, el apoyo y las personas que han decidido crecer junto a nosotros. Gracias por formar parte de este emprendimiento y de esta historia." : ''));
     const network = normalizeNetwork(item.network);
-    const activeDistributorCount = directory.filter(entry => entry && entry.type !== 'owner').length;
+    const activeDistributorCount = directory.filter(entry => entry && entry.type === 'distributor').length;
 
     return `
-      <div class="dist-profile${isOwner ? ' dist-profile--owner' : ''}">
+      <div class="dist-profile${isLeadership ? ' dist-profile--owner' : ''}">
         <div class="dist-profile-hero">
           <div class="dist-profile-photo-frame">
             ${photo ? `<img class="dist-profile-photo" src="${esc(photo)}" alt="Foto de ${name}">` : '<div class="dist-profile-photo dist-photo--placeholder" aria-hidden="true">PRIVÉ</div>'}
           </div>
           <div class="dist-profile-heading">
-            ${isOwner
+            ${isVerified
               ? `<span class="dist-profile-badge dist-profile-badge--verified"><span>${badge}</span><span class="dist-verified-check" aria-label="Perfil verificado">✓</span></span>`
               : `<span class="dist-profile-badge">${badge}</span>`}
             <p class="dist-profile-role">${role}</p>

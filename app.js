@@ -544,9 +544,9 @@ function openPerfume(perfume, updateHash = true, options = {}) {
   resetDetailRenderState();
   state.selectedPerfume = perfume;
   elements.detailDesigner.textContent = perfume.designer; elements.detailName.textContent = perfume.name;
-  elements.detailCode.textContent = `CLAVE ${perfume.code}`;
+  elements.detailCode.textContent = "";
   elements.detailStageName.textContent = perfume.name;
-  elements.detailStageCode.textContent = `Clave ${perfume.code}`;
+  elements.detailStageCode.textContent = "";
   applyDetailCategoryTheme(perfume);
   elements.detailCategory.textContent = `COLECCIÓN ${String(perfume.category || "PRIVÉ").toUpperCase()}`;
   elements.detailDescription.textContent = perfume.description || "Una fragancia de la colección PRIVÉ. Su información olfativa se incorporará progresivamente a la base de datos.";
@@ -600,7 +600,7 @@ function createCatalogCard(perfume, index) {
   designer.textContent = perfume.designer;
   designer.addEventListener("click", () => setFilter("designer", perfume.designer));
   card.querySelector(".perfume-name").textContent = perfume.name;
-  card.querySelector(".product-code").textContent = `CLAVE ${perfume.code}`;
+  card.querySelector(".product-code").textContent = "";
   article.dataset.perfumeId = perfume.id;
   article.style.setProperty("--card-index", Math.min(index, 18));
   const cardNumber = card.querySelector(".card-number");
@@ -1123,7 +1123,7 @@ function recommendationCard(result, index) {
   card.innerHTML = `
     <div class="advisor-result-top">
       <span class="advisor-rank" aria-hidden="true">${medal}</span>
-      <div><p>${result.perfume.designer}</p><h4>${result.perfume.name}</h4><small>CLAVE ${result.perfume.code}</small></div>
+      <div><p>${result.perfume.designer}</p><h4>${result.perfume.name}</h4></div>
       <strong class="advisor-score">${result.percentage}%</strong>
     </div>
     <div class="advisor-why"><span>Por qué coincide</span><ul>${result.reasons.map(reason => `<li>${reason}</li>`).join("")}</ul></div>
@@ -1271,7 +1271,7 @@ elements.categoryFilters.forEach(button => button.addEventListener("click", () =
   scrollToCatalog();
 }));
 elements.search.addEventListener("focus", () => {
-  elements.search.placeholder = "Busca por nombre, diseñador o clave...";
+  elements.search.placeholder = "Busca por nombre o diseñador...";
   document.body.classList.add("search-active");
 });
 elements.search.addEventListener("blur", () => {

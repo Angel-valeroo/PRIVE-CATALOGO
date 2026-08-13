@@ -478,3 +478,12 @@
 - Se corrige de raíz `safeUrl`: los valores vacíos ya no se convierten en la URL principal del sitio.
 - En consecuencia, Ruben Albores y cualquier distribuidor futuro sin Instagram ya no muestran botón, texto ni espacio de Instagram.
 - Se sincronizan `data/distributors.json` y `distributors.json`.
+
+## Sprint 7.13 — Credenciales ampliadas y claves ocultas (2026-08-13)
+- Se amplió el directorio oficial con Mariana Valero, Roberto Guerra González, Diana Rodriguez, Ernesto Meraz, Francisco Félix, Kaled Puentes y Angel Soto.
+- Mariana Valero aparece como perfil oficial verificado con rol “CEO y Redes”.
+- Angel Soto usa el rol “Redes - Distribuidor Autorizado”.
+- Orden del directorio: Angel Valero, Mariana Valero, Roberto Guerra González y después distribuidores por orden alfabético.
+- Se actualizó la fotografía de Adalaaí Cabrera.
+- Las claves de perfumes dejaron de mostrarse visualmente en catálogo, fichas, resultados del Asesor, textos de búsqueda y páginas SEO, sin eliminarse de los datos internos.
+- Las redes pendientes de Angel Soto y Roberto Guerra González quedan preparadas sin mostrar secciones vacías.
