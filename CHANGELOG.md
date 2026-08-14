@@ -1,3 +1,13 @@
+## Sprint 7.15 — Expansión de distribuidores autorizados
+
+- Se agregaron las credenciales de Magda Onofre “Maggie”, Luis Terán “Teran” y Esmeralda Ramírez “Esme”.
+- Se mantienen Angel Valero, Mariana Valero y Roberto Guerra González como perfiles prioritarios; el resto del directorio se ordena alfabéticamente.
+- Luis Terán se publica sin teléfono, conforme a su preferencia.
+- Magda Onofre queda preparada para agregar su red de revendedores más adelante.
+- Se sincronizaron `data/distributors.json`, `distributors.json` y el respaldo embebido de `distributors.js`.
+- Se retiró la copia obsoleta `distributors (1).json` del respaldo limpio.
+- Se actualizó el cache-busting del directorio para forzar la carga de la versión nueva.
+
 ## 2026-08-10 — Sprint 7.3 · Compra con confianza y directorio oficial
 
 - Nuevo aviso institucional “Compra con confianza” al ingresar al catálogo, mostrado una vez por sesión y sin interferir con las recargas internas del sitio.

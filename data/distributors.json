@@ -100,6 +100,19 @@
     },
     {
       "type": "distributor",
+      "name": "Esmeralda Ramírez",
+      "alias": "Esme",
+      "role": "Distribuidor autorizado",
+      "city": "Torreón, Coahuila",
+      "phone": "871 337 8227",
+      "instagram": "https://www.instagram.com/esme_1822/",
+      "instagramHandle": "@esme_1822",
+      "photo": "/assets/distributors/esmeralda-ramirez.jpg",
+      "badge": "DISTRIBUIDOR AUTORIZADO",
+      "network": []
+    },
+    {
+      "type": "distributor",
       "name": "Francisco Félix",
       "alias": "Frank",
       "role": "Distribuidor autorizado",
@@ -121,6 +134,32 @@
       "photo": "/assets/distributors/kaled-puentes.jpg",
       "badge": "DISTRIBUIDOR AUTORIZADO",
       "network": []
+    },
+    {
+      "type": "distributor",
+      "name": "Luis Terán",
+      "alias": "Teran",
+      "role": "Distribuidor autorizado",
+      "city": "Parras, Coahuila / Torreón, Coahuila",
+      "instagram": "https://www.instagram.com/luisteran806/",
+      "instagramHandle": "@luisteran806",
+      "photo": "/assets/distributors/luis-teran.jpg",
+      "badge": "DISTRIBUIDOR AUTORIZADO",
+      "network": []
+    },
+    {
+      "type": "distributor",
+      "name": "Magda Onofre",
+      "alias": "Maggie",
+      "role": "Distribuidor autorizado",
+      "city": "Torreón, Coahuila",
+      "phone": "871 220 9783",
+      "instagram": "https://www.instagram.com/magda_onrii/",
+      "instagramHandle": "@magda_onrii",
+      "photo": "/assets/distributors/magda-onofre.jpg",
+      "badge": "DISTRIBUIDOR AUTORIZADO",
+      "network": [],
+      "networkPending": true
     },
     {
       "type": "distributor",
