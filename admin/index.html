@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#0a0b0f">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <title>Panel administrativo | PRIVÉ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./admin.css?v=1.1">
+</head>
+<body>
+  <main class="admin-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">PERFUMERÍA PRIVÉ</p>
+        <h1>Panel administrativo</h1>
+      </div>
+      <div class="topbar-actions">
+        <span id="sessionBadge" class="session-badge" hidden></span>
+        <button id="logoutBtn" class="btn btn-ghost" type="button" hidden>Cerrar sesión</button>
+      </div>
+    </header>
+
+    <section id="setupView" class="auth-view" hidden>
+      <div class="auth-card">
+        <p class="auth-kicker">Configuración inicial</p>
+        <h2>Conectar con PRIVÉ Sistema</h2>
+        <p class="muted">Registra la Project URL y la Publishable key de Supabase. La seguridad real permanece en Auth, RLS y las funciones del backend.</p>
+        <form id="setupForm" class="stack-form" novalidate>
+          <label>
+            <span>Project URL</span>
+            <input id="projectUrlInput" type="url" autocomplete="off" inputmode="url" placeholder="https://xxxxxxxxxxxxxxxxxxxx.supabase.co" required>
+          </label>
+          <label>
+            <span>Publishable key</span>
+            <input id="publishableKeyInput" type="password" autocomplete="off" placeholder="sb_publishable_…" required>
+          </label>
+          <p id="setupError" class="form-error" role="alert"></p>
+          <button class="btn btn-primary" type="submit">Guardar conexión</button>
+        </form>
+        <p class="microcopy">Usa únicamente la Publishable key. Nunca ingreses una Secret key ni una service_role key.</p>
+      </div>
+    </section>
+
+    <section id="loginView" class="auth-view" hidden>
+      <div class="auth-card">
+        <p class="auth-kicker">Acceso privado</p>
+        <h2>Administrador PRIVÉ</h2>
+        <p class="muted">Inicia sesión con tu cuenta administrativa de Supabase.</p>
+        <form id="loginForm" class="stack-form">
+          <label>
+            <span>Correo</span>
+            <input id="emailInput" type="email" autocomplete="username" required>
+          </label>
+          <label>
+            <span>Contraseña</span>
+            <input id="passwordInput" type="password" autocomplete="current-password" required>
+          </label>
+          <button id="loginBtn" class="btn btn-primary" type="submit">Entrar al panel</button>
+          <p id="loginError" class="form-error" role="alert"></p>
+        </form>
+        <button id="changeConfigBtn" class="text-button" type="button">Cambiar conexión de Supabase</button>
+      </div>
+    </section>
+
+    <section id="appView" hidden>
+      <section id="overview" class="overview-grid" aria-label="Resumen del panel">
+        <article class="metric-card metric-card-accent">
+          <span>Próximo corte</span>
+          <strong id="nextCycleName">—</strong>
+          <small id="nextCycleCutoff">—</small>
+        </article>
+        <article class="metric-card"><span>Pedidos en corte</span><strong id="metricOrders">0</strong></article>
+        <article class="metric-card"><span>Perfumes</span><strong id="metricPerfumes">0</strong></article>
+        <article class="metric-card"><span>Muestras</span><strong id="metricSamples">0</strong></article>
+      </section>
+
+      <nav class="panel-nav" aria-label="Secciones del panel">
+        <button class="nav-pill is-active" type="button" data-panel-view="cycles">Cortes</button>
+        <button class="nav-pill" type="button" data-panel-view="history">Historial</button>
+      </nav>
+
+      <section id="cyclesSection" class="panel-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">OPERACIÓN</p>
+            <h2>Cortes de pedido</h2>
+            <p class="muted">Consulta cada corte, revisa sus pedidos y descarga el consolidado para proveedor.</p>
+          </div>
+          <button id="refreshBtn" class="btn btn-ghost" type="button">Actualizar</button>
+        </div>
+
+        <div class="toolbar">
+          <div class="filters" role="group" aria-label="Filtrar cortes">
+            <button class="filter-pill is-active" type="button" data-cycle-filter="orders">Con pedidos</button>
+            <button class="filter-pill" type="button" data-cycle-filter="upcoming">Próximos</button>
+            <button class="filter-pill" type="button" data-cycle-filter="closed">Cerrados</button>
+            <button class="filter-pill" type="button" data-cycle-filter="all">Todos</button>
+          </div>
+          <label class="search-box">
+            <span class="sr-only">Buscar cortes</span>
+            <input id="cycleSearchInput" type="search" placeholder="Buscar corte…" autocomplete="off">
+          </label>
+        </div>
+        <p id="cyclesCount" class="results-count"></p>
+        <div id="cyclesList" class="cards-list"></div>
+      </section>
+
+      <section id="historySection" class="panel-section" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">HISTORIAL</p>
+            <h2>Pedidos confirmados</h2>
+            <p class="muted">Consulta pedidos anteriores por folio, revendedor o corte y abre su detalle completo.</p>
+          </div>
+          <button id="historyRefreshBtn" class="btn btn-ghost" type="button">Actualizar</button>
+        </div>
+        <div class="toolbar toolbar-history">
+          <label class="search-box search-box-wide">
+            <span class="sr-only">Buscar historial</span>
+            <input id="historySearchInput" type="search" placeholder="Buscar folio, revendedor o corte…" autocomplete="off">
+          </label>
+        </div>
+        <p id="historyCount" class="results-count"></p>
+        <div id="historyList" class="cards-list"></div>
+      </section>
+
+      <section id="ordersSection" class="panel-section" hidden>
+        <div class="section-heading section-heading-back">
+          <button id="backToCycles" class="back-button" type="button">← Cortes</button>
+          <div>
+            <p class="eyebrow">CORTE SELECCIONADO</p>
+            <h2 id="ordersCycleTitle">Pedidos</h2>
+            <p id="ordersCycleMeta" class="muted"></p>
+          </div>
+        </div>
+        <div id="cycleDownloadActions" class="action-row"></div>
+        <div id="ordersList" class="cards-list"></div>
+      </section>
+
+      <section id="detailSection" class="panel-section" hidden>
+        <div class="section-heading section-heading-back">
+          <button id="backToOrders" class="back-button" type="button">← Pedidos</button>
+          <div>
+            <p class="eyebrow">PEDIDO CONFIRMADO</p>
+            <h2 id="detailTitle">Detalle del pedido</h2>
+            <p id="detailMeta" class="muted"></p>
+          </div>
+        </div>
+        <div id="detailDownloadActions" class="action-row"></div>
+        <div id="detailSummary" class="detail-summary"></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Cantidad</th>
+                <th>Perfume</th>
+                <th>Clave</th>
+                <th>Muestras</th>
+                <th>Nota / Cliente</th>
+              </tr>
+            </thead>
+            <tbody id="detailTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <div id="loadingLayer" class="loading-layer" hidden><div class="spinner"></div><span>Procesando…</span></div>
+  </main>
+  <script src="./admin.js?v=1.1" defer></script>
+</body>
+</html>

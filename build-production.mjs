@@ -48,7 +48,7 @@ const perfumesDir = path.join(root, 'perfumes');
 await fs.rm(perfumesDir, { recursive: true, force: true });
 await fs.mkdir(perfumesDir, { recursive: true });
 
-const pageCss = `:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#07090d;color:#f5f2eb;font-family:Inter,Arial,sans-serif;min-height:100vh}main{width:min(760px,calc(100% - 36px));margin:auto;padding:64px 0 80px}.brand{color:#d8c79f;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase}.back{display:inline-block;margin-bottom:42px;color:#d8c79f;text-decoration:none}h1{margin:10px 0 6px;font-family:Georgia,serif;font-size:clamp(2.2rem,8vw,4.8rem);line-height:1}.designer{color:#c7ae79;letter-spacing:.08em;text-transform:uppercase}.code{color:#9c9a95;font-size:.78rem}.description{font-size:1.03rem;line-height:1.75;color:#d6d2ca}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:32px 0}.panel{padding:18px;border:1px solid #2e2d2a;border-radius:16px;background:#111319}.panel strong{display:block;margin-bottom:9px;color:#d8c79f;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em}.panel p{margin:0;color:#dedad2;line-height:1.6}.cta{display:inline-flex;margin-top:20px;padding:14px 18px;border:1px solid #c7ae79;border-radius:999px;color:#171512;background:#c7ae79;text-decoration:none;font-weight:700}`;
+const pageCss = `:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#07090d;color:#f5f2eb;font-family:Inter,Arial,sans-serif;min-height:100vh}main{width:min(760px,calc(100% - 36px));margin:auto;padding:64px 0 80px}.brand{color:#d8c79f;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase}.back{display:inline-block;margin-bottom:42px;color:#d8c79f;text-decoration:none}h1{margin:10px 0 6px;font-family:Georgia,serif;font-size:clamp(2.2rem,8vw,4.8rem);line-height:1}.designer{color:#c7ae79;letter-spacing:.08em;text-transform:uppercase}.description{font-size:1.03rem;line-height:1.75;color:#d6d2ca}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:32px 0}.panel{padding:18px;border:1px solid #2e2d2a;border-radius:16px;background:#111319}.panel strong{display:block;margin-bottom:9px;color:#d8c79f;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em}.panel p{margin:0;color:#dedad2;line-height:1.6}.cta{display:inline-flex;margin-top:20px;padding:14px 18px;border:1px solid #c7ae79;border-radius:999px;color:#171512;background:#c7ae79;text-decoration:none;font-weight:700}`;
 
 for (const { slug, perfume } of perfumeEntries) {
   const dir = path.join(perfumesDir, slug);
@@ -70,7 +70,7 @@ for (const { slug, perfume } of perfumeEntries) {
         description,
         inLanguage: 'es-MX',
         isPartOf: { '@id': `${SITE}/#website` },
-        about: { '@type': 'Thing', name: perfume.name, identifier: perfume.code }
+        about: { '@type': 'Thing', name: perfume.name }
       },
       {
         '@type': 'BreadcrumbList',
@@ -86,7 +86,7 @@ for (const { slug, perfume } of perfumeEntries) {
   await fs.writeFile(path.join(dir, 'index.html'), html, 'utf8');
 }
 
-const indexItems = perfumeEntries.map(({ slug, perfume }) => `<li><a href="${SITE}/perfumes/${slug}/">${escapeHtml(perfume.name)}</a> <span>${escapeHtml(perfume.designer)} · ${escapeHtml(perfume.code)}</span></li>`).join('');
+const indexItems = perfumeEntries.map(({ slug, perfume }) => `<li><a href="${SITE}/perfumes/${slug}/">${escapeHtml(perfume.name)}</a> <span>${escapeHtml(perfume.designer)}</span></li>`).join('');
 await fs.writeFile(path.join(perfumesDir, 'index.html'), `<!doctype html><html lang="es-MX"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Índice de fragancias | Perfumería PRIVÉ</title><meta name="description" content="Índice de fragancias del catálogo de Perfumería PRIVÉ."><link rel="canonical" href="${SITE}/perfumes/"><meta name="robots" content="index,follow"><script>document.documentElement.classList.add("prive-access-locked")</script><link rel="stylesheet" href="${SITE}/access-gate.css?v=1.0"><script src="${SITE}/access-gate.js?v=1.1" defer></script><style>body{font-family:Arial,sans-serif;max-width:900px;margin:40px auto;padding:0 20px;color:#1b1b1b}a{color:#5d4321}li{margin:9px 0}span{color:#666;font-size:.86rem}</style></head><body><h1>Índice de fragancias PRIVÉ</h1><p><a href="${SITE}/">Volver al catálogo interactivo</a></p><ol>${indexItems}</ol></body></html>`, 'utf8');
 
 const sitemapUrls = [

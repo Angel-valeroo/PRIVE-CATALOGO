@@ -106,7 +106,7 @@ function categoryFromCode(code) {
 }
 
 function applyDetailCategoryTheme(perfume) {
-  const gender = categoryFromCode(perfume?.code);
+  const gender = String(perfume?.category || "Caballero").trim().toLowerCase() === "dama" ? "dama" : String(perfume?.category || "").trim().toLowerCase() === "unisex" ? "unisex" : "caballero";
   elements.dialog.classList.remove("detail-gender-caballero", "detail-gender-dama", "detail-gender-unisex");
   elements.dialog.classList.add(`detail-gender-${gender}`);
 }
@@ -195,7 +195,7 @@ function perfumeTags(perfume) {
   return [...new Set([...asList(perfume.contexts), ...asList(perfume.occasions), ...asList(perfume.climates), ...asList(perfume.seasons), ...asList(perfume.accords), ...asList(perfume.styleTags), ...asList(perfume.dayParts)])];
 }
 function searchableText(perfume) {
-  return normalize([perfume.name, perfume.designer, perfume.code, perfume.family,
+  return normalize([perfume.name, perfume.designer, perfume.family,
     ...asList(perfume.accords), ...asList(perfume.topNotes), ...asList(perfume.heartNotes),
     ...asList(perfume.baseNotes), ...perfumeTags(perfume)].join(" "));
 }
@@ -457,7 +457,7 @@ function recommendationsFor(perfume) {
 }
 function createRelatedButton(perfume) {
   const button = document.createElement("button"); button.className = "related-card"; button.type = "button";
-  button.innerHTML = `<span>${perfume.name}</span><small>${perfume.designer} · ${perfume.code}</small>`;
+  button.innerHTML = `<span>${perfume.name}</span><small>${perfume.designer}</small>`;
   button.addEventListener("click", () => openPerfume(perfume, true, { fromAdvisorResults: state.advisor.resultReturnActive })); return button;
 }
 function renderNoteGroup(group, output, notes) {

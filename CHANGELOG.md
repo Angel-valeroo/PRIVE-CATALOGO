@@ -1,3 +1,15 @@
+
+## 2026-08-14 · Sprint 8 · Panel administrativo base
+
+- Se agregó el módulo privado `/admin/` desacoplado del catálogo público.
+- El panel usa Supabase Auth con sesión real y nunca incluye `service_role` ni secretos de backend.
+- Se integraron las RPC ya validadas: `get_admin_cycles_dashboard`, `get_admin_cycle_orders` y `get_admin_order_detail`.
+- Se integraron descargas de Excel/PDF del proveedor y Excel/PDF individual por pedido confirmado.
+- Se agregó navegación mobile-first: Cortes → Pedidos → Detalle.
+- Se ocultaron claves en recomendaciones relacionadas y en el índice/páginas SEO visibles del catálogo.
+- La búsqueda pública dejó de incluir la clave del proveedor como término de búsqueda.
+- `/admin/` quedó excluido de indexación en `robots.txt` y con `noindex,nofollow`.
+- La Publishable key se configura en el navegador la primera vez; no se debe usar una Secret key ni `service_role`.
 ## Sprint 7.15 — Expansión de distribuidores autorizados
 
 - Se agregaron las credenciales de Magda Onofre “Maggie”, Luis Terán “Teran” y Esmeralda Ramírez “Esme”.

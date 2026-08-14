@@ -70,7 +70,7 @@ for (const { slug, perfume } of perfumeEntries) {
         description,
         inLanguage: 'es-MX',
         isPartOf: { '@id': `${SITE}/#website` },
-        about: { '@type': 'Thing', name: perfume.name, identifier: perfume.code }
+        about: { '@type': 'Thing', name: perfume.name }
       },
       {
         '@type': 'BreadcrumbList',
@@ -86,7 +86,7 @@ for (const { slug, perfume } of perfumeEntries) {
   await fs.writeFile(path.join(dir, 'index.html'), html, 'utf8');
 }
 
-const indexItems = perfumeEntries.map(({ slug, perfume }) => `<li><a href="${SITE}/perfumes/${slug}/">${escapeHtml(perfume.name)}</a> <span>${escapeHtml(perfume.designer)} · ${escapeHtml(perfume.code)}</span></li>`).join('');
+const indexItems = perfumeEntries.map(({ slug, perfume }) => `<li><a href="${SITE}/perfumes/${slug}/">${escapeHtml(perfume.name)}</a> <span>${escapeHtml(perfume.designer)}</span></li>`).join('');
 await fs.writeFile(path.join(perfumesDir, 'index.html'), `<!doctype html><html lang="es-MX"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Índice de fragancias | Perfumería PRIVÉ</title><meta name="description" content="Índice de fragancias del catálogo de Perfumería PRIVÉ."><link rel="canonical" href="${SITE}/perfumes/"><meta name="robots" content="index,follow"><script>document.documentElement.classList.add("prive-access-locked")</script><link rel="stylesheet" href="${SITE}/access-gate.css?v=1.0"><script src="${SITE}/access-gate.js?v=1.0" defer></script><style>body{font-family:Arial,sans-serif;max-width:900px;margin:40px auto;padding:0 20px;color:#1b1b1b}a{color:#5d4321}li{margin:9px 0}span{color:#666;font-size:.86rem}</style></head><body><h1>Índice de fragancias PRIVÉ</h1><p><a href="${SITE}/">Volver al catálogo interactivo</a></p><ol>${indexItems}</ol></body></html>`, 'utf8');
 
 const sitemapUrls = [
