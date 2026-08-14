@@ -2,6 +2,10 @@
   'use strict';
 
   const CONFIG_KEY = 'prive-admin-supabase-config-v1';
+  const DEFAULT_CONFIG = Object.freeze({
+    url: 'https://uqjrotqqquorsagwiara.supabase.co',
+    publishableKey: 'sb_publishable_KV6_5XskGXe8mCg-6vfkiA_vNMKDZNP'
+  });
   const SESSION_KEY = 'prive-admin-session-v1';
   const state = {
     cycles: [],
@@ -143,7 +147,7 @@
   }
 
   function showView(name) {
-    els.setupView.hidden = name !== 'setup';
+    if (els.setupView) els.setupView.hidden = name !== 'setup';
     els.loginView.hidden = name !== 'login';
     els.appView.hidden = name !== 'app';
     els.logoutBtn.hidden = name !== 'app';
@@ -437,21 +441,23 @@
     if (action === 'user-pdf') downloadEdge('generate-user-order-pdf', { order_id: orderId }, 'PRIVE-PEDIDO-INDIVIDUAL.pdf').catch(e => toast(e.message, true));
   }
 
-  els.setupForm.addEventListener('submit', event => {
-    event.preventDefault();
-    els.setupError.textContent = '';
-    try {
-      const url = normalizeProjectUrl(els.projectUrlInput.value);
-      const publishableKey = validatePublishableKey(els.publishableKeyInput.value);
-      state.config = { url, publishableKey };
-      saveStored(CONFIG_KEY, state.config);
-      els.projectUrlInput.value = url;
-      els.publishableKeyInput.value = '';
-      showView('login');
-    } catch (error) {
-      els.setupError.textContent = error.message;
-    }
-  });
+  if (els.setupForm) {
+    els.setupForm.addEventListener('submit', event => {
+      event.preventDefault();
+      els.setupError.textContent = '';
+      try {
+        const url = normalizeProjectUrl(els.projectUrlInput.value);
+        const publishableKey = validatePublishableKey(els.publishableKeyInput.value);
+        state.config = { url, publishableKey };
+        saveStored(CONFIG_KEY, state.config);
+        els.projectUrlInput.value = url;
+        els.publishableKeyInput.value = '';
+        showView('login');
+      } catch (error) {
+        els.setupError.textContent = error.message;
+      }
+    });
+  }
 
   els.loginForm.addEventListener('submit', async event => {
     event.preventDefault();
@@ -482,16 +488,13 @@
     showView('login');
   });
 
-  els.changeConfigBtn.addEventListener('click', () => {
-    clearStored(CONFIG_KEY);
-    clearStored(SESSION_KEY);
-    state.config = null;
-    state.session = null;
-    els.projectUrlInput.value = '';
-    els.publishableKeyInput.value = '';
-    els.setupError.textContent = '';
-    showView('setup');
-  });
+  if (els.changeConfigBtn) {
+    els.changeConfigBtn.addEventListener('click', () => {
+      clearStored(SESSION_KEY);
+      state.session = null;
+      showView('login');
+    });
+  }
 
   els.refreshBtn.addEventListener('click', () => loadCycles().catch(error => toast(friendlyNetworkError(error).message, true)));
   els.historyRefreshBtn.addEventListener('click', () => loadHistory(true).catch(error => toast(friendlyNetworkError(error).message, true)));
@@ -559,19 +562,11 @@
   });
 
   async function init() {
-    state.config = readStored(CONFIG_KEY);
+    // La Project URL y la Publishable key son configuración pública del cliente.
+    // La seguridad real permanece en Supabase Auth, RLS, RPC y Edge Functions.
+    state.config = { ...DEFAULT_CONFIG };
+    saveStored(CONFIG_KEY, state.config);
     state.session = readStored(SESSION_KEY);
-
-    if (state.config?.url) {
-      try { state.config.url = normalizeProjectUrl(state.config.url); }
-      catch { clearStored(CONFIG_KEY); state.config = null; }
-    }
-
-    if (!configReady(state.config)) {
-      els.projectUrlInput.value = state.config?.url || '';
-      showView('setup');
-      return;
-    }
 
     if (state.session && await ensureSession()) {
       try {

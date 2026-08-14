@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./admin.css?v=1.1">
+  <link rel="stylesheet" href="./admin.css?v=1.2">
 </head>
 <body>
   <main class="admin-shell">
@@ -25,27 +25,6 @@
         <button id="logoutBtn" class="btn btn-ghost" type="button" hidden>Cerrar sesión</button>
       </div>
     </header>
-
-    <section id="setupView" class="auth-view" hidden>
-      <div class="auth-card">
-        <p class="auth-kicker">Configuración inicial</p>
-        <h2>Conectar con PRIVÉ Sistema</h2>
-        <p class="muted">Registra la Project URL y la Publishable key de Supabase. La seguridad real permanece en Auth, RLS y las funciones del backend.</p>
-        <form id="setupForm" class="stack-form" novalidate>
-          <label>
-            <span>Project URL</span>
-            <input id="projectUrlInput" type="url" autocomplete="off" inputmode="url" placeholder="https://xxxxxxxxxxxxxxxxxxxx.supabase.co" required>
-          </label>
-          <label>
-            <span>Publishable key</span>
-            <input id="publishableKeyInput" type="password" autocomplete="off" placeholder="sb_publishable_…" required>
-          </label>
-          <p id="setupError" class="form-error" role="alert"></p>
-          <button class="btn btn-primary" type="submit">Guardar conexión</button>
-        </form>
-        <p class="microcopy">Usa únicamente la Publishable key. Nunca ingreses una Secret key ni una service_role key.</p>
-      </div>
-    </section>
 
     <section id="loginView" class="auth-view" hidden>
       <div class="auth-card">
@@ -64,7 +43,6 @@
           <button id="loginBtn" class="btn btn-primary" type="submit">Entrar al panel</button>
           <p id="loginError" class="form-error" role="alert"></p>
         </form>
-        <button id="changeConfigBtn" class="text-button" type="button">Cambiar conexión de Supabase</button>
       </div>
     </section>
 
@@ -174,6 +152,6 @@
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
     <div id="loadingLayer" class="loading-layer" hidden><div class="spinner"></div><span>Procesando…</span></div>
   </main>
-  <script src="./admin.js?v=1.1" defer></script>
+  <script src="./admin.js?v=1.2" defer></script>
 </body>
 </html>
