@@ -1,3 +1,9 @@
+# S12 V2.1 — Corrección de caché del estado agotado
+
+- Se incrementan las versiones de `styles.css` y `app.js` del catálogo público para forzar a los navegadores a descargar el tratamiento visual nuevo de AGOTADO.
+- Se incrementan las versiones de `portal.css` y `portal.js` en Portal PRIVÉ por la misma razón.
+- No cambia lógica de Supabase, SQL, RLS ni datos.
+
 # S12 V2 — Estado agotado reforzado
 
 - Catálogo público: AGOTADO ahora aparece como banda central grande sobre la botella, sin ocultarla.
