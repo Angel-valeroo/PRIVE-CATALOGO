@@ -6,10 +6,13 @@
     url: 'https://uqjrotqqquorsagwiara.supabase.co',
     publishableKey: 'sb_publishable_KV6_5XskGXe8mCg-6vfkiA_vNMKDZNP'
   });
-  const SESSION_KEY = 'prive-admin-session-v1';
+  const SESSION_KEY = 'prive-portal-session-v1';
   const state = {
     cycles: [],
     history: [],
+    catalog: [],
+    catalogSearch: '',
+    catalogFilter: 'all',
     filter: 'orders',
     cycleSearch: '',
     historySearch: '',
@@ -17,7 +20,14 @@
     selectedOrder: null,
     detailOrigin: 'orders',
     session: null,
-    config: null
+    config: null,
+    pendingPerfumeImage: null,
+    pendingPerfumePreviewUrl: null,
+    pendingPerfumeImageSource: null,
+    removeExistingPerfumeImage: false,
+    lastFragranticaImageUrl: null,
+    categoryManuallyEdited: false,
+    lastAutoCategoryPrefix: null
   };
 
   const $ = selector => document.querySelector(selector);
@@ -33,7 +43,17 @@
     ordersList: $('#ordersList'), backToCycles: $('#backToCycles'), backToOrders: $('#backToOrders'), detailTitle: $('#detailTitle'),
     detailMeta: $('#detailMeta'), detailDownloadActions: $('#detailDownloadActions'), detailSummary: $('#detailSummary'),
     detailTableBody: $('#detailTableBody'), nextCycleName: $('#nextCycleName'), nextCycleCutoff: $('#nextCycleCutoff'),
-    metricOrders: $('#metricOrders'), metricPerfumes: $('#metricPerfumes'), metricSamples: $('#metricSamples'), toast: $('#toast'), loadingLayer: $('#loadingLayer')
+    metricOrders: $('#metricOrders'), metricPerfumes: $('#metricPerfumes'), metricSamples: $('#metricSamples'), toast: $('#toast'), loadingLayer: $('#loadingLayer'),
+    catalogSection: $('#catalogSection'), catalogAdminSearchInput: $('#catalogAdminSearchInput'), catalogAvailabilityFilters: $('#catalogAvailabilityFilters'),
+    catalogAdminCount: $('#catalogAdminCount'), catalogAdminList: $('#catalogAdminList'), newPerfumeBtn: $('#newPerfumeBtn'),
+    perfumeAdminModal: $('#perfumeAdminModal'), closePerfumeAdminModal: $('#closePerfumeAdminModal'), perfumeAdminForm: $('#perfumeAdminForm'), perfumeAdminId: $('#perfumeAdminId'),
+    perfumeSourceUrlInput: $('#perfumeSourceUrlInput'), perfumeSourceStatus: $('#perfumeSourceStatus'), fragranticaAutofillBtn: $('#fragranticaAutofillBtn'),
+    perfumeDesignerInput: $('#perfumeDesignerInput'), perfumeNameInput: $('#perfumeNameInput'), perfumeCodeInput: $('#perfumeCodeInput'), perfumeCategoryInput: $('#perfumeCategoryInput'),
+    perfumeImageInput: $('#perfumeImageInput'), perfumeImagePasteZone: $('#perfumeImagePasteZone'), perfumeImagePasteTitle: $('#perfumeImagePasteTitle'),
+    perfumeImagePasteHint: $('#perfumeImagePasteHint'), perfumeImageFilename: $('#perfumeImageFilename'), perfumeImagePreviewWrap: $('#perfumeImagePreviewWrap'),
+    perfumeImagePreview: $('#perfumeImagePreview'), perfumeImagePreviewTitle: $('#perfumeImagePreviewTitle'), perfumeImagePreviewHint: $('#perfumeImagePreviewHint'),
+    restoreFragranticaImageBtn: $('#restoreFragranticaImageBtn'), removePerfumeImageBtn: $('#removePerfumeImageBtn'),
+    perfumeAdminModalTitle: $('#perfumeAdminModalTitle'), perfumeAdminError: $('#perfumeAdminError'), savePerfumeAdminBtn: $('#savePerfumeAdminBtn')
   };
 
   const safeJson = value => { try { return JSON.parse(value); } catch { return null; } };
@@ -139,8 +159,38 @@
   }
 
   async function ensureSession() {
-    if (!state.session) return false;
-    if (await refreshSessionIfNeeded()) return true;
+    if (!state.session?.access_token) return false;
+
+    try {
+      let res = await request('/auth/v1/user', {
+        method: 'GET',
+        token: state.session.access_token
+      });
+
+      if (res.ok) {
+        const user = await res.json().catch(() => null);
+        if (user) state.session.user = user;
+        saveStored(SESSION_KEY, state.session);
+        return true;
+      }
+
+      if (res.status === 401 && state.session?.refresh_token) {
+        const refreshed = await refreshSessionIfNeeded();
+        if (refreshed) {
+          res = await request('/auth/v1/user', {
+            method: 'GET',
+            token: state.session.access_token
+          });
+          if (res.ok) {
+            const user = await res.json().catch(() => null);
+            if (user) state.session.user = user;
+            saveStored(SESSION_KEY, state.session);
+            return true;
+          }
+        }
+      }
+    } catch {}
+
     state.session = null;
     clearStored(SESSION_KEY);
     return false;
@@ -157,6 +207,7 @@
   function showPanelSection(name) {
     els.cyclesSection.hidden = name !== 'cycles';
     els.historySection.hidden = name !== 'history';
+    els.catalogSection.hidden = name !== 'catalog';
     els.ordersSection.hidden = name !== 'orders';
     els.detailSection.hidden = name !== 'detail';
     document.querySelectorAll('[data-panel-view]').forEach(button => {
@@ -204,11 +255,740 @@
       if (res.status === 401) {
         state.session = null;
         clearStored(SESSION_KEY);
-        showView('login');
+        window.location.replace('../portal/');
       }
       throw new Error(message);
     }
     return data;
+  }
+
+
+  async function edgeFunction(name, payload, { expect = 'json' } = {}) {
+    if (!(await ensureSession())) throw new Error('Tu sesión expiró. Inicia sesión nuevamente.');
+    let res;
+    try {
+      res = await fetch(`${state.config.url}/functions/v1/${name}`, {
+        method: 'POST',
+        headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload || {})
+      });
+    } catch (error) {
+      throw friendlyNetworkError(error);
+    }
+    if (!res.ok) {
+      const data = await res.json().catch(() => null);
+      throw new Error(data?.error || data?.message || `Error ${res.status} en ${name}`);
+    }
+    if (expect === 'blob') return await res.blob();
+    return await res.json();
+  }
+
+  function sourceUrlValue() {
+    return String(els.perfumeSourceUrlInput?.value || '').trim();
+  }
+
+  function updateSourceStatus(mode = null) {
+    if (!els.perfumeSourceStatus) return;
+    const hasUrl = Boolean(sourceUrlValue());
+    els.perfumeSourceStatus.classList.toggle('is-linked', hasUrl && mode !== 'loading');
+    els.perfumeSourceStatus.classList.toggle('is-loading', mode === 'loading');
+    els.perfumeSourceStatus.textContent = mode === 'loading' ? 'LEYENDO…' : (hasUrl ? 'URL VINCULADA' : 'SIN URL');
+    if (els.restoreFragranticaImageBtn) els.restoreFragranticaImageBtn.hidden = !hasUrl;
+  }
+
+  function catalogImageUrl(row) {
+    const raw = String(row?.image_url || '').trim();
+    if (!raw) return '';
+    if (/^https?:\/\//i.test(raw)) return raw;
+    return new URL(`../${raw.replace(/^\/+/, '')}`, window.location.href).href;
+  }
+
+  function catalogStatusLabel(value) {
+    return value === 'out_of_stock' ? 'AGOTADO' : 'DISPONIBLE';
+  }
+
+  function normalizeSearch(value) {
+    return String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+  }
+
+  function searchTokens(value) {
+    return normalizeSearch(value).split(/\s+/).filter(Boolean);
+  }
+
+  function catalogSearchScore(item) {
+    const tokens = searchTokens(state.catalogSearch);
+    if (!tokens.length) return 0;
+    const name = normalizeSearch(item.name);
+    const designer = normalizeSearch(item.designer);
+    const code = normalizeSearch(item.code);
+    const category = normalizeSearch(item.category);
+    const haystack = `${designer} ${name} ${code} ${category}`;
+    if (!tokens.every(token => haystack.includes(token))) return -1;
+    let score = 0;
+    for (const token of tokens) {
+      if (name === token || designer === token || code === token) score += 12;
+      else if (name.startsWith(token) || designer.startsWith(token) || code.startsWith(token)) score += 8;
+      else if (name.includes(token)) score += 5;
+      else if (designer.includes(token)) score += 4;
+      else if (code.includes(token)) score += 3;
+      else score += 1;
+    }
+    return score;
+  }
+
+  function catalogMatches(item) {
+    if (state.catalogFilter === 'available' && item.availability_status !== 'available') return false;
+    if (state.catalogFilter === 'out_of_stock' && item.availability_status !== 'out_of_stock') return false;
+    if (state.catalogFilter === 'basic' && item.profile_status !== 'basic') return false;
+    if (state.catalogFilter === 'basic_missing_source' && !(item.profile_status === 'basic' && !item.source_url)) return false;
+    return catalogSearchScore(item) >= 0;
+  }
+
+  function renderAdminCatalog() {
+    const hasSearch = searchTokens(state.catalogSearch).length > 0;
+    const list = state.catalog.filter(catalogMatches).sort((a, b) => {
+      if (hasSearch) {
+        const diff = catalogSearchScore(b) - catalogSearchScore(a);
+        if (diff) return diff;
+      }
+      return String(a.designer || '').localeCompare(String(b.designer || ''), 'es') || String(a.name || '').localeCompare(String(b.name || ''), 'es');
+    });
+    els.catalogAdminCount.textContent = `${list.length} de ${state.catalog.length} perfumes`;
+    if (!list.length) {
+      els.catalogAdminList.innerHTML = '<div class="empty-state">No hay perfumes que coincidan con la búsqueda o filtro.</div>';
+      return;
+    }
+    els.catalogAdminList.innerHTML = list.map(item => {
+      const image = catalogImageUrl(item);
+      const available = item.availability_status !== 'out_of_stock';
+      return `
+        <article class="catalog-admin-card" data-catalog-id="${esc(item.id)}">
+          <div class="catalog-admin-image">${image ? `<img src="${esc(image)}" alt="${esc(item.name)}" loading="lazy" onerror="this.remove();">` : '<span>PRIVÉ</span>'}</div>
+          <div class="catalog-admin-main">
+            <h3>${esc(item.name || 'Sin nombre')}</h3>
+            <p class="catalog-admin-meta">${esc(item.designer || 'Sin diseñador')} · ${esc(item.category || 'Sin categoría')}<br><span class="catalog-admin-code">${esc(item.code || 'Sin clave')}</span></p>
+            <div class="catalog-admin-badges">
+              <span class="status-pill ${available ? 'status-stock' : 'status-out'}">${catalogStatusLabel(item.availability_status)}</span>
+              <span class="status-pill ${item.profile_status === 'basic' ? 'status-basic' : 'status-enriched'}">${item.profile_status === 'basic' ? 'FICHA BÁSICA' : 'ENRIQUECIDA'}</span>
+              ${item.profile_status === 'basic' ? `<span class="status-pill ${item.source_url ? 'status-source-linked' : 'status-source-missing'}">${item.source_url ? 'URL VINCULADA' : 'SIN URL'}</span>` : ''}
+            </div>
+            <div class="catalog-admin-actions">
+              <button class="btn btn-ghost" type="button" data-catalog-action="edit">Editar</button>
+              <button class="btn ${available ? 'btn-warning' : 'btn-primary'}" type="button" data-catalog-action="availability" data-next-status="${available ? 'out_of_stock' : 'available'}">${available ? 'Marcar agotado' : 'Marcar disponible'}</button>
+            </div>
+          </div>
+        </article>`;
+    }).join('');
+  }
+
+  async function loadAdminCatalog({ quiet = false } = {}) {
+    if (!quiet) setLoading(true, 'Cargando catálogo…');
+    try {
+      const rows = await rpc('admin_get_catalog_perfumes');
+      state.catalog = Array.isArray(rows) ? rows : [];
+      renderAdminCatalog();
+    } finally {
+      if (!quiet) setLoading(false);
+    }
+  }
+
+  function normalizePerfumeText(value) {
+    return String(value || '').toLocaleUpperCase('es-MX');
+  }
+
+  function normalizePerfumeCode(value) {
+    return normalizePerfumeText(value).trim().replace(/[^A-Z0-9_-]/g, '');
+  }
+
+  function normalizeDesignerKey(value, { dropGeneric = false } = {}) {
+    const generic = new Set(['PERFUME', 'PERFUMES', 'PARFUM', 'PARFUMS', 'FRAGRANCE', 'FRAGRANCES']);
+    const tokens = normalizePerfumeText(value)
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^A-Z0-9]+/g, ' ')
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean);
+    const filtered = dropGeneric ? tokens.filter(token => !generic.has(token)) : tokens;
+    return filtered.join(' ');
+  }
+
+  function canonicalDesignerFromCatalog(value) {
+    const source = normalizePerfumeText(value).trim();
+    if (!source) return '';
+
+    const designers = [...new Set(
+      state.catalog
+        .map(item => normalizePerfumeText(item?.designer).trim())
+        .filter(Boolean)
+    )];
+
+    const exactKey = normalizeDesignerKey(source);
+    const exact = designers.find(designer => normalizeDesignerKey(designer) === exactKey);
+    if (exact) return exact;
+
+    const simplified = normalizeDesignerKey(source, { dropGeneric: true });
+    if (!simplified) return source;
+
+    const matches = designers.filter(
+      designer => normalizeDesignerKey(designer, { dropGeneric: true }) === simplified
+    );
+
+    // Solo normalizamos cuando la coincidencia es inequívoca.
+    if (matches.length === 1) return matches[0];
+
+    return source;
+  }
+
+  function categoryFromCode(codeValue) {
+    const code = normalizePerfumeCode(codeValue);
+    if (code.startsWith('CP')) return { prefix: 'CP', category: 'Caballero' };
+    if (code.startsWith('DP')) return { prefix: 'DP', category: 'Dama' };
+    if (code.startsWith('UP')) return { prefix: 'UP', category: 'Unisex' };
+    return null;
+  }
+
+  function syncCategoryFromCode({ force = false } = {}) {
+    const inferred = categoryFromCode(els.perfumeCodeInput.value);
+    if (!inferred) {
+      state.lastAutoCategoryPrefix = null;
+      return;
+    }
+
+    const prefixChanged = state.lastAutoCategoryPrefix !== inferred.prefix;
+
+    if (force || prefixChanged || !state.categoryManuallyEdited) {
+      els.perfumeCategoryInput.value = inferred.category;
+      state.categoryManuallyEdited = false;
+      state.lastAutoCategoryPrefix = inferred.prefix;
+    }
+  }
+
+  function releasePendingPreview() {
+    if (state.pendingPerfumePreviewUrl) URL.revokeObjectURL(state.pendingPerfumePreviewUrl);
+    state.pendingPerfumePreviewUrl = null;
+  }
+
+  function clearPendingPerfumeImage() {
+    releasePendingPreview();
+    state.pendingPerfumeImage = null;
+    state.pendingPerfumeImageSource = null;
+  }
+
+  function updateImagePasteState() {
+    const code = normalizePerfumeCode(els.perfumeCodeInput.value);
+    const enabled = Boolean(code);
+    els.perfumeImagePasteZone.classList.toggle('is-disabled', !enabled);
+    els.perfumeImagePasteZone.setAttribute('aria-disabled', String(!enabled));
+    els.perfumeImageInput.disabled = !enabled;
+    els.perfumeImageFilename.textContent = enabled ? `${code}.webp` : '';
+    if (!enabled) {
+      els.perfumeImagePasteTitle.textContent = 'Primero escribe la clave privada';
+      els.perfumeImagePasteHint.textContent = 'Después copia la imagen en el navegador y pégala aquí con Ctrl+V.';
+    } else if (state.pendingPerfumeImage) {
+      els.perfumeImagePasteTitle.textContent = 'Imagen lista para guardar';
+      els.perfumeImagePasteHint.textContent = 'Puedes pegar otra imagen para reemplazarla antes de guardar.';
+    } else {
+      els.perfumeImagePasteTitle.textContent = 'Pega aquí la imagen del perfume';
+      els.perfumeImagePasteHint.textContent = 'Cópiala en el navegador y presiona Ctrl+V. También puedes usar el selector de archivo.';
+    }
+  }
+
+  function openPerfumeModal(item = null) {
+    els.perfumeAdminError.textContent = '';
+    els.perfumeAdminForm.reset();
+    clearPendingPerfumeImage();
+    state.removeExistingPerfumeImage = false;
+    state.lastFragranticaImageUrl = null;
+    state.categoryManuallyEdited = false;
+    state.lastAutoCategoryPrefix = categoryFromCode(item?.code || '')?.prefix || null;
+    els.perfumeAdminId.value = item?.id || '';
+    els.perfumeAdminModalTitle.textContent = item ? 'Editar perfume' : 'Nuevo perfume';
+    els.perfumeSourceUrlInput.value = item?.source_url || '';
+    els.perfumeDesignerInput.value = item?.designer || '';
+    els.perfumeNameInput.value = item?.name || '';
+    els.perfumeCodeInput.value = item?.code || '';
+    els.perfumeCategoryInput.value = item?.category || 'Caballero';
+    if (!item) syncCategoryFromCode({ force: true });
+    els.perfumeImageInput.value = '';
+    const image = catalogImageUrl(item);
+    els.perfumeImagePreviewWrap.hidden = !image;
+    if (image) {
+      els.perfumeImagePreview.src = image;
+      els.perfumeImagePreviewTitle.textContent = 'Imagen actual';
+      const source = item?.image_source === 'fragrantica' ? 'Fragrantica' : item?.image_source === 'manual' ? 'Manual' : 'Histórica';
+      els.perfumeImagePreviewHint.textContent = `Origen: ${source} · puedes reemplazarla o eliminarla sin afectar los demás datos.`;
+    }
+    els.removePerfumeImageBtn.hidden = !image;
+    els.perfumeImagePasteZone.classList.remove('has-image');
+    updateImagePasteState();
+    updateSourceStatus();
+    els.perfumeAdminModal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => (item ? els.perfumeDesignerInput : els.perfumeSourceUrlInput).focus({ preventScroll: true }), 50);
+  }
+
+  function closePerfumeModal() {
+    els.perfumeAdminModal.hidden = true;
+    els.perfumeAdminError.textContent = '';
+    els.perfumeImageInput.value = '';
+    clearPendingPerfumeImage();
+    state.removeExistingPerfumeImage = false;
+    state.lastFragranticaImageUrl = null;
+    state.categoryManuallyEdited = false;
+    state.lastAutoCategoryPrefix = null;
+    els.perfumeImagePasteZone.classList.remove('has-image');
+    document.body.style.overflow = '';
+  }
+
+  function storageObjectPath(path) {
+    return String(path || '').split('/').map(encodeURIComponent).join('/');
+  }
+
+  async function decodeImageSource(blob) {
+    if ('createImageBitmap' in window) return await createImageBitmap(blob);
+    const url = URL.createObjectURL(blob);
+    try {
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = url;
+      await img.decode();
+      return img;
+    } finally {
+      URL.revokeObjectURL(url);
+    }
+  }
+
+  function clearConnectedLightBackground(ctx, width, height) {
+    // S11 V5: elimina el fondo claro conectado a los bordes y limpia el
+    // "fringe" blanco de JPEG/antialias sin aplicar un chroma-key global.
+    // La expansión del halo está limitada a 2 px desde el fondo confirmado,
+    // por lo que no puede recorrer zonas blancas reales de la botella.
+    const image = ctx.getImageData(0, 0, width, height);
+    const data = image.data;
+    const total = width * height;
+    const visited = new Uint8Array(total);
+    const queue = new Int32Array(total);
+    let head = 0;
+    let tail = 0;
+
+    const pixelStats = index => {
+      const offset = index * 4;
+      const r = data[offset];
+      const g = data[offset + 1];
+      const b = data[offset + 2];
+      const a = data[offset + 3];
+      const max = Math.max(r, g, b);
+      const min = Math.min(r, g, b);
+      return { r, g, b, a, max, min, chroma: max - min, light: (r + g + b) / 3 };
+    };
+
+    const isStrictLightBackground = index => {
+      const { a, min, chroma } = pixelStats(index);
+      if (a === 0) return true;
+      return min >= 238 && chroma <= 22;
+    };
+
+    let lightBorder = 0;
+    let borderSamples = 0;
+
+    const inspectBorder = (x, y) => {
+      const idx = y * width + x;
+      borderSamples++;
+      if (isStrictLightBackground(idx)) lightBorder++;
+    };
+
+    for (let x = 0; x < width; x++) {
+      inspectBorder(x, 0);
+      if (height > 1) inspectBorder(x, height - 1);
+    }
+    for (let y = 1; y < height - 1; y++) {
+      inspectBorder(0, y);
+      if (width > 1) inspectBorder(width - 1, y);
+    }
+
+    // Si los bordes no son mayoritariamente claros, probablemente la fuente
+    // ya trae transparencia o un fondo intencional. En ese caso no la tocamos.
+    if (!borderSamples || lightBorder / borderSamples < 0.58) {
+      return false;
+    }
+
+    const enqueue = idx => {
+      if (idx < 0 || idx >= total || visited[idx] || !isStrictLightBackground(idx)) return;
+      visited[idx] = 1;
+      queue[tail++] = idx;
+    };
+
+    for (let x = 0; x < width; x++) {
+      enqueue(x);
+      enqueue((height - 1) * width + x);
+    }
+    for (let y = 1; y < height - 1; y++) {
+      enqueue(y * width);
+      enqueue(y * width + (width - 1));
+    }
+
+    while (head < tail) {
+      const idx = queue[head++];
+      const x = idx % width;
+      const y = Math.floor(idx / width);
+      if (x > 0) enqueue(idx - 1);
+      if (x + 1 < width) enqueue(idx + 1);
+      if (y > 0) enqueue(idx - width);
+      if (y + 1 < height) enqueue(idx + width);
+    }
+
+    // Segunda etapa: el JPEG suele dejar 1-2 px de gris/blanco pegados a la
+    // silueta. Los retiramos solo si son claros, casi neutros y están tocando
+    // el fondo ya confirmado. La distancia limitada evita "comerse" zonas
+    // blancas legítimas del frasco.
+    let frontier = [];
+    for (let idx = 0; idx < total; idx++) if (visited[idx]) frontier.push(idx);
+
+    for (let ring = 0; ring < 2; ring++) {
+      const next = [];
+      const seenThisRing = new Uint8Array(total);
+      const tryAdd = idx => {
+        if (idx < 0 || idx >= total || visited[idx] || seenThisRing[idx]) return;
+        seenThisRing[idx] = 1;
+        const { a, min, chroma, light } = pixelStats(idx);
+        if (a === 0 || (min >= 212 && light >= 220 && chroma <= 44)) next.push(idx);
+      };
+
+      for (const idx of frontier) {
+        const x = idx % width;
+        const y = Math.floor(idx / width);
+        if (x > 0) tryAdd(idx - 1);
+        if (x + 1 < width) tryAdd(idx + 1);
+        if (y > 0) tryAdd(idx - width);
+        if (y + 1 < height) tryAdd(idx + width);
+      }
+
+      if (!next.length) break;
+      for (const idx of next) visited[idx] = 1;
+      frontier = next;
+    }
+
+    for (let idx = 0; idx < total; idx++) {
+      if (!visited[idx]) continue;
+      data[idx * 4 + 3] = 0;
+    }
+
+    // Descontamina el último borde visible: si un píxel muy claro toca la
+    // transparencia y hacia dentro hay color real, reduce el componente blanco
+    // y suaviza su alfa. Así evitamos la línea blanca sin destruir detalles
+    // blancos interiores.
+    const original = new Uint8ClampedArray(data);
+    const neighbors = (idx, radius = 1) => {
+      const x = idx % width;
+      const y = Math.floor(idx / width);
+      const out = [];
+      for (let dy = -radius; dy <= radius; dy++) {
+        for (let dx = -radius; dx <= radius; dx++) {
+          if (!dx && !dy) continue;
+          const nx = x + dx;
+          const ny = y + dy;
+          if (nx < 0 || nx >= width || ny < 0 || ny >= height) continue;
+          out.push(ny * width + nx);
+        }
+      }
+      return out;
+    };
+
+    for (let idx = 0; idx < total; idx++) {
+      const o = idx * 4;
+      if (data[o + 3] === 0) continue;
+      const nearOne = neighbors(idx, 1);
+      const touchesTransparentEdge = nearOne.some(n => data[n * 4 + 3] === 0);
+      const near = touchesTransparentEdge ? nearOne : neighbors(idx, 2);
+      if (!near.some(n => data[n * 4 + 3] === 0)) continue;
+
+      const r = original[o];
+      const g = original[o + 1];
+      const b = original[o + 2];
+      const max = Math.max(r, g, b);
+      const min = Math.min(r, g, b);
+      const chroma = max - min;
+      const light = (r + g + b) / 3;
+      if (light < 130) continue;
+
+      const inner = neighbors(idx, 2)
+        .filter(n => data[n * 4 + 3] > 230)
+        .map(n => {
+          const no = n * 4;
+          return [original[no], original[no + 1], original[no + 2]];
+        })
+        .filter(([nr, ng, nb]) => ((nr + ng + nb) / 3) < 225 || Math.max(nr, ng, nb) - Math.min(nr, ng, nb) > 30);
+
+      // Si todo lo que hay hacia dentro también es blanco, asumimos que es
+      // parte real de la botella y no lo tocamos.
+      if (!inner.length) continue;
+
+      let ir = 0, ig = 0, ib = 0;
+      for (const [nr, ng, nb] of inner) { ir += nr; ig += ng; ib += nb; }
+      ir /= inner.length; ig /= inner.length; ib /= inner.length;
+
+      const matte = Math.max(0, Math.min(1, (light - 130) / 125));
+      const neutral = Math.max(0.22, 1 - Math.min(1, chroma / 90));
+      const strength = Math.min(0.95, matte * neutral * 0.95);
+
+      data[o] = Math.round(r * (1 - strength) + ir * strength);
+      data[o + 1] = Math.round(g * (1 - strength) + ig * strength);
+      data[o + 2] = Math.round(b * (1 - strength) + ib * strength);
+      // El píxel exterior neutro es el que produce la línea/halo visible sobre
+      // fondos oscuros. Si toca directamente la transparencia y hacia dentro
+      // sí hay color de la botella, lo hacemos casi transparente. Una zona
+      // blanca real no entra aquí porque su interior también sería blanco.
+      if (touchesTransparentEdge && chroma <= 30) {
+        data[o] = Math.round(data[o] * 0.35 + ir * 0.65);
+        data[o + 1] = Math.round(data[o + 1] * 0.35 + ig * 0.65);
+        data[o + 2] = Math.round(data[o + 2] * 0.35 + ib * 0.65);
+        data[o + 3] = Math.round(data[o + 3] * 0.12);
+        continue;
+      }
+
+      const alphaCleanup = chroma <= 28 ? 0.96 : 0.28;
+      data[o + 3] = Math.round(data[o + 3] * Math.max(0.06, 1 - strength * alphaCleanup));
+    }
+
+    ctx.putImageData(image, 0, 0);
+    return true;
+  }
+
+  async function convertImageToWebp(blob) {
+    if (!blob || !String(blob.type || '').startsWith('image/')) throw new Error('El portapapeles no contiene una imagen válida.');
+    if (blob.size > 12 * 1024 * 1024) throw new Error('La imagen original es demasiado grande. Usa una imagen menor a 12 MB.');
+    const source = await decodeImageSource(blob);
+    const sourceWidth = source.width || source.naturalWidth;
+    const sourceHeight = source.height || source.naturalHeight;
+    if (!sourceWidth || !sourceHeight) throw new Error('No se pudo leer el tamaño de la imagen.');
+    const maxSide = 1400;
+    const scale = Math.min(1, maxSide / Math.max(sourceWidth, sourceHeight));
+    const width = Math.max(1, Math.round(sourceWidth * scale));
+    const height = Math.max(1, Math.round(sourceHeight * scale));
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d', { alpha: true, willReadFrequently: true });
+    if (!ctx) throw new Error('Tu navegador no pudo preparar la imagen.');
+
+    ctx.clearRect(0, 0, width, height);
+    ctx.drawImage(source, 0, 0, width, height);
+    if (typeof source.close === 'function') source.close();
+
+    // Fragrantica a veces entrega la botella sobre JPG blanco.
+    // Quitamos únicamente el fondo claro conectado al borde y luego
+    // exportamos a WEBP manteniendo canal alfa.
+    clearConnectedLightBackground(ctx, width, height);
+
+    const webp = await new Promise((resolve, reject) => {
+      canvas.toBlob(result => result ? resolve(result) : reject(new Error('No se pudo convertir la imagen a WEBP.')), 'image/webp', 0.9);
+    });
+    return webp;
+  }
+
+  async function setPendingPerfumeImage(blob, sourceLabel = 'pegada', sourceType = 'manual') {
+    const code = normalizePerfumeCode(els.perfumeCodeInput.value);
+    const webp = await convertImageToWebp(blob);
+    releasePendingPreview();
+    state.pendingPerfumeImage = webp;
+    state.pendingPerfumeImageSource = sourceType;
+    state.removeExistingPerfumeImage = false;
+    state.pendingPerfumePreviewUrl = URL.createObjectURL(webp);
+    els.perfumeImagePreview.src = state.pendingPerfumePreviewUrl;
+    els.perfumeImagePreviewWrap.hidden = false;
+    els.removePerfumeImageBtn.hidden = false;
+    els.perfumeImagePreviewTitle.textContent = code ? 'Imagen lista' : 'Vista previa de la botella';
+    const originText = sourceType === 'fragrantica' ? 'Traída de Fragrantica' : (sourceLabel === 'pegada' ? 'Pegada manualmente' : 'Seleccionada manualmente');
+    els.perfumeImagePreviewHint.textContent = code
+      ? `${originText} y convertida a WEBP · se guardará como ${code}.webp`
+      : `${originText} y convertida a WEBP · escribe la clave privada para definir el nombre del archivo`;
+    els.perfumeImagePasteZone.classList.add('has-image');
+    updateImagePasteState();
+  }
+
+  async function uploadPerfumeImage(blob, codeValue, { upsert = false } = {}) {
+    if (!blob) return null;
+    const code = normalizePerfumeCode(codeValue);
+    if (!code) throw new Error('Falta la clave privada para nombrar la imagen.');
+    if (!(await ensureSession())) throw new Error('Tu sesión expiró.');
+    const path = `catalog/${code}.webp`;
+    const res = await fetch(`${state.config.url}/storage/v1/object/perfume-images/${storageObjectPath(path)}`, {
+      method: 'POST',
+      headers: { ...authHeaders(), 'Content-Type': 'image/webp', 'x-upsert': upsert ? 'true' : 'false' },
+      body: blob
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      const message = data?.message || data?.error || 'No se pudo subir la imagen.';
+      if (/row level security|rls/i.test(message)) {
+        throw new Error('Supabase bloqueó la actualización de la imagen por permisos de Storage. Ejecuta el parche S11 V4 de RLS y vuelve a intentar.');
+      }
+      throw new Error(message);
+    }
+    return {
+      path,
+      url: `${state.config.url}/storage/v1/object/public/perfume-images/${storageObjectPath(path)}`
+    };
+  }
+
+  async function deletePerfumeImage(path) {
+    if (!path) return;
+    try {
+      await fetch(`${state.config.url}/storage/v1/object/perfume-images/${storageObjectPath(path)}`, {
+        method: 'DELETE', headers: authHeaders()
+      });
+    } catch {}
+  }
+
+
+  function normalizeFragranticaUrl(value) {
+    const raw = String(value || '').trim();
+    if (!raw) return '';
+    let parsed;
+    try { parsed = new URL(raw); } catch { throw new Error('La URL de Fragrantica no tiene un formato válido.'); }
+    const hostname = parsed.hostname.toLowerCase().replace(/^www\./, '');
+    if (parsed.protocol !== 'https:' || !['fragrantica.com', 'fragrantica.es'].includes(hostname) || !/\/perfume\//i.test(parsed.pathname)) {
+      throw new Error('Pega una URL de la ficha de un perfume en Fragrantica.');
+    }
+    return parsed.href;
+  }
+
+  async function fetchFragranticaPreview({ applyText = true, loadImage = true } = {}) {
+    const url = normalizeFragranticaUrl(sourceUrlValue());
+    if (!url) throw new Error('Pega primero la URL de Fragrantica.');
+    els.perfumeSourceUrlInput.value = url;
+    updateSourceStatus('loading');
+    const data = await edgeFunction('fragrantica-autofill', { url });
+    const canonical = String(data?.source_url || url).trim();
+    els.perfumeSourceUrlInput.value = canonical;
+    if (applyText) {
+      if (data?.designer) {
+        els.perfumeDesignerInput.value = canonicalDesignerFromCatalog(data.designer);
+      }
+      if (data?.name) {
+        els.perfumeNameInput.value = normalizePerfumeText(data.name).trim();
+      }
+    }
+    state.lastFragranticaImageUrl = String(data?.image_url || '').trim() || null;
+    updateSourceStatus();
+
+    if (loadImage && state.lastFragranticaImageUrl) {
+      try {
+        const blob = await edgeFunction('fragrantica-autofill', { action: 'image', url }, { expect: 'blob' });
+        await setPendingPerfumeImage(blob, 'fragrantica', 'fragrantica');
+        els.perfumeAdminError.textContent = '';
+      } catch (imageError) {
+        els.perfumeAdminError.textContent = `Datos encontrados, pero no se pudo traer la botella principal automáticamente: ${friendlyNetworkError(imageError).message}. Puedes pegarla o elegirla manualmente.`;
+      }
+    }
+    return data;
+  }
+
+  async function removePerfumeImageFromForm() {
+    clearPendingPerfumeImage();
+    const id = els.perfumeAdminId.value || null;
+    const current = id ? state.catalog.find(item => item.id === id) : null;
+    state.removeExistingPerfumeImage = Boolean(current && catalogImageUrl(current));
+    els.perfumeImagePreviewWrap.hidden = true;
+    els.removePerfumeImageBtn.hidden = true;
+    els.perfumeImagePasteZone.classList.remove('has-image');
+    updateImagePasteState();
+    toast('Imagen retirada del formulario. Los demás datos no cambian.');
+  }
+
+  async function savePerfume(event) {
+    event.preventDefault();
+    els.perfumeAdminError.textContent = '';
+    els.savePerfumeAdminBtn.disabled = true;
+    const id = els.perfumeAdminId.value || null;
+    const current = id ? state.catalog.find(item => item.id === id) : null;
+    let uploaded = null;
+    let newId = null;
+    try {
+      setLoading(true, id ? 'Guardando cambios…' : 'Creando perfume…');
+      const code = normalizePerfumeCode(els.perfumeCodeInput.value);
+      if (!code) throw new Error('La clave privada es obligatoria.');
+      const sourceUrl = sourceUrlValue() ? normalizeFragranticaUrl(sourceUrlValue()) : null;
+      const previousCode = normalizePerfumeCode(current?.code || '');
+      const codeChanged = Boolean(id && previousCode && previousCode !== code);
+
+      // Si se cambia la clave y se conserva imagen, necesitamos una nueva copia
+      // para respetar la regla CLAVE.webp. Eliminar la imagen sí permite cambiar clave.
+      if (codeChanged && catalogImageUrl(current) && !state.pendingPerfumeImage && !state.removeExistingPerfumeImage) {
+        throw new Error(`Cambiaste la clave de ${previousCode} a ${code}. Pega/restaura la imagen o elimínala antes de guardar para mantener ${code}.webp.`);
+      }
+
+      if (id) {
+        await rpc('admin_update_perfume_v2', {
+          p_perfume_id: id,
+          p_name: normalizePerfumeText(els.perfumeNameInput.value).trim(),
+          p_designer: normalizePerfumeText(els.perfumeDesignerInput.value).trim(),
+          p_category: els.perfumeCategoryInput.value,
+          p_code: code,
+          p_source_url: sourceUrl
+        });
+
+        if (state.pendingPerfumeImage) {
+          uploaded = await uploadPerfumeImage(state.pendingPerfumeImage, code, { upsert: !codeChanged });
+          await rpc('admin_set_perfume_image_v2', {
+            p_perfume_id: id,
+            p_image_url: uploaded.url,
+            p_image_storage_path: uploaded.path,
+            p_image_source: state.pendingPerfumeImageSource || 'manual'
+          });
+          if (current?.image_storage_path && current.image_storage_path !== uploaded.path) {
+            await deletePerfumeImage(current.image_storage_path);
+          }
+        } else if (state.removeExistingPerfumeImage) {
+          await rpc('admin_clear_perfume_image', { p_perfume_id: id });
+          if (current?.image_storage_path) await deletePerfumeImage(current.image_storage_path);
+        }
+        toast('Perfume actualizado correctamente.');
+      } else {
+        // El archivo se sube primero porque el RPC guarda la URL final en la misma
+        // transacción que perfume + clave + URL fuente. Si el RPC falla, limpiamos
+        // únicamente el archivo recién creado.
+        if (state.pendingPerfumeImage) {
+          uploaded = await uploadPerfumeImage(state.pendingPerfumeImage, code, { upsert: false });
+        }
+        newId = await rpc('admin_create_perfume_v2', {
+          p_name: normalizePerfumeText(els.perfumeNameInput.value).trim(),
+          p_designer: normalizePerfumeText(els.perfumeDesignerInput.value).trim(),
+          p_category: els.perfumeCategoryInput.value,
+          p_code: code,
+          p_source_url: sourceUrl,
+          p_image_url: uploaded?.url || null,
+          p_image_storage_path: uploaded?.path || null,
+          p_image_source: uploaded ? (state.pendingPerfumeImageSource || 'manual') : null
+        });
+        if (!newId) throw new Error('Supabase no devolvió el ID del perfume creado.');
+        toast('Perfume creado · URL fuente guardada para enriquecimiento futuro.');
+      }
+      closePerfumeModal();
+      await loadAdminCatalog({ quiet: true });
+    } catch (error) {
+      if (!id && uploaded && !newId) await deletePerfumeImage(uploaded.path);
+      els.perfumeAdminError.textContent = friendlyNetworkError(error).message;
+      toast(els.perfumeAdminError.textContent, true);
+    } finally {
+      setLoading(false);
+      els.savePerfumeAdminBtn.disabled = false;
+    }
+  }
+
+  async function changePerfumeAvailability(item, nextStatus) {
+    const label = nextStatus === 'out_of_stock' ? 'agotado temporalmente' : 'disponible';
+    if (!window.confirm(`¿Marcar ${item.name} como ${label}?`)) return;
+    setLoading(true, 'Actualizando disponibilidad…');
+    try {
+      await rpc('admin_set_perfume_availability', { p_perfume_id: item.id, p_status: nextStatus });
+      item.availability_status = nextStatus;
+      renderAdminCatalog();
+      toast(nextStatus === 'out_of_stock' ? 'Perfume marcado como agotado.' : 'Perfume disponible nuevamente.');
+    } catch (error) {
+      toast(friendlyNetworkError(error).message, true);
+    } finally { setLoading(false); }
   }
 
   function orderedCycles() {
@@ -379,8 +1159,12 @@
       ['Perfumes', totalPerfumes],
       ['Muestras', totalSamples]
     ].map(([label, value]) => `<div class="summary-box"><span>${esc(label)}</span><strong>${esc(value)}</strong></div>`).join('');
-    els.detailTableBody.innerHTML = rows.map(row => `<tr><td>${Number(row.quantity)||0}</td><td>${esc(row.perfume_name)}</td><td>${esc(row.perfume_code)}</td><td>${Number(row.sample_quantity)||0}</td><td>${esc(row.customer_note || '—')}</td></tr>`).join('');
-    els.detailDownloadActions.innerHTML = `<button class="btn btn-primary" data-detail-download="xlsx">Excel individual</button><button class="btn btn-ghost" data-detail-download="pdf">PDF individual</button>`;
+    els.detailTableBody.innerHTML = rows.map(row => `<tr><td>${Number(row.quantity)||0}</td><td>${esc(row.perfume_name)}</td><td>${esc(row.perfume_code)}</td><td>${esc(row.presentation === 'dama' ? 'Dama' : (row.presentation === 'caballero' ? 'Caballero' : '—'))}</td><td>${Number(row.sample_quantity)||0}</td><td>${esc(row.customer_note || '—')}</td></tr>`).join('');
+    els.detailDownloadActions.innerHTML = `
+      <button class="btn btn-primary" data-detail-download="xlsx">Excel individual</button>
+      <button class="btn btn-ghost" data-detail-download="pdf">PDF individual</button>
+      <button class="btn btn-warning" data-detail-action="reopen" type="button">Reabrir pedido</button>
+    `;
   }
 
   async function openOrder(orderId, origin = 'orders') {
@@ -481,18 +1265,24 @@
     } finally { els.loginBtn.disabled = false; }
   });
 
-  els.logoutBtn.addEventListener('click', () => {
-    state.session = null;
-    state.history = [];
-    clearStored(SESSION_KEY);
-    showView('login');
+  els.logoutBtn.addEventListener('click', async () => {
+    setLoading(true, 'Cerrando sesión…');
+    try {
+      if (state.session?.access_token) {
+        await request('/auth/v1/logout', { method: 'POST' }).catch(() => {});
+      }
+    } finally {
+      state.session = null;
+      state.history = [];
+      clearStored(SESSION_KEY);
+      clearStored('prive-admin-session-v1');
+      window.location.replace('../portal/');
+    }
   });
 
   if (els.changeConfigBtn) {
     els.changeConfigBtn.addEventListener('click', () => {
-      clearStored(SESSION_KEY);
-      state.session = null;
-      showView('login');
+      window.location.replace('../portal/');
     });
   }
 
@@ -504,11 +1294,155 @@
     if (view === 'history') {
       showPanelSection('history');
       try { await loadHistory(); } catch (error) { toast(friendlyNetworkError(error).message, true); }
+    } else if (view === 'catalog') {
+      showPanelSection('catalog');
+      try { await loadAdminCatalog(); } catch (error) { toast(friendlyNetworkError(error).message, true); }
     } else {
       showPanelSection('cycles');
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }));
+
+  els.newPerfumeBtn.addEventListener('click', () => openPerfumeModal());
+  els.closePerfumeAdminModal.addEventListener('click', closePerfumeModal);
+  els.perfumeAdminModal.querySelectorAll('[data-close-perfume-modal]').forEach(node => node.addEventListener('click', closePerfumeModal));
+  els.perfumeAdminForm.addEventListener('submit', savePerfume);
+  els.perfumeSourceUrlInput.addEventListener('input', () => {
+    state.lastFragranticaImageUrl = null;
+    updateSourceStatus();
+  });
+  els.fragranticaAutofillBtn.addEventListener('click', async () => {
+    els.perfumeAdminError.textContent = '';
+    els.fragranticaAutofillBtn.disabled = true;
+    try {
+      setLoading(true, 'Leyendo ficha de Fragrantica…');
+      await fetchFragranticaPreview({ applyText: true, loadImage: true });
+      toast(state.pendingPerfumeImage ? 'Ficha e imagen encontradas. Revisa los datos antes de guardar.' : 'Ficha encontrada. Revisa los datos y completa la imagen si hace falta.');
+    } catch (error) {
+      els.perfumeAdminError.textContent = friendlyNetworkError(error).message;
+      toast(els.perfumeAdminError.textContent, true);
+      updateSourceStatus();
+    } finally {
+      setLoading(false);
+      els.fragranticaAutofillBtn.disabled = false;
+    }
+  });
+  els.restoreFragranticaImageBtn.addEventListener('click', async () => {
+    els.perfumeAdminError.textContent = '';
+    try {
+      setLoading(true, 'Recuperando imagen de Fragrantica…');
+      await fetchFragranticaPreview({ applyText: false, loadImage: true });
+      if (!state.pendingPerfumeImage) throw new Error('La ficha no devolvió una imagen. Usa pegado o archivo manual.');
+      toast('Imagen de Fragrantica restaurada.');
+    } catch (error) {
+      els.perfumeAdminError.textContent = friendlyNetworkError(error).message;
+      toast(els.perfumeAdminError.textContent, true);
+    } finally {
+      setLoading(false);
+    }
+  });
+  els.removePerfumeImageBtn.addEventListener('click', removePerfumeImageFromForm);
+  [els.perfumeDesignerInput, els.perfumeNameInput].forEach(input => input.addEventListener('input', () => {
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+    const normalized = normalizePerfumeText(input.value);
+    if (input.value !== normalized) {
+      input.value = normalized;
+      if (start !== null && end !== null) input.setSelectionRange(start, end);
+    }
+  }));
+  els.perfumeCodeInput.addEventListener('input', () => {
+    const normalized = normalizePerfumeCode(els.perfumeCodeInput.value);
+    if (els.perfumeCodeInput.value !== normalized) els.perfumeCodeInput.value = normalized;
+
+    syncCategoryFromCode();
+
+    const code = normalizePerfumeCode(els.perfumeCodeInput.value);
+    if (state.pendingPerfumeImage) {
+      const originText = state.pendingPerfumeImageSource === 'fragrantica' ? 'Traída de Fragrantica' : 'Imagen manual';
+      els.perfumeImagePreviewTitle.textContent = code ? 'Imagen lista' : 'Vista previa de la botella';
+      els.perfumeImagePreviewHint.textContent = code
+        ? `${originText} y convertida a WEBP · se guardará como ${code}.webp`
+        : `${originText} y convertida a WEBP · escribe la clave privada para definir el nombre del archivo`;
+    }
+    updateImagePasteState();
+  });
+
+  els.perfumeCategoryInput.addEventListener('change', () => {
+    state.categoryManuallyEdited = true;
+  });
+  els.perfumeImagePasteZone.addEventListener('click', () => {
+    if (!normalizePerfumeCode(els.perfumeCodeInput.value)) {
+      els.perfumeAdminError.textContent = 'Primero escribe la clave privada.';
+      els.perfumeCodeInput.focus();
+      return;
+    }
+    els.perfumeImagePasteZone.focus();
+  });
+  els.perfumeImagePasteZone.addEventListener('beforeinput', event => event.preventDefault());
+  els.perfumeImagePasteZone.addEventListener('keydown', event => {
+    const pasteShortcut = (event.ctrlKey || event.metaKey) && String(event.key).toLowerCase() === 'v';
+    if (!pasteShortcut && event.key !== 'Tab') event.preventDefault();
+  });
+  els.perfumeAdminModal.addEventListener('paste', async event => {
+    if (els.perfumeAdminModal.hidden) return;
+    const items = Array.from(event.clipboardData?.items || []);
+    const imageItem = items.find(item => item.kind === 'file' && String(item.type || '').startsWith('image/'));
+    if (!imageItem) {
+      if (event.target === els.perfumeImagePasteZone || els.perfumeImagePasteZone.contains(event.target)) {
+        event.preventDefault();
+        els.perfumeAdminError.textContent = 'Copia la imagen del perfume, no texto ni una dirección web.';
+      }
+      return;
+    }
+    event.preventDefault();
+    els.perfumeAdminError.textContent = '';
+    try {
+      setLoading(true, 'Preparando imagen…');
+      await setPendingPerfumeImage(imageItem.getAsFile(), 'pegada', 'manual');
+      toast(`Imagen lista · ${normalizePerfumeCode(els.perfumeCodeInput.value)}.webp`);
+    } catch (error) {
+      els.perfumeAdminError.textContent = friendlyNetworkError(error).message;
+      toast(els.perfumeAdminError.textContent, true);
+    } finally {
+      setLoading(false);
+    }
+  });
+  els.perfumeImageInput.addEventListener('change', async () => {
+    const file = els.perfumeImageInput.files?.[0];
+    if (!file) return;
+    els.perfumeAdminError.textContent = '';
+    try {
+      setLoading(true, 'Preparando imagen…');
+      await setPendingPerfumeImage(file, 'archivo', 'manual');
+    } catch (error) {
+      els.perfumeAdminError.textContent = friendlyNetworkError(error).message;
+      toast(els.perfumeAdminError.textContent, true);
+      els.perfumeImageInput.value = '';
+    } finally {
+      setLoading(false);
+    }
+  });
+  els.catalogAdminSearchInput.addEventListener('input', () => {
+    state.catalogSearch = els.catalogAdminSearchInput.value;
+    renderAdminCatalog();
+  });
+  els.catalogAvailabilityFilters.addEventListener('click', event => {
+    const btn = event.target.closest('[data-catalog-filter]');
+    if (!btn) return;
+    state.catalogFilter = btn.dataset.catalogFilter || 'all';
+    els.catalogAvailabilityFilters.querySelectorAll('[data-catalog-filter]').forEach(node => node.classList.toggle('is-active', node === btn));
+    renderAdminCatalog();
+  });
+  els.catalogAdminList.addEventListener('click', event => {
+    const btn = event.target.closest('[data-catalog-action]');
+    if (!btn) return;
+    const card = btn.closest('[data-catalog-id]');
+    const item = state.catalog.find(row => row.id === card?.dataset.catalogId);
+    if (!item) return;
+    if (btn.dataset.catalogAction === 'edit') openPerfumeModal(item);
+    if (btn.dataset.catalogAction === 'availability') changePerfumeAvailability(item, btn.dataset.nextStatus);
+  });
 
   document.querySelectorAll('[data-cycle-filter]').forEach(button => button.addEventListener('click', () => {
     state.filter = button.dataset.cycleFilter;
@@ -544,7 +1478,81 @@
     if (btn.dataset.cycleDownload === 'pdf') downloadEdge('generate-order-pdf', { cycle_id: state.selectedCycle.cycle_id }, 'PRIVE-PEDIDO-PROVEEDOR.pdf').catch(e => toast(e.message, true));
   });
 
+
+  async function reopenSelectedOrder() {
+    if (!state.selectedOrder) return;
+
+    const reason = window.prompt(
+      'Motivo de reapertura (opcional). Escribe una nota para el historial o déjalo vacío:',
+      ''
+    );
+
+    if (reason === null) return;
+
+    const confirmed = window.confirm(
+      '¿Reabrir este pedido?\n\nEl revendedor volverá a poder editar cantidades, muestras y notas, y deberá confirmarlo nuevamente.'
+    );
+
+    if (!confirmed) return;
+
+    setLoading(true, 'Reabriendo pedido…');
+
+    try {
+      await rpc('admin_reopen_order', {
+        p_order_id: state.selectedOrder,
+        p_reason: reason.trim() || null
+      });
+
+      toast('Pedido reabierto correctamente.');
+
+      state.history = [];
+      state.cycles = [];
+
+      if (state.detailOrigin === 'history') {
+        showPanelSection('history');
+        await loadHistory(true);
+      } else if (state.selectedCycle) {
+        const refreshedCycles = await rpc('get_admin_cycles_dashboard');
+        state.cycles = Array.isArray(refreshedCycles) ? refreshedCycles : [];
+        renderOverview();
+
+        const refreshedCycle =
+          state.cycles.find(c => c.cycle_id === state.selectedCycle.cycle_id) ||
+          state.selectedCycle;
+
+        state.selectedCycle = refreshedCycle;
+        showPanelSection('orders');
+        els.ordersCycleTitle.textContent = refreshedCycle.cycle_name || 'Pedidos';
+        els.ordersCycleMeta.textContent =
+          `${Number(refreshedCycle.confirmed_orders)||0} pedidos · ` +
+          `${Number(refreshedCycle.total_perfumes)||0} perfumes · ` +
+          `${Number(refreshedCycle.total_samples)||0} muestras`;
+
+        const orders = await rpc('get_admin_cycle_orders', {
+          p_cycle_id: refreshedCycle.cycle_id
+        });
+        renderOrders(orders);
+      } else {
+        showPanelSection('cycles');
+        await loadCycles();
+      }
+
+      state.selectedOrder = null;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+      toast(friendlyNetworkError(error).message, true);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   els.detailDownloadActions.addEventListener('click', event => {
+    const reopenBtn = event.target.closest('[data-detail-action="reopen"]');
+    if (reopenBtn) {
+      reopenSelectedOrder();
+      return;
+    }
+
     const btn = event.target.closest('[data-detail-download]');
     if (!btn || !state.selectedOrder) return;
     if (btn.dataset.detailDownload === 'xlsx') downloadEdge('generate-user-order-excel', { order_id: state.selectedOrder }, 'PRIVE-PEDIDO-INDIVIDUAL.xlsx').catch(e => toast(e.message, true));
@@ -562,32 +1570,33 @@
   });
 
   async function init() {
-    // La Project URL y la Publishable key son configuración pública del cliente.
-    // La seguridad real permanece en Supabase Auth, RLS, RPC y Edge Functions.
+    // El panel administrativo comparte la misma sesión del Portal PRIVÉ.
+    // No existe un segundo inicio de sesión.
     state.config = { ...DEFAULT_CONFIG };
     saveStored(CONFIG_KEY, state.config);
     state.session = readStored(SESSION_KEY);
 
-    if (state.session && await ensureSession()) {
-      try {
-        await verifyAdminProfile();
-        els.sessionBadge.textContent = state.session.user?.email || 'Admin';
-        showView('app');
-        showPanelSection('cycles');
-        await loadCycles();
-      } catch (error) {
-        const friendly = friendlyNetworkError(error);
-        toast(friendly.message, true);
-        if (/admin|autentic|sesión/i.test(friendly.message)) {
-          state.session = null;
-          clearStored(SESSION_KEY);
-          showView('login');
-        }
-      }
+    if (!state.session || !await ensureSession()) {
+      window.location.replace('../portal/');
       return;
     }
 
-    showView('login');
+    try {
+      await verifyAdminProfile();
+      els.sessionBadge.textContent = state.session.user?.email || 'Admin';
+      showView('app');
+      showPanelSection('cycles');
+      await loadCycles();
+    } catch (error) {
+      const friendly = friendlyNetworkError(error);
+      // Si la cuenta no es admin, vuelve al portal con la misma sesión.
+      if (/administrativo|admin|acceso/i.test(friendly.message)) {
+        window.location.replace('../portal/');
+        return;
+      }
+      toast(friendly.message, true);
+      window.location.replace('../portal/');
+    }
   }
 
   init();

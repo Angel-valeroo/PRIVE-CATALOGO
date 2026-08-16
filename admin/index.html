@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./admin.css?v=1.2">
+  <link rel="stylesheet" href="./admin.css?v=1.7">
 </head>
 <body>
   <main class="admin-shell">
@@ -22,6 +22,7 @@
       </div>
       <div class="topbar-actions">
         <span id="sessionBadge" class="session-badge" hidden></span>
+        <a class="btn btn-ghost" href="../portal/">Volver al portal</a>
         <button id="logoutBtn" class="btn btn-ghost" type="button" hidden>Cerrar sesión</button>
       </div>
     </header>
@@ -61,6 +62,7 @@
       <nav class="panel-nav" aria-label="Secciones del panel">
         <button class="nav-pill is-active" type="button" data-panel-view="cycles">Cortes</button>
         <button class="nav-pill" type="button" data-panel-view="history">Historial</button>
+        <button class="nav-pill" type="button" data-panel-view="catalog">Catálogo</button>
       </nav>
 
       <section id="cyclesSection" class="panel-section">
@@ -108,6 +110,34 @@
         <div id="historyList" class="cards-list"></div>
       </section>
 
+
+      <section id="catalogSection" class="panel-section" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">CATÁLOGO</p>
+            <h2>Perfumes</h2>
+            <p class="muted">Agrega, edita y controla disponibilidad. Los cambios operativos se reflejan en el Portal PRIVÉ desde Supabase.</p>
+          </div>
+          <button id="newPerfumeBtn" class="btn btn-primary" type="button">+ Nuevo perfume</button>
+        </div>
+
+        <div class="catalog-admin-toolbar">
+          <label class="search-box search-box-wide">
+            <span class="sr-only">Buscar perfume</span>
+            <input id="catalogAdminSearchInput" type="search" placeholder="Buscar nombre, diseñador o clave…" autocomplete="off">
+          </label>
+          <div class="filters" id="catalogAvailabilityFilters" role="group" aria-label="Filtrar disponibilidad">
+            <button class="filter-pill is-active" type="button" data-catalog-filter="all">Todos</button>
+            <button class="filter-pill" type="button" data-catalog-filter="available">Disponibles</button>
+            <button class="filter-pill" type="button" data-catalog-filter="out_of_stock">Agotados</button>
+            <button class="filter-pill" type="button" data-catalog-filter="basic">Ficha básica</button>
+            <button class="filter-pill" type="button" data-catalog-filter="basic_missing_source">Básicas sin URL</button>
+          </div>
+        </div>
+        <p id="catalogAdminCount" class="results-count"></p>
+        <div id="catalogAdminList" class="catalog-admin-grid"></div>
+      </section>
+
       <section id="ordersSection" class="panel-section" hidden>
         <div class="section-heading section-heading-back">
           <button id="backToCycles" class="back-button" type="button">← Cortes</button>
@@ -139,6 +169,7 @@
                 <th>Cantidad</th>
                 <th>Perfume</th>
                 <th>Clave</th>
+                <th>Presentación</th>
                 <th>Muestras</th>
                 <th>Nota / Cliente</th>
               </tr>
@@ -149,9 +180,82 @@
       </section>
     </section>
 
+
+    <div id="perfumeAdminModal" class="admin-modal" hidden>
+      <div class="admin-modal-backdrop" data-close-perfume-modal></div>
+      <section class="admin-modal-card" role="dialog" aria-modal="true" aria-labelledby="perfumeAdminModalTitle">
+        <div class="admin-modal-head">
+          <div>
+            <p class="eyebrow">CATÁLOGO PRIVÉ</p>
+            <h2 id="perfumeAdminModalTitle">Nuevo perfume</h2>
+          </div>
+          <button id="closePerfumeAdminModal" class="modal-close" type="button" aria-label="Cerrar">×</button>
+        </div>
+        <form id="perfumeAdminForm" class="perfume-admin-form">
+          <input id="perfumeAdminId" type="hidden">
+
+          <div class="source-import-field">
+            <div class="source-import-heading">
+              <div>
+                <strong>URL de Fragrantica</strong>
+                <small>Opcional. Si existe, será la referencia principal para completar la ficha olfativa más adelante.</small>
+              </div>
+              <span id="perfumeSourceStatus" class="source-status">SIN URL</span>
+            </div>
+            <div class="source-import-row">
+              <input id="perfumeSourceUrlInput" type="url" inputmode="url" placeholder="https://www.fragrantica.com/perfume/..." autocomplete="off">
+              <button id="fragranticaAutofillBtn" class="btn btn-ghost" type="button">Autocompletar</button>
+            </div>
+            <p class="source-import-help">Autocompletar trae diseñador, nombre e imagen como sugerencia. Todo seguirá editable antes de guardar.</p>
+          </div>
+
+          <div class="form-grid">
+            <label><span>Diseñador</span><input id="perfumeDesignerInput" type="text" required maxlength="120" autocomplete="off"></label>
+            <label><span>Nombre del perfume</span><input id="perfumeNameInput" type="text" required maxlength="180" autocomplete="off"></label>
+            <label><span>Clave privada</span><input id="perfumeCodeInput" type="text" required maxlength="60" autocomplete="off" autocapitalize="characters"></label>
+            <label><span>Categoría</span>
+              <select id="perfumeCategoryInput" required>
+                <option value="Caballero">Caballero</option>
+                <option value="Dama">Dama</option>
+                <option value="Unisex">Unisex</option>
+              </select>
+            </label>
+          </div>
+          <div class="image-paste-field">
+            <span class="image-paste-label">Imagen del perfume <small>Se convierte automáticamente a WEBP y se guarda con la clave.</small></span>
+            <div id="perfumeImagePasteZone" class="image-paste-zone is-disabled" tabindex="0" role="textbox" contenteditable="true" spellcheck="false" aria-disabled="true" aria-label="Pegar imagen del perfume">
+              <strong id="perfumeImagePasteTitle">Primero escribe la clave privada</strong>
+              <span id="perfumeImagePasteHint">Después copia la imagen en el navegador y pégala aquí con Ctrl+V.</span>
+              <span id="perfumeImageFilename" class="image-target-name"></span>
+            </div>
+            <div class="image-upload-fallback">
+              <span>También puedes seleccionar un archivo si lo necesitas.</span>
+              <input id="perfumeImageInput" type="file" accept="image/jpeg,image/png,image/webp,image/avif">
+            </div>
+          </div>
+          <div id="perfumeImagePreviewWrap" class="image-preview-wrap" hidden>
+            <img id="perfumeImagePreview" alt="Vista previa del perfume">
+            <div class="image-preview-info">
+              <strong id="perfumeImagePreviewTitle">Imagen actual</strong>
+              <small id="perfumeImagePreviewHint">Al guardar se usará para este perfume.</small>
+              <div class="image-preview-actions">
+                <button id="restoreFragranticaImageBtn" class="btn btn-ghost btn-compact" type="button" hidden>Restaurar de Fragrantica</button>
+                <button id="removePerfumeImageBtn" class="btn btn-danger-soft btn-compact" type="button">Eliminar imagen</button>
+              </div>
+            </div>
+          </div>
+          <p id="perfumeAdminError" class="form-error" role="alert"></p>
+          <div class="admin-modal-actions">
+            <button class="btn btn-ghost" type="button" data-close-perfume-modal>Cancelar</button>
+            <button id="savePerfumeAdminBtn" class="btn btn-primary" type="submit">Guardar perfume</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
     <div id="loadingLayer" class="loading-layer" hidden><div class="spinner"></div><span>Procesando…</span></div>
   </main>
-  <script src="./admin.js?v=1.2" defer></script>
+  <script src="./admin.js?v=2.0" defer></script>
 </body>
 </html>

@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#07090d">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <title>Portal de distribuidores | PRIVÉ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./portal.css?v=2.6">
+</head>
+<body>
+  <main class="portal-shell">
+    <header class="portal-topbar">
+      <div>
+        <p class="portal-overline">PERFUMERÍA PRIVÉ</p>
+        <a class="portal-brand" href="/">Portal PRIVÉ</a>
+      </div>
+      <div id="sessionActions" class="session-actions" hidden>
+        <span id="sessionBadge" class="session-badge"></span>
+        <button id="historyBtn" class="ghost-btn" type="button">Mis pedidos</button>
+        <a id="adminPanelLink" class="ghost-btn admin-only-link" href="../admin/index.html">Panel administrativo</a>
+        <button id="logoutBtn" class="ghost-btn" type="button">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <section id="loginView" class="auth-view">
+      <div class="auth-card">
+        <p class="section-kicker">ACCESO PRIVADO</p>
+        <h1>Distribuidores y administradores</h1>
+        <p class="auth-copy">Ingresa con tu cuenta individual de PRIVÉ para consultar el catálogo y gestionar tus pedidos.</p>
+        <form id="loginForm" class="auth-form" novalidate>
+          <label>
+            <span>Correo</span>
+            <input id="emailInput" name="email" type="email" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+          </label>
+          <label>
+            <span>Contraseña</span>
+            <input id="passwordInput" name="password" type="password" autocomplete="current-password" required>
+          </label>
+          <button id="loginBtn" class="primary-btn" type="submit">Entrar al portal</button>
+          <p id="loginError" class="form-error" role="alert" aria-live="polite"></p>
+        </form>
+        <p class="auth-note">Las claves internas de los perfumes permanecen ocultas durante la navegación y antes de confirmar un pedido.</p>
+      </div>
+    </section>
+
+    <section id="appView" class="app-view" hidden>
+      <div class="welcome-row">
+        <div>
+          <p class="section-kicker">CATÁLOGO OPERATIVO</p>
+          <h1 id="welcomeTitle">Tu colección PRIVÉ</h1>
+          <p id="welcomeMeta" class="welcome-meta"></p>
+        </div>
+        <div class="status-card">
+          <span class="status-dot"></span>
+          <div>
+            <small>Cuenta</small>
+            <strong id="accountStatus">Activa</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="portal-notice">
+        <strong>Las claves permanecen privadas.</strong>
+        <span>Se mostrarán únicamente después de confirmar un pedido, en las vistas y documentos autorizados.</span>
+      </div>
+
+      <section class="order-overview" aria-label="Estado del pedido">
+        <div class="order-state-copy">
+          <span id="orderStateBadge" class="order-state-badge is-open">Pedido abierto</span>
+          <strong id="orderCycleLabel">Preparando tu pedido</strong>
+          <small id="orderCutoffLabel">Los cambios se guardan automáticamente.</small>
+        </div>
+        <div class="order-progress-block">
+          <div class="order-progress-head">
+            <span id="discountMessage">Agrega perfumes para avanzar hacia el descuento adicional.</span>
+            <strong id="discountCounter">0 / 15</strong>
+          </div>
+          <div class="progress-track" aria-hidden="true"><span id="discountProgress"></span></div>
+        </div>
+      </section>
+
+      <div class="catalog-toolbar">
+        <label class="search-field">
+          <span class="sr-only">Buscar perfume o marca</span>
+          <input id="searchInput" type="search" placeholder="Buscar perfume o marca" autocomplete="off">
+        </label>
+        <div id="categoryFilters" class="filter-pills" aria-label="Filtrar por categoría">
+          <button type="button" class="filter-pill is-active" data-category="all">Todos</button>
+          <button type="button" class="filter-pill" data-category="Caballero">Caballero</button>
+          <button type="button" class="filter-pill" data-category="Dama">Dama</button>
+          <button type="button" class="filter-pill" data-category="Unisex">Unisex</button>
+        </div>
+      </div>
+
+      <div class="catalog-summary">
+        <span id="catalogCount">0 perfumes</span>
+        <button id="refreshBtn" class="text-btn" type="button">Actualizar catálogo</button>
+      </div>
+
+      <div id="catalogGrid" class="catalog-grid" aria-live="polite"></div>
+      <div id="emptyState" class="empty-state" hidden>
+        <strong>No encontramos coincidencias.</strong>
+        <span>Prueba con otro nombre, marca o categoría.</span>
+      </div>
+      <div class="load-more-wrap">
+        <button id="loadMoreBtn" class="secondary-btn" type="button" hidden>Mostrar más</button>
+      </div>
+    </section>
+  </main>
+
+  <button id="floatingOrderBtn" class="floating-order" type="button" hidden aria-label="Ver mi pedido">
+    <span class="floating-order-copy">
+      <small id="floatingOrderState">Pedido abierto</small>
+      <strong>Ver mi pedido</strong>
+    </span>
+    <span class="floating-order-totals">
+      <b id="floatingPerfumes">0</b><small>perfumes</small>
+      <i></i>
+      <b id="floatingSamples">0</b><small>muestras</small>
+    </span>
+  </button>
+
+  <div id="cartBackdrop" class="sheet-backdrop" hidden></div>
+  <aside id="cartSheet" class="cart-sheet" hidden aria-label="Mi pedido" aria-modal="true" role="dialog">
+    <div class="sheet-handle" aria-hidden="true"></div>
+    <header class="cart-sheet-head">
+      <div>
+        <p class="section-kicker">MI PEDIDO</p>
+        <h2>Resumen del pedido</h2>
+      </div>
+      <button id="closeCartBtn" class="icon-btn" type="button" aria-label="Cerrar pedido">×</button>
+    </header>
+    <div class="cart-status-strip">
+      <span id="cartStateBadge" class="order-state-badge is-open">Pedido abierto</span>
+      <span id="cartCycleText">—</span>
+    </div>
+    <div class="cart-progress-card">
+      <div class="order-progress-head">
+        <span id="cartDiscountMessage">Te faltan 15 perfumes para el descuento adicional.</span>
+        <strong id="cartDiscountCounter">0 / 15</strong>
+      </div>
+      <div class="progress-track"><span id="cartDiscountProgress"></span></div>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div id="cartEmpty" class="cart-empty">
+      <strong>Tu pedido está vacío.</strong>
+      <span>Agrega perfumes desde el catálogo. Cada cambio se guardará automáticamente.</span>
+    </div>
+    <div class="cart-totals-card">
+      <div><small>Perfumes</small><strong id="cartPerfumeTotal">0</strong></div>
+      <div><small>Muestras</small><strong id="cartSampleTotal">0</strong></div>
+    </div>
+    <div id="closedOrderMessage" class="closed-order-message" hidden>
+      <strong>Este pedido está cerrado.</strong>
+      <span>No puedes editarlo ni enviar otro pedido hasta el siguiente corte. Si hubo un error, comunícate con PRIVÉ para solicitar una reapertura.</span>
+      <div class="closed-order-actions">
+        <button id="closedOrderExcelBtn" class="secondary-btn" type="button">Descargar Excel</button>
+        <button id="closedOrderPdfBtn" class="secondary-btn" type="button">Descargar PDF</button>
+      </div>
+    </div>
+    <button id="confirmOrderBtn" class="primary-btn cart-confirm-btn" type="button" disabled>Revisar y confirmar pedido</button>
+  </aside>
+
+  <div id="editorModal" class="modal-layer" hidden>
+    <section class="editor-modal" role="dialog" aria-modal="true" aria-labelledby="editorTitle">
+      <button id="closeEditorBtn" class="icon-btn modal-close" type="button" aria-label="Cerrar">×</button>
+      <div class="editor-product">
+        <div class="editor-image-wrap">
+          <img id="editorImage" class="editor-image" alt="" hidden>
+          <span id="editorImageFallback">PRIVÉ</span>
+        </div>
+        <div>
+          <p id="editorDesigner" class="section-kicker"></p>
+          <h2 id="editorTitle">Agregar al pedido</h2>
+          <p id="editorPerfume" class="editor-perfume"></p>
+        </div>
+      </div>
+      <form id="itemEditorForm" class="item-editor-form">
+        <div class="editor-field-grid">
+          <label>
+            <span>Cantidad de perfumes</span>
+            <div class="stepper"><button type="button" data-step="quantity" data-delta="-1">−</button><input id="itemQuantity" type="number" min="1" step="1" value="1" inputmode="numeric"><button type="button" data-step="quantity" data-delta="1">+</button></div>
+          </label>
+          <label>
+            <span>Muestras de 10 ml</span>
+            <div class="stepper"><button type="button" data-step="samples" data-delta="-1">−</button><input id="itemSamples" type="number" min="0" step="1" value="0" inputmode="numeric"><button type="button" data-step="samples" data-delta="1">+</button></div>
+          </label>
+        </div>
+        <fieldset id="presentationField" class="presentation-field" hidden>
+          <legend>Este perfume es unisex</legend>
+          <p>Por favor especifica para qué tipo de cliente es.</p>
+          <div class="presentation-options" role="radiogroup" aria-label="Presentación para perfume unisex">
+            <label class="presentation-option">
+              <input id="presentationCaballero" type="radio" name="itemPresentation" value="caballero">
+              <span>Caballero</span>
+            </label>
+            <label class="presentation-option">
+              <input id="presentationDama" type="radio" name="itemPresentation" value="dama">
+              <span>Dama</span>
+            </label>
+          </div>
+        </fieldset>
+        <label class="note-field">
+          <span>Nota / Cliente <small>opcional</small></span>
+          <input id="itemNote" type="text" maxlength="120" placeholder="Ej. María, Juan, Cuquis…" autocomplete="off">
+        </label>
+        <p class="sample-note">Las muestras tienen un costo adicional. Consulta el precio con tu vendedor o distribuidor.</p>
+        <button id="saveItemBtn" class="primary-btn" type="submit">Agregar al pedido</button>
+      </form>
+    </section>
+  </div>
+
+  <div id="confirmModal" class="modal-layer" hidden>
+    <section class="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <p class="section-kicker">CONFIRMACIÓN FINAL</p>
+      <h2 id="confirmTitle">¿Enviar este pedido?</h2>
+      <p class="confirm-warning">Una vez confirmado, el pedido quedará cerrado y ya no podrás agregar perfumes, muestras, editar notas ni enviar otro pedido hasta el siguiente corte.</p>
+      <div class="confirm-summary">
+        <div><small>Perfumes</small><strong id="confirmPerfumes">0</strong></div>
+        <div><small>Muestras</small><strong id="confirmSamples">0</strong></div>
+      </div>
+      <div id="confirmDiscountNotice" class="confirm-discount-notice"></div>
+      <label class="confirm-check"><input id="confirmAcknowledge" type="checkbox"><span>Entiendo que el pedido no podrá modificarse después de enviarlo, salvo que PRIVÉ lo reabra desde administración.</span></label>
+      <div class="confirm-actions">
+        <button id="cancelConfirmBtn" class="secondary-btn" type="button">Volver a revisar</button>
+        <button id="finalConfirmBtn" class="primary-btn" type="button" disabled>Confirmar definitivamente</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="historyBackdrop" class="sheet-backdrop" hidden></div>
+  <aside id="historySheet" class="history-sheet" hidden aria-label="Mis pedidos" aria-modal="true" role="dialog">
+    <div class="sheet-handle" aria-hidden="true"></div>
+    <header class="cart-sheet-head">
+      <div>
+        <p class="section-kicker">MI HISTORIAL</p>
+        <h2>Mis pedidos</h2>
+        <p class="history-help">Consulta pedidos confirmados y vuelve a descargar tus documentos cuando los necesites.</p>
+      </div>
+      <button id="closeHistoryBtn" class="icon-btn" type="button" aria-label="Cerrar historial">×</button>
+    </header>
+    <div id="historyList" class="portal-history-list"></div>
+    <div id="historyEmpty" class="cart-empty" hidden>
+      <strong>Todavía no tienes pedidos confirmados.</strong>
+      <span>Cuando confirmes un pedido aparecerá aquí automáticamente.</span>
+    </div>
+  </aside>
+
+  <div id="historyDetailModal" class="modal-layer" hidden>
+    <section class="history-detail-modal" role="dialog" aria-modal="true" aria-labelledby="historyDetailTitle">
+      <button id="closeHistoryDetailBtn" class="icon-btn modal-close" type="button" aria-label="Cerrar">×</button>
+      <p class="section-kicker">PEDIDO CONFIRMADO</p>
+      <h2 id="historyDetailTitle">Detalle del pedido</h2>
+      <p id="historyDetailMeta" class="history-detail-meta"></p>
+      <div id="historyDetailSummary" class="history-detail-summary"></div>
+      <div id="historyDetailItems" class="history-detail-items"></div>
+      <div class="history-detail-actions">
+        <button id="historyDetailExcelBtn" class="secondary-btn" type="button">Descargar Excel</button>
+        <button id="historyDetailPdfBtn" class="primary-btn" type="button">Descargar PDF</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="successModal" class="modal-layer" hidden>
+    <section class="confirm-modal success-modal" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+      <p class="section-kicker">PEDIDO ENVIADO</p>
+      <h2 id="successTitle">Pedido confirmado correctamente</h2>
+      <p id="successFolio" class="success-folio"></p>
+      <p class="success-copy">Tu pedido quedó cerrado. Conserva un respaldo descargando tus documentos.</p>
+      <div id="successDiscountNotice" class="confirm-discount-notice"></div>
+      <div class="success-actions">
+        <button id="successExcelBtn" class="secondary-btn" type="button">Descargar Excel</button>
+        <button id="successPdfBtn" class="primary-btn" type="button">Descargar PDF</button>
+        <button id="successCloseBtn" class="text-btn" type="button">Cerrar</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="loadingLayer" class="loading-layer" hidden>
+    <div class="spinner" aria-hidden="true"></div>
+    <span>Procesando…</span>
+  </div>
+  <div id="toast" class="toast" hidden role="status" aria-live="polite"></div>
+
+  <script src="./portal.js?v=2.6" defer></script>
+</body>
+</html>

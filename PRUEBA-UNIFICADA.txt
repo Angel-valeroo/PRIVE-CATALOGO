@@ -1,0 +1,10 @@
+PRIVÉ Sprint 8 — prueba local unificada
+
+1. Abrir esta carpeta completa en VS Code.
+2. Live Server sobre portal/index.html.
+3. /portal/ debe mostrar catálogo + carrito móvil.
+4. Cuenta admin: debe ver “Panel administrativo” en el encabezado.
+5. /admin/ conserva “Reabrir pedido”.
+6. Probar PRV-20260817-000003: reabrir desde admin y recargar portal del revendedor.
+
+No subir a GitHub hasta aprobar esta prueba local.

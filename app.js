@@ -5,6 +5,8 @@ const state = {
 };
 
 const IMAGE_BASE_PATH = "IMAGES";
+const PUBLIC_SUPABASE_URL = "https://uqjrotqqquorsagwiara.supabase.co";
+const PUBLIC_SUPABASE_KEY = "sb_publishable_KV6_5XskGXe8mCg-6vfkiA_vNMKDZNP";
 const IMAGE_EXTENSIONS = ["avif", "webp", "jpg", "jpeg", "png"];
 const MIN_RECOMMENDATION_SCORE = 62;
 const CORE_DATA_VERSION = "production-bundle-v70";
@@ -199,20 +201,48 @@ function searchableText(perfume) {
     ...asList(perfume.accords), ...asList(perfume.topNotes), ...asList(perfume.heartNotes),
     ...asList(perfume.baseNotes), ...perfumeTags(perfume)].join(" "));
 }
+function searchTokens(value) {
+  return normalize(value).split(/\s+/).filter(Boolean);
+}
+function perfumeSearchScore(perfume, tokens) {
+  if (!tokens.length) return 0;
+  const name = normalize(perfume.name);
+  const designer = normalize(perfume.designer);
+  const haystack = searchableText(perfume);
+  if (!tokens.every(token => haystack.includes(token))) return -1;
+  let score = 0;
+  for (const token of tokens) {
+    if (name === token || designer === token) score += 12;
+    else if (name.startsWith(token) || designer.startsWith(token)) score += 8;
+    else if (name.includes(token)) score += 5;
+    else if (designer.includes(token)) score += 4;
+    else score += 1;
+  }
+  return score;
+}
 function filteredPerfumes() {
-  const query = normalize(state.query);
+  const tokens = searchTokens(state.query);
   const selectedTags = [...state.tags].map(normalize);
-  return state.perfumes.filter(perfume => {
-    const values = perfumeTags(perfume).map(normalize);
-    return (!state.category || perfume.category === state.category)
-      && (!state.designer || perfume.designer === state.designer)
-      && (!state.family || perfume.family === state.family)
-      && selectedTags.every(tag => values.includes(tag))
-      && (!query || searchableText(perfume).includes(query));
-  });
+  return state.perfumes
+    .filter(perfume => {
+      const values = perfumeTags(perfume).map(normalize);
+      return (!state.category || perfume.category === state.category)
+        && (!state.designer || perfume.designer === state.designer)
+        && (!state.family || perfume.family === state.family)
+        && selectedTags.every(tag => values.includes(tag))
+        && perfumeSearchScore(perfume, tokens) >= 0;
+    })
+    .sort((a, b) => {
+      if (tokens.length) {
+        const diff = perfumeSearchScore(b, tokens) - perfumeSearchScore(a, tokens);
+        if (diff) return diff;
+      }
+      return String(a.designer || '').localeCompare(String(b.designer || ''), 'es') || String(a.name || '').localeCompare(String(b.name || ''), 'es');
+    });
 }
 function loadImage(image, fallback, monogram, perfume, onSettled = null) {
   let extensionIndex = 0;
+  let remoteTried = false;
   const requestId = `${perfume.id}-${Date.now()}-${Math.random().toString(36).slice(2)}`;
   image.dataset.requestId = requestId;
   monogram.textContent = initials(perfume.designer);
@@ -257,6 +287,11 @@ function loadImage(image, fallback, monogram, perfume, onSettled = null) {
   };
   const tryNextExtension = () => {
     if (!isCurrentRequest()) return;
+    if (!remoteTried && perfume.image_url) {
+      remoteTried = true;
+      image.src = perfume.image_url;
+      return;
+    }
     if (extensionIndex >= IMAGE_EXTENSIONS.length) {
       image.onload = null;
       image.onerror = null;
@@ -548,7 +583,9 @@ function openPerfume(perfume, updateHash = true, options = {}) {
   elements.detailStageName.textContent = perfume.name;
   elements.detailStageCode.textContent = "";
   applyDetailCategoryTheme(perfume);
-  elements.detailCategory.textContent = `COLECCIÓN ${String(perfume.category || "PRIVÉ").toUpperCase()}`;
+  elements.detailCategory.textContent = perfume.availability_status === "out_of_stock"
+    ? `COLECCIÓN ${String(perfume.category || "PRIVÉ").toUpperCase()} · AGOTADO TEMPORALMENTE`
+    : `COLECCIÓN ${String(perfume.category || "PRIVÉ").toUpperCase()}`;
   elements.detailDescription.textContent = perfume.description || "Una fragancia de la colección PRIVÉ. Su información olfativa se incorporará progresivamente a la base de datos.";
   loadImage(elements.detailImage, elements.detailFallback, elements.detailMonogram, perfume);
   const chips = profileValues(perfume).map(createProfileChip);
@@ -605,6 +642,8 @@ function createCatalogCard(perfume, index) {
   article.style.setProperty("--card-index", Math.min(index, 18));
   const cardNumber = card.querySelector(".card-number");
   if (cardNumber) cardNumber.textContent = String(index + 1).padStart(2, "0");
+  const stockBadge = card.querySelector(".stock-badge");
+  if (stockBadge) stockBadge.hidden = perfume.availability_status !== "out_of_stock";
   const meta = card.querySelector(".card-meta");
   const metaValues = [perfume.family, ...asList(perfume.contexts).slice(0,1), ...asList(perfume.accords).slice(0,1)].filter(Boolean);
   meta.textContent = metaValues.join(" · ");
@@ -1412,21 +1451,82 @@ async function loadCorePerfumes() {
   }
 }
 
+
+function publicIdentity(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function publicCatalogKey(item) {
+  return `${publicIdentity(item?.designer)}|${publicIdentity(item?.name)}`;
+}
+
+async function loadPublicOperationalCatalog() {
+  const response = await fetch(`${PUBLIC_SUPABASE_URL}/rest/v1/rpc/get_public_catalog`, {
+    method: "POST",
+    headers: {
+      apikey: PUBLIC_SUPABASE_KEY,
+      "Content-Type": "application/json"
+    },
+    body: "{}"
+  });
+  if (!response.ok) throw new Error(`Supabase catálogo público respondió ${response.status}.`);
+  const rows = await response.json();
+  if (!Array.isArray(rows)) throw new Error("La respuesta del catálogo público no es válida.");
+  return rows;
+}
+
+function mergePublicCatalog(enrichedPerfumes, operationalPerfumes) {
+  const enrichedByKey = new Map((Array.isArray(enrichedPerfumes) ? enrichedPerfumes : []).map(item => [publicCatalogKey(item), item]));
+  return (Array.isArray(operationalPerfumes) ? operationalPerfumes : []).map(row => {
+    const enriched = enrichedByKey.get(publicCatalogKey(row));
+    return {
+      ...(enriched || {}),
+      id: enriched?.id || row.id,
+      database_id: row.id,
+      designer: row.designer,
+      name: row.name,
+      category: row.category,
+      image_url: row.image_url || enriched?.image_url || null,
+      availability_status: row.availability_status || "available",
+      profile_status: row.profile_status || (enriched ? "enriched" : "basic")
+    };
+  });
+}
+
 async function loadProductionCatalog() {
+  let enrichedPerfumes = [];
+  let enrichedSource = "none";
   try {
     const bundled = await fetchJson(`data/prive-catalog.json?v=${CORE_DATA_VERSION}`);
     if (!Array.isArray(bundled) || bundled.length === 0) throw new Error("El bundle de producción está vacío.");
-    return { perfumes: bundled, source: "bundle" };
+    enrichedPerfumes = bundled;
+    enrichedSource = "bundle";
   } catch (bundleError) {
-    console.warn("PRIVÉ: el bundle de producción no estuvo disponible; se activa la ruta de respaldo.", bundleError);
+    console.warn("PRIVÉ: el bundle enriquecido no estuvo disponible; se activa la ruta histórica de respaldo.", bundleError);
     const [legacyPerfumes, corePerfumes] = await Promise.all([
       fetchJson("data/perfumes.json"),
       loadCorePerfumes()
     ]);
-    const perfumes = window.PriveCoreAdapter
+    enrichedPerfumes = window.PriveCoreAdapter
       ? window.PriveCoreAdapter.mergeCatalogs(legacyPerfumes, corePerfumes)
       : legacyPerfumes;
-    return { perfumes, source: `fallback:${corePerfumes.length}` };
+    enrichedSource = `fallback:${corePerfumes.length}`;
+  }
+
+  try {
+    const operationalPerfumes = await loadPublicOperationalCatalog();
+    return {
+      perfumes: mergePublicCatalog(enrichedPerfumes, operationalPerfumes),
+      source: `supabase+${enrichedSource}`
+    };
+  } catch (supabaseError) {
+    console.warn("PRIVÉ: Supabase no estuvo disponible; se conserva temporalmente el catálogo local como respaldo.", supabaseError);
+    return { perfumes: enrichedPerfumes, source: `${enrichedSource}:offline-fallback` };
   }
 }
 

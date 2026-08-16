@@ -509,3 +509,26 @@
 - Se actualizó la fotografía de Adalaaí Cabrera.
 - Las claves de perfumes dejaron de mostrarse visualmente en catálogo, fichas, resultados del Asesor, textos de búsqueda y páginas SEO, sin eliminarse de los datos internos.
 - Las redes pendientes de Angel Soto y Roberto Guerra González quedan preparadas sin mostrar secciones vacías.
+
+## Sprint 10 · Catálogo administrativo
+- Nueva pestaña Catálogo en Panel administrativo.
+- Alta y edición de perfumes con clave privada vía RPC.
+- Carga de imágenes nuevas a Supabase Storage `perfume-images`.
+- Control Disponible / Agotado temporalmente.
+- Portal PRIVÉ muestra perfumes agotados y bloquea su alta al pedido.
+- Perfumes nuevos se publican como ficha básica para enriquecimiento posterior.
+
+## S11 V5 - 2026-08-16
+- Mejora puntual del procesamiento de imagen: limpieza de halo/fringe blanco conectado al fondo, con expansión limitada y descontaminación de borde.
+- Conserva transparencia WEBP y evita chroma-key global para proteger detalles blancos reales.
+- Sin cambios a RLS, pedidos, búsqueda, categorías ni flujo de alta/edición ya validados.
+
+
+## S12 V1 - Migración segura del catálogo público a Supabase
+- Supabase pasa a definir qué perfumes están activos y visibles en el catálogo público.
+- Altas, cambios de nombre/diseñador/categoría, imagen y disponibilidad se reflejan sin regenerar el catálogo local.
+- Los perfiles olfativos históricos se conservan como capa enriquecida mientras se completa su migración.
+- Perfumes nuevos sin enriquecimiento muestran el estado de perfil en preparación.
+- Imágenes de Storage tienen prioridad y las imágenes locales quedan como respaldo.
+- Se muestra AGOTADO públicamente sin retirar la fragancia.
+- No se exponen perfume_keys, source_url ni campos administrativos.
