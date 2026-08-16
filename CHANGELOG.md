@@ -1,3 +1,11 @@
+# S12 V2 — Estado agotado reforzado
+
+- Catálogo público: AGOTADO ahora aparece como banda central grande sobre la botella, sin ocultarla.
+- Ficha individual: nuevo overlay “AGOTADO / Temporalmente” y tratamiento visual diferenciado.
+- Portal revendedores: mismo estado agotado reforzado en las tarjetas.
+- El estado sigue dependiendo únicamente de `availability_status`; al volver a `available`, los distintivos desaparecen automáticamente.
+- Sin cambios de SQL, RLS ni esquema para esta versión.
+
 
 ## 2026-08-14 · Sprint 8 · Panel administrativo base
 

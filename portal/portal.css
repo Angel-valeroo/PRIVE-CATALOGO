@@ -508,4 +508,9 @@ body::before{
 }
 
 /* Sprint 10 · disponibilidad de catálogo */
-.perfume-card.is-out-of-stock .perfume-image{opacity:.48;filter:grayscale(.3)}.perfume-card.is-out-of-stock .perfume-image-wrap::after{content:"AGOTADO";position:absolute;top:12px;right:12px;padding:6px 9px;border-radius:999px;background:rgba(95,28,28,.9);border:1px solid rgba(255,150,150,.35);color:#ffd0d0;font-size:.58rem;font-weight:800;letter-spacing:.08em}.stock-notice{margin:7px 0 10px;color:#d99b9b;font-size:.68rem;line-height:1.4}.perfume-card.is-out-of-stock .add-order-btn{border-color:rgba(218,117,117,.28);color:#b98585;background:rgba(71,29,29,.12)}
+.perfume-card.is-out-of-stock{border-color:rgba(176,98,83,.28);box-shadow:0 16px 40px rgba(72,28,23,.16)}
+.perfume-card.is-out-of-stock .perfume-image{opacity:.72;filter:saturate(.72) contrast(.95)}
+.perfume-card.is-out-of-stock .perfume-image-wrap::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(72,26,21,.03),rgba(72,26,21,.18))}
+.perfume-card.is-out-of-stock .perfume-image-wrap::after{content:"AGOTADO";position:absolute;z-index:3;left:50%;top:50%;width:min(84%,240px);padding:13px 12px;transform:translate(-50%,-50%) rotate(-7deg);border:1px solid rgba(255,255,255,.42);background:rgba(105,40,31,.9);color:#fff4ef;box-shadow:0 12px 28px rgba(37,12,9,.32);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);font-size:clamp(.78rem,3.2vw,1.02rem);font-weight:800;letter-spacing:.15em;text-align:center}
+.stock-notice{margin:8px 0 11px;color:#e2aaa0;font-size:.72rem;font-weight:650;line-height:1.45}
+.perfume-card.is-out-of-stock .add-order-btn{border-color:rgba(218,117,117,.34);color:#d0a09a;background:rgba(92,34,28,.18)}

@@ -583,7 +583,11 @@ function openPerfume(perfume, updateHash = true, options = {}) {
   elements.detailStageName.textContent = perfume.name;
   elements.detailStageCode.textContent = "";
   applyDetailCategoryTheme(perfume);
-  elements.detailCategory.textContent = perfume.availability_status === "out_of_stock"
+  const detailOutOfStock = perfume.availability_status === "out_of_stock";
+  elements.dialog.classList.toggle("is-out-of-stock", detailOutOfStock);
+  const detailStockOverlay = document.getElementById("detailStockOverlay");
+  if (detailStockOverlay) detailStockOverlay.hidden = !detailOutOfStock;
+  elements.detailCategory.textContent = detailOutOfStock
     ? `COLECCIÓN ${String(perfume.category || "PRIVÉ").toUpperCase()} · AGOTADO TEMPORALMENTE`
     : `COLECCIÓN ${String(perfume.category || "PRIVÉ").toUpperCase()}`;
   elements.detailDescription.textContent = perfume.description || "Una fragancia de la colección PRIVÉ. Su información olfativa se incorporará progresivamente a la base de datos.";
@@ -642,8 +646,10 @@ function createCatalogCard(perfume, index) {
   article.style.setProperty("--card-index", Math.min(index, 18));
   const cardNumber = card.querySelector(".card-number");
   if (cardNumber) cardNumber.textContent = String(index + 1).padStart(2, "0");
+  const isOutOfStock = perfume.availability_status === "out_of_stock";
+  article.classList.toggle("is-out-of-stock", isOutOfStock);
   const stockBadge = card.querySelector(".stock-badge");
-  if (stockBadge) stockBadge.hidden = perfume.availability_status !== "out_of_stock";
+  if (stockBadge) stockBadge.hidden = !isOutOfStock;
   const meta = card.querySelector(".card-meta");
   const metaValues = [perfume.family, ...asList(perfume.contexts).slice(0,1), ...asList(perfume.accords).slice(0,1)].filter(Boolean);
   meta.textContent = metaValues.join(" · ");
