@@ -30,7 +30,12 @@
     lastAutoCategoryPrefix: null,
     users: [],
     usersSearch: '',
-    usersFilter: 'all'
+    usersFilter: 'all',
+    deliveryCycles: [],
+    deliveryItems: [],
+    selectedDeliveryCycle: null,
+    deliveryFilter: 'pending',
+    deliverySearch: ''
   };
 
   const $ = selector => document.querySelector(selector);
@@ -60,7 +65,7 @@
     usersSection: $('#usersSection'), usersSearchInput: $('#usersSearchInput'), usersRoleFilters: $('#usersRoleFilters'), usersCount: $('#usersCount'), usersList: $('#usersList'), newUserBtn: $('#newUserBtn'),
     userAdminModal: $('#userAdminModal'), closeUserAdminModal: $('#closeUserAdminModal'), userAdminForm: $('#userAdminForm'), userAdminId: $('#userAdminId'), userAdminModalTitle: $('#userAdminModalTitle'),
     userFullNameInput: $('#userFullNameInput'), userAliasInput: $('#userAliasInput'), userEmailInput: $('#userEmailInput'), userPhoneInput: $('#userPhoneInput'), userRoleInput: $('#userRoleInput'), userStatusInput: $('#userStatusInput'),
-    userCityInput: $('#userCityInput'), createPasswordField: $('#createPasswordField'), userPasswordInput: $('#userPasswordInput'), userAdminError: $('#userAdminError'), saveUserAdminBtn: $('#saveUserAdminBtn'),
+    userCityInput: $('#userCityInput'), deliveriesSection: $('#deliveriesSection'), deliveriesRefreshBtn: $('#deliveriesRefreshBtn'), deliveryCyclePicker: $('#deliveryCyclePicker'), deliveryWorkspace: $('#deliveryWorkspace'), deliveryCycleTitle: $('#deliveryCycleTitle'), deliveryCycleMeta: $('#deliveryCycleMeta'), deliverySummary: $('#deliverySummary'), deliveryStatusFilters: $('#deliveryStatusFilters'), deliverySearchInput: $('#deliverySearchInput'), deliveryCount: $('#deliveryCount'), deliveryList: $('#deliveryList'), archiveDeliveryCycleBtn: $('#archiveDeliveryCycleBtn'), createPasswordField: $('#createPasswordField'), userPasswordInput: $('#userPasswordInput'), userAdminError: $('#userAdminError'), saveUserAdminBtn: $('#saveUserAdminBtn'),
     passwordAdminModal: $('#passwordAdminModal'), closePasswordAdminModal: $('#closePasswordAdminModal'), passwordAdminForm: $('#passwordAdminForm'), passwordUserId: $('#passwordUserId'), passwordUserLabel: $('#passwordUserLabel'), passwordNewInput: $('#passwordNewInput'), passwordConfirmInput: $('#passwordConfirmInput'), passwordAdminError: $('#passwordAdminError')
   };
 
@@ -217,6 +222,7 @@
     els.historySection.hidden = name !== 'history';
     els.catalogSection.hidden = name !== 'catalog';
     els.usersSection.hidden = name !== 'users';
+    els.deliveriesSection.hidden = name !== 'deliveries';
     els.ordersSection.hidden = name !== 'orders';
     els.detailSection.hidden = name !== 'detail';
     document.querySelectorAll('[data-panel-view]').forEach(button => {
@@ -1276,6 +1282,161 @@
     } finally { setLoading(false); }
   }
 
+  function deliveryVisibleName(row) {
+    return row.distributor_alias || row.distributor_name || 'Distribuidor';
+  }
+
+  function deliveryMatches(row) {
+    if (state.deliveryFilter === 'pending' && row.delivered) return false;
+    if (state.deliveryFilter === 'delivered' && !row.delivered) return false;
+    const q = state.deliverySearch.trim().toLowerCase();
+    if (!q) return true;
+    return `${row.perfume_name || ''} ${row.perfume_code || ''} ${deliveryVisibleName(row)} ${row.customer_note || ''} ${row.folio || ''}`.toLowerCase().includes(q);
+  }
+
+  function renderDeliveryCyclePicker() {
+    const cycles = state.deliveryCycles.filter(c => !c.archived_at);
+    if (!cycles.length) {
+      els.deliveryCyclePicker.innerHTML = '<div class="empty-state">No hay cortes confirmados disponibles para entregas.</div>';
+      els.deliveryWorkspace.hidden = true;
+      return;
+    }
+    const active = cycles.filter(c => c.activated_at);
+    const inactive = cycles.filter(c => !c.activated_at).slice(0, 12);
+    els.deliveryCyclePicker.innerHTML = `
+      ${active.length ? `<div class="delivery-cycle-group"><h3>En seguimiento</h3>${active.map(c => `
+        <article class="delivery-cycle-card ${state.selectedDeliveryCycle?.cycle_id === c.cycle_id ? 'is-selected' : ''}" data-delivery-cycle="${esc(c.cycle_id)}">
+          <div><strong>${esc(c.cycle_name || 'Corte')}</strong><small>${Number(c.pending_allocations)||0} pendientes · ${Number(c.delivered_allocations)||0} entregadas</small></div>
+          <button class="btn btn-primary" type="button" data-delivery-action="open">Abrir</button>
+        </article>`).join('')}</div>` : ''}
+      ${inactive.length ? `<div class="delivery-cycle-group"><h3>Cortes listos para iniciar</h3>${inactive.map(c => `
+        <article class="delivery-cycle-card" data-delivery-cycle="${esc(c.cycle_id)}">
+          <div><strong>${esc(c.cycle_name || 'Corte')}</strong><small>${Number(c.confirmed_orders)||0} pedidos · ${Number(c.total_perfumes)||0} perfumes · ${Number(c.total_samples)||0} muestras</small></div>
+          <button class="btn btn-ghost" type="button" data-delivery-action="activate">Iniciar entregas</button>
+        </article>`).join('')}</div>` : ''}`;
+  }
+
+  function renderDeliveries() {
+    const rows = state.deliveryItems.filter(deliveryMatches);
+    const pending = state.deliveryItems.filter(r => !r.delivered);
+    const delivered = state.deliveryItems.filter(r => r.delivered);
+    const pendingPerfumes = pending.reduce((s,r)=>s+Number(r.quantity||0),0);
+    const pendingSamples = pending.reduce((s,r)=>s+Number(r.sample_quantity||0),0);
+    els.deliverySummary.innerHTML = [
+      ['Pendientes', pending.length],
+      ['Perfumes pendientes', pendingPerfumes],
+      ['Muestras pendientes', pendingSamples],
+      ['Entregadas', delivered.length]
+    ].map(([label,value]) => `<div class="summary-box"><span>${esc(label)}</span><strong>${esc(value)}</strong></div>`).join('');
+    els.archiveDeliveryCycleBtn.disabled = pending.length !== 0 || state.deliveryItems.length === 0;
+    els.deliveryCount.textContent = `${rows.length} ${rows.length === 1 ? 'asignación' : 'asignaciones'}`;
+    if (!rows.length) {
+      els.deliveryList.innerHTML = `<div class="empty-state">${state.deliveryFilter === 'pending' && !pending.length ? 'No quedan entregas pendientes. Puedes revisar Entregados o archivar este ciclo.' : 'No hay resultados con este filtro.'}</div>`;
+      return;
+    }
+    const groups = new Map();
+    for (const row of rows) {
+      const key = `${row.perfume_id || row.perfume_name}|${row.presentation || ''}`;
+      if (!groups.has(key)) groups.set(key, { name: row.perfume_name, code: row.perfume_code, presentation: row.presentation, rows: [] });
+      groups.get(key).rows.push(row);
+    }
+    els.deliveryList.innerHTML = [...groups.values()].map(group => {
+      const qty = group.rows.reduce((s,r)=>s+Number(r.quantity||0),0);
+      const samples = group.rows.reduce((s,r)=>s+Number(r.sample_quantity||0),0);
+      const presentation = group.presentation === 'dama' ? 'Dama' : (group.presentation === 'caballero' ? 'Caballero' : '');
+      return `<article class="delivery-perfume-card">
+        <div class="delivery-perfume-head">
+          <div><h3>${esc(group.name || 'Perfume')}</h3><p>${esc(group.code || '')}${presentation ? ` · ${esc(presentation)}` : ''}</p></div>
+          <div class="delivery-totals"><span><strong>${qty}</strong> perfume${qty===1?'':'s'}</span><span><strong>${samples}</strong> muestra${samples===1?'':'s'}</span></div>
+        </div>
+        <div class="delivery-allocations">${group.rows.map(row => `
+          <div class="delivery-allocation ${row.delivered ? 'is-delivered' : ''}" data-delivery-item="${esc(row.order_item_id)}">
+            <button class="delivery-check" type="button" data-delivery-toggle="${row.delivered ? 'pending' : 'delivered'}" aria-label="${row.delivered ? 'Marcar pendiente' : 'Marcar entregado'}">${row.delivered ? '✓' : ''}</button>
+            <div class="delivery-allocation-main">
+              <div class="delivery-allocation-title"><strong>${esc(deliveryVisibleName(row))}</strong><span>${Number(row.quantity)||0} perfume${Number(row.quantity)===1?'':'s'} · ${Number(row.sample_quantity)||0} muestra${Number(row.sample_quantity)===1?'':'s'}</span></div>
+              ${row.customer_note ? `<p class="delivery-note"><span>Cliente / nota</span>${esc(row.customer_note)}</p>` : '<p class="delivery-note is-empty">Sin nota de cliente</p>'}
+              <small>${esc(row.folio || '')}${row.delivered_at ? ` · Entregado ${esc(formatDateTime(row.delivered_at))}` : ''}</small>
+            </div>
+          </div>`).join('')}</div>
+      </article>`;
+    }).join('');
+  }
+
+  async function loadDeliveryCycles(force = false) {
+    if (!force && state.deliveryCycles.length) { renderDeliveryCyclePicker(); return; }
+    setLoading(true, 'Cargando entregas…');
+    try {
+      const rows = await rpc('admin_get_delivery_cycles');
+      state.deliveryCycles = Array.isArray(rows) ? rows : [];
+      if (state.selectedDeliveryCycle) {
+        state.selectedDeliveryCycle = state.deliveryCycles.find(c => c.cycle_id === state.selectedDeliveryCycle.cycle_id) || null;
+      }
+      renderDeliveryCyclePicker();
+    } finally { setLoading(false); }
+  }
+
+  async function openDeliveryCycle(cycleId) {
+    const cycle = state.deliveryCycles.find(c => c.cycle_id === cycleId);
+    if (!cycle) return;
+    state.selectedDeliveryCycle = cycle;
+    setLoading(true, 'Cargando pendientes…');
+    try {
+      state.deliveryItems = await rpc('admin_get_delivery_items', { p_cycle_id: cycleId });
+      els.deliveryWorkspace.hidden = false;
+      els.deliveryCycleTitle.textContent = cycle.cycle_name || 'Entregas';
+      els.deliveryCycleMeta.textContent = `${Number(cycle.confirmed_orders)||0} pedidos confirmados · seguimiento iniciado ${cycle.activated_at ? formatDateTime(cycle.activated_at) : ''}`;
+      renderDeliveryCyclePicker();
+      renderDeliveries();
+    } finally { setLoading(false); }
+  }
+
+  async function activateDeliveryCycle(cycleId) {
+    if (!window.confirm('¿Ya tienes este corte y quieres iniciar el seguimiento de entregas?')) return;
+    setLoading(true, 'Iniciando entregas…');
+    try {
+      await rpc('admin_activate_delivery_cycle', { p_cycle_id: cycleId });
+      state.deliveryCycles = [];
+      await loadDeliveryCycles(true);
+      await openDeliveryCycle(cycleId);
+      toast('Seguimiento de entregas iniciado.');
+    } finally { setLoading(false); }
+  }
+
+  async function setDeliveryItem(itemId, delivered) {
+    setLoading(true, delivered ? 'Marcando entregado…' : 'Regresando a pendientes…');
+    try {
+      await rpc('admin_set_delivery_item', { p_order_item_id: itemId, p_delivered: delivered });
+      const row = state.deliveryItems.find(r => r.order_item_id === itemId);
+      if (row) { row.delivered = delivered; row.delivered_at = delivered ? new Date().toISOString() : null; }
+      renderDeliveries();
+      state.deliveryCycles = [];
+      const cycleId = state.selectedDeliveryCycle?.cycle_id;
+      if (cycleId) {
+        const fresh = await rpc('admin_get_delivery_cycles');
+        state.deliveryCycles = Array.isArray(fresh) ? fresh : [];
+        state.selectedDeliveryCycle = state.deliveryCycles.find(c => c.cycle_id === cycleId) || state.selectedDeliveryCycle;
+        renderDeliveryCyclePicker();
+      }
+      toast(delivered ? 'Entrega marcada.' : 'Volvió a pendientes.');
+    } finally { setLoading(false); }
+  }
+
+  async function archiveDeliveryCycle() {
+    const cycleId = state.selectedDeliveryCycle?.cycle_id;
+    if (!cycleId) return;
+    if (!window.confirm('¿Archivar este ciclo de entregas? Los pedidos originales seguirán intactos en Historial.')) return;
+    setLoading(true, 'Archivando entregas…');
+    try {
+      await rpc('admin_archive_delivery_cycle', { p_cycle_id: cycleId });
+      state.selectedDeliveryCycle = null;
+      state.deliveryItems = [];
+      state.deliveryCycles = [];
+      els.deliveryWorkspace.hidden = true;
+      await loadDeliveryCycles(true);
+      toast('Ciclo de entregas archivado.');
+    } finally { setLoading(false); }
+  }
+
   function orderedCycles() {
     return [...state.cycles].sort((a, b) => new Date(a.cutoff_at) - new Date(b.cutoff_at));
   }
@@ -1585,11 +1746,44 @@
     } else if (view === 'users') {
       showPanelSection('users');
       try { await loadUsers(); } catch (error) { toast(friendlyNetworkError(error).message, true); }
+    } else if (view === 'deliveries') {
+      showPanelSection('deliveries');
+      try { await loadDeliveryCycles(); } catch (error) { toast(friendlyNetworkError(error).message, true); }
     } else {
       showPanelSection('cycles');
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }));
+
+  els.deliveriesRefreshBtn.addEventListener('click', () => {
+    state.deliveryCycles = [];
+    const current = state.selectedDeliveryCycle?.cycle_id;
+    loadDeliveryCycles(true).then(() => current ? openDeliveryCycle(current) : null).catch(error => toast(friendlyNetworkError(error).message, true));
+  });
+  els.deliveryCyclePicker.addEventListener('click', event => {
+    const btn = event.target.closest('[data-delivery-action]');
+    if (!btn) return;
+    const cycleId = btn.closest('[data-delivery-cycle]')?.dataset.deliveryCycle;
+    if (!cycleId) return;
+    if (btn.dataset.deliveryAction === 'activate') activateDeliveryCycle(cycleId).catch(error => toast(friendlyNetworkError(error).message, true));
+    if (btn.dataset.deliveryAction === 'open') openDeliveryCycle(cycleId).catch(error => toast(friendlyNetworkError(error).message, true));
+  });
+  els.deliveryStatusFilters.addEventListener('click', event => {
+    const btn = event.target.closest('[data-delivery-filter]');
+    if (!btn) return;
+    state.deliveryFilter = btn.dataset.deliveryFilter;
+    els.deliveryStatusFilters.querySelectorAll('[data-delivery-filter]').forEach(node => node.classList.toggle('is-active', node === btn));
+    renderDeliveries();
+  });
+  els.deliverySearchInput.addEventListener('input', () => { state.deliverySearch = els.deliverySearchInput.value; renderDeliveries(); });
+  els.deliveryList.addEventListener('click', event => {
+    const btn = event.target.closest('[data-delivery-toggle]');
+    if (!btn) return;
+    const itemId = btn.closest('[data-delivery-item]')?.dataset.deliveryItem;
+    if (!itemId) return;
+    setDeliveryItem(itemId, btn.dataset.deliveryToggle === 'delivered').catch(error => toast(friendlyNetworkError(error).message, true));
+  });
+  els.archiveDeliveryCycleBtn.addEventListener('click', () => archiveDeliveryCycle().catch(error => toast(friendlyNetworkError(error).message, true)));
 
   els.newPerfumeBtn.addEventListener('click', () => openPerfumeModal());
   els.closePerfumeAdminModal.addEventListener('click', closePerfumeModal);

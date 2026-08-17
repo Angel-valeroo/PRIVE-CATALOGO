@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./admin.css?v=1.8">
+  <link rel="stylesheet" href="./admin.css?v=1.9">
 </head>
 <body>
   <main class="admin-shell">
@@ -64,6 +64,7 @@
         <button class="nav-pill" type="button" data-panel-view="history">Historial</button>
         <button class="nav-pill" type="button" data-panel-view="catalog">Catálogo</button>
         <button class="nav-pill" type="button" data-panel-view="users">Distribuidores</button>
+        <button class="nav-pill" type="button" data-panel-view="deliveries">Pendientes de entrega</button>
       </nav>
 
       <section id="cyclesSection" class="panel-section">
@@ -163,6 +164,43 @@
         </div>
         <p id="usersCount" class="results-count"></p>
         <div id="usersList" class="users-admin-grid"></div>
+      </section>
+
+      <section id="deliveriesSection" class="panel-section" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">LOGÍSTICA</p>
+            <h2>Pendientes de entrega</h2>
+            <p class="muted">Activa un corte cuando ya tengas los perfumes. Marca cada asignación conforme la entregues; el avance queda guardado aunque cierres el panel.</p>
+          </div>
+          <button id="deliveriesRefreshBtn" class="btn btn-ghost" type="button">Actualizar</button>
+        </div>
+        <div id="deliveryCyclePicker" class="delivery-cycle-picker"></div>
+        <div id="deliveryWorkspace" hidden>
+          <div class="delivery-workspace-head">
+            <div>
+              <p id="deliveryCycleMeta" class="muted"></p>
+              <h3 id="deliveryCycleTitle">Entregas</h3>
+            </div>
+            <div class="action-row">
+              <button id="archiveDeliveryCycleBtn" class="btn btn-ghost" type="button" disabled>Archivar ciclo</button>
+            </div>
+          </div>
+          <div id="deliverySummary" class="detail-summary"></div>
+          <div class="toolbar delivery-toolbar">
+            <div class="filters" id="deliveryStatusFilters" role="group" aria-label="Filtrar entregas">
+              <button class="filter-pill is-active" type="button" data-delivery-filter="pending">Pendientes</button>
+              <button class="filter-pill" type="button" data-delivery-filter="delivered">Entregados</button>
+              <button class="filter-pill" type="button" data-delivery-filter="all">Todos</button>
+            </div>
+            <label class="search-box">
+              <span class="sr-only">Buscar en entregas</span>
+              <input id="deliverySearchInput" type="search" placeholder="Perfume, distribuidor o cliente…" autocomplete="off">
+            </label>
+          </div>
+          <p id="deliveryCount" class="results-count"></p>
+          <div id="deliveryList" class="delivery-list"></div>
+        </div>
       </section>
 
       <section id="ordersSection" class="panel-section" hidden>

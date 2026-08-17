@@ -1,3 +1,10 @@
+# S14 V1 · Pendientes de entrega
+
+- Nuevo módulo admin para seguimiento persistente de entregas por corte.
+- Agrupa por perfume y muestra distribuidor, cantidad, muestras y nota/cliente.
+- Entregado/Pendiente reversible antes de archivar.
+- Archivo de ciclo limpia marcadores por línea sin borrar pedidos históricos.
+
 # S13 Distribuidores V1.1
 
 - Cuentas simplificadas a Administrador + Distribuidor.
