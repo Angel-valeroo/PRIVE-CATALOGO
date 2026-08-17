@@ -63,7 +63,7 @@
         <button class="nav-pill is-active" type="button" data-panel-view="cycles">Cortes</button>
         <button class="nav-pill" type="button" data-panel-view="history">Historial</button>
         <button class="nav-pill" type="button" data-panel-view="catalog">Catálogo</button>
-        <button class="nav-pill" type="button" data-panel-view="users">Usuarios</button>
+        <button class="nav-pill" type="button" data-panel-view="users">Distribuidores</button>
       </nav>
 
       <section id="cyclesSection" class="panel-section">
@@ -144,20 +144,20 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow">ACCESOS</p>
-            <h2>Usuarios</h2>
-            <p class="muted">Crea y administra cuentas del Portal PRIVÉ. Las credenciales se gestionan mediante backend seguro.</p>
+            <h2>Distribuidores</h2>
+            <p class="muted">Crea y administra las cuentas de tus distribuidores en el Portal PRIVÉ. Las credenciales se gestionan mediante backend seguro.</p>
           </div>
-          <button id="newUserBtn" class="btn btn-primary" type="button">+ Nueva cuenta</button>
+          <button id="newUserBtn" class="btn btn-primary" type="button">+ Nuevo distribuidor</button>
         </div>
         <div class="users-toolbar">
           <label class="search-box search-box-wide">
-            <span class="sr-only">Buscar usuarios</span>
+            <span class="sr-only">Buscar cuentas</span>
             <input id="usersSearchInput" type="search" placeholder="Buscar nombre, alias, correo o ciudad…" autocomplete="off">
           </label>
-          <div class="filters" id="usersRoleFilters" role="group" aria-label="Filtrar usuarios">
+          <div class="filters" id="usersRoleFilters" role="group" aria-label="Filtrar cuentas">
             <button class="filter-pill is-active" type="button" data-users-filter="all">Todos</button>
-            <button class="filter-pill" type="button" data-users-filter="reseller">Revendedores</button>
             <button class="filter-pill" type="button" data-users-filter="distributor">Distribuidores</button>
+            <button class="filter-pill" type="button" data-users-filter="admin">Administradores</button>
             <button class="filter-pill" type="button" data-users-filter="inactive">Inactivos</button>
           </div>
         </div>
@@ -285,7 +285,7 @@
       <div class="admin-modal-backdrop" data-close-user-modal></div>
       <section class="admin-modal-card" role="dialog" aria-modal="true" aria-labelledby="userAdminModalTitle">
         <div class="admin-modal-head">
-          <div><p class="eyebrow">PORTAL PRIVÉ</p><h2 id="userAdminModalTitle">Nueva cuenta</h2></div>
+          <div><p class="eyebrow">PORTAL PRIVÉ</p><h2 id="userAdminModalTitle">Nuevo distribuidor</h2></div>
           <button id="closeUserAdminModal" class="modal-close" type="button" aria-label="Cerrar">×</button>
         </div>
         <form id="userAdminForm" class="perfume-admin-form">
@@ -295,11 +295,9 @@
             <label><span>Alias</span><input id="userAliasInput" type="text" maxlength="100" autocomplete="off"></label>
             <label><span>Correo</span><input id="userEmailInput" type="email" required autocomplete="off"></label>
             <label><span>Teléfono</span><input id="userPhoneInput" type="tel" maxlength="40" autocomplete="off"></label>
-            <label><span>Rol</span><select id="userRoleInput" required><option value="reseller">Revendedor</option><option value="distributor">Distribuidor</option><option value="admin">Administrador</option></select></label>
+            <label><span>Rol</span><select id="userRoleInput" required><option value="distributor">Distribuidor</option><option value="admin">Administrador</option></select></label>
             <label><span>Estado</span><select id="userStatusInput" required><option value="active">Activo</option><option value="inactive">Inactivo</option></select></label>
-            <label id="parentDistributorField"><span>Distribuidor asignado</span><select id="userParentDistributorInput"><option value="">Sin distribuidor</option></select></label>
             <label><span>Ciudad</span><input id="userCityInput" type="text" maxlength="120" autocomplete="off"></label>
-            <label><span>Instagram</span><input id="userInstagramInput" type="url" maxlength="220" placeholder="https://instagram.com/..." autocomplete="off"></label>
             <label id="createPasswordField"><span>Contraseña temporal</span><input id="userPasswordInput" type="password" minlength="8" autocomplete="new-password"><small>Mínimo 8 caracteres. Solo se solicita al crear la cuenta.</small></label>
           </div>
           <p id="userAdminError" class="form-error" role="alert"></p>

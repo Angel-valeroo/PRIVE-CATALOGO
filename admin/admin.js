@@ -60,7 +60,7 @@
     usersSection: $('#usersSection'), usersSearchInput: $('#usersSearchInput'), usersRoleFilters: $('#usersRoleFilters'), usersCount: $('#usersCount'), usersList: $('#usersList'), newUserBtn: $('#newUserBtn'),
     userAdminModal: $('#userAdminModal'), closeUserAdminModal: $('#closeUserAdminModal'), userAdminForm: $('#userAdminForm'), userAdminId: $('#userAdminId'), userAdminModalTitle: $('#userAdminModalTitle'),
     userFullNameInput: $('#userFullNameInput'), userAliasInput: $('#userAliasInput'), userEmailInput: $('#userEmailInput'), userPhoneInput: $('#userPhoneInput'), userRoleInput: $('#userRoleInput'), userStatusInput: $('#userStatusInput'),
-    parentDistributorField: $('#parentDistributorField'), userParentDistributorInput: $('#userParentDistributorInput'), userCityInput: $('#userCityInput'), userInstagramInput: $('#userInstagramInput'), createPasswordField: $('#createPasswordField'), userPasswordInput: $('#userPasswordInput'), userAdminError: $('#userAdminError'), saveUserAdminBtn: $('#saveUserAdminBtn'),
+    userCityInput: $('#userCityInput'), createPasswordField: $('#createPasswordField'), userPasswordInput: $('#userPasswordInput'), userAdminError: $('#userAdminError'), saveUserAdminBtn: $('#saveUserAdminBtn'),
     passwordAdminModal: $('#passwordAdminModal'), closePasswordAdminModal: $('#closePasswordAdminModal'), passwordAdminForm: $('#passwordAdminForm'), passwordUserId: $('#passwordUserId'), passwordUserLabel: $('#passwordUserLabel'), passwordNewInput: $('#passwordNewInput'), passwordConfirmInput: $('#passwordConfirmInput'), passwordAdminError: $('#passwordAdminError')
   };
 
@@ -1137,7 +1137,7 @@
   function roleLabel(role) {
     if (role === 'admin') return 'ADMIN';
     if (role === 'distributor') return 'DISTRIBUIDOR';
-    return 'REVENDEDOR';
+    return 'CUENTA';
   }
 
   function userStatusLabel(status) { return status === 'active' ? 'ACTIVO' : 'INACTIVO'; }
@@ -1145,7 +1145,7 @@
   function userMatches(item) {
     const query = normalizeSearch(state.usersSearch);
     if (state.usersFilter === 'inactive' && item.status === 'active') return false;
-    if (['reseller','distributor'].includes(state.usersFilter) && item.role !== state.usersFilter) return false;
+    if (['admin','distributor'].includes(state.usersFilter) && item.role !== state.usersFilter) return false;
     if (!query) return true;
     const haystack = normalizeSearch(`${item.full_name || ''} ${item.alias || ''} ${item.email || ''} ${item.phone || ''} ${item.city || ''}`);
     return searchTokens(query).every(token => haystack.includes(token));
@@ -1153,12 +1153,11 @@
 
   function renderUsers() {
     const rows = state.users.filter(userMatches);
-    els.usersCount.textContent = `${rows.length} ${rows.length === 1 ? 'usuario' : 'usuarios'}`;
+    els.usersCount.textContent = `${rows.length} ${rows.length === 1 ? 'cuenta' : 'cuentas'}`;
     if (!rows.length) {
-      els.usersList.innerHTML = '<div class="empty-state">No hay usuarios que coincidan con este filtro.</div>';
+      els.usersList.innerHTML = '<div class="empty-state">No hay cuentas que coincidan con este filtro.</div>';
       return;
     }
-    const distributors = new Map(state.users.filter(u => u.role === 'distributor').map(u => [u.id, u.alias || u.full_name || 'Distribuidor']));
     els.usersList.innerHTML = rows.map(item => `
       <article class="user-admin-card" data-user-id="${esc(item.id)}">
         <div class="user-admin-head">
@@ -1169,7 +1168,6 @@
           <div><span>Nombre</span><strong>${esc(item.full_name || '—')}</strong></div>
           <div><span>Teléfono</span><strong>${esc(item.phone || '—')}</strong></div>
           <div><span>Ciudad</span><strong>${esc(item.city || '—')}</strong></div>
-          <div><span>Distribuidor</span><strong>${esc(item.parent_distributor_id ? (distributors.get(item.parent_distributor_id) || 'Asignado') : '—')}</strong></div>
           <div><span>Último acceso</span><strong>${esc(formatDateTime(item.last_sign_in_at))}</strong></div>
           <div><span>Alta</span><strong>${esc(formatDate(item.created_at || item.auth_created_at))}</strong></div>
         </div>
@@ -1189,17 +1187,6 @@
     } finally { if (!quiet) setLoading(false); }
   }
 
-  function populateDistributorOptions(selected = '') {
-    const distributors = state.users.filter(u => u.role === 'distributor' && u.status === 'active');
-    els.userParentDistributorInput.innerHTML = '<option value="">Sin distribuidor</option>' + distributors.map(u => `<option value="${esc(u.id)}">${esc(u.alias || u.full_name || u.email || 'Distribuidor')}</option>`).join('');
-    els.userParentDistributorInput.value = selected || '';
-  }
-
-  function syncParentDistributorField() {
-    const reseller = els.userRoleInput.value === 'reseller';
-    els.parentDistributorField.hidden = !reseller;
-    if (!reseller) els.userParentDistributorInput.value = '';
-  }
 
   function closeUserModal() { els.userAdminModal.hidden = true; els.userAdminForm.reset(); els.userAdminError.textContent = ''; }
 
@@ -1208,20 +1195,17 @@
     els.userAdminError.textContent = '';
     const editing = Boolean(item);
     els.userAdminId.value = item?.id || '';
-    els.userAdminModalTitle.textContent = editing ? 'Editar usuario' : 'Nueva cuenta';
-    els.saveUserAdminBtn.textContent = editing ? 'Guardar cambios' : 'Crear cuenta';
+    els.userAdminModalTitle.textContent = editing ? 'Editar cuenta' : 'Nuevo distribuidor';
+    els.saveUserAdminBtn.textContent = editing ? 'Guardar cambios' : 'Crear distribuidor';
     els.createPasswordField.hidden = editing;
     els.userPasswordInput.required = !editing;
     els.userFullNameInput.value = item?.full_name || '';
     els.userAliasInput.value = item?.alias || '';
     els.userEmailInput.value = item?.email || '';
     els.userPhoneInput.value = item?.phone || '';
-    els.userRoleInput.value = item?.role || 'reseller';
+    els.userRoleInput.value = item?.role === 'admin' ? 'admin' : 'distributor';
     els.userStatusInput.value = item?.status || 'active';
     els.userCityInput.value = item?.city || '';
-    els.userInstagramInput.value = item?.instagram_url || '';
-    populateDistributorOptions(item?.parent_distributor_id || '');
-    syncParentDistributorField();
     els.userAdminModal.hidden = false;
     setTimeout(() => els.userFullNameInput.focus(), 50);
   }
@@ -1235,9 +1219,7 @@
       phone: els.userPhoneInput.value,
       role: els.userRoleInput.value,
       status: els.userStatusInput.value,
-      parent_distributor_id: els.userRoleInput.value === 'reseller' ? els.userParentDistributorInput.value : null,
       city: els.userCityInput.value,
-      instagram_url: els.userInstagramInput.value,
       password: els.userAdminId.value ? undefined : els.userPasswordInput.value
     };
   }
@@ -1248,12 +1230,12 @@
     const editing = Boolean(els.userAdminId.value);
     const payload = userFormPayload();
     if (payload.role === 'admin' && !window.confirm('Estás asignando acceso de ADMINISTRADOR. ¿Confirmas este rol?')) return;
-    setLoading(true, editing ? 'Guardando usuario…' : 'Creando cuenta…');
+    setLoading(true, editing ? 'Guardando cuenta…' : 'Creando distribuidor…');
     try {
       await edgeFunction('admin-users', { action: editing ? 'update' : 'create', ...payload });
       closeUserModal();
       await loadUsers({ quiet: true });
-      toast(editing ? 'Usuario actualizado.' : 'Cuenta creada correctamente.');
+      toast(editing ? 'Cuenta actualizada.' : 'Distribuidor creado correctamente.');
     } catch (error) {
       els.userAdminError.textContent = friendlyNetworkError(error).message;
       toast(els.userAdminError.textContent, true);
@@ -1755,7 +1737,6 @@
   els.closeUserAdminModal.addEventListener('click', closeUserModal);
   els.userAdminModal.querySelectorAll('[data-close-user-modal]').forEach(node => node.addEventListener('click', closeUserModal));
   els.userAdminForm.addEventListener('submit', saveUser);
-  els.userRoleInput.addEventListener('change', syncParentDistributorField);
   els.usersSearchInput.addEventListener('input', () => { state.usersSearch = els.usersSearchInput.value; renderUsers(); });
   els.usersRoleFilters.addEventListener('click', event => {
     const btn = event.target.closest('[data-users-filter]');

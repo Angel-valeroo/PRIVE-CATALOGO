@@ -157,7 +157,6 @@
 
   function displayRole(role) {
     if (role === 'distributor') return 'Distribuidor';
-    if (role === 'reseller') return 'Revendedor';
     if (role === 'admin') return 'Administrador';
     return role || 'Usuario';
   }
@@ -248,7 +247,7 @@
     const profile = rows?.[0];
     if (!profile) throw new Error('Tu cuenta todavía no tiene un perfil operativo en PRIVÉ.');
     if (profile.status !== 'active') throw new Error('Tu cuenta no está activa. Comunícate con PRIVÉ para revisar tu acceso.');
-    if (!['reseller', 'distributor', 'admin'].includes(profile.role)) throw new Error('Esta cuenta no tiene acceso al portal de pedidos.');
+    if (!['distributor', 'admin'].includes(profile.role)) throw new Error('Esta cuenta no tiene acceso al portal de pedidos.');
     state.profile = profile;
   }
 

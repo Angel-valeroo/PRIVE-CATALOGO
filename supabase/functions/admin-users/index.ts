@@ -13,7 +13,7 @@ const json = (body: unknown, status = 200) => new Response(JSON.stringify(body),
 
 const clean = (v: unknown) => String(v ?? "").trim().replace(/\s+/g, " ");
 const nullable = (v: unknown) => clean(v) || null;
-const allowedRoles = new Set(["admin", "distributor", "reseller"]);
+const allowedRoles = new Set(["admin", "distributor"]);
 const allowedStatuses = new Set(["active", "inactive"]);
 
 function fail(message: string, status = 400) {
@@ -79,19 +79,11 @@ async function context(req: Request) {
   return { caller, admin };
 }
 
-async function validateParent(admin: any, parentId: unknown, role: string) {
-  const raw = clean(parentId);
-  if (!raw || role !== "reseller") return null;
-  const id = requireUuid(raw, "distribuidor");
-  const { data, error } = await admin.from("profiles").select("id,role,status").eq("id", id).single();
-  if (error || !data || data.role !== "distributor") fail("El distribuidor asignado no es válido");
-  return id;
-}
 
 async function listUsers(admin: any) {
   const { data: profiles, error: profileError } = await admin
     .from("profiles")
-    .select("id,full_name,alias,role,status,parent_distributor_id,phone,instagram_url,city,created_at,updated_at")
+    .select("id,full_name,alias,role,status,phone,city,created_at,updated_at")
     .order("created_at", { ascending: false });
   if (profileError) fail(profileError.message, 500);
 
@@ -125,7 +117,6 @@ async function createUser(admin: any, input: any) {
   const alias = nullable(input?.alias);
   const role = normalizeRole(input?.role);
   const status = normalizeStatus(input?.status ?? "active");
-  const parent = await validateParent(admin, input?.parent_distributor_id, role);
 
   const { data: created, error: createError } = await admin.auth.admin.createUser({
     email,
@@ -142,9 +133,8 @@ async function createUser(admin: any, input: any) {
     alias,
     role,
     status,
-    parent_distributor_id: parent,
+    parent_distributor_id: null,
     phone: nullable(input?.phone),
-    instagram_url: nullable(input?.instagram_url),
     city: nullable(input?.city),
   };
 
@@ -172,7 +162,6 @@ async function updateUser(admin: any, callerId: string, input: any) {
   if (id === callerId && (role !== "admin" || status !== "active")) {
     fail("No puedes quitarte tu propio acceso administrativo", 409);
   }
-  const parent = await validateParent(admin, input?.parent_distributor_id, role);
   const email = normalizeEmail(input?.email);
 
   const { data: authData, error: authLookupError } = await admin.auth.admin.getUserById(id);
@@ -189,9 +178,8 @@ async function updateUser(admin: any, callerId: string, input: any) {
     alias: nullable(input?.alias),
     role,
     status,
-    parent_distributor_id: parent,
+    parent_distributor_id: null,
     phone: nullable(input?.phone),
-    instagram_url: nullable(input?.instagram_url),
     city: nullable(input?.city),
     updated_at: new Date().toISOString(),
   };

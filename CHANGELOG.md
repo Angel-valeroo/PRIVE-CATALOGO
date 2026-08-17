@@ -1,3 +1,10 @@
+# S13 Distribuidores V1.1
+
+- Cuentas simplificadas a Administrador + Distribuidor.
+- Revendedor, Distribuidor asignado e Instagram retirados del módulo.
+- Saludo del portal prioriza alias.
+- SQL de migración convierte reseller existentes a distributor sin alterar el enum histórico.
+
 # S13 · Usuarios V1
 
 - Módulo Usuarios en Panel Admin.
