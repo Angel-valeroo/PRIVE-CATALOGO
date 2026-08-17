@@ -749,6 +749,135 @@
       }
     }
 
+    // V6.1: segunda pasada ADAPTATIVA para fuentes difíciles (p. ej. algunos
+    // JPG de Fragrantica con matte blanco ya horneado en el antialias).
+    // Solo actúa cuando detecta un píxel claro/neutro pegado al fondo Y existe
+    // evidencia de color real más oscuro o cromático hacia el interior.
+    // Esto evita volver más agresivo el recorte global que ya funciona bien
+    // en botellas como Yara/Valentino.
+    const residualDistance = new Uint8Array(total);
+    const residualQueue = new Int32Array(total);
+    let rHead = 0, rTail = 0;
+    for (let idx = 0; idx < total; idx++) {
+      if (!background[idx]) continue;
+      residualQueue[rTail++] = idx;
+    }
+
+    const visitResidual = (from, idx) => {
+      if (idx < 0 || idx >= total || background[idx] || residualDistance[idx]) return;
+      const d = (residualDistance[from] || 0) + 1;
+      if (d > 7) return;
+      residualDistance[idx] = d;
+      residualQueue[rTail++] = idx;
+    };
+
+    while (rHead < rTail) {
+      const idx = residualQueue[rHead++];
+      const d = residualDistance[idx] || 0;
+      if (d >= 7) continue;
+      const x = idx % width;
+      const y = Math.floor(idx / width);
+      if (x > 0) visitResidual(idx, idx - 1);
+      if (x + 1 < width) visitResidual(idx, idx + 1);
+      if (y > 0) visitResidual(idx, idx - width);
+      if (y + 1 < height) visitResidual(idx, idx + width);
+    }
+
+    const robustInnerColor = idx => {
+      const x = idx % width;
+      const y = Math.floor(idx / width);
+      const colors = [];
+      // Radio algo mayor que la primera pasada para atravesar halos gruesos.
+      for (let radius = 2; radius <= 9 && colors.length < 10; radius++) {
+        for (let dy = -radius; dy <= radius; dy++) {
+          for (let dx = -radius; dx <= radius; dx++) {
+            if (Math.max(Math.abs(dx), Math.abs(dy)) !== radius) continue;
+            const nx = x + dx, ny = y + dy;
+            if (nx < 0 || nx >= width || ny < 0 || ny >= height) continue;
+            const n = ny * width + nx;
+            const no = n * 4;
+            if (background[n] || data[no + 3] < 210) continue;
+            const nr = data[no], ng = data[no + 1], nb = data[no + 2];
+            const nMax = Math.max(nr, ng, nb);
+            const nMin = Math.min(nr, ng, nb);
+            const nLight = (nr + ng + nb) / 3;
+            const nChroma = nMax - nMin;
+            // Buscamos señal real del objeto, no más matte blanco.
+            if (nLight <= 205 || nChroma >= 38) colors.push([nr, ng, nb, nLight]);
+          }
+        }
+      }
+      if (!colors.length) return null;
+      // Mediana por luminancia: más robusta que un promedio ante reflejos blancos.
+      colors.sort((a, b) => a[3] - b[3]);
+      const mid = colors[Math.floor(colors.length / 2)];
+      return { r: mid[0], g: mid[1], b: mid[2], light: mid[3] };
+    };
+
+    let residualCandidates = 0;
+    let residualScore = 0;
+    for (let idx = 0; idx < total; idx++) {
+      const d = residualDistance[idx];
+      if (!d || d > 7) continue;
+      const o = idx * 4;
+      if (data[o + 3] < 18) continue;
+      const r = data[o], g = data[o + 1], b = data[o + 2];
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      const light = (r + g + b) / 3, chroma = max - min;
+      if (light < 168 || chroma > 58) continue;
+      const innerColor = robustInnerColor(idx);
+      if (!innerColor) continue;
+      const contrast = light - innerColor.light;
+      if (contrast < 28) continue;
+      residualCandidates++;
+      residualScore += Math.min(1, contrast / 95) * Math.min(1, (235 - Math.min(235, chroma * 2)) / 180);
+    }
+
+    // No activamos la segunda pasada por unos pocos reflejos aislados.
+    const adaptiveHalo = residualCandidates >= Math.max(6, Math.round(Math.min(width, height) * 0.008)) && residualScore >= 3.5;
+
+    if (adaptiveHalo) {
+      for (let idx = 0; idx < total; idx++) {
+        const d = residualDistance[idx];
+        if (!d || d > 7) continue;
+        const o = idx * 4;
+        const alpha = data[o + 3];
+        if (alpha < 18) continue;
+
+        const r = data[o], g = data[o + 1], b = data[o + 2];
+        const max = Math.max(r, g, b), min = Math.min(r, g, b);
+        const light = (r + g + b) / 3, chroma = max - min;
+        if (light < 155 || chroma > 68) continue;
+
+        const innerColor = robustInnerColor(idx);
+        if (!innerColor) continue;
+        const contrast = light - innerColor.light;
+        if (contrast < 22) continue;
+
+        const neutrality = Math.max(0, 1 - chroma / 72);
+        const brightness = Math.max(0, Math.min(1, (light - 150) / 100));
+        const contrastFactor = Math.max(0, Math.min(1, (contrast - 18) / 90));
+        const proximity = Math.max(0, (8 - d) / 7);
+        const strength = Math.min(0.985, neutrality * brightness * contrastFactor * (0.62 + 0.38 * proximity));
+        if (strength < 0.08) continue;
+
+        // Reconstrucción aproximada del foreground tras un matte blanco:
+        // mezclamos hacia el color interior y reducimos alfa solo donde la
+        // contaminación es más probable. El color se corrige más que el alfa
+        // para conservar bordes finos y transparencias naturales.
+        const colorStrength = Math.min(0.97, strength * 1.18);
+        data[o] = Math.round(r * (1 - colorStrength) + innerColor.r * colorStrength);
+        data[o + 1] = Math.round(g * (1 - colorStrength) + innerColor.g * colorStrength);
+        data[o + 2] = Math.round(b * (1 - colorStrength) + innerColor.b * colorStrength);
+
+        if (d <= 2 && neutrality > 0.60) {
+          data[o + 3] = Math.round(alpha * Math.max(0.06, 1 - strength * 0.82));
+        } else if (d <= 4 && neutrality > 0.72) {
+          data[o + 3] = Math.round(alpha * Math.max(0.48, 1 - strength * 0.34));
+        }
+      }
+    }
+
     ctx.putImageData(image, 0, 0);
     return true;
   }

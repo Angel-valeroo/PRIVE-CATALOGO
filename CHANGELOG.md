@@ -1,3 +1,9 @@
+# S12 V4 · V6.1 · Halo adaptativo
+
+- Segunda pasada adaptativa solo para imágenes con contaminación blanca residual.
+- Busca color real del objeto hacia el interior y descontamina matte sin globalizar el recorte.
+- No cambia Edge Function, SQL ni RLS.
+
 # S12 V4 · Imágenes URL HD · V6
 
 - Fragrantica: prioriza fuentes de mayor resolución y deja 375x500 como fallback.
