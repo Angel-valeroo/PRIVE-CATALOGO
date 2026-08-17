@@ -546,3 +546,75 @@ body::before{
 @media(hover:none){
   .floating-order:hover{transform:translateX(-50%)}
 }
+
+
+/* S14 V1.3.1 · Ajuste mobile-first definitivo de "Ver mi pedido" */
+@media (max-width: 650px) {
+  .floating-order {
+    position: fixed !important;
+    left: 12px !important;
+    right: 12px !important;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+    transform: none !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    grid-template-columns: 38px minmax(0, 1fr) auto !important;
+    gap: 10px !important;
+    padding: 10px 12px !important;
+    overflow: hidden !important;
+  }
+
+  .floating-order:hover,
+  .floating-order:focus,
+  .floating-order:active {
+    transform: none !important;
+  }
+
+  .floating-order-icon {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .floating-order-copy {
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .floating-order-copy small,
+  .floating-order-copy strong {
+    display: block !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  .floating-order-totals {
+    min-width: 0 !important;
+    max-width: 86px !important;
+    justify-self: end !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .floating-order {
+    left: 8px !important;
+    right: 8px !important;
+    grid-template-columns: 34px minmax(0, 1fr) auto !important;
+    gap: 8px !important;
+    padding: 9px 10px !important;
+  }
+
+  .floating-order-icon {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  .floating-order-totals {
+    max-width: 72px !important;
+    font-size: 11px !important;
+  }
+}

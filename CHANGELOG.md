@@ -1,3 +1,9 @@
+# S14 V1.3.1 · Fix mobile Ver mi pedido
+
+- Botón flotante ajustado al viewport real en móvil.
+- Safe-area de iPhone y prevención de overflow horizontal.
+- Sin SQL ni cambios backend.
+
 # S14 V1.3 · Entregas por persona, stock y mobile
 
 - Pendientes de entrega: selección por persona/pedido.
