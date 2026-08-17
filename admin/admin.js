@@ -560,62 +560,56 @@
   }
 
   function clearConnectedLightBackground(ctx, width, height) {
-    // S11 V5: elimina el fondo claro conectado a los bordes y limpia el
-    // "fringe" blanco de JPEG/antialias sin aplicar un chroma-key global.
-    // La expansión del halo está limitada a 2 px desde el fondo confirmado,
-    // por lo que no puede recorrer zonas blancas reales de la botella.
+    // S13 / V6: matte cleanup de precisión.
+    // 1) identifica SOLO el fondo claro conectado físicamente al borde;
+    // 2) limpia el fringe JPEG/antialias en una banda muy corta;
+    // 3) descontamina el blanco residual usando color real del interior.
+    // No se aplica chroma-key global, por lo que las piezas blancas reales
+    // del frasco quedan protegidas si su interior también es blanco.
     const image = ctx.getImageData(0, 0, width, height);
     const data = image.data;
     const total = width * height;
-    const visited = new Uint8Array(total);
+    const background = new Uint8Array(total);
     const queue = new Int32Array(total);
     let head = 0;
     let tail = 0;
 
-    const pixelStats = index => {
-      const offset = index * 4;
-      const r = data[offset];
-      const g = data[offset + 1];
-      const b = data[offset + 2];
-      const a = data[offset + 3];
+    const stats = index => {
+      const o = index * 4;
+      const r = data[o], g = data[o + 1], b = data[o + 2], a = data[o + 3];
       const max = Math.max(r, g, b);
       const min = Math.min(r, g, b);
-      return { r, g, b, a, max, min, chroma: max - min, light: (r + g + b) / 3 };
+      return { r, g, b, a, min, max, chroma: max - min, light: (r + g + b) / 3 };
     };
 
-    const isStrictLightBackground = index => {
-      const { a, min, chroma } = pixelStats(index);
+    const isStrictBackground = index => {
+      const { a, min, chroma, light } = stats(index);
       if (a === 0) return true;
-      return min >= 238 && chroma <= 22;
+      return min >= 236 && light >= 240 && chroma <= 24;
     };
 
-    let lightBorder = 0;
     let borderSamples = 0;
-
-    const inspectBorder = (x, y) => {
-      const idx = y * width + x;
+    let lightBorder = 0;
+    const inspect = idx => {
       borderSamples++;
-      if (isStrictLightBackground(idx)) lightBorder++;
+      if (isStrictBackground(idx)) lightBorder++;
     };
 
     for (let x = 0; x < width; x++) {
-      inspectBorder(x, 0);
-      if (height > 1) inspectBorder(x, height - 1);
+      inspect(x);
+      if (height > 1) inspect((height - 1) * width + x);
     }
     for (let y = 1; y < height - 1; y++) {
-      inspectBorder(0, y);
-      if (width > 1) inspectBorder(width - 1, y);
+      inspect(y * width);
+      if (width > 1) inspect(y * width + width - 1);
     }
 
-    // Si los bordes no son mayoritariamente claros, probablemente la fuente
-    // ya trae transparencia o un fondo intencional. En ese caso no la tocamos.
-    if (!borderSamples || lightBorder / borderSamples < 0.58) {
-      return false;
-    }
+    // Una fuente con transparencia nativa o fondo artístico no se altera.
+    if (!borderSamples || lightBorder / borderSamples < 0.55) return false;
 
     const enqueue = idx => {
-      if (idx < 0 || idx >= total || visited[idx] || !isStrictLightBackground(idx)) return;
-      visited[idx] = 1;
+      if (idx < 0 || idx >= total || background[idx] || !isStrictBackground(idx)) return;
+      background[idx] = 1;
       queue[tail++] = idx;
     };
 
@@ -625,7 +619,7 @@
     }
     for (let y = 1; y < height - 1; y++) {
       enqueue(y * width);
-      enqueue(y * width + (width - 1));
+      enqueue(y * width + width - 1);
     }
 
     while (head < tail) {
@@ -638,56 +632,51 @@
       if (y + 1 < height) enqueue(idx + width);
     }
 
-    // Segunda etapa: el JPEG suele dejar 1-2 px de gris/blanco pegados a la
-    // silueta. Los retiramos solo si son claros, casi neutros y están tocando
-    // el fondo ya confirmado. La distancia limitada evita "comerse" zonas
-    // blancas legítimas del frasco.
-    let frontier = [];
-    for (let idx = 0; idx < total; idx++) if (visited[idx]) frontier.push(idx);
-
-    for (let ring = 0; ring < 2; ring++) {
-      const next = [];
-      const seenThisRing = new Uint8Array(total);
-      const tryAdd = idx => {
-        if (idx < 0 || idx >= total || visited[idx] || seenThisRing[idx]) return;
-        seenThisRing[idx] = 1;
-        const { a, min, chroma, light } = pixelStats(idx);
-        if (a === 0 || (min >= 212 && light >= 220 && chroma <= 44)) next.push(idx);
-      };
-
-      for (const idx of frontier) {
-        const x = idx % width;
-        const y = Math.floor(idx / width);
-        if (x > 0) tryAdd(idx - 1);
-        if (x + 1 < width) tryAdd(idx + 1);
-        if (y > 0) tryAdd(idx - width);
-        if (y + 1 < height) tryAdd(idx + width);
-      }
-
-      if (!next.length) break;
-      for (const idx of next) visited[idx] = 1;
-      frontier = next;
-    }
-
+    // El fondo confirmado queda transparente.
     for (let idx = 0; idx < total; idx++) {
-      if (!visited[idx]) continue;
-      data[idx * 4 + 3] = 0;
+      if (background[idx]) data[idx * 4 + 3] = 0;
     }
 
-    // Descontamina el último borde visible: si un píxel muy claro toca la
-    // transparencia y hacia dentro hay color real, reduce el componente blanco
-    // y suaviza su alfa. Así evitamos la línea blanca sin destruir detalles
-    // blancos interiores.
+    // Distancia desde el fondo, limitada a 4 px. Es suficiente para halos de
+    // JPEG/antialias sin entrar en detalles reales de la botella.
+    const distance = new Uint8Array(total);
+    const fringeQueue = new Int32Array(total);
+    let fHead = 0, fTail = 0;
+    for (let idx = 0; idx < total; idx++) {
+      if (!background[idx]) continue;
+      fringeQueue[fTail++] = idx;
+    }
+
+    const visitFringe = (from, idx) => {
+      if (idx < 0 || idx >= total || background[idx] || distance[idx]) return;
+      const d = (distance[from] || 0) + 1;
+      if (d > 4) return;
+      distance[idx] = d;
+      fringeQueue[fTail++] = idx;
+    };
+
+    while (fHead < fTail) {
+      const idx = fringeQueue[fHead++];
+      const d = distance[idx] || 0;
+      if (d >= 4) continue;
+      const x = idx % width;
+      const y = Math.floor(idx / width);
+      if (x > 0) visitFringe(idx, idx - 1);
+      if (x + 1 < width) visitFringe(idx, idx + 1);
+      if (y > 0) visitFringe(idx, idx - width);
+      if (y + 1 < height) visitFringe(idx, idx + width);
+    }
+
     const original = new Uint8ClampedArray(data);
-    const neighbors = (idx, radius = 1) => {
+
+    const nearby = (idx, radius) => {
       const x = idx % width;
       const y = Math.floor(idx / width);
       const out = [];
       for (let dy = -radius; dy <= radius; dy++) {
         for (let dx = -radius; dx <= radius; dx++) {
           if (!dx && !dy) continue;
-          const nx = x + dx;
-          const ny = y + dy;
+          const nx = x + dx, ny = y + dy;
           if (nx < 0 || nx >= width || ny < 0 || ny >= height) continue;
           out.push(ny * width + nx);
         }
@@ -696,59 +685,68 @@
     };
 
     for (let idx = 0; idx < total; idx++) {
+      const d = distance[idx];
+      if (!d || d > 4) continue;
       const o = idx * 4;
       if (data[o + 3] === 0) continue;
-      const nearOne = neighbors(idx, 1);
-      const touchesTransparentEdge = nearOne.some(n => data[n * 4 + 3] === 0);
-      const near = touchesTransparentEdge ? nearOne : neighbors(idx, 2);
-      if (!near.some(n => data[n * 4 + 3] === 0)) continue;
 
-      const r = original[o];
-      const g = original[o + 1];
-      const b = original[o + 2];
-      const max = Math.max(r, g, b);
-      const min = Math.min(r, g, b);
-      const chroma = max - min;
-      const light = (r + g + b) / 3;
-      if (light < 130) continue;
+      const { r, g, b, light, chroma } = stats(idx);
 
-      const inner = neighbors(idx, 2)
-        .filter(n => data[n * 4 + 3] > 230)
-        .map(n => {
-          const no = n * 4;
-          return [original[no], original[no + 1], original[no + 2]];
-        })
-        .filter(([nr, ng, nb]) => ((nr + ng + nb) / 3) < 225 || Math.max(nr, ng, nb) - Math.min(nr, ng, nb) > 30);
-
-      // Si todo lo que hay hacia dentro también es blanco, asumimos que es
-      // parte real de la botella y no lo tocamos.
-      if (!inner.length) continue;
-
-      let ir = 0, ig = 0, ib = 0;
-      for (const [nr, ng, nb] of inner) { ir += nr; ig += ng; ib += nb; }
-      ir /= inner.length; ig /= inner.length; ib /= inner.length;
-
-      const matte = Math.max(0, Math.min(1, (light - 130) / 125));
-      const neutral = Math.max(0.22, 1 - Math.min(1, chroma / 90));
-      const strength = Math.min(0.95, matte * neutral * 0.95);
-
-      data[o] = Math.round(r * (1 - strength) + ir * strength);
-      data[o + 1] = Math.round(g * (1 - strength) + ig * strength);
-      data[o + 2] = Math.round(b * (1 - strength) + ib * strength);
-      // El píxel exterior neutro es el que produce la línea/halo visible sobre
-      // fondos oscuros. Si toca directamente la transparencia y hacia dentro
-      // sí hay color de la botella, lo hacemos casi transparente. Una zona
-      // blanca real no entra aquí porque su interior también sería blanco.
-      if (touchesTransparentEdge && chroma <= 30) {
-        data[o] = Math.round(data[o] * 0.35 + ir * 0.65);
-        data[o + 1] = Math.round(data[o + 1] * 0.35 + ig * 0.65);
-        data[o + 2] = Math.round(data[o + 2] * 0.35 + ib * 0.65);
-        data[o + 3] = Math.round(data[o + 3] * 0.12);
+      // Primer anillo: los restos prácticamente blancos pegados al fondo son
+      // matte, no detalle. El segundo anillo solo se retira si es aún más neutro.
+      if (
+        (d === 1 && light >= 218 && chroma <= 46) ||
+        (d === 2 && light >= 236 && chroma <= 28)
+      ) {
+        data[o + 3] = 0;
         continue;
       }
 
-      const alphaCleanup = chroma <= 28 ? 0.96 : 0.28;
-      data[o + 3] = Math.round(data[o + 3] * Math.max(0.06, 1 - strength * alphaCleanup));
+      if (light < 125 || chroma > 72) continue;
+
+      // Buscar color real hacia dentro. Si todo lo cercano también es blanco,
+      // tratamos esa zona como parte legítima del frasco y no la tocamos.
+      const inner = nearby(idx, 4)
+        .filter(n => {
+          const no = n * 4;
+          if (data[no + 3] < 220 || background[n]) return false;
+          const nr = original[no], ng = original[no + 1], nb = original[no + 2];
+          const nLight = (nr + ng + nb) / 3;
+          const nChroma = Math.max(nr, ng, nb) - Math.min(nr, ng, nb);
+          return nLight < 218 || nChroma > 34;
+        })
+        .map(n => {
+          const no = n * 4;
+          return [original[no], original[no + 1], original[no + 2]];
+        });
+
+      if (!inner.length) continue;
+
+      let ir = 0, ig = 0, ib = 0;
+      for (const [nr, ng, nb] of inner) {
+        ir += nr; ig += ng; ib += nb;
+      }
+      ir /= inner.length; ig /= inner.length; ib /= inner.length;
+
+      const whiteness = Math.max(0, Math.min(1, (light - 125) / 130));
+      const neutrality = Math.max(0, 1 - chroma / 75);
+      const proximity = (5 - d) / 4;
+      const strength = Math.min(0.96, whiteness * neutrality * (0.58 + 0.38 * proximity));
+      if (strength <= 0.05) continue;
+
+      // Descontaminación de matte: sustituye el blanco mezclado por una
+      // estimación del color de la botella, conservando el antialias.
+      data[o] = Math.round(r * (1 - strength) + ir * strength);
+      data[o + 1] = Math.round(g * (1 - strength) + ig * strength);
+      data[o + 2] = Math.round(b * (1 - strength) + ib * strength);
+
+      // Solo reducimos alfa de forma fuerte en el borde inmediato y neutro.
+      // En anillos interiores prima la corrección de color para conservar detalle.
+      if (d === 1 && chroma <= 34) {
+        data[o + 3] = Math.round(data[o + 3] * Math.max(0.08, 1 - strength * 0.90));
+      } else if (d === 2 && chroma <= 26) {
+        data[o + 3] = Math.round(data[o + 3] * Math.max(0.42, 1 - strength * 0.42));
+      }
     }
 
     ctx.putImageData(image, 0, 0);
@@ -757,12 +755,17 @@
 
   async function convertImageToWebp(blob) {
     if (!blob || !String(blob.type || '').startsWith('image/')) throw new Error('El portapapeles no contiene una imagen válida.');
-    if (blob.size > 12 * 1024 * 1024) throw new Error('La imagen original es demasiado grande. Usa una imagen menor a 12 MB.');
+    if (blob.size > 16 * 1024 * 1024) throw new Error('La imagen original es demasiado grande. Usa una imagen menor a 16 MB.');
     const source = await decodeImageSource(blob);
     const sourceWidth = source.width || source.naturalWidth;
     const sourceHeight = source.height || source.naturalHeight;
     if (!sourceWidth || !sourceHeight) throw new Error('No se pudo leer el tamaño de la imagen.');
-    const maxSide = 1400;
+
+    // S13 / V6: conservar mucho más detalle del archivo original. Antes el
+    // navegador limitaba a 1400 px y WEBP 0.90; ahora preservamos hasta 2400 px
+    // y exportamos a calidad alta. No hacemos "upscale" artificial: si la fuente
+    // ya es pequeña, la prioridad es conseguir una fuente HD desde la Edge Function.
+    const maxSide = 2400;
     const scale = Math.min(1, maxSide / Math.max(sourceWidth, sourceHeight));
     const width = Math.max(1, Math.round(sourceWidth * scale));
     const height = Math.max(1, Math.round(sourceHeight * scale));
@@ -772,17 +775,18 @@
     const ctx = canvas.getContext('2d', { alpha: true, willReadFrequently: true });
     if (!ctx) throw new Error('Tu navegador no pudo preparar la imagen.');
 
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
     ctx.clearRect(0, 0, width, height);
     ctx.drawImage(source, 0, 0, width, height);
     if (typeof source.close === 'function') source.close();
 
-    // Fragrantica a veces entrega la botella sobre JPG blanco.
-    // Quitamos únicamente el fondo claro conectado al borde y luego
-    // exportamos a WEBP manteniendo canal alfa.
+    // Conserva transparencia nativa y, cuando la fuente viene sobre blanco,
+    // elimina únicamente el fondo conectado al borde y descontamina el fringe.
     clearConnectedLightBackground(ctx, width, height);
 
     const webp = await new Promise((resolve, reject) => {
-      canvas.toBlob(result => result ? resolve(result) : reject(new Error('No se pudo convertir la imagen a WEBP.')), 'image/webp', 0.9);
+      canvas.toBlob(result => result ? resolve(result) : reject(new Error('No se pudo convertir la imagen a WEBP.')), 'image/webp', 0.97);
     });
     return webp;
   }

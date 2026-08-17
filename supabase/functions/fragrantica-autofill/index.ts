@@ -140,41 +140,35 @@ function imageCandidatesFromHtml(
   perfumeId: string,
   perfumeName: string,
 ) {
-  const candidates: Array<{ url: string; score: number }> = [];
+  const candidates = new Map<string, number>();
   const normalizedName = upper(perfumeName);
 
-  for (const tag of html.match(/<img\b[^>]*>/gi) ?? []) {
-    const attrs = parseAttributes(tag);
-    const raw =
-      attrs["data-src"] ??
-      attrs["data-original"] ??
-      attrs.src ??
-      "";
-
-    if (!raw) continue;
-
+  const addCandidate = (
+    raw: string,
+    baseScore: number,
+    alt = "",
+    widthHint = 0,
+  ) => {
+    if (!raw) return;
     let resolved = "";
     try {
       resolved = new URL(raw, sourceUrl).toString();
     } catch {
-      continue;
+      return;
     }
+    if (!/^https?:/i.test(resolved)) return;
 
-    if (!/^https?:/i.test(resolved)) continue;
+    const haystack = `${resolved} ${alt}`;
+    let score = baseScore;
 
-    const alt = upper(
-      attrs.alt ?? attrs.title ?? "",
-    );
+    if (perfumeId && resolved.includes(`.${perfumeId}.`)) score += 120;
+    if (/mdimg\/perfume\//i.test(resolved)) score += 45;
+    if (/perfumes\//i.test(resolved)) score += 30;
 
-    let score = 0;
-
-    if (perfumeId && resolved.includes(`.${perfumeId}.`)) {
-      score += 100;
-    }
-
-    if (/perfume-thumbs|perfumes\//i.test(resolved)) {
-      score += 25;
-    }
+    // La miniatura 375x500 fue útil como fallback en V4/V5, pero era la causa
+    // principal de la menor definición frente a las imágenes descargadas
+    // manualmente. En V6 se conserva solo como respaldo.
+    if (/perfume-thumbs|375x500/i.test(resolved)) score -= 85;
 
     if (
       normalizedName &&
@@ -184,21 +178,51 @@ function imageCandidatesFromHtml(
         .filter(Boolean)
         .every(token => alt.includes(token))
     ) {
-      score += 30;
+      score += 35;
     }
 
-    if (/logo|brand|designer|avatar|banner|accord/i.test(resolved + " " + alt)) {
-      score -= 60;
-    }
+    if (/logo|brand|designer|avatar|banner|accord/i.test(haystack)) score -= 100;
 
-    if (score > 0) {
-      candidates.push({ url: resolved, score });
+    // srcset suele declarar la variante de mayor resolución mediante "w".
+    if (widthHint >= 1200) score += 90;
+    else if (widthHint >= 800) score += 65;
+    else if (widthHint >= 600) score += 40;
+    else if (widthHint >= 400) score += 15;
+
+    const previous = candidates.get(resolved) ?? -Infinity;
+    if (score > previous) candidates.set(resolved, score);
+  };
+
+  for (const tag of html.match(/<img\b[^>]*>/gi) ?? []) {
+    const attrs = parseAttributes(tag);
+    const alt = upper(attrs.alt ?? attrs.title ?? "");
+
+    const raw =
+      attrs["data-src"] ??
+      attrs["data-original"] ??
+      attrs.src ??
+      "";
+
+    const attrWidth = Number.parseInt(attrs.width ?? "0", 10) || 0;
+    addCandidate(raw, 0, alt, attrWidth);
+
+    // Preferir la variante de mayor tamaño declarada por la página.
+    const srcset = attrs["data-srcset"] ?? attrs.srcset ?? "";
+    for (const part of srcset.split(",")) {
+      const item = part.trim();
+      if (!item) continue;
+      const match = item.match(/^(\S+)(?:\s+(\d+)w|\s+([\d.]+)x)?$/);
+      if (!match) continue;
+      const widthHint = Number.parseInt(match[2] ?? "0", 10) || 0;
+      const density = Number.parseFloat(match[3] ?? "0") || 0;
+      addCandidate(match[1], density >= 2 ? 55 : 25, alt, widthHint);
     }
   }
 
-  return candidates
-    .sort((a, b) => b.score - a.score)
-    .map(item => item.url);
+  return [...candidates.entries()]
+    .filter(([, score]) => score > -40)
+    .sort((a, b) => b[1] - a[1])
+    .map(([url]) => url);
 }
 
 async function fetchWithTimeout(
@@ -240,14 +264,9 @@ async function getPageData(sourceUrl: URL) {
 
   const imageCandidates: string[] = [];
 
-  // La miniatura principal de Fragrantica usa el ID de la ficha.
-  // La ponemos primero porque identifica directamente la botella de ese perfume.
-  if (parsed.perfumeId) {
-    imageCandidates.push(
-      `https://fimgs.net/mdimg/perfume-thumbs/375x500.${parsed.perfumeId}.jpg`,
-    );
-  }
-
+  // V6: primero buscamos la mejor fuente que realmente publica la ficha.
+  // La miniatura 375x500 queda únicamente como fallback, porque priorizarla
+  // reducía la calidad respecto a una descarga manual desde Fragrantica.
   let warning = "";
 
   try {
@@ -295,6 +314,14 @@ async function getPageData(sourceUrl: URL) {
         : String(error);
   }
 
+  // Respaldo seguro por ID: solo se usa si ninguna fuente de mayor calidad
+  // de la ficha funciona al descargar.
+  if (parsed.perfumeId) {
+    const fallback =
+      `https://fimgs.net/mdimg/perfume-thumbs/375x500.${parsed.perfumeId}.jpg`;
+    if (!imageCandidates.includes(fallback)) imageCandidates.push(fallback);
+  }
+
   return {
     designer,
     name,
@@ -336,7 +363,7 @@ async function fetchFirstValidImage(
 
       const bytes = await response.arrayBuffer();
 
-      if (bytes.byteLength > 12 * 1024 * 1024) {
+      if (bytes.byteLength > 16 * 1024 * 1024) {
         errors.push(`too-large ${candidate}`);
         continue;
       }

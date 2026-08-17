@@ -1,3 +1,10 @@
+# S12 V4 · Imágenes URL HD · V6
+
+- Fragrantica: prioriza fuentes de mayor resolución y deja 375x500 como fallback.
+- WEBP: conserva hasta 2400 px y exporta a calidad 0.97.
+- Matte cleanup V6: bordes blancos más finos, descontaminación de halo y protección de zonas blancas reales.
+- Sin SQL ni cambios RLS.
+
 # S12 V2.1 — Corrección de caché del estado agotado
 
 - Se incrementan las versiones de `styles.css` y `app.js` del catálogo público para forzar a los navegadores a descargar el tratamiento visual nuevo de AGOTADO.
