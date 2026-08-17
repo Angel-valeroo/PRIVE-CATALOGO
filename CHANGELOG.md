@@ -546,3 +546,10 @@
 - Imágenes de Storage tienen prioridad y las imágenes locales quedan como respaldo.
 - Se muestra AGOTADO públicamente sin retirar la fragancia.
 - No se exponen perfume_keys, source_url ni campos administrativos.
+
+## S12 V3 — Supabase como fuente única del catálogo público
+- Migra los perfiles enriquecidos históricos a `public.perfume_profiles` (JSONB) mediante SQL de semilla.
+- `get_public_catalog()` devuelve únicamente campos públicos + `profile_data`; no expone `perfume_keys`, `source_url` ni provenance.
+- El catálogo público deja de consultar `data/prive-catalog.json` y `data/core/*` en tiempo de ejecución.
+- Perfumes nuevos con `profile_status=basic` siguen funcionando con ficha en preparación hasta ser enriquecidos.
+- Se incrementa versión de caché de `app.js`/`styles.css` a 12.3.

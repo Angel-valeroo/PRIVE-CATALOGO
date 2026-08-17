@@ -1467,11 +1467,7 @@ function publicIdentity(value) {
     .trim();
 }
 
-function publicCatalogKey(item) {
-  return `${publicIdentity(item?.designer)}|${publicIdentity(item?.name)}`;
-}
-
-async function loadPublicOperationalCatalog() {
+async function loadPublicCatalogFromSupabase() {
   const response = await fetch(`${PUBLIC_SUPABASE_URL}/rest/v1/rpc/get_public_catalog`, {
     method: "POST",
     headers: {
@@ -1483,57 +1479,30 @@ async function loadPublicOperationalCatalog() {
   if (!response.ok) throw new Error(`Supabase catálogo público respondió ${response.status}.`);
   const rows = await response.json();
   if (!Array.isArray(rows)) throw new Error("La respuesta del catálogo público no es válida.");
-  return rows;
-}
 
-function mergePublicCatalog(enrichedPerfumes, operationalPerfumes) {
-  const enrichedByKey = new Map((Array.isArray(enrichedPerfumes) ? enrichedPerfumes : []).map(item => [publicCatalogKey(item), item]));
-  return (Array.isArray(operationalPerfumes) ? operationalPerfumes : []).map(row => {
-    const enriched = enrichedByKey.get(publicCatalogKey(row));
+  return rows.map(row => {
+    const profile = row.profile_data && typeof row.profile_data === "object" && !Array.isArray(row.profile_data)
+      ? row.profile_data
+      : {};
     return {
-      ...(enriched || {}),
-      id: enriched?.id || row.id,
+      ...profile,
+      id: row.id,
       database_id: row.id,
       designer: row.designer,
       name: row.name,
       category: row.category,
-      image_url: row.image_url || enriched?.image_url || null,
+      image_url: row.image_url || null,
       availability_status: row.availability_status || "available",
-      profile_status: row.profile_status || (enriched ? "enriched" : "basic")
+      profile_status: row.profile_status || (Object.keys(profile).length ? "enriched" : "basic")
     };
   });
 }
 
 async function loadProductionCatalog() {
-  let enrichedPerfumes = [];
-  let enrichedSource = "none";
-  try {
-    const bundled = await fetchJson(`data/prive-catalog.json?v=${CORE_DATA_VERSION}`);
-    if (!Array.isArray(bundled) || bundled.length === 0) throw new Error("El bundle de producción está vacío.");
-    enrichedPerfumes = bundled;
-    enrichedSource = "bundle";
-  } catch (bundleError) {
-    console.warn("PRIVÉ: el bundle enriquecido no estuvo disponible; se activa la ruta histórica de respaldo.", bundleError);
-    const [legacyPerfumes, corePerfumes] = await Promise.all([
-      fetchJson("data/perfumes.json"),
-      loadCorePerfumes()
-    ]);
-    enrichedPerfumes = window.PriveCoreAdapter
-      ? window.PriveCoreAdapter.mergeCatalogs(legacyPerfumes, corePerfumes)
-      : legacyPerfumes;
-    enrichedSource = `fallback:${corePerfumes.length}`;
-  }
-
-  try {
-    const operationalPerfumes = await loadPublicOperationalCatalog();
-    return {
-      perfumes: mergePublicCatalog(enrichedPerfumes, operationalPerfumes),
-      source: `supabase+${enrichedSource}`
-    };
-  } catch (supabaseError) {
-    console.warn("PRIVÉ: Supabase no estuvo disponible; se conserva temporalmente el catálogo local como respaldo.", supabaseError);
-    return { perfumes: enrichedPerfumes, source: `${enrichedSource}:offline-fallback` };
-  }
+  // S12 V3: Supabase es la fuente única del catálogo público y de sus perfiles.
+  // Ya no se consulta data/prive-catalog.json ni data/core en tiempo de ejecución.
+  const perfumes = await loadPublicCatalogFromSupabase();
+  return { perfumes, source: "supabase" };
 }
 
 let catalogDockFrame = 0;

@@ -1,0 +1,14 @@
+PRIVÉ · S12 V3.1
+Corrección puntual del SQL de migración de perfiles enriquecidos.
+
+Motivo:
+El seed histórico contiene una entrada duplicada para CREED · MILLÉSIME IMPÉRIAL.
+Al empatar ambas filas con el mismo perfume_id, PostgreSQL rechazaba el UPSERT con:
+ON CONFLICT DO UPDATE command cannot affect row a second time.
+
+Corrección:
+El CTE matched ahora usa DISTINCT ON (p.id), de modo que cada perfume_id aparece
+una sola vez en el INSERT/UPSERT. No cambia perfiles, seguridad, RPC ni frontend.
+
+El script completo puede ejecutarse de nuevo; está preparado para reutilizar la tabla
+si ya fue creada durante el intento anterior.
