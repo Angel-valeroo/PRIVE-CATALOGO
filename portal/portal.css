@@ -514,3 +514,35 @@ body::before{
 .perfume-card.is-out-of-stock .perfume-image-wrap::after{content:"AGOTADO";position:absolute;z-index:3;left:50%;top:50%;width:min(84%,240px);padding:13px 12px;transform:translate(-50%,-50%) rotate(-7deg);border:1px solid rgba(255,255,255,.42);background:rgba(105,40,31,.9);color:#fff4ef;box-shadow:0 12px 28px rgba(37,12,9,.32);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);font-size:clamp(.78rem,3.2vw,1.02rem);font-weight:800;letter-spacing:.15em;text-align:center}
 .stock-notice{margin:8px 0 11px;color:#e2aaa0;font-size:.72rem;font-weight:650;line-height:1.45}
 .perfume-card.is-out-of-stock .add-order-btn{border-color:rgba(218,117,117,.34);color:#d0a09a;background:rgba(92,34,28,.18)}
+
+
+/* S14 V1.3 · Correcciones mobile del pedido */
+.modal-layer{
+  z-index:120; /* siempre por encima del cart-sheet (85) y de su backdrop */
+}
+.floating-order{
+  grid-template-columns:auto minmax(0,1fr) auto;
+  max-width:calc(100vw - 22px);
+}
+.floating-order-icon{
+  display:grid;place-items:center;flex:0 0 auto;width:36px;height:36px;
+  border:1px solid rgba(216,179,95,.24);border-radius:12px;background:rgba(216,179,95,.07);color:var(--gold)
+}
+.floating-order-icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.floating-order:hover{transform:translateX(-50%) translateY(-3px)}
+@media(max-width:650px){
+  .floating-order{
+    left:50%;right:auto;transform:translateX(-50%);
+    width:calc(100vw - 20px);max-width:calc(100vw - 20px);
+    gap:9px;padding:9px 10px;
+  }
+  .floating-order:hover{transform:translateX(-50%)}
+  .floating-order-icon{width:34px;height:34px}
+  .floating-order-copy{min-width:0}
+  .floating-order-copy strong{white-space:nowrap}
+  .floating-order-totals{justify-self:end;min-width:0;gap:4px}
+}
+/* En móviles táctiles el hover puede quedar "pegado"; nunca debe perder translateX(-50%). */
+@media(hover:none){
+  .floating-order:hover{transform:translateX(-50%)}
+}

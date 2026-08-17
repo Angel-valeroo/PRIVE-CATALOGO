@@ -56,3 +56,48 @@ body{background:radial-gradient(circle at 50% -10%,rgba(201,164,88,.16),transpar
 .delivery-cycle-picker{display:grid;gap:18px;margin:18px 0 24px}.delivery-cycle-group{display:grid;gap:10px}.delivery-cycle-group h3{margin:0;font-size:.9rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.delivery-cycle-card{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 16px;border:1px solid var(--border);border-radius:16px;background:var(--panel)}.delivery-cycle-card.is-selected{border-color:rgba(212,175,55,.55)}.delivery-cycle-card div{display:grid;gap:4px}.delivery-cycle-card strong{font-size:1rem}.delivery-cycle-card small{color:var(--muted)}
 .delivery-workspace-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin:8px 0 14px}.delivery-workspace-head h3{font-size:1.45rem;margin:4px 0 0}.delivery-toolbar{margin-top:18px}.delivery-list{display:grid;gap:16px}.delivery-perfume-card{border:1px solid var(--border);border-radius:18px;background:var(--panel);overflow:hidden}.delivery-perfume-head{display:flex;justify-content:space-between;gap:16px;padding:16px 18px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.025)}.delivery-perfume-head h3{margin:0 0 4px;font-size:1.05rem}.delivery-perfume-head p{margin:0;color:var(--muted);font-size:.82rem}.delivery-totals{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.delivery-totals span{font-size:.78rem;color:var(--muted);white-space:nowrap}.delivery-totals strong{color:var(--text);font-size:1rem}.delivery-allocations{display:grid}.delivery-allocation{display:flex;gap:12px;padding:14px 18px;border-bottom:1px solid var(--border)}.delivery-allocation:last-child{border-bottom:0}.delivery-allocation.is-delivered{opacity:.62}.delivery-check{width:34px;height:34px;flex:0 0 34px;border-radius:50%;border:1px solid rgba(212,175,55,.55);background:transparent;color:#111;font-weight:800;cursor:pointer}.delivery-allocation.is-delivered .delivery-check{background:#d7b758;color:#111}.delivery-allocation-main{min-width:0;flex:1;display:grid;gap:7px}.delivery-allocation-title{display:flex;justify-content:space-between;gap:12px;align-items:baseline}.delivery-allocation-title span{color:var(--muted);font-size:.83rem}.delivery-note{margin:0;padding:9px 11px;border-radius:10px;background:rgba(212,175,55,.08);font-size:.88rem;line-height:1.35}.delivery-note span{display:block;color:#d7b758;text-transform:uppercase;letter-spacing:.08em;font-size:.65rem;font-weight:700;margin-bottom:3px}.delivery-note.is-empty{background:transparent;padding:0;color:var(--muted);font-style:italic}.delivery-allocation-main small{color:var(--muted);font-size:.72rem}
 @media (max-width:720px){.delivery-cycle-card,.delivery-workspace-head,.delivery-perfume-head,.delivery-allocation-title{align-items:stretch;flex-direction:column}.delivery-cycle-card .btn{width:100%}.delivery-totals{justify-content:flex-start}.delivery-allocation{padding:13px 14px}.delivery-perfume-head{padding:14px}.delivery-toolbar{align-items:stretch}.delivery-toolbar .search-box{width:100%}}
+
+
+/* S14 V1.3 · Pendientes de entrega por persona */
+.delivery-recipient-heading{margin:26px 0 12px}
+.delivery-recipient-heading h3{margin:2px 0 5px;font-size:22px}
+.delivery-recipient-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:22px}
+.delivery-recipient-card{
+  width:100%;display:grid;grid-template-columns:50px minmax(0,1fr) auto;gap:13px;align-items:center;
+  padding:15px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.025);
+  color:var(--text);text-align:left;cursor:pointer;transition:border-color .18s ease,background .18s ease,transform .18s ease
+}
+.delivery-recipient-card:hover,.delivery-recipient-card.is-selected{border-color:rgba(216,179,95,.5);background:rgba(216,179,95,.055);transform:translateY(-1px)}
+.delivery-recipient-icon{display:grid;place-items:center;width:50px;height:50px;border:1px solid rgba(216,179,95,.28);border-radius:15px;background:#0c0e13;color:var(--gold);font-size:10px;font-weight:800;letter-spacing:.04em}
+.delivery-recipient-copy{display:grid;gap:3px;min-width:0}
+.delivery-recipient-copy>strong{font-size:16px}
+.delivery-recipient-copy>small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);font-size:10px}
+.delivery-recipient-copy>span{color:#d7d0c6;font-size:10px;line-height:1.4}
+.delivery-recipient-copy b{color:var(--gold)}
+.delivery-recipient-progress{display:grid;gap:2px;min-width:56px;color:#fff;font-size:15px;font-weight:800;text-align:right}
+.delivery-recipient-progress small{color:var(--muted);font-size:8px;font-weight:500}
+.delivery-recipient-workspace{scroll-margin-top:16px;padding-top:4px}
+.delivery-recipient-workspace-head{display:flex;align-items:flex-start;gap:14px;margin:4px 0 14px;padding-top:18px;border-top:1px solid var(--line)}
+.delivery-recipient-workspace-head h3{margin:2px 0 4px;font-size:24px}
+.delivery-type-switch{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.delivery-type-btn{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:10px 14px;
+  border:1px solid var(--line);border-radius:15px;background:#0b0d12;color:#cbc5ba;font-weight:700
+}
+.delivery-type-btn strong{display:grid;place-items:center;min-width:30px;height:30px;padding:0 7px;border-radius:999px;background:rgba(255,255,255,.05);color:#fff}
+.delivery-type-btn.is-active{border-color:rgba(216,179,95,.55);background:rgba(216,179,95,.09);color:var(--gold)}
+.delivery-type-btn.is-active strong{background:rgba(216,179,95,.16);color:var(--gold)}
+.delivery-allocation.is-warning{border-color:rgba(239,178,71,.42);background:rgba(239,178,71,.05)}
+.delivery-note-warning{color:#e5c27d!important}
+@media(max-width:760px){
+  .delivery-recipient-picker{grid-template-columns:1fr}
+  .delivery-recipient-card{grid-template-columns:46px minmax(0,1fr) auto;padding:13px}
+  .delivery-recipient-icon{width:46px;height:46px}
+  .delivery-recipient-workspace-head{display:grid;grid-template-columns:auto 1fr}
+  .delivery-type-switch{position:sticky;top:0;z-index:5;padding:7px 0;background:var(--bg,#080a0e)}
+}
+@media(max-width:420px){
+  .delivery-recipient-card{grid-template-columns:42px minmax(0,1fr);gap:10px}
+  .delivery-recipient-icon{width:42px;height:42px}
+  .delivery-recipient-progress{grid-column:2;display:flex;gap:5px;align-items:baseline;text-align:left}
+}

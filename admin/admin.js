@@ -34,6 +34,8 @@
     deliveryCycles: [],
     deliveryItems: [],
     selectedDeliveryCycle: null,
+    selectedDeliveryRecipient: null,
+    deliveryType: 'perfumes',
     deliveryFilter: 'pending',
     deliverySearch: ''
   };
@@ -65,7 +67,7 @@
     usersSection: $('#usersSection'), usersSearchInput: $('#usersSearchInput'), usersRoleFilters: $('#usersRoleFilters'), usersCount: $('#usersCount'), usersList: $('#usersList'), newUserBtn: $('#newUserBtn'),
     userAdminModal: $('#userAdminModal'), closeUserAdminModal: $('#closeUserAdminModal'), userAdminForm: $('#userAdminForm'), userAdminId: $('#userAdminId'), userAdminModalTitle: $('#userAdminModalTitle'),
     userFullNameInput: $('#userFullNameInput'), userAliasInput: $('#userAliasInput'), userEmailInput: $('#userEmailInput'), userPhoneInput: $('#userPhoneInput'), userRoleInput: $('#userRoleInput'), userStatusInput: $('#userStatusInput'),
-    userCityInput: $('#userCityInput'), deliveriesSection: $('#deliveriesSection'), deliveriesRefreshBtn: $('#deliveriesRefreshBtn'), deliveryCyclePicker: $('#deliveryCyclePicker'), deliveryWorkspace: $('#deliveryWorkspace'), deliveryCycleTitle: $('#deliveryCycleTitle'), deliveryCycleMeta: $('#deliveryCycleMeta'), deliverySummary: $('#deliverySummary'), deliveryStatusFilters: $('#deliveryStatusFilters'), deliverySearchInput: $('#deliverySearchInput'), deliveryCount: $('#deliveryCount'), deliveryList: $('#deliveryList'), archiveDeliveryCycleBtn: $('#archiveDeliveryCycleBtn'), createPasswordField: $('#createPasswordField'), userPasswordInput: $('#userPasswordInput'), userAdminError: $('#userAdminError'), saveUserAdminBtn: $('#saveUserAdminBtn'),
+    userCityInput: $('#userCityInput'), deliveriesSection: $('#deliveriesSection'), deliveriesRefreshBtn: $('#deliveriesRefreshBtn'), deliveryCyclePicker: $('#deliveryCyclePicker'), deliveryWorkspace: $('#deliveryWorkspace'), deliveryCycleTitle: $('#deliveryCycleTitle'), deliveryCycleMeta: $('#deliveryCycleMeta'), deliverySummary: $('#deliverySummary'), deliveryRecipientPicker: $('#deliveryRecipientPicker'), deliveryRecipientWorkspace: $('#deliveryRecipientWorkspace'), backToDeliveryRecipients: $('#backToDeliveryRecipients'), deliveryRecipientTitle: $('#deliveryRecipientTitle'), deliveryRecipientMeta: $('#deliveryRecipientMeta'), deliveryTypeFilters: $('#deliveryTypeFilters'), deliveryPerfumeTabCount: $('#deliveryPerfumeTabCount'), deliverySampleTabCount: $('#deliverySampleTabCount'), deliveryStatusFilters: $('#deliveryStatusFilters'), deliverySearchInput: $('#deliverySearchInput'), deliveryCount: $('#deliveryCount'), deliveryList: $('#deliveryList'), archiveDeliveryCycleBtn: $('#archiveDeliveryCycleBtn'), createPasswordField: $('#createPasswordField'), userPasswordInput: $('#userPasswordInput'), userAdminError: $('#userAdminError'), saveUserAdminBtn: $('#saveUserAdminBtn'),
     passwordAdminModal: $('#passwordAdminModal'), closePasswordAdminModal: $('#closePasswordAdminModal'), passwordAdminForm: $('#passwordAdminForm'), passwordUserId: $('#passwordUserId'), passwordUserLabel: $('#passwordUserLabel'), passwordNewInput: $('#passwordNewInput'), passwordConfirmInput: $('#passwordConfirmInput'), passwordAdminError: $('#passwordAdminError')
   };
 
@@ -1282,11 +1284,34 @@
     } finally { setLoading(false); }
   }
 
+  function deliveryIsAdminRow(row) {
+    return ['direct_client', 'admin_samples', 'admin_note_review'].includes(String(row.delivery_kind || ''));
+  }
+
+  function deliveryPersonKey(row) {
+    return String(row.distributor_id || row.order_id || '');
+  }
+
+  function deliveryPersonLabel(row) {
+    if (deliveryIsAdminRow(row)) return 'Mi pedido';
+    return row.distributor_alias || row.distributor_name || 'Distribuidor';
+  }
+
   function deliveryVisibleName(row) {
-    return row.delivery_recipient || row.distributor_alias || row.distributor_name || 'Distribuidor';
+    if (row.delivery_kind === 'direct_client') return row.delivery_recipient || row.customer_note || 'Cliente';
+    if (row.delivery_kind === 'admin_note_review') return 'REVISAR NOTA';
+    return deliveryPersonLabel(row);
+  }
+
+  function deliveryIsSample(row) {
+    return Number(row.sample_quantity || 0) > 0 && Number(row.quantity || 0) === 0;
   }
 
   function deliveryMatches(row) {
+    if (!state.selectedDeliveryRecipient) return false;
+    if (deliveryPersonKey(row) !== state.selectedDeliveryRecipient) return false;
+    if (state.deliveryType === 'samples' && !deliveryIsSample(row)) return false;
+    if (state.deliveryType === 'perfumes' && deliveryIsSample(row)) return false;
     if (state.deliveryFilter === 'pending' && row.delivered) return false;
     if (state.deliveryFilter === 'delivered' && !row.delivered) return false;
     const q = state.deliverySearch.trim().toLowerCase();
@@ -1294,72 +1319,171 @@
     return `${row.perfume_name || ''} ${row.perfume_code || ''} ${deliveryVisibleName(row)} ${row.customer_note || ''} ${row.folio || ''}`.toLowerCase().includes(q);
   }
 
-  function renderDeliveryCyclePicker() {
-    const cycles = state.deliveryCycles.filter(c => !c.archived_at);
-    if (!cycles.length) {
-      els.deliveryCyclePicker.innerHTML = '<div class="empty-state">No hay cortes confirmados disponibles para entregas.</div>';
-      els.deliveryWorkspace.hidden = true;
+  function deliveryPersonGroups() {
+    const groups = new Map();
+    for (const row of state.deliveryItems) {
+      const key = deliveryPersonKey(row);
+      if (!key) continue;
+      if (!groups.has(key)) {
+        groups.set(key, {
+          key,
+          label: deliveryPersonLabel(row),
+          isAdmin: deliveryIsAdminRow(row),
+          distributorName: row.distributor_name || '',
+          folios: new Set(),
+          rows: []
+        });
+      }
+      const group = groups.get(key);
+      group.rows.push(row);
+      if (row.folio) group.folios.add(row.folio);
+      if (deliveryIsAdminRow(row)) {
+        group.isAdmin = true;
+        group.label = 'Mi pedido';
+      }
+    }
+    return [...groups.values()].sort((a, b) => {
+      if (a.isAdmin !== b.isAdmin) return a.isAdmin ? -1 : 1;
+      return a.label.localeCompare(b.label, 'es', { sensitivity: 'base' });
+    });
+  }
+
+  function renderDeliveryRecipients() {
+    const groups = deliveryPersonGroups();
+    if (!groups.length) {
+      els.deliveryRecipientPicker.innerHTML = '<div class="empty-state">Este corte no tiene entregas operativas pendientes. Los perfumes de stock de tu cuenta no aparecen aquí.</div>';
+      els.deliveryRecipientWorkspace.hidden = true;
       return;
     }
-    const active = cycles.filter(c => c.activated_at);
-    const inactive = cycles.filter(c => !c.activated_at).slice(0, 12);
-    els.deliveryCyclePicker.innerHTML = `
-      ${active.length ? `<div class="delivery-cycle-group"><h3>En seguimiento</h3>${active.map(c => `
-        <article class="delivery-cycle-card ${state.selectedDeliveryCycle?.cycle_id === c.cycle_id ? 'is-selected' : ''}" data-delivery-cycle="${esc(c.cycle_id)}">
-          <div><strong>${esc(c.cycle_name || 'Corte')}</strong><small>${Number(c.pending_allocations)||0} pendientes · ${Number(c.delivered_allocations)||0} entregadas</small></div>
-          <button class="btn btn-primary" type="button" data-delivery-action="open">Abrir</button>
-        </article>`).join('')}</div>` : ''}
-      ${inactive.length ? `<div class="delivery-cycle-group"><h3>Cortes listos para iniciar</h3>${inactive.map(c => `
-        <article class="delivery-cycle-card" data-delivery-cycle="${esc(c.cycle_id)}">
-          <div><strong>${esc(c.cycle_name || 'Corte')}</strong><small>${Number(c.confirmed_orders)||0} pedidos · ${Number(c.total_perfumes)||0} perfumes · ${Number(c.total_samples)||0} muestras</small></div>
-          <button class="btn btn-ghost" type="button" data-delivery-action="activate">Iniciar entregas</button>
-        </article>`).join('')}</div>` : ''}`;
+
+    els.deliveryRecipientPicker.innerHTML = groups.map(group => {
+      const pending = group.rows.filter(r => !r.delivered);
+      const perfumePending = pending.reduce((sum, r) => sum + Number(r.quantity || 0), 0);
+      const samplePending = pending.reduce((sum, r) => sum + Number(r.sample_quantity || 0), 0);
+      const deliveredCount = group.rows.filter(r => r.delivered).length;
+      const totalCount = group.rows.length;
+      const meta = group.isAdmin
+        ? 'Clientes directos + muestras de tu cuenta'
+        : (group.distributorName && group.distributorName !== group.label ? group.distributorName : 'Distribuidor PRIVÉ');
+      return `<button class="delivery-recipient-card ${state.selectedDeliveryRecipient === group.key ? 'is-selected' : ''}" type="button" data-delivery-recipient="${esc(group.key)}">
+        <span class="delivery-recipient-icon">${group.isAdmin ? 'PRIVÉ' : esc(group.label.slice(0,2).toUpperCase())}</span>
+        <span class="delivery-recipient-copy">
+          <strong>${esc(group.label)}</strong>
+          <small>${esc(meta)}</small>
+          <span><b>${perfumePending}</b> perfumes pendientes · <b>${samplePending}</b> muestras pendientes</span>
+        </span>
+        <span class="delivery-recipient-progress">${deliveredCount}/${totalCount}<small>asignaciones</small></span>
+      </button>`;
+    }).join('');
+  }
+
+  function selectedDeliveryGroup() {
+    return deliveryPersonGroups().find(group => group.key === state.selectedDeliveryRecipient) || null;
+  }
+
+  function renderDeliveryRecipientHeader() {
+    const group = selectedDeliveryGroup();
+    if (!group) {
+      els.deliveryRecipientWorkspace.hidden = true;
+      return;
+    }
+    els.deliveryRecipientWorkspace.hidden = false;
+    els.deliveryRecipientTitle.textContent = group.label;
+    const folios = [...group.folios];
+    els.deliveryRecipientMeta.textContent = `${group.isAdmin ? 'Pedido directo del administrador' : 'Pedido consolidado del distribuidor'}${folios.length ? ` · ${folios.join(', ')}` : ''}`;
+
+    const perfumes = group.rows.reduce((sum, row) => sum + Number(row.quantity || 0), 0);
+    const samples = group.rows.reduce((sum, row) => sum + Number(row.sample_quantity || 0), 0);
+    els.deliveryPerfumeTabCount.textContent = perfumes;
+    els.deliverySampleTabCount.textContent = samples;
+    els.deliveryTypeFilters.querySelectorAll('[data-delivery-type]').forEach(btn => {
+      btn.classList.toggle('is-active', btn.dataset.deliveryType === state.deliveryType);
+    });
   }
 
   function renderDeliveries() {
-    const rows = state.deliveryItems.filter(deliveryMatches);
     const pending = state.deliveryItems.filter(r => !r.delivered);
     const delivered = state.deliveryItems.filter(r => r.delivered);
     const pendingPerfumes = pending.reduce((s,r)=>s+Number(r.quantity||0),0);
     const pendingSamples = pending.reduce((s,r)=>s+Number(r.sample_quantity||0),0);
     els.deliverySummary.innerHTML = [
-      ['Pendientes', pending.length],
+      ['Personas', deliveryPersonGroups().length],
       ['Perfumes pendientes', pendingPerfumes],
       ['Muestras pendientes', pendingSamples],
-      ['Entregadas', delivered.length]
+      ['Asignaciones entregadas', delivered.length]
     ].map(([label,value]) => `<div class="summary-box"><span>${esc(label)}</span><strong>${esc(value)}</strong></div>`).join('');
+
     els.archiveDeliveryCycleBtn.disabled = pending.length !== 0 || state.deliveryItems.length === 0;
-    els.deliveryCount.textContent = `${rows.length} ${rows.length === 1 ? 'asignación' : 'asignaciones'}`;
-    if (!rows.length) {
-      els.deliveryList.innerHTML = `<div class="empty-state">${state.deliveryFilter === 'pending' && !pending.length ? 'No quedan entregas pendientes. Puedes revisar Entregados o archivar este ciclo.' : 'No hay resultados con este filtro.'}</div>`;
+    renderDeliveryRecipients();
+    renderDeliveryRecipientHeader();
+
+    if (!state.selectedDeliveryRecipient) {
+      els.deliveryCount.textContent = '';
+      els.deliveryList.innerHTML = '';
       return;
     }
+
+    const rows = state.deliveryItems.filter(deliveryMatches);
+    const unitLabel = state.deliveryType === 'samples' ? 'muestra' : 'perfume';
+    const units = rows.reduce((sum, row) => sum + (state.deliveryType === 'samples' ? Number(row.sample_quantity || 0) : Number(row.quantity || 0)), 0);
+    els.deliveryCount.textContent = `${rows.length} ${rows.length === 1 ? 'asignación' : 'asignaciones'} · ${units} ${unitLabel}${units === 1 ? '' : 's'}`;
+
+    if (!rows.length) {
+      els.deliveryList.innerHTML = `<div class="empty-state">${state.deliveryFilter === 'pending' ? `No quedan ${state.deliveryType === 'samples' ? 'muestras' : 'perfumes'} pendientes para esta persona.` : 'No hay resultados con este filtro.'}</div>`;
+      return;
+    }
+
     const groups = new Map();
     for (const row of rows) {
       const key = `${row.perfume_id || row.perfume_name}|${row.presentation || ''}`;
       if (!groups.has(key)) groups.set(key, { name: row.perfume_name, code: row.perfume_code, presentation: row.presentation, rows: [] });
       groups.get(key).rows.push(row);
     }
+
     els.deliveryList.innerHTML = [...groups.values()].map(group => {
       const qty = group.rows.reduce((s,r)=>s+Number(r.quantity||0),0);
       const samples = group.rows.reduce((s,r)=>s+Number(r.sample_quantity||0),0);
       const presentation = group.presentation === 'dama' ? 'Dama' : (group.presentation === 'caballero' ? 'Caballero' : '');
+      const total = state.deliveryType === 'samples' ? samples : qty;
       return `<article class="delivery-perfume-card">
         <div class="delivery-perfume-head">
           <div><h3>${esc(group.name || 'Perfume')}</h3><p>${esc(group.code || '')}${presentation ? ` · ${esc(presentation)}` : ''}</p></div>
-          <div class="delivery-totals"><span><strong>${qty}</strong> perfume${qty===1?'':'s'}</span><span><strong>${samples}</strong> muestra${samples===1?'':'s'}</span></div>
+          <div class="delivery-totals"><span><strong>${total}</strong> ${state.deliveryType === 'samples' ? `muestra${total===1?'':'s'}` : `perfume${total===1?'':'s'}`}</span></div>
         </div>
-        <div class="delivery-allocations">${group.rows.map(row => `
-          <div class="delivery-allocation ${row.delivered ? 'is-delivered' : ''}" data-delivery-key="${esc(row.delivery_key)}" data-order-item="${esc(row.order_item_id)}">
+        <div class="delivery-allocations">${group.rows.map(row => {
+          const amount = state.deliveryType === 'samples' ? Number(row.sample_quantity || 0) : Number(row.quantity || 0);
+          const isReview = row.delivery_kind === 'admin_note_review';
+          return `<div class="delivery-allocation ${row.delivered ? 'is-delivered' : ''} ${isReview ? 'is-warning' : ''}" data-delivery-key="${esc(row.delivery_key)}" data-order-item="${esc(row.order_item_id)}">
             <button class="delivery-check" type="button" data-delivery-toggle="${row.delivered ? 'pending' : 'delivered'}" aria-label="${row.delivered ? 'Marcar pendiente' : 'Marcar entregado'}">${row.delivered ? '✓' : ''}</button>
             <div class="delivery-allocation-main">
-              <div class="delivery-allocation-title"><strong>${esc(deliveryVisibleName(row))}</strong><span>${Number(row.quantity)||0} perfume${Number(row.quantity)===1?'':'s'} · ${Number(row.sample_quantity)||0} muestra${Number(row.sample_quantity)===1?'':'s'}</span></div>
-              ${row.delivery_kind === 'direct_client' ? '<p class="delivery-note"><span>Cliente directo</span>Pedido de administrador</p>' : (row.delivery_kind === 'admin_samples' ? '<p class="delivery-note"><span>Muestras</span>Control independiente del pedido directo</p>' : (row.customer_note ? `<p class="delivery-note"><span>Cliente / nota</span>${esc(row.customer_note)}</p>` : ''))}
+              <div class="delivery-allocation-title"><strong>${esc(deliveryVisibleName(row))}</strong><span>${amount} ${state.deliveryType === 'samples' ? `muestra${amount===1?'':'s'}` : `perfume${amount===1?'':'s'}`}</span></div>
+              ${row.delivery_kind === 'direct_client' ? '<p class="delivery-note"><span>Cliente directo</span>Entrega personal</p>' : ''}
+              ${row.delivery_kind === 'admin_note_review' ? `<p class="delivery-note delivery-note-warning"><span>Revisar captura</span>La cantidad indicada en la nota supera los perfumes de esta línea: ${esc(row.customer_note || '')}</p>` : ''}
               <small>${esc(row.folio || '')}${row.delivered_at ? ` · Entregado ${esc(formatDateTime(row.delivered_at))}` : ''}</small>
             </div>
-          </div>`).join('')}</div>
+          </div>`;
+        }).join('')}</div>
       </article>`;
     }).join('');
+  }
+
+  function openDeliveryRecipient(recipientKey) {
+    state.selectedDeliveryRecipient = recipientKey;
+    state.deliveryType = 'perfumes';
+    state.deliveryFilter = 'pending';
+    state.deliverySearch = '';
+    els.deliverySearchInput.value = '';
+    els.deliveryStatusFilters.querySelectorAll('[data-delivery-filter]').forEach(btn => btn.classList.toggle('is-active', btn.dataset.deliveryFilter === 'pending'));
+    renderDeliveries();
+    els.deliveryRecipientWorkspace.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function backToDeliveryRecipients() {
+    state.selectedDeliveryRecipient = null;
+    state.deliverySearch = '';
+    els.deliverySearchInput.value = '';
+    renderDeliveries();
+    els.deliveryRecipientPicker.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   async function loadDeliveryCycles(force = false) {
@@ -1382,6 +1506,11 @@
     setLoading(true, 'Cargando pendientes…');
     try {
       state.deliveryItems = await rpc('admin_get_delivery_items', { p_cycle_id: cycleId });
+      state.selectedDeliveryRecipient = null;
+      state.deliveryType = 'perfumes';
+      state.deliveryFilter = 'pending';
+      state.deliverySearch = '';
+      els.deliverySearchInput.value = '';
       els.deliveryWorkspace.hidden = false;
       els.deliveryCycleTitle.textContent = cycle.cycle_name || 'Entregas';
       els.deliveryCycleMeta.textContent = `${Number(cycle.confirmed_orders)||0} pedidos confirmados · seguimiento iniciado ${cycle.activated_at ? formatDateTime(cycle.activated_at) : ''}`;
@@ -1429,6 +1558,7 @@
     try {
       await rpc('admin_archive_delivery_cycle', { p_cycle_id: cycleId });
       state.selectedDeliveryCycle = null;
+      state.selectedDeliveryRecipient = null;
       state.deliveryItems = [];
       state.deliveryCycles = [];
       els.deliveryWorkspace.hidden = true;
@@ -1767,6 +1897,18 @@
     if (!cycleId) return;
     if (btn.dataset.deliveryAction === 'activate') activateDeliveryCycle(cycleId).catch(error => toast(friendlyNetworkError(error).message, true));
     if (btn.dataset.deliveryAction === 'open') openDeliveryCycle(cycleId).catch(error => toast(friendlyNetworkError(error).message, true));
+  });
+  els.deliveryRecipientPicker.addEventListener('click', event => {
+    const btn = event.target.closest('[data-delivery-recipient]');
+    if (!btn) return;
+    openDeliveryRecipient(btn.dataset.deliveryRecipient);
+  });
+  els.backToDeliveryRecipients.addEventListener('click', backToDeliveryRecipients);
+  els.deliveryTypeFilters.addEventListener('click', event => {
+    const btn = event.target.closest('[data-delivery-type]');
+    if (!btn) return;
+    state.deliveryType = btn.dataset.deliveryType;
+    renderDeliveries();
   });
   els.deliveryStatusFilters.addEventListener('click', event => {
     const btn = event.target.closest('[data-delivery-filter]');

@@ -1,3 +1,21 @@
+# S14 V1.3 · Entregas por persona, stock y mobile
+
+- Pendientes de entrega: selección por persona/pedido.
+- Perfumes y muestras separados.
+- Admin: notas `NOMBRE (cantidad)`; sobrante sin cliente = stock y no aparece en pendientes.
+- Distribuidores: entrega consolidada, sin exponer/desglosar sus notas de clientes.
+- Mobile: carrito centrado con icono.
+- Mobile: modales de editar/otra asignación/reconfirmar quedan por encima del resumen.
+- No incluye prioridad Frank/Robert.
+
+# S14 V1.2 · Reconfirmación al siguiente corte
+
+- Corrige la reconfirmación de pedidos `reopened` cuyo corte original ya cerró.
+- El mismo pedido se reasigna al próximo corte activo.
+- Conserva folio, líneas y notas.
+- Limpia únicamente seguimiento logístico temporal si hubo cambio de corte.
+- Sin cambios de frontend ni Edge Functions.
+
 # S14 V1.1 · Entregas por cliente solo para pedidos del admin
 
 - Distribuidores: entrega consolidada; las notas de sus clientes no dividen la logística del admin.

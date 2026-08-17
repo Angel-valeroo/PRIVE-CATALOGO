@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./admin.css?v=1.9">
+  <link rel="stylesheet" href="./admin.css?v=2.0">
 </head>
 <body>
   <main class="admin-shell">
@@ -187,19 +187,49 @@
             </div>
           </div>
           <div id="deliverySummary" class="detail-summary"></div>
-          <div class="toolbar delivery-toolbar">
-            <div class="filters" id="deliveryStatusFilters" role="group" aria-label="Filtrar entregas">
-              <button class="filter-pill is-active" type="button" data-delivery-filter="pending">Pendientes</button>
-              <button class="filter-pill" type="button" data-delivery-filter="delivered">Entregados</button>
-              <button class="filter-pill" type="button" data-delivery-filter="all">Todos</button>
+
+          <div class="delivery-recipient-heading">
+            <div>
+              <p class="eyebrow">¿A QUIÉN VAS A ENTREGAR?</p>
+              <h3>Selecciona un pedido</h3>
+              <p class="muted">Cada persona se muestra por separado para que durante la entrega solo veas lo que le corresponde.</p>
             </div>
-            <label class="search-box">
-              <span class="sr-only">Buscar en entregas</span>
-              <input id="deliverySearchInput" type="search" placeholder="Perfume, distribuidor o cliente…" autocomplete="off">
-            </label>
           </div>
-          <p id="deliveryCount" class="results-count"></p>
-          <div id="deliveryList" class="delivery-list"></div>
+          <div id="deliveryRecipientPicker" class="delivery-recipient-picker"></div>
+
+          <div id="deliveryRecipientWorkspace" class="delivery-recipient-workspace" hidden>
+            <div class="delivery-recipient-workspace-head">
+              <button id="backToDeliveryRecipients" class="back-button" type="button">← Pedidos</button>
+              <div>
+                <p class="eyebrow">ENTREGA ACTUAL</p>
+                <h3 id="deliveryRecipientTitle">Pedido</h3>
+                <p id="deliveryRecipientMeta" class="muted"></p>
+              </div>
+            </div>
+
+            <div class="delivery-type-switch" id="deliveryTypeFilters" role="group" aria-label="Separar perfumes y muestras">
+              <button class="delivery-type-btn is-active" type="button" data-delivery-type="perfumes">
+                <span>Perfumes</span><strong id="deliveryPerfumeTabCount">0</strong>
+              </button>
+              <button class="delivery-type-btn" type="button" data-delivery-type="samples">
+                <span>Muestras</span><strong id="deliverySampleTabCount">0</strong>
+              </button>
+            </div>
+
+            <div class="toolbar delivery-toolbar">
+              <div class="filters" id="deliveryStatusFilters" role="group" aria-label="Filtrar entregas">
+                <button class="filter-pill is-active" type="button" data-delivery-filter="pending">Pendientes</button>
+                <button class="filter-pill" type="button" data-delivery-filter="delivered">Entregados</button>
+                <button class="filter-pill" type="button" data-delivery-filter="all">Todos</button>
+              </div>
+              <label class="search-box">
+                <span class="sr-only">Buscar en esta entrega</span>
+                <input id="deliverySearchInput" type="search" placeholder="Buscar perfume o cliente…" autocomplete="off">
+              </label>
+            </div>
+            <p id="deliveryCount" class="results-count"></p>
+            <div id="deliveryList" class="delivery-list"></div>
+          </div>
         </div>
       </section>
 
@@ -371,6 +401,6 @@
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
     <div id="loadingLayer" class="loading-layer" hidden><div class="spinner"></div><span>Procesando…</span></div>
   </main>
-  <script src="./admin.js?v=2.1" defer></script>
+  <script src="./admin.js?v=2.2" defer></script>
 </body>
 </html>
