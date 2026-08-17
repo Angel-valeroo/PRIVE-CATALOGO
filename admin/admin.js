@@ -1283,7 +1283,7 @@
   }
 
   function deliveryVisibleName(row) {
-    return row.distributor_alias || row.distributor_name || 'Distribuidor';
+    return row.delivery_recipient || row.distributor_alias || row.distributor_name || 'Distribuidor';
   }
 
   function deliveryMatches(row) {
@@ -1350,11 +1350,11 @@
           <div class="delivery-totals"><span><strong>${qty}</strong> perfume${qty===1?'':'s'}</span><span><strong>${samples}</strong> muestra${samples===1?'':'s'}</span></div>
         </div>
         <div class="delivery-allocations">${group.rows.map(row => `
-          <div class="delivery-allocation ${row.delivered ? 'is-delivered' : ''}" data-delivery-item="${esc(row.order_item_id)}">
+          <div class="delivery-allocation ${row.delivered ? 'is-delivered' : ''}" data-delivery-key="${esc(row.delivery_key)}" data-order-item="${esc(row.order_item_id)}">
             <button class="delivery-check" type="button" data-delivery-toggle="${row.delivered ? 'pending' : 'delivered'}" aria-label="${row.delivered ? 'Marcar pendiente' : 'Marcar entregado'}">${row.delivered ? '✓' : ''}</button>
             <div class="delivery-allocation-main">
               <div class="delivery-allocation-title"><strong>${esc(deliveryVisibleName(row))}</strong><span>${Number(row.quantity)||0} perfume${Number(row.quantity)===1?'':'s'} · ${Number(row.sample_quantity)||0} muestra${Number(row.sample_quantity)===1?'':'s'}</span></div>
-              ${row.customer_note ? `<p class="delivery-note"><span>Cliente / nota</span>${esc(row.customer_note)}</p>` : '<p class="delivery-note is-empty">Sin nota de cliente</p>'}
+              ${row.delivery_kind === 'direct_client' ? '<p class="delivery-note"><span>Cliente directo</span>Pedido de administrador</p>' : (row.delivery_kind === 'admin_samples' ? '<p class="delivery-note"><span>Muestras</span>Control independiente del pedido directo</p>' : (row.customer_note ? `<p class="delivery-note"><span>Cliente / nota</span>${esc(row.customer_note)}</p>` : ''))}
               <small>${esc(row.folio || '')}${row.delivered_at ? ` · Entregado ${esc(formatDateTime(row.delivered_at))}` : ''}</small>
             </div>
           </div>`).join('')}</div>
@@ -1402,11 +1402,11 @@
     } finally { setLoading(false); }
   }
 
-  async function setDeliveryItem(itemId, delivered) {
+  async function setDeliveryItem(deliveryKey, orderItemId, delivered) {
     setLoading(true, delivered ? 'Marcando entregado…' : 'Regresando a pendientes…');
     try {
-      await rpc('admin_set_delivery_item', { p_order_item_id: itemId, p_delivered: delivered });
-      const row = state.deliveryItems.find(r => r.order_item_id === itemId);
+      await rpc('admin_set_delivery_item', { p_delivery_key: deliveryKey, p_order_item_id: orderItemId, p_delivered: delivered });
+      const row = state.deliveryItems.find(r => r.delivery_key === deliveryKey);
       if (row) { row.delivered = delivered; row.delivered_at = delivered ? new Date().toISOString() : null; }
       renderDeliveries();
       state.deliveryCycles = [];
@@ -1779,9 +1779,11 @@
   els.deliveryList.addEventListener('click', event => {
     const btn = event.target.closest('[data-delivery-toggle]');
     if (!btn) return;
-    const itemId = btn.closest('[data-delivery-item]')?.dataset.deliveryItem;
-    if (!itemId) return;
-    setDeliveryItem(itemId, btn.dataset.deliveryToggle === 'delivered').catch(error => toast(friendlyNetworkError(error).message, true));
+    const allocation = btn.closest('[data-delivery-key]');
+    const deliveryKey = allocation?.dataset.deliveryKey;
+    const orderItemId = allocation?.dataset.orderItem;
+    if (!deliveryKey || !orderItemId) return;
+    setDeliveryItem(deliveryKey, orderItemId, btn.dataset.deliveryToggle === 'delivered').catch(error => toast(friendlyNetworkError(error).message, true));
   });
   els.archiveDeliveryCycleBtn.addEventListener('click', () => archiveDeliveryCycle().catch(error => toast(friendlyNetworkError(error).message, true)));
 

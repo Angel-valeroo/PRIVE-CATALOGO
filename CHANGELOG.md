@@ -1,3 +1,11 @@
+# S14 V1.1 · Entregas por cliente solo para pedidos del admin
+
+- Distribuidores: entrega consolidada; las notas de sus clientes no dividen la logística del admin.
+- Admin: una línea con cantidad N y N nombres separados por coma se divide en N entregas independientes.
+- `delivery_items` ahora guarda marcas por `assignment_key` y no solo por `order_item_id`.
+- Las muestras de líneas admin divididas quedan en una asignación separada para evitar asociaciones incorrectas.
+- Se conserva historial original de pedidos y notas.
+
 # S14 V1 · Pendientes de entrega
 
 - Nuevo módulo admin para seguimiento persistente de entregas por corte.
