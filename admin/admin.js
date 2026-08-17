@@ -1348,6 +1348,36 @@
     });
   }
 
+  function renderDeliveryCyclePicker() {
+    const cycles = state.deliveryCycles.filter(c => !c.archived_at);
+    if (!cycles.length) {
+      els.deliveryCyclePicker.innerHTML = '<div class="empty-state">No hay cortes confirmados disponibles para entregas.</div>';
+      els.deliveryWorkspace.hidden = true;
+      return;
+    }
+
+    const active = cycles.filter(c => c.activated_at);
+    const inactive = cycles.filter(c => !c.activated_at).slice(0, 12);
+
+    els.deliveryCyclePicker.innerHTML = `
+      ${active.length ? `<div class="delivery-cycle-group"><h3>En seguimiento</h3>${active.map(c => `
+        <article class="delivery-cycle-card ${state.selectedDeliveryCycle?.cycle_id === c.cycle_id ? 'is-selected' : ''}" data-delivery-cycle="${esc(c.cycle_id)}">
+          <div>
+            <strong>${esc(c.cycle_name || 'Corte')}</strong>
+            <small>${Number(c.pending_allocations)||0} pendientes · ${Number(c.delivered_allocations)||0} entregadas</small>
+          </div>
+          <button class="btn btn-primary" type="button" data-delivery-action="open">Abrir</button>
+        </article>`).join('')}</div>` : ''}
+      ${inactive.length ? `<div class="delivery-cycle-group"><h3>Cortes listos para iniciar</h3>${inactive.map(c => `
+        <article class="delivery-cycle-card" data-delivery-cycle="${esc(c.cycle_id)}">
+          <div>
+            <strong>${esc(c.cycle_name || 'Corte')}</strong>
+            <small>${Number(c.confirmed_orders)||0} pedidos · ${Number(c.total_perfumes)||0} perfumes · ${Number(c.total_samples)||0} muestras</small>
+          </div>
+          <button class="btn btn-ghost" type="button" data-delivery-action="activate">Iniciar entregas</button>
+        </article>`).join('')}</div>` : ''}`;
+  }
+
   function renderDeliveryRecipients() {
     const groups = deliveryPersonGroups();
     if (!groups.length) {
