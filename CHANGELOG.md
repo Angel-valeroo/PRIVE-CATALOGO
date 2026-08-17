@@ -1,3 +1,11 @@
+# S13 · Usuarios V1
+
+- Módulo Usuarios en Panel Admin.
+- Edge Function `admin-users` para gestión segura de Auth/profiles.
+- Alta, edición, estado, rol, distribuidor y cambio de contraseña.
+- Preparación SQL idempotente para `inactive` y protección de privilegios.
+- Mobile-first.
+
 # S12 V4 · V6.1 · Halo adaptativo
 
 - Segunda pasada adaptativa solo para imágenes con contaminación blanca residual.

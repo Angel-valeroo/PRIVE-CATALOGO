@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./admin.css?v=1.7">
+  <link rel="stylesheet" href="./admin.css?v=1.8">
 </head>
 <body>
   <main class="admin-shell">
@@ -63,6 +63,7 @@
         <button class="nav-pill is-active" type="button" data-panel-view="cycles">Cortes</button>
         <button class="nav-pill" type="button" data-panel-view="history">Historial</button>
         <button class="nav-pill" type="button" data-panel-view="catalog">Catálogo</button>
+        <button class="nav-pill" type="button" data-panel-view="users">Usuarios</button>
       </nav>
 
       <section id="cyclesSection" class="panel-section">
@@ -136,6 +137,32 @@
         </div>
         <p id="catalogAdminCount" class="results-count"></p>
         <div id="catalogAdminList" class="catalog-admin-grid"></div>
+      </section>
+
+
+      <section id="usersSection" class="panel-section" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">ACCESOS</p>
+            <h2>Usuarios</h2>
+            <p class="muted">Crea y administra cuentas del Portal PRIVÉ. Las credenciales se gestionan mediante backend seguro.</p>
+          </div>
+          <button id="newUserBtn" class="btn btn-primary" type="button">+ Nueva cuenta</button>
+        </div>
+        <div class="users-toolbar">
+          <label class="search-box search-box-wide">
+            <span class="sr-only">Buscar usuarios</span>
+            <input id="usersSearchInput" type="search" placeholder="Buscar nombre, alias, correo o ciudad…" autocomplete="off">
+          </label>
+          <div class="filters" id="usersRoleFilters" role="group" aria-label="Filtrar usuarios">
+            <button class="filter-pill is-active" type="button" data-users-filter="all">Todos</button>
+            <button class="filter-pill" type="button" data-users-filter="reseller">Revendedores</button>
+            <button class="filter-pill" type="button" data-users-filter="distributor">Distribuidores</button>
+            <button class="filter-pill" type="button" data-users-filter="inactive">Inactivos</button>
+          </div>
+        </div>
+        <p id="usersCount" class="results-count"></p>
+        <div id="usersList" class="users-admin-grid"></div>
       </section>
 
       <section id="ordersSection" class="panel-section" hidden>
@@ -253,9 +280,61 @@
       </section>
     </div>
 
+
+    <div id="userAdminModal" class="admin-modal" hidden>
+      <div class="admin-modal-backdrop" data-close-user-modal></div>
+      <section class="admin-modal-card" role="dialog" aria-modal="true" aria-labelledby="userAdminModalTitle">
+        <div class="admin-modal-head">
+          <div><p class="eyebrow">PORTAL PRIVÉ</p><h2 id="userAdminModalTitle">Nueva cuenta</h2></div>
+          <button id="closeUserAdminModal" class="modal-close" type="button" aria-label="Cerrar">×</button>
+        </div>
+        <form id="userAdminForm" class="perfume-admin-form">
+          <input id="userAdminId" type="hidden">
+          <div class="form-grid">
+            <label><span>Nombre completo</span><input id="userFullNameInput" type="text" maxlength="160" required autocomplete="off"></label>
+            <label><span>Alias</span><input id="userAliasInput" type="text" maxlength="100" autocomplete="off"></label>
+            <label><span>Correo</span><input id="userEmailInput" type="email" required autocomplete="off"></label>
+            <label><span>Teléfono</span><input id="userPhoneInput" type="tel" maxlength="40" autocomplete="off"></label>
+            <label><span>Rol</span><select id="userRoleInput" required><option value="reseller">Revendedor</option><option value="distributor">Distribuidor</option><option value="admin">Administrador</option></select></label>
+            <label><span>Estado</span><select id="userStatusInput" required><option value="active">Activo</option><option value="inactive">Inactivo</option></select></label>
+            <label id="parentDistributorField"><span>Distribuidor asignado</span><select id="userParentDistributorInput"><option value="">Sin distribuidor</option></select></label>
+            <label><span>Ciudad</span><input id="userCityInput" type="text" maxlength="120" autocomplete="off"></label>
+            <label><span>Instagram</span><input id="userInstagramInput" type="url" maxlength="220" placeholder="https://instagram.com/..." autocomplete="off"></label>
+            <label id="createPasswordField"><span>Contraseña temporal</span><input id="userPasswordInput" type="password" minlength="8" autocomplete="new-password"><small>Mínimo 8 caracteres. Solo se solicita al crear la cuenta.</small></label>
+          </div>
+          <p id="userAdminError" class="form-error" role="alert"></p>
+          <div class="admin-modal-actions">
+            <button class="btn btn-ghost" type="button" data-close-user-modal>Cancelar</button>
+            <button id="saveUserAdminBtn" class="btn btn-primary" type="submit">Crear cuenta</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <div id="passwordAdminModal" class="admin-modal" hidden>
+      <div class="admin-modal-backdrop" data-close-password-modal></div>
+      <section class="admin-modal-card admin-modal-card-small" role="dialog" aria-modal="true" aria-labelledby="passwordAdminModalTitle">
+        <div class="admin-modal-head">
+          <div><p class="eyebrow">SEGURIDAD</p><h2 id="passwordAdminModalTitle">Cambiar contraseña</h2></div>
+          <button id="closePasswordAdminModal" class="modal-close" type="button" aria-label="Cerrar">×</button>
+        </div>
+        <form id="passwordAdminForm" class="perfume-admin-form">
+          <input id="passwordUserId" type="hidden">
+          <p id="passwordUserLabel" class="muted"></p>
+          <label><span>Nueva contraseña</span><input id="passwordNewInput" type="password" minlength="8" required autocomplete="new-password"></label>
+          <label><span>Confirmar contraseña</span><input id="passwordConfirmInput" type="password" minlength="8" required autocomplete="new-password"></label>
+          <p id="passwordAdminError" class="form-error" role="alert"></p>
+          <div class="admin-modal-actions">
+            <button class="btn btn-ghost" type="button" data-close-password-modal>Cancelar</button>
+            <button class="btn btn-primary" type="submit">Actualizar contraseña</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
     <div id="loadingLayer" class="loading-layer" hidden><div class="spinner"></div><span>Procesando…</span></div>
   </main>
-  <script src="./admin.js?v=2.0" defer></script>
+  <script src="./admin.js?v=2.1" defer></script>
 </body>
 </html>

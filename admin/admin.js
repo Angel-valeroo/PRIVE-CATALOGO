@@ -27,7 +27,10 @@
     removeExistingPerfumeImage: false,
     lastFragranticaImageUrl: null,
     categoryManuallyEdited: false,
-    lastAutoCategoryPrefix: null
+    lastAutoCategoryPrefix: null,
+    users: [],
+    usersSearch: '',
+    usersFilter: 'all'
   };
 
   const $ = selector => document.querySelector(selector);
@@ -53,7 +56,12 @@
     perfumeImagePasteHint: $('#perfumeImagePasteHint'), perfumeImageFilename: $('#perfumeImageFilename'), perfumeImagePreviewWrap: $('#perfumeImagePreviewWrap'),
     perfumeImagePreview: $('#perfumeImagePreview'), perfumeImagePreviewTitle: $('#perfumeImagePreviewTitle'), perfumeImagePreviewHint: $('#perfumeImagePreviewHint'),
     restoreFragranticaImageBtn: $('#restoreFragranticaImageBtn'), removePerfumeImageBtn: $('#removePerfumeImageBtn'),
-    perfumeAdminModalTitle: $('#perfumeAdminModalTitle'), perfumeAdminError: $('#perfumeAdminError'), savePerfumeAdminBtn: $('#savePerfumeAdminBtn')
+    perfumeAdminModalTitle: $('#perfumeAdminModalTitle'), perfumeAdminError: $('#perfumeAdminError'), savePerfumeAdminBtn: $('#savePerfumeAdminBtn'),
+    usersSection: $('#usersSection'), usersSearchInput: $('#usersSearchInput'), usersRoleFilters: $('#usersRoleFilters'), usersCount: $('#usersCount'), usersList: $('#usersList'), newUserBtn: $('#newUserBtn'),
+    userAdminModal: $('#userAdminModal'), closeUserAdminModal: $('#closeUserAdminModal'), userAdminForm: $('#userAdminForm'), userAdminId: $('#userAdminId'), userAdminModalTitle: $('#userAdminModalTitle'),
+    userFullNameInput: $('#userFullNameInput'), userAliasInput: $('#userAliasInput'), userEmailInput: $('#userEmailInput'), userPhoneInput: $('#userPhoneInput'), userRoleInput: $('#userRoleInput'), userStatusInput: $('#userStatusInput'),
+    parentDistributorField: $('#parentDistributorField'), userParentDistributorInput: $('#userParentDistributorInput'), userCityInput: $('#userCityInput'), userInstagramInput: $('#userInstagramInput'), createPasswordField: $('#createPasswordField'), userPasswordInput: $('#userPasswordInput'), userAdminError: $('#userAdminError'), saveUserAdminBtn: $('#saveUserAdminBtn'),
+    passwordAdminModal: $('#passwordAdminModal'), closePasswordAdminModal: $('#closePasswordAdminModal'), passwordAdminForm: $('#passwordAdminForm'), passwordUserId: $('#passwordUserId'), passwordUserLabel: $('#passwordUserLabel'), passwordNewInput: $('#passwordNewInput'), passwordConfirmInput: $('#passwordConfirmInput'), passwordAdminError: $('#passwordAdminError')
   };
 
   const safeJson = value => { try { return JSON.parse(value); } catch { return null; } };
@@ -208,6 +216,7 @@
     els.cyclesSection.hidden = name !== 'cycles';
     els.historySection.hidden = name !== 'history';
     els.catalogSection.hidden = name !== 'catalog';
+    els.usersSection.hidden = name !== 'users';
     els.ordersSection.hidden = name !== 'orders';
     els.detailSection.hidden = name !== 'detail';
     document.querySelectorAll('[data-panel-view]').forEach(button => {
@@ -1124,6 +1133,167 @@
     } finally { setLoading(false); }
   }
 
+
+  function roleLabel(role) {
+    if (role === 'admin') return 'ADMIN';
+    if (role === 'distributor') return 'DISTRIBUIDOR';
+    return 'REVENDEDOR';
+  }
+
+  function userStatusLabel(status) { return status === 'active' ? 'ACTIVO' : 'INACTIVO'; }
+
+  function userMatches(item) {
+    const query = normalizeSearch(state.usersSearch);
+    if (state.usersFilter === 'inactive' && item.status === 'active') return false;
+    if (['reseller','distributor'].includes(state.usersFilter) && item.role !== state.usersFilter) return false;
+    if (!query) return true;
+    const haystack = normalizeSearch(`${item.full_name || ''} ${item.alias || ''} ${item.email || ''} ${item.phone || ''} ${item.city || ''}`);
+    return searchTokens(query).every(token => haystack.includes(token));
+  }
+
+  function renderUsers() {
+    const rows = state.users.filter(userMatches);
+    els.usersCount.textContent = `${rows.length} ${rows.length === 1 ? 'usuario' : 'usuarios'}`;
+    if (!rows.length) {
+      els.usersList.innerHTML = '<div class="empty-state">No hay usuarios que coincidan con este filtro.</div>';
+      return;
+    }
+    const distributors = new Map(state.users.filter(u => u.role === 'distributor').map(u => [u.id, u.alias || u.full_name || 'Distribuidor']));
+    els.usersList.innerHTML = rows.map(item => `
+      <article class="user-admin-card" data-user-id="${esc(item.id)}">
+        <div class="user-admin-head">
+          <div><h3>${esc(item.alias || item.full_name || 'Usuario')}</h3><p class="user-admin-email">${esc(item.email || 'Sin correo Auth')}</p></div>
+          <div class="catalog-admin-badges"><span class="status-pill status-role-${esc(item.role)}">${roleLabel(item.role)}</span><span class="status-pill ${item.status === 'active' ? 'status-user-active' : 'status-user-inactive'}">${userStatusLabel(item.status)}</span></div>
+        </div>
+        <div class="user-admin-meta">
+          <div><span>Nombre</span><strong>${esc(item.full_name || '—')}</strong></div>
+          <div><span>Teléfono</span><strong>${esc(item.phone || '—')}</strong></div>
+          <div><span>Ciudad</span><strong>${esc(item.city || '—')}</strong></div>
+          <div><span>Distribuidor</span><strong>${esc(item.parent_distributor_id ? (distributors.get(item.parent_distributor_id) || 'Asignado') : '—')}</strong></div>
+          <div><span>Último acceso</span><strong>${esc(formatDateTime(item.last_sign_in_at))}</strong></div>
+          <div><span>Alta</span><strong>${esc(formatDate(item.created_at || item.auth_created_at))}</strong></div>
+        </div>
+        <div class="user-admin-actions">
+          <button class="btn btn-primary" type="button" data-user-action="edit">Editar</button>
+          <button class="btn btn-ghost" type="button" data-user-action="password">Contraseña</button>
+        </div>
+      </article>`).join('');
+  }
+
+  async function loadUsers({ quiet = false } = {}) {
+    if (!quiet) setLoading(true, 'Cargando usuarios…');
+    try {
+      const response = await edgeFunction('admin-users', { action: 'list' });
+      state.users = Array.isArray(response?.data) ? response.data : [];
+      renderUsers();
+    } finally { if (!quiet) setLoading(false); }
+  }
+
+  function populateDistributorOptions(selected = '') {
+    const distributors = state.users.filter(u => u.role === 'distributor' && u.status === 'active');
+    els.userParentDistributorInput.innerHTML = '<option value="">Sin distribuidor</option>' + distributors.map(u => `<option value="${esc(u.id)}">${esc(u.alias || u.full_name || u.email || 'Distribuidor')}</option>`).join('');
+    els.userParentDistributorInput.value = selected || '';
+  }
+
+  function syncParentDistributorField() {
+    const reseller = els.userRoleInput.value === 'reseller';
+    els.parentDistributorField.hidden = !reseller;
+    if (!reseller) els.userParentDistributorInput.value = '';
+  }
+
+  function closeUserModal() { els.userAdminModal.hidden = true; els.userAdminForm.reset(); els.userAdminError.textContent = ''; }
+
+  function openUserModal(item = null) {
+    els.userAdminForm.reset();
+    els.userAdminError.textContent = '';
+    const editing = Boolean(item);
+    els.userAdminId.value = item?.id || '';
+    els.userAdminModalTitle.textContent = editing ? 'Editar usuario' : 'Nueva cuenta';
+    els.saveUserAdminBtn.textContent = editing ? 'Guardar cambios' : 'Crear cuenta';
+    els.createPasswordField.hidden = editing;
+    els.userPasswordInput.required = !editing;
+    els.userFullNameInput.value = item?.full_name || '';
+    els.userAliasInput.value = item?.alias || '';
+    els.userEmailInput.value = item?.email || '';
+    els.userPhoneInput.value = item?.phone || '';
+    els.userRoleInput.value = item?.role || 'reseller';
+    els.userStatusInput.value = item?.status || 'active';
+    els.userCityInput.value = item?.city || '';
+    els.userInstagramInput.value = item?.instagram_url || '';
+    populateDistributorOptions(item?.parent_distributor_id || '');
+    syncParentDistributorField();
+    els.userAdminModal.hidden = false;
+    setTimeout(() => els.userFullNameInput.focus(), 50);
+  }
+
+  function userFormPayload() {
+    return {
+      id: els.userAdminId.value || undefined,
+      full_name: els.userFullNameInput.value,
+      alias: els.userAliasInput.value,
+      email: els.userEmailInput.value,
+      phone: els.userPhoneInput.value,
+      role: els.userRoleInput.value,
+      status: els.userStatusInput.value,
+      parent_distributor_id: els.userRoleInput.value === 'reseller' ? els.userParentDistributorInput.value : null,
+      city: els.userCityInput.value,
+      instagram_url: els.userInstagramInput.value,
+      password: els.userAdminId.value ? undefined : els.userPasswordInput.value
+    };
+  }
+
+  async function saveUser(event) {
+    event.preventDefault();
+    els.userAdminError.textContent = '';
+    const editing = Boolean(els.userAdminId.value);
+    const payload = userFormPayload();
+    if (payload.role === 'admin' && !window.confirm('Estás asignando acceso de ADMINISTRADOR. ¿Confirmas este rol?')) return;
+    setLoading(true, editing ? 'Guardando usuario…' : 'Creando cuenta…');
+    try {
+      await edgeFunction('admin-users', { action: editing ? 'update' : 'create', ...payload });
+      closeUserModal();
+      await loadUsers({ quiet: true });
+      toast(editing ? 'Usuario actualizado.' : 'Cuenta creada correctamente.');
+    } catch (error) {
+      els.userAdminError.textContent = friendlyNetworkError(error).message;
+      toast(els.userAdminError.textContent, true);
+    } finally { setLoading(false); }
+  }
+
+  function closePasswordModal() { els.passwordAdminModal.hidden = true; els.passwordAdminForm.reset(); els.passwordAdminError.textContent = ''; }
+
+  function openPasswordModal(item) {
+    els.passwordAdminForm.reset();
+    els.passwordAdminError.textContent = '';
+    els.passwordUserId.value = item.id;
+    els.passwordUserLabel.textContent = `${item.alias || item.full_name || 'Usuario'} · ${item.email || ''}`;
+    els.passwordAdminModal.hidden = false;
+    setTimeout(() => els.passwordNewInput.focus(), 50);
+  }
+
+  async function savePassword(event) {
+    event.preventDefault();
+    els.passwordAdminError.textContent = '';
+    if (els.passwordNewInput.value !== els.passwordConfirmInput.value) {
+      els.passwordAdminError.textContent = 'Las contraseñas no coinciden.';
+      return;
+    }
+    if (els.passwordNewInput.value.length < 8) {
+      els.passwordAdminError.textContent = 'La contraseña debe tener al menos 8 caracteres.';
+      return;
+    }
+    if (!window.confirm('¿Actualizar la contraseña de esta cuenta?')) return;
+    setLoading(true, 'Actualizando contraseña…');
+    try {
+      await edgeFunction('admin-users', { action: 'reset_password', id: els.passwordUserId.value, password: els.passwordNewInput.value });
+      closePasswordModal();
+      toast('Contraseña actualizada correctamente.');
+    } catch (error) {
+      els.passwordAdminError.textContent = friendlyNetworkError(error).message;
+      toast(els.passwordAdminError.textContent, true);
+    } finally { setLoading(false); }
+  }
+
   function orderedCycles() {
     return [...state.cycles].sort((a, b) => new Date(a.cutoff_at) - new Date(b.cutoff_at));
   }
@@ -1430,6 +1600,9 @@
     } else if (view === 'catalog') {
       showPanelSection('catalog');
       try { await loadAdminCatalog(); } catch (error) { toast(friendlyNetworkError(error).message, true); }
+    } else if (view === 'users') {
+      showPanelSection('users');
+      try { await loadUsers(); } catch (error) { toast(friendlyNetworkError(error).message, true); }
     } else {
       showPanelSection('cycles');
     }
@@ -1576,6 +1749,33 @@
     if (btn.dataset.catalogAction === 'edit') openPerfumeModal(item);
     if (btn.dataset.catalogAction === 'availability') changePerfumeAvailability(item, btn.dataset.nextStatus);
   });
+
+
+  els.newUserBtn.addEventListener('click', () => openUserModal());
+  els.closeUserAdminModal.addEventListener('click', closeUserModal);
+  els.userAdminModal.querySelectorAll('[data-close-user-modal]').forEach(node => node.addEventListener('click', closeUserModal));
+  els.userAdminForm.addEventListener('submit', saveUser);
+  els.userRoleInput.addEventListener('change', syncParentDistributorField);
+  els.usersSearchInput.addEventListener('input', () => { state.usersSearch = els.usersSearchInput.value; renderUsers(); });
+  els.usersRoleFilters.addEventListener('click', event => {
+    const btn = event.target.closest('[data-users-filter]');
+    if (!btn) return;
+    state.usersFilter = btn.dataset.usersFilter || 'all';
+    els.usersRoleFilters.querySelectorAll('[data-users-filter]').forEach(node => node.classList.toggle('is-active', node === btn));
+    renderUsers();
+  });
+  els.usersList.addEventListener('click', event => {
+    const btn = event.target.closest('[data-user-action]');
+    if (!btn) return;
+    const card = btn.closest('[data-user-id]');
+    const item = state.users.find(row => row.id === card?.dataset.userId);
+    if (!item) return;
+    if (btn.dataset.userAction === 'edit') openUserModal(item);
+    if (btn.dataset.userAction === 'password') openPasswordModal(item);
+  });
+  els.closePasswordAdminModal.addEventListener('click', closePasswordModal);
+  els.passwordAdminModal.querySelectorAll('[data-close-password-modal]').forEach(node => node.addEventListener('click', closePasswordModal));
+  els.passwordAdminForm.addEventListener('submit', savePassword);
 
   document.querySelectorAll('[data-cycle-filter]').forEach(button => button.addEventListener('click', () => {
     state.filter = button.dataset.cycleFilter;
