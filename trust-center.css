@@ -371,3 +371,60 @@ body.prive-trust-open{
     margin:auto 0!important;
   }
 }
+
+
+/* S15 V2.0 · Compra con confianza en flujo normal, sin fixed */
+body.prive-trust-open{
+  margin:0!important;
+  padding:0!important;
+  min-height:100vh!important;
+  min-height:100svh!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  background:
+    radial-gradient(circle at 77% 18%,rgba(91,119,153,.10),transparent 26%),
+    radial-gradient(circle at 18% 82%,rgba(216,190,137,.06),transparent 27%),
+    linear-gradient(135deg,#07090d 0%,#0a1019 48%,#05070a 100%)!important;
+}
+
+/* Mientras está abierto, la página real no participa en el layout. */
+body.prive-trust-open > *:not(.prive-trust-notice):not(script){
+  display:none!important;
+}
+
+.prive-trust-notice{
+  position:relative!important;
+  inset:auto!important;
+  z-index:1!important;
+  width:100%!important;
+  min-height:100vh!important;
+  min-height:100svh!important;
+  height:auto!important;
+  overflow:visible!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:
+    max(18px,env(safe-area-inset-top))
+    max(14px,env(safe-area-inset-right))
+    max(18px,env(safe-area-inset-bottom))
+    max(14px,env(safe-area-inset-left))!important;
+  background:transparent!important;
+}
+
+.prive-trust-notice::before{
+  display:none!important;
+}
+
+.prive-trust-card{
+  width:min(100%,540px)!important;
+  max-height:none!important;
+  overflow:visible!important;
+  margin:auto!important;
+}
+
+@media(max-height:760px){
+  .prive-trust-notice{
+    align-items:flex-start!important;
+  }
+}

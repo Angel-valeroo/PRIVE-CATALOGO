@@ -293,3 +293,99 @@ html.prive-access-locked body{
     transition:opacity .25s ease!important;
   }
 }
+
+
+/* S15 V2.0 · Safari edge-to-edge: flujo normal, NO fixed fullscreen */
+html.prive-access-locked{
+  min-height:100%;
+  background:#07090d!important;
+}
+
+html.prive-access-locked body{
+  margin:0!important;
+  padding:0!important;
+  min-height:100vh!important;
+  min-height:100svh!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+
+  /*
+    El fondo REAL vive en body, desde el inicio del documento.
+    viewport-fit=cover ya está declarado en index.html.
+  */
+  background:
+    radial-gradient(circle at 77% 18%,rgba(91,119,153,.11),transparent 26%),
+    radial-gradient(circle at 18% 82%,rgba(216,190,137,.07),transparent 27%),
+    linear-gradient(135deg,#07090d 0%,#0a1019 48%,#05070a 100%)!important;
+}
+
+/* Quitar el catálogo del layout mientras está abierta la bienvenida. */
+html.prive-access-locked body > *:not(#priveAccessGate):not(script){
+  display:none!important;
+}
+
+#priveAccessGate{
+  position:relative!important;
+  inset:auto!important;
+  z-index:1!important;
+  display:grid!important;
+  place-items:center!important;
+  width:100%!important;
+  min-height:100vh!important;
+  min-height:100svh!important;
+  height:auto!important;
+  padding:
+    max(8px,env(safe-area-inset-top))
+    max(6px,env(safe-area-inset-right))
+    max(8px,env(safe-area-inset-bottom))
+    max(6px,env(safe-area-inset-left))!important;
+  overflow:hidden!important;
+  background:transparent!important;
+}
+
+/* Ya no usamos capas que intenten pintar encima de Safari. */
+#priveAccessGate::before,
+#priveAccessGate::after{
+  display:none!important;
+}
+
+.prive-entry-shell{
+  width:min(690px,100%)!important;
+  margin:auto!important;
+  padding:18px 16px 14px!important;
+}
+
+/* Botellas: menos, más grandes, con zonas limpias. */
+.prive-bottle-slot{
+  width:clamp(82px,22vw,102px)!important;
+  height:clamp(110px,30vw,138px)!important;
+}
+
+@media(max-width:620px){
+  /*
+    4 arriba/laterales + 3 abajo.
+    Nada alrededor de las dos tarjetas.
+  */
+  .s1{left:-5%!important;top:8%!important;--tilt:-7deg}
+  .s2{left:39%!important;top:3%!important;--tilt:4deg}
+  .s3{right:-4%!important;top:10%!important;--tilt:-5deg}
+  .s4{left:-6%!important;top:28%!important;--tilt:6deg}
+
+  .s5{left:3%!important;top:82%!important;--tilt:-6deg}
+  .s6{left:39%!important;top:86%!important;--tilt:4deg}
+  .s7{right:3%!important;top:81%!important;--tilt:-5deg}
+
+  /* Por seguridad, cualquier slot heredado extra queda fuera. */
+  .s8,.s9,.s10,.s11,.s12,.s13,.s14{display:none!important}
+}
+
+@media(max-width:390px){
+  .prive-bottle-slot{
+    width:clamp(72px,21vw,88px)!important;
+    height:clamp(96px,28vw,118px)!important;
+  }
+  .s2{left:38%!important;top:4%!important}
+  .s5{left:2%!important;top:83%!important}
+  .s6{left:38%!important;top:87%!important}
+  .s7{right:2%!important;top:82%!important}
+}

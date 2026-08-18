@@ -745,3 +745,24 @@ body::before{display:none!important}
 .auth-view{
   min-height:calc(100dvh - 110px)!important;
 }
+
+
+/* S15 V2.0 · Safari: fondo real en body, sin capas fixed */
+html{
+  min-height:100%;
+  background:#07090d!important;
+}
+body{
+  margin:0!important;
+  min-height:100vh!important;
+  min-height:100svh!important;
+  background:
+    radial-gradient(circle at 77% 18%,rgba(91,119,153,.09),transparent 26%),
+    radial-gradient(circle at 18% 82%,rgba(216,190,137,.09),transparent 27%),
+    linear-gradient(135deg,#07090d 0%,#0a1019 48%,#05070a 100%)!important;
+  background-attachment:scroll!important;
+}
+body::before,
+body::after{
+  display:none!important;
+}
