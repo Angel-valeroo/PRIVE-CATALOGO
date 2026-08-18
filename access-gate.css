@@ -95,3 +95,49 @@ html.prive-access-locked body>*:not(#priveAccessGate):not(script){
 }
 /* Las claves permanecen ocultas en el catálogo público. */
 .code{display:none!important}
+
+
+/* S15 V1.1 · Fondo vivo con botellas del catálogo */
+.prive-gate-bottles{
+  position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;
+  opacity:.62
+}
+.prive-entry-shell{z-index:2}
+.prive-gate-bottle{
+  position:absolute;
+  width:clamp(68px,9vw,132px);
+  height:clamp(92px,15vw,178px);
+  object-fit:contain;
+  opacity:0;
+  filter:drop-shadow(0 22px 22px rgba(0,0,0,.34)) saturate(.88);
+  will-change:opacity,transform;
+  animation:priveBottleDrift var(--dur,12s) ease-in-out var(--delay,0s) infinite;
+}
+.prive-gate-bottle.b1{left:4%;top:7%;--dur:13s;--delay:-1s;--rot:-8deg}
+.prive-gate-bottle.b2{left:24%;top:3%;--dur:14.5s;--delay:-8s;--rot:5deg}
+.prive-gate-bottle.b3{right:18%;top:5%;--dur:12.5s;--delay:-4s;--rot:-4deg}
+.prive-gate-bottle.b4{right:3%;top:19%;--dur:15s;--delay:-11s;--rot:7deg}
+.prive-gate-bottle.b5{left:7%;top:40%;--dur:16s;--delay:-9s;--rot:4deg}
+.prive-gate-bottle.b6{left:29%;top:37%;--dur:12s;--delay:-6s;--rot:-5deg}
+.prive-gate-bottle.b7{right:25%;top:38%;--dur:14s;--delay:-2s;--rot:6deg}
+.prive-gate-bottle.b8{right:5%;top:49%;--dur:13.5s;--delay:-7s;--rot:-8deg}
+.prive-gate-bottle.b9{left:3%;bottom:7%;--dur:15.5s;--delay:-12s;--rot:7deg}
+.prive-gate-bottle.b10{left:26%;bottom:3%;--dur:13s;--delay:-3s;--rot:-4deg}
+.prive-gate-bottle.b11{left:49%;bottom:5%;--dur:16s;--delay:-10s;--rot:5deg}
+.prive-gate-bottle.b12{right:24%;bottom:3%;--dur:12.8s;--delay:-5s;--rot:-6deg}
+.prive-gate-bottle.b13{right:3%;bottom:8%;--dur:15s;--delay:-13s;--rot:8deg}
+@keyframes priveBottleDrift{
+  0%,100%{opacity:0;transform:translate3d(0,12px,0) scale(.94) rotate(var(--rot,0deg))}
+  14%,42%{opacity:.36}
+  28%{opacity:.55;transform:translate3d(0,-6px,0) scale(1.02) rotate(var(--rot,0deg))}
+  58%{opacity:.18}
+  72%{opacity:0;transform:translate3d(9px,-18px,0) scale(.97) rotate(calc(var(--rot,0deg) * -1))}
+}
+@media(max-width:620px){
+  .prive-gate-bottles{opacity:.48}
+  .prive-gate-bottle{width:clamp(56px,18vw,86px);height:clamp(76px,24vw,118px)}
+  .prive-gate-bottle.b2,.prive-gate-bottle.b6,.prive-gate-bottle.b11{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .prive-gate-bottle{animation:none!important;opacity:.16!important}
+}

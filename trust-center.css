@@ -146,3 +146,37 @@ body.prive-trust-open { overflow: hidden; }
     to { opacity: 1; transform: none; }
   }
 }
+
+
+/* S15 V1.1 · Respaldo Oficial con señal visual de alerta */
+.prive-trust-card--alert{
+  position:relative;
+  border-color:rgba(229,91,72,.58);
+  box-shadow:
+    0 30px 90px rgba(0,0,0,.50),
+    0 0 0 1px rgba(229,91,72,.08),
+    0 0 42px rgba(229,91,72,.09),
+    inset 0 1px rgba(255,255,255,.07);
+}
+.prive-trust-alert-band{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  margin:-8px auto 22px;padding:9px 13px;
+  border:1px solid rgba(229,91,72,.48);border-radius:999px;
+  background:rgba(229,91,72,.10);
+  color:#ffd4cc;font-size:10px;font-weight:800;letter-spacing:.12em;
+}
+.prive-trust-alert-icon{
+  display:grid;place-items:center;width:22px;height:22px;border-radius:50%;
+  background:#c7493c;color:#fff;font-size:13px;font-weight:900;
+  box-shadow:0 0 0 4px rgba(199,73,60,.12);
+}
+.prive-trust-warning{
+  border-color:rgba(229,91,72,.38);
+  background:linear-gradient(145deg,rgba(229,91,72,.09),rgba(216,199,159,.035));
+}
+.prive-trust-warning::before{
+  content:"⚠";display:block;margin-bottom:7px;color:#ffb7a8;font-size:19px;
+}
+@media(max-width:520px){
+  .prive-trust-alert-band{max-width:100%;font-size:9px;line-height:1.25}
+}

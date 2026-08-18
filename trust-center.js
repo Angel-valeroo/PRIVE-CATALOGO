@@ -23,7 +23,11 @@
     notice.setAttribute('aria-modal', 'true');
     notice.setAttribute('aria-labelledby', 'priveTrustTitle');
     notice.innerHTML = `
-      <div class="prive-trust-card">
+      <div class="prive-trust-card prive-trust-card--alert">
+        <div class="prive-trust-alert-band" role="note">
+          <span class="prive-trust-alert-icon" aria-hidden="true">!</span>
+          <span>AVISO DE SEGURIDAD PARA TU COMPRA</span>
+        </div>
         <span class="prive-trust-mark" aria-hidden="true">P</span>
         <p class="prive-trust-overline">RESPALDO OFICIAL PRIVÉ</p>
         <h2 id="priveTrustTitle">Compra con confianza</h2>
@@ -47,6 +51,7 @@
       markSeen();
       document.body.classList.remove('prive-trust-open');
       notice.remove();
+      window.dispatchEvent(new CustomEvent('prive:catalog-entered'));
     };
     notice.querySelector('#priveTrustContinue')?.addEventListener('click', close);
   };

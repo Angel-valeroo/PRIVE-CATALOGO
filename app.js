@@ -1209,6 +1209,7 @@ function restartAdvisor() {
   renderAdvisorOptions(); updateAdvisorStep();
 }
 
+const SEARCH_SESSION_KEY = "prive-public-search-v1";
 const SEARCH_SUGGESTIONS = ["Dior", "Aventus", "Imagination", "Ariana Grande", "Victoria's Secret", "Baccarat Rouge", "Louis Vuitton"];
 let searchSuggestionIndex = 0;
 let searchPlaceholderTimer;
@@ -1234,6 +1235,10 @@ function syncSearchInputs(value) {
 function applySearch(value, { scroll = false, scrollBehavior = "smooth" } = {}) {
   state.query = String(value ?? "").trim();
   syncSearchInputs(value);
+  try {
+    if (state.query) sessionStorage.setItem(SEARCH_SESSION_KEY, state.query);
+    else sessionStorage.removeItem(SEARCH_SESSION_KEY);
+  } catch (_) {}
   render();
   if (scroll) scrollToCatalog(scrollBehavior);
 }
@@ -1545,6 +1550,10 @@ async function init(){
     // individuales queda únicamente como respaldo si el bundle no existe.
     const production = await loadProductionCatalog();
     state.perfumes = production.perfumes;
+    try {
+      const savedQuery = sessionStorage.getItem(SEARCH_SESSION_KEY);
+      if (savedQuery && !state.query) state.query = savedQuery;
+    } catch (_) {}
     console.info(`PRIVÉ: ${state.perfumes.length} fragancias cargadas desde ${production.source}.`);
     populateFilters(); render(); syncSearchInputs(state.query); renderAdvisorOptions(); startSearchPlaceholderRotation(); openFromHash(); scheduleCatalogSearchDockUpdate();
   }catch(error){
@@ -1574,6 +1583,11 @@ window.addEventListener("scroll", () => {
 }, { passive: true });
 
 window.addEventListener("pageshow", event => {
+  // Safari puede restaurar los resultados desde bfcache pero vaciar visualmente
+  // el input. Volvemos a sincronizar el texto con el estado real de búsqueda.
+  syncSearchInputs(state.query);
+  scheduleCatalogSearchDockUpdate();
+
   // No alteramos el scroll restaurado por Safari al volver desde memoria/bfcache.
   if (!event.persisted && !location.hash.startsWith("#perfume=") && window.scrollY < 2) {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
@@ -1590,3 +1604,21 @@ if (window.visualViewport) {
   window.visualViewport.addEventListener("resize", () => { updateCatalogSearchVisualViewport(); scheduleCatalogSearchDockUpdate(); }, { passive: true });
   window.visualViewport.addEventListener("scroll", () => { updateCatalogSearchVisualViewport(); scheduleCatalogSearchDockUpdate(); }, { passive: true });
 }
+
+
+/* S15 V1.1 · Reproducir la entrada del catálogo después de "Compra con confianza" */
+window.addEventListener("prive:catalog-entered", () => {
+  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  const revealNodes = [...document.querySelectorAll("#inicio .reveal")];
+  revealNodes.forEach(node => {
+    node.style.animation = "none";
+    node.style.opacity = "0";
+    node.style.transform = "translateY(16px)";
+  });
+  document.body.offsetHeight;
+  revealNodes.forEach(node => {
+    node.style.animation = "";
+    node.style.opacity = "";
+    node.style.transform = "";
+  });
+});
