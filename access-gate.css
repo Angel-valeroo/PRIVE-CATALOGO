@@ -98,75 +98,109 @@ html.prive-access-locked body>*:not(#priveAccessGate):not(script){
 
 
 
-/* S15 V1.2 · Fondo continuo con 25 botellas icónicas del catálogo */
+
+/* S15 V1.3 · Botellas por slots: sin empalmes visuales */
 .prive-gate-bottles{
   position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;
-  opacity:.88
+  opacity:.94
 }
 .prive-entry-shell{
   z-index:2;
-  background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.015) 58%,rgba(0,0,0,.06)),rgba(10,12,17,.52);
-  border-color:rgba(255,255,255,.16);
-  -webkit-backdrop-filter:blur(14px) saturate(118%);
-  backdrop-filter:blur(14px) saturate(118%);
+  background:rgba(8,10,14,.13);
+  border-color:rgba(255,255,255,.10);
+  box-shadow:0 20px 70px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.035);
+  -webkit-backdrop-filter:blur(3px) saturate(105%);
+  backdrop-filter:blur(3px) saturate(105%);
 }
 .prive-gate-bottle{
   position:absolute;
-  width:clamp(58px,7.4vw,112px);
-  height:clamp(80px,12.5vw,154px);
+  width:clamp(62px,7vw,106px);
+  height:clamp(84px,11.5vw,148px);
   object-fit:contain;
   opacity:0;
-  filter:drop-shadow(0 20px 22px rgba(0,0,0,.38)) saturate(.92);
+  filter:drop-shadow(0 18px 20px rgba(0,0,0,.34)) saturate(.95);
   will-change:opacity,transform;
-  animation:priveBottleDrift var(--dur,13s) ease-in-out var(--delay,0s) infinite;
+  animation:priveBottlePulse var(--dur,18s) ease-in-out var(--delay,0s) infinite;
 }
-.prive-gate-bottle.b1{left:2%;top:4%;--dur:12s;--delay:-1s;--rot:-7deg}
-.prive-gate-bottle.b2{left:13%;top:14%;--dur:13.5s;--delay:-8s;--rot:6deg}
-.prive-gate-bottle.b3{left:26%;top:2%;--dur:15s;--delay:-4s;--rot:-4deg}
-.prive-gate-bottle.b4{left:40%;top:9%;--dur:12.8s;--delay:-10s;--rot:5deg}
-.prive-gate-bottle.b5{right:40%;top:2%;--dur:14s;--delay:-6s;--rot:-6deg}
-.prive-gate-bottle.b6{right:26%;top:12%;--dur:13s;--delay:-2s;--rot:5deg}
-.prive-gate-bottle.b7{right:13%;top:3%;--dur:15.5s;--delay:-12s;--rot:-5deg}
-.prive-gate-bottle.b8{right:2%;top:18%;--dur:12.4s;--delay:-5s;--rot:7deg}
 
-.prive-gate-bottle.b9{left:3%;top:36%;--dur:14.8s;--delay:-9s;--rot:5deg}
-.prive-gate-bottle.b10{left:16%;top:46%;--dur:12.2s;--delay:-3s;--rot:-4deg}
-.prive-gate-bottle.b11{left:30%;top:33%;--dur:16s;--delay:-13s;--rot:6deg}
-.prive-gate-bottle.b12{left:44%;top:44%;--dur:13.2s;--delay:-7s;--rot:-5deg}
-.prive-gate-bottle.b13{right:42%;top:32%;--dur:12.6s;--delay:-11s;--rot:4deg}
-.prive-gate-bottle.b14{right:29%;top:45%;--dur:15s;--delay:-4s;--rot:-6deg}
-.prive-gate-bottle.b15{right:15%;top:34%;--dur:13.7s;--delay:-8s;--rot:5deg}
-.prive-gate-bottle.b16{right:2%;top:48%;--dur:16.4s;--delay:-1s;--rot:-7deg}
+/* Slots fijos y separados para que ninguna botella invada la posición de otra */
+.prive-gate-bottle.b1{left:2%;top:3%;--delay:-1s}
+.prive-gate-bottle.b2{left:18%;top:5%;--delay:-7s}
+.prive-gate-bottle.b3{left:34%;top:2%;--delay:-13s}
+.prive-gate-bottle.b4{right:34%;top:3%;--delay:-4s}
+.prive-gate-bottle.b5{right:18%;top:6%;--delay:-10s}
+.prive-gate-bottle.b6{right:2%;top:4%;--delay:-16s}
 
-.prive-gate-bottle.b17{left:2%;bottom:4%;--dur:13s;--delay:-10s;--rot:-5deg}
-.prive-gate-bottle.b18{left:14%;bottom:14%;--dur:15.4s;--delay:-5s;--rot:6deg}
-.prive-gate-bottle.b19{left:27%;bottom:2%;--dur:12.7s;--delay:-12s;--rot:-4deg}
-.prive-gate-bottle.b20{left:40%;bottom:10%;--dur:14.3s;--delay:-2s;--rot:5deg}
-.prive-gate-bottle.b21{left:52%;bottom:2%;--dur:13.4s;--delay:-7s;--rot:-6deg}
-.prive-gate-bottle.b22{right:35%;bottom:13%;--dur:15.8s;--delay:-11s;--rot:5deg}
-.prive-gate-bottle.b23{right:22%;bottom:3%;--dur:12.5s;--delay:-4s;--rot:-5deg}
-.prive-gate-bottle.b24{right:10%;bottom:15%;--dur:14.7s;--delay:-9s;--rot:6deg}
-.prive-gate-bottle.b25{right:1%;bottom:2%;--dur:13.1s;--delay:-6s;--rot:-7deg}
+.prive-gate-bottle.b7{left:2%;top:31%;--delay:-11s}
+.prive-gate-bottle.b8{left:18%;top:34%;--delay:-17s}
+.prive-gate-bottle.b9{left:34%;top:30%;--delay:-5s}
+.prive-gate-bottle.b10{right:34%;top:34%;--delay:-14s}
+.prive-gate-bottle.b11{right:18%;top:30%;--delay:-2s}
+.prive-gate-bottle.b12{right:2%;top:33%;--delay:-8s}
 
-@keyframes priveBottleDrift{
-  0%,100%{opacity:0;transform:translate3d(0,12px,0) scale(.92) rotate(var(--rot,0deg))}
-  10%{opacity:.18}
-  22%,46%{opacity:.48}
-  32%{opacity:.66;transform:translate3d(0,-7px,0) scale(1.03) rotate(var(--rot,0deg))}
-  58%{opacity:.30}
-  72%{opacity:.08;transform:translate3d(8px,-20px,0) scale(.96) rotate(calc(var(--rot,0deg) * -1))}
-  82%{opacity:0}
+.prive-gate-bottle.b13{left:2%;top:59%;--delay:-6s}
+.prive-gate-bottle.b14{left:18%;top:62%;--delay:-12s}
+.prive-gate-bottle.b15{left:34%;top:58%;--delay:-18s}
+.prive-gate-bottle.b16{right:34%;top:62%;--delay:-3s}
+.prive-gate-bottle.b17{right:18%;top:58%;--delay:-9s}
+.prive-gate-bottle.b18{right:2%;top:61%;--delay:-15s}
+
+.prive-gate-bottle.b19{left:4%;bottom:0%;--delay:-16s}
+.prive-gate-bottle.b20{left:20%;bottom:2%;--delay:-4s}
+.prive-gate-bottle.b21{left:36%;bottom:0%;--delay:-10s}
+.prive-gate-bottle.b22{right:36%;bottom:1%;--delay:-17s}
+.prive-gate-bottle.b23{right:20%;bottom:2%;--delay:-5s}
+.prive-gate-bottle.b24{right:4%;bottom:0%;--delay:-11s}
+.prive-gate-bottle.b25{left:50%;bottom:1%;transform:translateX(-50%);--delay:-14s}
+
+@keyframes priveBottlePulse{
+  0%,100%{opacity:0;transform:translate3d(0,6px,0) scale(.94)}
+  10%{opacity:0}
+  18%{opacity:.20}
+  26%{opacity:.64;transform:translate3d(0,-3px,0) scale(1)}
+  42%{opacity:.64}
+  54%{opacity:.16}
+  62%,100%{opacity:0;transform:translate3d(0,-8px,0) scale(.97)}
 }
+
+/* La botella central necesita conservar su centrado durante la animación */
+.prive-gate-bottle.b25{
+  animation-name:priveBottlePulseCenter;
+}
+@keyframes priveBottlePulseCenter{
+  0%,100%{opacity:0;transform:translate3d(-50%,6px,0) scale(.94)}
+  10%{opacity:0}
+  18%{opacity:.20}
+  26%{opacity:.64;transform:translate3d(-50%,-3px,0) scale(1)}
+  42%{opacity:.64}
+  54%{opacity:.16}
+  62%,100%{opacity:0;transform:translate3d(-50%,-8px,0) scale(.97)}
+}
+
 @media(max-width:620px){
-  .prive-gate-bottles{opacity:.82}
+  .prive-gate-bottles{opacity:.92}
   .prive-entry-shell{
-    background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.012)),rgba(9,11,16,.58);
-    -webkit-backdrop-filter:blur(11px) saturate(112%);
-    backdrop-filter:blur(11px) saturate(112%);
+    background:rgba(8,10,14,.10);
+    -webkit-backdrop-filter:blur(2px) saturate(103%);
+    backdrop-filter:blur(2px) saturate(103%);
   }
-  .prive-gate-bottle{width:clamp(52px,17vw,82px);height:clamp(72px,24vw,112px)}
-  .prive-gate-bottle.b4,.prive-gate-bottle.b12,.prive-gate-bottle.b20{display:none}
+  .prive-gate-bottle{
+    width:clamp(54px,16vw,76px);
+    height:clamp(74px,22vw,104px);
+  }
+
+  /* En móvil usamos menos slots activos y más aire alrededor del panel central */
+  .prive-gate-bottle.b3,
+  .prive-gate-bottle.b4,
+  .prive-gate-bottle.b9,
+  .prive-gate-bottle.b10,
+  .prive-gate-bottle.b15,
+  .prive-gate-bottle.b16,
+  .prive-gate-bottle.b21,
+  .prive-gate-bottle.b22,
+  .prive-gate-bottle.b25{display:none}
 }
+
 @media(prefers-reduced-motion:reduce){
-  .prive-gate-bottle{animation:none!important;opacity:.18!important}
+  .prive-gate-bottle{animation:none!important;opacity:.16!important}
 }

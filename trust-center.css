@@ -180,3 +180,68 @@ body.prive-trust-open { overflow: hidden; }
 @media(max-width:520px){
   .prive-trust-alert-band{max-width:100%;font-size:9px;line-height:1.25}
 }
+
+
+/* S15 V1.3 · Marca centrada + aviso con pulso de alerta */
+.prive-trust-brand-lockup{
+  display:grid;
+  justify-items:center;
+  gap:2px;
+  margin:0 auto 14px;
+  color:#f6f2e9;
+  text-align:center;
+}
+.prive-trust-brand-lockup .prive-trust-brand-small{
+  color:#d8c79f;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:.20em;
+}
+.prive-trust-brand-lockup strong{
+  font-family:"Playfair Display",Georgia,serif;
+  font-size:clamp(2.3rem,9vw,3.6rem);
+  font-weight:500;
+  line-height:.95;
+  letter-spacing:-.045em;
+}
+.prive-trust-mark{display:none!important}
+
+.prive-trust-alert-band{
+  animation:priveSecurityHeartbeat 2.8s ease-in-out infinite;
+  transform-origin:center;
+}
+@keyframes priveSecurityHeartbeat{
+  0%,100%{
+    transform:scale(1);
+    border-color:rgba(229,91,72,.38);
+    box-shadow:0 0 0 rgba(216,199,159,0);
+    filter:brightness(1);
+  }
+  9%{
+    transform:scale(1.018);
+    border-color:rgba(239,116,93,.72);
+    box-shadow:0 0 20px rgba(216,199,159,.16);
+    filter:brightness(1.16);
+  }
+  17%{
+    transform:scale(1);
+    border-color:rgba(229,91,72,.44);
+    box-shadow:0 0 0 rgba(216,199,159,0);
+    filter:brightness(1);
+  }
+  25%{
+    transform:scale(1.012);
+    border-color:rgba(239,116,93,.62);
+    box-shadow:0 0 14px rgba(216,199,159,.12);
+    filter:brightness(1.10);
+  }
+  35%,100%{
+    transform:scale(1);
+    border-color:rgba(229,91,72,.38);
+    box-shadow:0 0 0 rgba(216,199,159,0);
+    filter:brightness(1);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .prive-trust-alert-band{animation:none!important}
+}

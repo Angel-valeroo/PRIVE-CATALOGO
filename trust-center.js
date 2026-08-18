@@ -24,11 +24,14 @@
     notice.setAttribute('aria-labelledby', 'priveTrustTitle');
     notice.innerHTML = `
       <div class="prive-trust-card prive-trust-card--alert">
+        <div class="prive-trust-brand-lockup" aria-label="Perfumería PRIVÉ">
+          <span class="prive-trust-brand-small">PERFUMERÍA</span>
+          <strong>PRIVÉ</strong>
+        </div>
         <div class="prive-trust-alert-band" role="note">
           <span class="prive-trust-alert-icon" aria-hidden="true">!</span>
           <span>AVISO DE SEGURIDAD PARA TU COMPRA</span>
         </div>
-        <span class="prive-trust-mark" aria-hidden="true">P</span>
         <p class="prive-trust-overline">RESPALDO OFICIAL PRIVÉ</p>
         <h2 id="priveTrustTitle">Compra con confianza</h2>
         <p class="prive-trust-lead">Para proteger tu compra y conservar el respaldo de nuestra garantía, adquiere tus fragancias únicamente con distribuidores autorizados de PRIVÉ.</p>
