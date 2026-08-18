@@ -157,7 +157,6 @@
 
   const bottleMarkup = () => Array.from({ length: SLOT_COUNT }, (_, index) => `
     <span class="prive-bottle-slot s${index + 1}" data-bottle-slot="${index}">
-      <span class="prive-bottle-glow" aria-hidden="true"></span>
       <img
         class="prive-gate-bottle"
         alt=""

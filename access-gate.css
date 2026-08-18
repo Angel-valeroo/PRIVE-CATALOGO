@@ -100,20 +100,46 @@ html.prive-access-locked body>*:not(#priveAccessGate):not(script){
 
 
 
-/* S15 V1.4 · Isla limpia + rotación aleatoria de 100 fragancias */
-#priveAccessGate{
-  min-height:100dvh;
-  min-height:100svh;
-  background:
-    radial-gradient(circle at 15% 13%,rgba(216,199,159,.10),transparent 29%),
-    radial-gradient(circle at 86% 84%,rgba(86,107,133,.10),transparent 34%),
-    linear-gradient(145deg,#07090d,#10141a 54%,#07090d);
+
+/* S15 V1.5 · Composición orgánica, flotante y sin círculos */
+html.prive-access-locked,
+html.prive-access-locked body{
+  min-height:100dvh!important;
+  min-height:-webkit-fill-available!important;
+  background:#07090d!important;
 }
+#priveAccessGate{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100dvh;
+  min-height:100dvh;
+  min-height:-webkit-fill-available;
+  padding:
+    max(12px,env(safe-area-inset-top))
+    max(10px,env(safe-area-inset-right))
+    max(12px,env(safe-area-inset-bottom))
+    max(10px,env(safe-area-inset-left));
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 18% 8%,rgba(216,199,159,.105),transparent 31%),
+    radial-gradient(ellipse at 82% 88%,rgba(96,119,151,.10),transparent 33%),
+    radial-gradient(ellipse at 50% 50%,rgba(255,255,255,.015),transparent 55%),
+    linear-gradient(155deg,#06080c 0%,#10141b 48%,#07090d 100%);
+}
+#priveAccessGate::before{
+  inset:-15%;
+  opacity:.45;
+}
+
 .prive-entry-shell{
-  z-index:3;
+  position:relative;
+  z-index:8;
   width:min(690px,100%);
-  padding:24px 22px 20px;
+  margin:auto;
+  padding:22px 18px 18px;
   border:0!important;
+  border-radius:0!important;
   background:transparent!important;
   box-shadow:none!important;
   -webkit-backdrop-filter:none!important;
@@ -124,80 +150,165 @@ html.prive-access-locked body>*:not(#priveAccessGate):not(script){
 .prive-entry-options,
 .prive-entry-note{
   position:relative;
-  z-index:4;
+  z-index:9;
 }
 
-/* Zona central reservada: las botellas viven únicamente en el perímetro. */
+/*
+  Zona de exclusión real:
+  los slots están distribuidos alrededor del bloque completo de marca + textos
+  + botones; no se colocan botellas sobre las tarjetas de acceso.
+*/
 .prive-gate-bottles{
-  position:fixed;inset:0;z-index:1;overflow:hidden;pointer-events:none;
+  position:fixed;
+  inset:0;
+  z-index:2;
+  overflow:hidden;
+  pointer-events:none;
 }
 .prive-bottle-slot{
   position:absolute;
-  width:clamp(64px,7.5vw,112px);
-  height:clamp(88px,12vw,154px);
-  display:grid;place-items:center;
+  width:clamp(58px,7vw,102px);
+  height:clamp(78px,11.2vw,142px);
+  display:grid;
+  place-items:center;
   pointer-events:none;
-}
-.prive-bottle-glow{
-  position:absolute;inset:12% 5% 8%;
-  border-radius:48% 52% 46% 54%;
-  border:1px solid rgba(216,199,159,.22);
-  background:radial-gradient(circle at 50% 45%,rgba(232,211,158,.16),rgba(216,199,159,.035) 44%,transparent 70%);
-  box-shadow:0 0 18px rgba(216,199,159,.16),inset 0 0 16px rgba(255,248,224,.035);
-  opacity:.72;
-  animation:priveBottleHalo 4.8s ease-in-out infinite;
+  transform:rotate(var(--tilt,0deg));
 }
 .prive-gate-bottle{
-  position:relative;
-  width:100%;height:100%;object-fit:contain;
+  width:100%;
+  height:100%;
+  object-fit:contain;
   opacity:0;
-  transform:translateY(7px) scale(.94);
+  transform:translate3d(0,8px,0) scale(.93);
   filter:
-    drop-shadow(0 0 7px rgba(246,226,174,.40))
-    drop-shadow(0 15px 18px rgba(0,0,0,.38));
-  transition:opacity .72s ease,transform .72s cubic-bezier(.2,.78,.2,1),filter .72s ease;
+    drop-shadow(0 0 5px rgba(255,240,194,.24))
+    drop-shadow(0 0 12px rgba(216,199,159,.30))
+    drop-shadow(0 18px 20px rgba(0,0,0,.40));
+  transition:
+    opacity .78s ease,
+    transform .78s cubic-bezier(.18,.76,.22,1),
+    filter .78s ease;
+  animation:priveBottleFloat var(--floatDur,7.4s) ease-in-out var(--floatDelay,0s) infinite alternate;
 }
 .prive-gate-bottle.is-visible{
-  opacity:.78;
-  transform:translateY(0) scale(1);
+  opacity:.76;
+  transform:translate3d(0,0,0) scale(1);
   filter:
-    drop-shadow(0 0 11px rgba(246,226,174,.58))
-    drop-shadow(0 18px 22px rgba(0,0,0,.42));
+    drop-shadow(0 0 7px rgba(255,240,194,.36))
+    drop-shadow(0 0 15px rgba(216,199,159,.38))
+    drop-shadow(0 19px 23px rgba(0,0,0,.43));
 }
-.prive-bottle-slot.is-changing .prive-bottle-glow{opacity:.25}
-@keyframes priveBottleHalo{
-  0%,100%{opacity:.42;transform:scale(.97);box-shadow:0 0 10px rgba(216,199,159,.09)}
-  50%{opacity:.82;transform:scale(1.025);box-shadow:0 0 24px rgba(216,199,159,.22)}
+@keyframes priveBottleFloat{
+  0%{translate:0 -3px}
+  45%{translate:3px 3px}
+  100%{translate:-2px 8px}
 }
 
-/* Desktop: 24 posiciones en el perímetro. Centro libre para textos y botones. */
-.s1{left:1%;top:2%}.s2{left:12%;top:1%}.s3{left:23%;top:3%}.s4{left:34%;top:0%}
-.s5{right:34%;top:0%}.s6{right:23%;top:3%}.s7{right:12%;top:1%}.s8{right:1%;top:3%}
-.s9{left:1%;top:28%}.s10{left:1%;top:51%}.s11{left:2%;top:73%}
-.s12{right:1%;top:28%}.s13{right:1%;top:51%}.s14{right:2%;top:73%}
-.s15{left:3%;bottom:-1%}.s16{left:15%;bottom:1%}.s17{left:27%;bottom:-1%}.s18{left:39%;bottom:1%}
-.s19{right:39%;bottom:1%}.s20{right:27%;bottom:-1%}.s21{right:15%;bottom:1%}.s22{right:3%;bottom:-1%}
-.s23{left:11%;top:16%}.s24{right:11%;top:16%}
+/* Desktop: composición deliberadamente irregular, sin filas rectas. */
+.s1{left:1.0%;top:1.5%;--tilt:-7deg;--floatDur:7.1s}
+.s2{left:10.5%;top:8.2%;--tilt:5deg;--floatDur:8.2s;--floatDelay:-2s}
+.s3{left:21.5%;top:1.2%;--tilt:-3deg;--floatDur:6.8s;--floatDelay:-4s}
+.s4{left:32.0%;top:10.0%;--tilt:7deg;--floatDur:8.8s;--floatDelay:-1s}
+.s5{right:32.5%;top:3.0%;--tilt:-6deg;--floatDur:7.6s;--floatDelay:-5s}
+.s6{right:21.0%;top:11.5%;--tilt:4deg;--floatDur:9.1s;--floatDelay:-3s}
+.s7{right:10.2%;top:2.0%;--tilt:-5deg;--floatDur:7.4s;--floatDelay:-6s}
+.s8{right:.6%;top:13.5%;--tilt:6deg;--floatDur:8.5s;--floatDelay:-2s}
+
+.s9{left:.2%;top:27.0%;--tilt:5deg;--floatDur:8.0s;--floatDelay:-5s}
+.s10{left:2.6%;top:48.0%;--tilt:-6deg;--floatDur:7.2s;--floatDelay:-1s}
+.s11{left:.4%;top:68.5%;--tilt:4deg;--floatDur:9.0s;--floatDelay:-4s}
+.s12{right:.4%;top:28.5%;--tilt:-5deg;--floatDur:7.8s;--floatDelay:-6s}
+.s13{right:2.0%;top:49.5%;--tilt:7deg;--floatDur:8.7s;--floatDelay:-2s}
+.s14{right:.4%;top:69.0%;--tilt:-4deg;--floatDur:7.0s;--floatDelay:-5s}
+
+.s15{left:2.8%;bottom:1.0%;--tilt:-7deg;--floatDur:8.6s;--floatDelay:-3s}
+.s16{left:13.4%;bottom:6.5%;--tilt:5deg;--floatDur:7.2s;--floatDelay:-6s}
+.s17{left:25.2%;bottom:.3%;--tilt:-3deg;--floatDur:9.2s;--floatDelay:-1s}
+.s18{left:37.0%;bottom:7.5%;--tilt:6deg;--floatDur:7.7s;--floatDelay:-4s}
+.s19{right:37.0%;bottom:1.2%;--tilt:-5deg;--floatDur:8.4s;--floatDelay:-2s}
+.s20{right:25.5%;bottom:7.0%;--tilt:4deg;--floatDur:7.1s;--floatDelay:-5s}
+.s21{right:13.4%;bottom:.6%;--tilt:-7deg;--floatDur:8.9s;--floatDelay:-1s}
+.s22{right:2.2%;bottom:6.0%;--tilt:5deg;--floatDur:7.5s;--floatDelay:-4s}
+
+/* Extras superiores laterales para rellenar huecos alrededor de PRIVÉ, no del bloque de botones. */
+.s23{left:5.3%;top:15.0%;--tilt:-4deg;--floatDur:8.3s;--floatDelay:-3s}
+.s24{right:5.0%;top:17.0%;--tilt:6deg;--floatDur:7.4s;--floatDelay:-5s}
 
 @media(max-width:820px){
-  .prive-entry-shell{width:min(620px,94vw);padding:22px 14px 18px}
-  .prive-bottle-slot{width:clamp(52px,12vw,82px);height:clamp(72px,18vw,112px)}
-  /* En tablet el área de lectura ocupa más ancho: liberamos los slots cercanos al centro. */
-  .s3,.s4,.s5,.s6,.s17,.s18,.s19,.s20{display:none}
+  .prive-entry-shell{
+    width:min(620px,96vw);
+    padding:18px 12px 16px;
+  }
+  .prive-bottle-slot{
+    width:clamp(50px,11vw,76px);
+    height:clamp(69px,17vw,104px);
+  }
+  /* El bloque central crece: se liberan puntos que podrían rozarlo. */
+  .s4,.s5,.s18,.s19{display:none}
 }
+
 @media(max-width:620px){
-  #priveAccessGate{padding-left:10px;padding-right:10px}
-  .prive-entry-shell{width:100%;padding:16px 6px 14px}
-  .prive-gate-bottles{opacity:.94}
-  .prive-bottle-slot{width:clamp(44px,15vw,68px);height:clamp(62px,22vw,94px)}
-  /* Móvil: botellas solo en bordes/top/bottom. Nunca detrás de la isla de contenido. */
-  .s3,.s4,.s5,.s6,.s9,.s10,.s12,.s13,.s17,.s18,.s19,.s20,.s23,.s24{display:none}
-  .s1{left:-1%;top:1%}.s2{left:18%;top:0%}.s7{right:18%;top:0%}.s8{right:-1%;top:2%}
-  .s11{left:-2%;top:49%}.s14{right:-2%;top:49%}
-  .s15{left:0%;bottom:0%}.s16{left:23%;bottom:-1%}.s21{right:23%;bottom:-1%}.s22{right:0%;bottom:0%}
-  .prive-gate-bottle.is-visible{opacity:.82}
+  #priveAccessGate{
+    padding:
+      max(8px,env(safe-area-inset-top))
+      max(5px,env(safe-area-inset-right))
+      max(8px,env(safe-area-inset-bottom))
+      max(5px,env(safe-area-inset-left));
+  }
+  .prive-entry-shell{
+    width:100%;
+    padding:12px 2px 10px;
+  }
+  .prive-entry-brand{margin-bottom:17px}
+  .prive-entry-options{margin-top:17px}
+  .prive-bottle-slot{
+    width:clamp(42px,14vw,64px);
+    height:clamp(58px,20vw,88px);
+  }
+
+  /*
+    Móvil: composición orgánica en bordes/top/bottom.
+    Ningún slot cae sobre las dos tarjetas de acceso.
+  */
+  .s1{left:-1%;top:1%}
+  .s2{left:18%;top:6%}
+  .s3{left:40%;top:0%}
+  .s4{display:none}
+  .s5{display:none}
+  .s6{right:39%;top:8%}
+  .s7{right:17%;top:1%}
+  .s8{right:-2%;top:10%}
+
+  .s9{left:-3%;top:29%}
+  .s10{left:-4%;top:45%}
+  .s11{left:-2%;top:65%}
+  .s12{right:-3%;top:30%}
+  .s13{right:-4%;top:47%}
+  .s14{right:-2%;top:66%}
+
+  .s15{left:0%;bottom:max(5px,env(safe-area-inset-bottom))}
+  .s16{left:18%;bottom:max(14px,env(safe-area-inset-bottom))}
+  .s17{left:39%;bottom:max(3px,env(safe-area-inset-bottom))}
+  .s18{display:none}
+  .s19{display:none}
+  .s20{right:39%;bottom:max(12px,env(safe-area-inset-bottom))}
+  .s21{right:18%;bottom:max(2px,env(safe-area-inset-bottom))}
+  .s22{right:0%;bottom:max(12px,env(safe-area-inset-bottom))}
+
+  .s23{left:5%;top:18%}
+  .s24{right:5%;top:20%}
+
+  .prive-gate-bottle.is-visible{opacity:.80}
 }
+
+@media(max-width:390px){
+  /* Pantallas angostas: un poco menos de ocupación lateral para no tocar botones. */
+  .s10,.s13,.s23,.s24{display:none}
+}
+
 @media(prefers-reduced-motion:reduce){
-  .prive-bottle-glow{animation:none!important}
-  .prive-gate-bottle{transition:none!important}
+  .prive-gate-bottle{
+    animation:none!important;
+    transition:opacity .2s ease!important;
+  }
 }

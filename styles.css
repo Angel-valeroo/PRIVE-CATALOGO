@@ -3555,3 +3555,21 @@ main{min-height:100dvh}
 @supports(height:100svh){
   .hero,.hero-inner{min-height:100svh}
 }
+
+
+/* S15 V1.5 · Fondo público continuo hasta safe areas */
+html,body{
+  min-height:100dvh;
+  min-height:-webkit-fill-available;
+  background:#07090d;
+}
+body::before{
+  content:"";
+  position:fixed;
+  z-index:-10;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(216,199,159,.045),transparent 34%),
+    linear-gradient(180deg,#07090d,#0b0e13 52%,#07090d);
+}
