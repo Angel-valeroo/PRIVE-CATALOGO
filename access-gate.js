@@ -1,71 +1,32 @@
 (() => {
   'use strict';
 
-  const STORAGE_KEY = 'prive-temporary-access-v2';
-  const SESSION_VERSION = '2026-08-06-session-reset-1';
-  const SESSION_TTL_MS = 12 * 60 * 60 * 1000;
-  const USER_HASH = 'a084b725dad07585b8c9f66036d409479304210734360e120141dc061b3d34f8';
-  const PASSWORD_HASH = 'fc5cdcff45331834b9dc17a4de6514c5c23130a05cb2c6e3e3679ae94d1e883c';
-  const INSTAGRAM_URL = 'https://www.instagram.com/prive_trc/';
+  const TRUST_NOTICE_KEY = 'prive-trust-notice-seen-v1';
+  const ROOT_PATHS = new Set(['/', '/index.html']);
 
-  let expiryTimer = 0;
+  const cleanEntryParam = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('entry');
+    history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
+  };
 
   const unlock = () => {
     document.documentElement.classList.remove('prive-access-locked');
     document.getElementById('priveAccessGate')?.remove();
   };
 
-  const lockAndReload = () => {
-    try { sessionStorage.removeItem(STORAGE_KEY); } catch (_) {}
-    window.location.reload();
+  const openClientFlow = () => {
+    try { sessionStorage.removeItem(TRUST_NOTICE_KEY); } catch (_) {}
+    unlock();
+    window.dispatchEvent(new CustomEvent('prive:client-entry'));
   };
 
-  const scheduleExpiry = grantedAt => {
-    window.clearTimeout(expiryTimer);
-    const remaining = SESSION_TTL_MS - (Date.now() - grantedAt);
-    if (remaining <= 0) {
-      lockAndReload();
+  const goToClientFlow = () => {
+    if (ROOT_PATHS.has(window.location.pathname)) {
+      openClientFlow();
       return;
     }
-    expiryTimer = window.setTimeout(lockAndReload, Math.min(remaining, 2147483647));
-  };
-
-  const digest = async value => {
-    const bytes = new TextEncoder().encode(value);
-    const hash = await crypto.subtle.digest('SHA-256', bytes);
-    return [...new Uint8Array(hash)].map(byte => byte.toString(16).padStart(2, '0')).join('');
-  };
-
-  const readSession = () => {
-    try {
-      const raw = sessionStorage.getItem(STORAGE_KEY);
-      if (!raw) return null;
-      const session = JSON.parse(raw);
-      if (session?.version !== SESSION_VERSION || !Number.isFinite(session?.grantedAt)) {
-        sessionStorage.removeItem(STORAGE_KEY);
-        return null;
-      }
-      if (Date.now() - session.grantedAt >= SESSION_TTL_MS) {
-        sessionStorage.removeItem(STORAGE_KEY);
-        return null;
-      }
-      return session;
-    } catch (_) {
-      return null;
-    }
-  };
-
-  const saveSession = () => {
-    const session = {
-      version: SESSION_VERSION,
-      grantedAt: Date.now()
-    };
-    try {
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(session));
-    } catch (_) {
-      /* El acceso sigue funcionando aunque el navegador bloquee storage. */
-    }
-    return session;
+    window.location.assign('/?entry=client');
   };
 
   const createGate = () => {
@@ -75,83 +36,74 @@
     gate.setAttribute('aria-modal', 'true');
     gate.setAttribute('aria-labelledby', 'priveGateTitle');
     gate.innerHTML = `
-      <div class="prive-gate-card">
-        <div class="prive-gate-brand">
+      <div class="prive-entry-shell">
+        <div class="prive-entry-brand">
           <p class="prive-gate-overline">PERFUMERÍA PRIVÉ</p>
           <p class="prive-gate-logo" aria-hidden="true">PRIVÉ</p>
-          <span class="prive-gate-status">Acceso temporal restringido</span>
+          <p class="prive-entry-slogan">Huelen mejor de lo que cuestan.</p>
         </div>
-        <div class="prive-gate-copy">
-          <h1 id="priveGateTitle">Acceso para distribuidores autorizados</h1>
-          <p>El acceso al catálogo está disponible temporalmente únicamente para distribuidores autorizados de PRIVÉ. Ingresa tus credenciales para continuar.</p>
+
+        <div class="prive-entry-copy">
+          <p class="prive-entry-kicker">BIENVENIDO</p>
+          <h1 id="priveGateTitle">¿Cómo deseas entrar?</h1>
+          <p>Elige tu acceso para continuar a la experiencia PRIVÉ.</p>
         </div>
-        <form id="priveGateForm" class="prive-gate-form" novalidate>
-          <label class="prive-gate-field">
-            <span>Usuario</span>
-            <input id="priveGateUser" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="Usuario" required>
-          </label>
-          <label class="prive-gate-field">
-            <span>Contraseña</span>
-            <input id="priveGatePassword" name="password" type="password" autocomplete="current-password" placeholder="Contraseña" required>
-          </label>
-          <button id="priveGateSubmit" class="prive-gate-submit" type="submit">Entrar al catálogo</button>
-          <p id="priveGateError" class="prive-gate-error" role="alert" aria-live="polite"></p>
-        </form>
-        <div class="prive-gate-client">
-          <strong>¿Ya eres cliente de PRIVÉ o deseas conocer nuestra colección?</strong>
-          <p>Visita nuestro Instagram oficial para consultar disponibilidad, recibir información personalizada o cotizar tus perfumes.</p>
-          <a class="prive-gate-instagram" href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram oficial de PRIVÉ">Instagram oficial · @prive_trc</a>
+
+        <div class="prive-entry-options">
+          <a class="prive-entry-option prive-entry-option--distributor" href="/portal/">
+            <span class="prive-entry-option-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 20v-1.5A4.5 4.5 0 0 1 8.5 14h7a4.5 4.5 0 0 1 4.5 4.5V20M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/></svg>
+            </span>
+            <span class="prive-entry-option-copy">
+              <small>ACCESO PRIVADO</small>
+              <strong>Acceder como distribuidor</strong>
+              <span>Inicia sesión para consultar el catálogo operativo y gestionar tus pedidos.</span>
+            </span>
+            <span class="prive-entry-arrow" aria-hidden="true">→</span>
+          </a>
+
+          <button id="priveClientEntry" class="prive-entry-option prive-entry-option--client" type="button">
+            <span class="prive-entry-option-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6S2.5 12 2.5 12Zm9.5 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>
+            </span>
+            <span class="prive-entry-option-copy">
+              <small>CATÁLOGO DIGITAL</small>
+              <strong>Continuar como cliente</strong>
+              <span>Consulta el respaldo oficial PRIVÉ y explora nuestra colección pública.</span>
+            </span>
+            <span class="prive-entry-arrow" aria-hidden="true">→</span>
+          </button>
         </div>
-        <p class="prive-gate-note">Si ya eres cliente, también puedes consultar directamente con tu vendedor la disponibilidad de tus fragancias.</p>
+
+        <p class="prive-entry-note">Las claves internas de los perfumes permanecen privadas y no se muestran en el catálogo público.</p>
       </div>`;
     return gate;
   };
 
   const init = () => {
-    const session = readSession();
-    if (session) {
+    const url = new URL(window.location.href);
+    const entry = url.searchParams.get('entry');
+
+    if (entry === 'client') {
+      cleanEntryParam();
+      openClientFlow();
+      return;
+    }
+
+    if (entry === 'catalog') {
+      cleanEntryParam();
       unlock();
-      scheduleExpiry(session.grantedAt);
       return;
     }
 
     const gate = createGate();
     document.body.appendChild(gate);
-    const form = gate.querySelector('#priveGateForm');
-    const user = gate.querySelector('#priveGateUser');
-    const password = gate.querySelector('#priveGatePassword');
-    const submit = gate.querySelector('#priveGateSubmit');
-    const error = gate.querySelector('#priveGateError');
-
-    requestAnimationFrame(() => user?.focus({ preventScroll: true }));
-
-    form.addEventListener('submit', async event => {
-      event.preventDefault();
-      error.textContent = '';
-      submit.disabled = true;
-      try {
-        const normalizedUser = user.value.trim().toLowerCase();
-        const [userHash, passwordHash] = await Promise.all([
-          digest(normalizedUser),
-          digest(password.value)
-        ]);
-        if (userHash === USER_HASH && passwordHash === PASSWORD_HASH) {
-          const newSession = saveSession();
-          unlock();
-          scheduleExpiry(newSession.grantedAt);
-          return;
-        }
-        error.textContent = 'Usuario o contraseña incorrectos.';
-        password.value = '';
-        password.focus();
-      } catch (_) {
-        error.textContent = 'No fue posible validar el acceso. Inténtalo de nuevo.';
-      } finally {
-        submit.disabled = false;
-      }
-    });
+    gate.querySelector('#priveClientEntry')?.addEventListener('click', goToClientFlow);
   };
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
-  else init();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
 })();

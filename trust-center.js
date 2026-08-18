@@ -52,6 +52,10 @@
   };
 
   const init = () => {
+    window.addEventListener('prive:client-entry', () => {
+      window.setTimeout(showNotice, 40);
+    });
+
     if (!accessIsLocked()) {
       showNotice();
       return;
