@@ -518,3 +518,11 @@ body.dist-profile-open{overflow:hidden}
 @keyframes distProfileRing{
   to{transform:rotate(360deg)}
 }
+
+/* S15 V1.4 · Directorio a alto completo y safe areas */
+html,body{min-height:100%;min-height:100dvh;background:#07090d}
+.dist-shell{
+  min-height:100dvh;
+  padding-top:max(24px,env(safe-area-inset-top));
+  padding-bottom:max(48px,env(safe-area-inset-bottom));
+}

@@ -5,34 +5,107 @@
   const ENTRY_MODE_KEY = 'prive-entry-mode-v1';
   const ROOT_PATHS = new Set(['/', '/index.html']);
 
-  const bottles = [
-    { src: '/IMAGES/Caballero/CP02515.avif', cls: 'b1', alt: 'VALENTINO UOMO BORN IN ROMA INTENSE' },
-    { src: '/IMAGES/Caballero/CP01021.avif', cls: 'b2', alt: '1 MILLION' },
-    { src: '/IMAGES/Caballero/CP01092.avif', cls: 'b3', alt: 'INVICTUS' },
-    { src: '/IMAGES/Caballero/CP02498.avif', cls: 'b4', alt: 'IMAGINATION' },
-    { src: '/IMAGES/Caballero/CP02158.avif', cls: 'b5', alt: 'SAUVAGE' },
-    { src: '/IMAGES/Caballero/CP00879.avif', cls: 'b6', alt: 'LE MALE' },
-    { src: '/IMAGES/Caballero/CP00725.avif', cls: 'b7', alt: 'ACQUA DI GIO' },
-    { src: '/IMAGES/Caballero/CP01059.avif', cls: 'b8', alt: 'BLEU DE CHANEL' },
-
-    { src: '/IMAGES/Dama/DP02404.avif', cls: 'b9', alt: 'GOOD GIRL' },
-    { src: '/IMAGES/Dama/DP02522.avif', cls: 'b10', alt: 'CLOUD' },
-    { src: '/IMAGES/Dama/DP02782.avif', cls: 'b11', alt: 'CLOUD PINK' },
-    { src: '/IMAGES/Dama/DP02331.avif', cls: 'b12', alt: 'ARI' },
-    { src: '/IMAGES/Dama/DP02632.avif', cls: 'b13', alt: 'SWEET LIKE CANDY' },
-    { src: '/IMAGES/Dama/DP02757.avif', cls: 'b14', alt: 'VALENTINO DONNA BORN IN ROMA INTENSE' },
-    { src: '/IMAGES/Dama/DP02791.avif', cls: 'b15', alt: 'YARA' },
-    { src: '/IMAGES/Dama/DP02495.avif', cls: 'b16', alt: 'BURBERRY HER' },
-    { src: '/IMAGES/Dama/DP02515.avif', cls: 'b17', alt: 'LIBRE' },
-    { src: '/IMAGES/Dama/DP02261.avif', cls: 'b18', alt: 'LA VIE EST BELLE' },
-    { src: '/IMAGES/Dama/DP02572.avif', cls: 'b19', alt: 'MY WAY' },
-    { src: '/IMAGES/Dama/DP02802.avif', cls: 'b20', alt: 'PRADA PARADOXE' },
-    { src: '/IMAGES/Dama/DP02843.avif', cls: 'b21', alt: 'DELINA EXCLUSIF' },
-
-    { src: '/IMAGES/Unisex/UP01140.avif', cls: 'b22', alt: 'BACCARAT ROUGE 540 EXTRAIT' },
-    { src: '/IMAGES/Unisex/UP01129.avif', cls: 'b23', alt: 'ERBA PURA' },
-    { src: '/IMAGES/Unisex/UP01090.avif', cls: 'b24', alt: 'OMBRE NOMADE' },
-    { src: '/IMAGES/Unisex/UP01147.avif', cls: 'b25', alt: 'ACCENTO' },
+  const CURATED_BOTTLES = [
+    { src: '/IMAGES/Caballero/CP02515.avif', alt: 'VALENTINO VALENTINO UOMO BORN IN ROMA INTENSE' },
+    { src: '/IMAGES/Caballero/CP01021.avif', alt: 'PACO RABANNE 1 MILLION' },
+    { src: '/IMAGES/Caballero/CP01092.avif', alt: 'PACO RABANNE INVICTUS' },
+    { src: '/IMAGES/Caballero/CP02498.avif', alt: 'LOUIS VUITTON IMAGINATION' },
+    { src: '/IMAGES/Caballero/CP02158.avif', alt: 'DIOR SAUVAGE' },
+    { src: '/IMAGES/Caballero/CP02341.avif', alt: 'DIOR SAUVAGE ELIXIR' },
+    { src: '/IMAGES/Caballero/CP01059.avif', alt: 'CHANEL BLEU DE CHANEL EAU DE PARFUM' },
+    { src: '/IMAGES/Caballero/CP00719.avif', alt: 'CHANEL ALLURE HOMME SPORT' },
+    { src: '/IMAGES/Caballero/CP00879.avif', alt: 'JEAN PAUL GAULTIER LE MALE' },
+    { src: '/IMAGES/Caballero/CP02475.avif', alt: 'JEAN PAUL GAULTIER LE MALE ELIXIR' },
+    { src: '/IMAGES/Caballero/CP02345.avif', alt: 'JEAN PAUL GAULTIER LE MALE LE PARFUM' },
+    { src: '/IMAGES/Caballero/CP02148.avif', alt: 'JEAN PAUL GAULTIER ULTRA MALE' },
+    { src: '/IMAGES/Caballero/CP02319.avif', alt: 'JEAN PAUL GAULTIER LE BEAU' },
+    { src: '/IMAGES/Caballero/CP02509.avif', alt: 'JEAN PAUL GAULTIER LE BEAU PARADISE GARDEN' },
+    { src: '/IMAGES/Caballero/CP02513.avif', alt: 'VALENTINO VALENTINO UOMO BORN IN ROMA' },
+    { src: '/IMAGES/Caballero/CP02253.avif', alt: 'CAROLINA HERRERA 212 VIP BLACK' },
+    { src: '/IMAGES/Caballero/CP02266.avif', alt: 'CAROLINA HERRERA BAD BOY' },
+    { src: '/IMAGES/Caballero/CP02404.avif', alt: 'CAROLINA HERRERA BAD BOY EXTREME' },
+    { src: '/IMAGES/Caballero/CP01086.avif', alt: 'VERSACE EROS' },
+    { src: '/IMAGES/Caballero/CP02372.avif', alt: 'VERSACE EROS FLAME' },
+    { src: '/IMAGES/Caballero/CP02187.avif', alt: 'VERSACE VERSACE POUR HOMME DYLAN BLUE' },
+    { src: '/IMAGES/Caballero/CP00881.avif', alt: 'DOLCE & GABBANA LIGHT BLUE POUR HOMME' },
+    { src: '/IMAGES/Caballero/CP01031.avif', alt: 'DOLCE & GABBANA THE ONE FOR MEN' },
+    { src: '/IMAGES/Caballero/CP02269.avif', alt: 'CREED AVENTUS' },
+    { src: '/IMAGES/Caballero/CP02471.avif', alt: 'CREED ABSOLU AVENTUS 2023' },
+    { src: '/IMAGES/Caballero/CP02263.avif', alt: 'MONTBLANC EXPLORER' },
+    { src: '/IMAGES/Caballero/CP02365.avif', alt: 'ARMANI EMPORIO ARMANI STRONGER WITH YOU' },
+    { src: '/IMAGES/Caballero/CP00725.avif', alt: 'ARMANI ACQUA DI GIO' },
+    { src: '/IMAGES/Caballero/CP02393.avif', alt: 'ARMANI ARMANI CODE PARFUM' },
+    { src: '/IMAGES/Caballero/CP02454.avif', alt: 'YVES SAINT LAURENT MYSLF EAU DE PARFUM' },
+    { src: '/IMAGES/Caballero/CP02227.avif', alt: 'YVES SAINT LAURENT YVES SAINT LAURENT Y' },
+    { src: '/IMAGES/Caballero/CP02338.avif', alt: 'YVES SAINT LAURENT LA NUIT DE L\'HOMME BLEU ELICTRIQUE' },
+    { src: '/IMAGES/Caballero/CP02245.avif', alt: 'PRADA LUNA ROSSA BLACK' },
+    { src: '/IMAGES/Caballero/CP02209.avif', alt: 'PRADA LUNA ROSSA CARBON EAU DE TOILETTE' },
+    { src: '/IMAGES/Caballero/CP01055.avif', alt: 'GUCCI GUCCI GUILTY POUR HOMME PARFUM' },
+    { src: '/IMAGES/Caballero/CP01012.avif', alt: 'BURBERRY HERO' },
+    { src: '/IMAGES/Caballero/CP02289.avif', alt: 'DIOR DIOR HOMME INTENSE 2011' },
+    { src: '/IMAGES/Caballero/CP02307.avif', alt: 'AZZARO WANTED BY NIGHT' },
+    { src: '/IMAGES/Caballero/CP00921.avif', alt: 'RALPH LAUREN POLO BLUE' },
+    { src: '/IMAGES/Caballero/CP02440.avif', alt: 'HUGO BOSS BOSS BOTTLED ELIXIR' },
+    { src: '/IMAGES/Dama/DP02404.avif', alt: 'CAROLINA HERRERA GOOD GIRL' },
+    { src: '/IMAGES/Dama/DP02598.avif', alt: 'CAROLINA HERRERA VERY GOOD GIRL' },
+    { src: '/IMAGES/Dama/DP02754.avif', alt: 'CAROLINA HERRERA GOOD GIRL BLUSH' },
+    { src: '/IMAGES/Dama/DP02324.avif', alt: 'YVES SAINT LAURENT BLACK OPIUM' },
+    { src: '/IMAGES/Dama/DP02756.avif', alt: 'YVES SAINT LAURENT BLACK OPIUM LE PARFUM' },
+    { src: '/IMAGES/Dama/DP02515.avif', alt: 'YVES SAINT LAURENT LIBRE' },
+    { src: '/IMAGES/Dama/DP02695.avif', alt: 'YVES SAINT LAURENT LIBRE LE PARFUM' },
+    { src: '/IMAGES/Dama/DP02357.avif', alt: 'DIOR MISS DIOR BLOOMING BOUQUET' },
+    { src: '/IMAGES/Dama/DP02523.avif', alt: 'DIOR MISS DIOR EAU DE PARFUM 2021' },
+    { src: '/IMAGES/Dama/DP01176.avif', alt: 'DIOR J\'ADORE' },
+    { src: '/IMAGES/Dama/DP01054.avif', alt: 'CHANEL CHANCE EAU DE PARFUM' },
+    { src: '/IMAGES/Dama/DP02622.avif', alt: 'CHANEL CHANCE EAU TENDRE' },
+    { src: '/IMAGES/Dama/DP01057.avif', alt: 'CHANEL CHANEL NO 5 EAU DE PARFUM' },
+    { src: '/IMAGES/Dama/DP02495.avif', alt: 'BURBERRY BURBERRY HER' },
+    { src: '/IMAGES/Dama/DP02719.avif', alt: 'BURBERRY BURBERRY HER ELIXIR DE PARFUM' },
+    { src: '/IMAGES/Dama/DP02789.avif', alt: 'BURBERRY GODDESS' },
+    { src: '/IMAGES/Dama/DP02802.avif', alt: 'PRADA PRADA PARADOXE' },
+    { src: '/IMAGES/Dama/DP02334.avif', alt: 'VIKTOR&ROLF FLOWERBOMB' },
+    { src: '/IMAGES/Dama/DP02261.avif', alt: 'LANCOME LA VIE EST BELLE' },
+    { src: '/IMAGES/Dama/DP02658.avif', alt: 'GUCCI GUCCI BLOOM' },
+    { src: '/IMAGES/Dama/DP02624.avif', alt: 'GUCCI FLORA GORGEOUS GARDENIA' },
+    { src: '/IMAGES/Dama/DP02226.avif', alt: 'VERSACE BRIGHT CRYSTAL' },
+    { src: '/IMAGES/Dama/DP02857.avif', alt: 'VERSACE CRYSTAL NOIR PARFUM' },
+    { src: '/IMAGES/Dama/DP02792.avif', alt: 'DOLCE & GABBANA DEVOTION' },
+    { src: '/IMAGES/Dama/DP01197.avif', alt: 'DOLCE & GABBANA LIGHT BLUE' },
+    { src: '/IMAGES/Dama/DP02522.avif', alt: 'ARIANA GRANDE CLOUD' },
+    { src: '/IMAGES/Dama/DP02782.avif', alt: 'ARIANA GRANDE CLOUD PINK' },
+    { src: '/IMAGES/Dama/DP02331.avif', alt: 'ARIANA GRANDE ARI' },
+    { src: '/IMAGES/Dama/DP02632.avif', alt: 'ARIANA GRANDE SWEET LIKE CANDY' },
+    { src: '/IMAGES/Dama/DP02524.avif', alt: 'ARIANA GRANDE THANK U, NEXT' },
+    { src: '/IMAGES/Dama/DP02693.avif', alt: 'BILLIE EILISH EILISH' },
+    { src: '/IMAGES/Dama/DP02333.avif', alt: 'BRITNEY SPEARS FANTASY' },
+    { src: '/IMAGES/Dama/DP02791.avif', alt: 'LATTAFA YARA' },
+    { src: '/IMAGES/Dama/DP02860.avif', alt: 'LATTAFA YARA CANDY' },
+    { src: '/IMAGES/Dama/DP02843.avif', alt: 'PARFUMS DE MARLY DELINA EXCLUSIF' },
+    { src: '/IMAGES/Dama/DP02753.avif', alt: 'VALENTINO VALENTINO DONNA BORN IN ROMA' },
+    { src: '/IMAGES/Dama/DP02757.avif', alt: 'VALENTINO VALENTINO DONNA BORN IN ROMA INTENSE' },
+    { src: '/IMAGES/Dama/DP01013.avif', alt: 'MUGLER ANGEL' },
+    { src: '/IMAGES/Dama/DP02572.avif', alt: 'ARMANI MY WAY' },
+    { src: '/IMAGES/Dama/DP02269.avif', alt: 'ARMANI SI' },
+    { src: '/IMAGES/Unisex/UP01140.avif', alt: 'MAISON FRANCIS KURKDIJAN BACCARAT ROUGE 540 EXTRAIT DE PARFUM' },
+    { src: '/IMAGES/Unisex/UP01007.avif', alt: 'TOM FORD LOST CHERRY' },
+    { src: '/IMAGES/Unisex/UP01028.avif', alt: 'TOM FORD TOBACCO VANILLE' },
+    { src: '/IMAGES/Unisex/UP01047.avif', alt: 'TOM FORD OUD WOOD' },
+    { src: '/IMAGES/Unisex/UP01046.avif', alt: 'TOM FORD OMBRÉ LEATHER (2018)' },
+    { src: '/IMAGES/Unisex/UP01029.avif', alt: 'TOM FORD SOLEIL BLANC' },
+    { src: '/IMAGES/Unisex/UP01067.avif', alt: 'TOM FORD BITTER PEACH' },
+    { src: '/IMAGES/Unisex/UP01042.avif', alt: 'BY KILIAN ANGEL\'S SHARE' },
+    { src: '/IMAGES/Unisex/UP01018.avif', alt: 'BY KILIAN BLACK PHANTOM' },
+    { src: '/IMAGES/Unisex/UP01095.avif', alt: 'LATAFFA KHAMRAH' },
+    { src: '/IMAGES/Unisex/UP01111.avif', alt: 'LATAFFA KHAMRAH QAHWA' },
+    { src: '/IMAGES/Unisex/UP01000.avif', alt: 'LELABO SANTAL 33' },
+    { src: '/IMAGES/Unisex/UP01002.avif', alt: 'CALVIN KLEIN CK ONE' },
+    { src: '/IMAGES/Unisex/UP01090.avif', alt: 'LOUIS VUITTON OMBRE NOMADE' },
+    { src: '/IMAGES/Unisex/UP01099.avif', alt: 'LOUIS VUITTON PACIFIC CHILL' },
+    { src: '/IMAGES/Unisex/UP01081.avif', alt: 'PARFUMS DE MARLY LAYTON EXCLUSIF' },
+    { src: '/IMAGES/Unisex/UP01129.avif', alt: 'XERJOFF ERBA PURA' },
+    { src: '/IMAGES/Unisex/UP01147.avif', alt: 'XERJOFF ACCENTO' },
+    { src: '/IMAGES/Unisex/UP01092.avif', alt: 'AL HARAMAIN AMBER OUD GOLD EDITION' },
+    { src: '/IMAGES/Unisex/UP01097.avif', alt: 'KAYALI LOVEFEST BURNING CHERRY' },
   ];
 
   const getEntryMode = () => {
@@ -79,15 +152,99 @@
     window.location.assign('/?entry=client');
   };
 
-  const bottleMarkup = () => bottles.map(item => `
-    <img
-      class="prive-gate-bottle ${item.cls}"
-      src="${item.src}"
-      alt=""
-      aria-hidden="true"
-      decoding="async"
-      fetchpriority="low"
-    >`).join('');
+  const SLOT_COUNT = 24;
+  const recentBySlot = new Map();
+
+  const bottleMarkup = () => Array.from({ length: SLOT_COUNT }, (_, index) => `
+    <span class="prive-bottle-slot s${index + 1}" data-bottle-slot="${index}">
+      <span class="prive-bottle-glow" aria-hidden="true"></span>
+      <img
+        class="prive-gate-bottle"
+        alt=""
+        aria-hidden="true"
+        decoding="async"
+        fetchpriority="low"
+      >
+    </span>`).join('');
+
+  const shuffled = values => {
+    const copy = [...values];
+    for (let i = copy.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  };
+
+  const startBottleRotation = gate => {
+    const slots = [...gate.querySelectorAll('[data-bottle-slot]')];
+    if (!slots.length) return;
+
+    const initial = shuffled(CURATED_BOTTLES).slice(0, slots.length);
+    const activeSources = new Set(initial.map(item => item.src));
+
+    const assign = (slot, item, immediate = false) => {
+      const img = slot.querySelector('.prive-gate-bottle');
+      if (!img) return;
+      const previous = img.dataset.src || '';
+      if (previous) activeSources.delete(previous);
+      img.dataset.src = item.src;
+      img.src = item.src;
+      img.title = item.alt;
+      activeSources.add(item.src);
+      if (immediate) {
+        img.classList.add('is-visible');
+      } else {
+        requestAnimationFrame(() => img.classList.add('is-visible'));
+      }
+    };
+
+    slots.forEach((slot, index) => {
+      assign(slot, initial[index], true);
+      recentBySlot.set(index, [initial[index].src]);
+    });
+
+    const rotateSlot = (slot, index) => {
+      const img = slot.querySelector('.prive-gate-bottle');
+      if (!img) return;
+
+      const recent = recentBySlot.get(index) || [];
+      const candidates = CURATED_BOTTLES.filter(item =>
+        !activeSources.has(item.src) && !recent.includes(item.src)
+      );
+      const fallback = CURATED_BOTTLES.filter(item => !activeSources.has(item.src));
+      const source = candidates.length ? candidates : fallback;
+      if (!source.length) return;
+
+      const next = source[Math.floor(Math.random() * source.length)];
+      img.classList.remove('is-visible');
+      slot.classList.add('is-changing');
+
+      window.setTimeout(() => {
+        assign(slot, next);
+        const nextRecent = [next.src, ...recent].slice(0, 6);
+        recentBySlot.set(index, nextRecent);
+        slot.classList.remove('is-changing');
+      }, 720);
+    };
+
+    slots.forEach((slot, index) => {
+      const firstDelay = 5000 + Math.random() * 9000 + index * 170;
+      const schedule = () => {
+        const interval = 9000 + Math.random() * 9000;
+        window.setTimeout(() => {
+          if (!document.body.contains(gate)) return;
+          rotateSlot(slot, index);
+          schedule();
+        }, interval);
+      };
+      window.setTimeout(() => {
+        if (!document.body.contains(gate)) return;
+        rotateSlot(slot, index);
+        schedule();
+      }, firstDelay);
+    });
+  };
 
   const createGate = () => {
     const gate = document.createElement('section');
@@ -138,6 +295,7 @@
 
         <p class="prive-entry-note">Las claves internas de los perfumes permanecen privadas y no se muestran en el catálogo público.</p>
       </div>`;
+    window.setTimeout(() => startBottleRotation(gate), 30);
     return gate;
   };
 

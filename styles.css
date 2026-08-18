@@ -3532,3 +3532,26 @@ body{position:relative}
     font-size:11px;
   }
 }
+
+
+/* S15 V1.4 · Pantallas edge-to-edge / alto completo */
+html{
+  min-height:100%;
+  min-height:100dvh;
+  background:#07090d;
+  overscroll-behavior-y:none;
+}
+body{
+  min-height:100%;
+  min-height:100dvh;
+}
+main{min-height:100dvh}
+.hero{min-height:100dvh}
+.hero-inner{min-height:100dvh}
+.catalog-shell{
+  min-height:100dvh;
+  padding-bottom:max(72px,calc(48px + env(safe-area-inset-bottom)));
+}
+@supports(height:100svh){
+  .hero,.hero-inner{min-height:100svh}
+}

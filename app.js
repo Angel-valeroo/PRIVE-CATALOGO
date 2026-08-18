@@ -1232,6 +1232,18 @@ function syncSearchInputs(value) {
   if (elements.catalogSearchClear) elements.catalogSearchClear.hidden = !nextValue.trim();
   document.body.classList.toggle("search-has-query", Boolean(nextValue.trim()));
 }
+function readSearchFromUrl() {
+  try { return new URL(window.location.href).searchParams.get("q") || ""; }
+  catch (_) { return ""; }
+}
+function writeSearchToUrl(query) {
+  try {
+    const url = new URL(window.location.href);
+    if (query) url.searchParams.set("q", query);
+    else url.searchParams.delete("q");
+    history.replaceState(history.state, "", `${url.pathname}${url.search}${url.hash}`);
+  } catch (_) {}
+}
 function applySearch(value, { scroll = false, scrollBehavior = "smooth" } = {}) {
   state.query = String(value ?? "").trim();
   syncSearchInputs(value);
@@ -1239,6 +1251,7 @@ function applySearch(value, { scroll = false, scrollBehavior = "smooth" } = {}) 
     if (state.query) sessionStorage.setItem(SEARCH_SESSION_KEY, state.query);
     else sessionStorage.removeItem(SEARCH_SESSION_KEY);
   } catch (_) {}
+  writeSearchToUrl(state.query);
   render();
   if (scroll) scrollToCatalog(scrollBehavior);
 }
@@ -1551,8 +1564,10 @@ async function init(){
     const production = await loadProductionCatalog();
     state.perfumes = production.perfumes;
     try {
+      const urlQuery = readSearchFromUrl();
       const savedQuery = sessionStorage.getItem(SEARCH_SESSION_KEY);
-      if (savedQuery && !state.query) state.query = savedQuery;
+      if (urlQuery) state.query = urlQuery;
+      else if (savedQuery && !state.query) state.query = savedQuery;
     } catch (_) {}
     console.info(`PRIVÉ: ${state.perfumes.length} fragancias cargadas desde ${production.source}.`);
     populateFilters(); render(); syncSearchInputs(state.query); renderAdvisorOptions(); startSearchPlaceholderRotation(); openFromHash(); scheduleCatalogSearchDockUpdate();
@@ -1583,21 +1598,37 @@ window.addEventListener("scroll", () => {
 }, { passive: true });
 
 function restorePublicSearchState() {
+  const urlQuery = readSearchFromUrl();
   let savedQuery = "";
   try { savedQuery = sessionStorage.getItem(SEARCH_SESSION_KEY) || ""; } catch (_) {}
-  if (savedQuery !== state.query) {
-    state.query = savedQuery;
+  const query = urlQuery || savedQuery || state.query || "";
+
+  if (query !== state.query) {
+    state.query = query;
     render();
   }
-  syncSearchInputs(savedQuery || state.query);
+  syncSearchInputs(query);
+  if (query) {
+    try { sessionStorage.setItem(SEARCH_SESSION_KEY, query); } catch (_) {}
+  }
   scheduleCatalogSearchDockUpdate();
 }
+
+window.addEventListener("pagehide", () => {
+  const currentValue = String(elements.catalogSearch?.value || elements.search?.value || state.query || "").trim();
+  if (!currentValue) return;
+  try { sessionStorage.setItem(SEARCH_SESSION_KEY, currentValue); } catch (_) {}
+  writeSearchToUrl(currentValue);
+});
 
 window.addEventListener("pageshow", event => {
   // En Safari/iPhone el DOM puede regresar desde bfcache con los resultados
   // filtrados pero el input visual vacío. La fuente de verdad al volver es
   // sessionStorage, no el valor que Safari decidió restaurar en el campo.
   restorePublicSearchState();
+  requestAnimationFrame(() => restorePublicSearchState());
+  window.setTimeout(restorePublicSearchState, 120);
+  window.setTimeout(restorePublicSearchState, 420);
 
   // Conservamos la posición que Safari restauró al volver.
   if (!event.persisted && !location.hash.startsWith("#perfume=") && window.scrollY < 2) {
@@ -1637,3 +1668,15 @@ window.addEventListener("prive:catalog-entered", () => {
     node.style.transform = "";
   });
 });
+
+
+/* S15 V1.4 · Safari: integrar visualmente barras del navegador con la pantalla activa */
+const priveThemeMeta = document.querySelector('meta[name="theme-color"]');
+function updatePriveThemeColor() {
+  if (!priveThemeMeta) return;
+  const catalogTop = document.querySelector("#catalogo")?.getBoundingClientRect().top ?? Infinity;
+  priveThemeMeta.setAttribute("content", catalogTop < 90 ? "#eeeae2" : "#07090d");
+}
+window.addEventListener("scroll", updatePriveThemeColor, { passive: true });
+window.addEventListener("pageshow", () => window.setTimeout(updatePriveThemeColor, 80));
+updatePriveThemeColor();

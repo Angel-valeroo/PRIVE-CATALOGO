@@ -245,3 +245,10 @@ body.prive-trust-open { overflow: hidden; }
 @media(prefers-reduced-motion:reduce){
   .prive-trust-alert-band{animation:none!important}
 }
+
+/* S15 V1.4 · Respaldo Oficial ocupa todo el viewport útil */
+.prive-trust-notice{
+  min-height:100dvh;
+  padding-top:max(18px,env(safe-area-inset-top));
+  padding-bottom:max(18px,env(safe-area-inset-bottom));
+}
