@@ -103,39 +103,39 @@ html.prive-access-locked body>*:not(#priveAccessGate):not(script){
 
 
 
-/* S15 V1.7 · Referencia directa del hero del catálogo */
+
+/* S15 V1.8 · Fondo único expandido + composición anotada */
 html.prive-access-locked,
 html.prive-access-locked body{
   margin:0!important;
-  min-height:100%!important;
+  width:100%!important;
+  min-height:100lvh!important;
   background:#07090d!important;
-  overflow:hidden!important;
+  overflow-x:hidden!important;
 }
 
 /*
-  Mismo fondo base que usa .hero en el catálogo.
-  Sin capas que cambien de tono justo en los bordes del viewport.
+  Un solo fondo real.
+  100lvh = el alto grande de Safari: la superficie continúa por debajo de
+  las barras del navegador en lugar de terminar en el viewport pequeño.
 */
 #priveAccessGate{
-  position:fixed;
-  inset:0;
+  position:absolute;
+  top:0;
+  left:0;
   z-index:2147483647;
-  display:grid;
-  place-items:center;
   width:100%;
-  height:100vh;
-  height:100svh;
-  min-height:100vh;
-  min-height:100svh;
-  padding:
-    max(8px,env(safe-area-inset-top))
-    max(6px,env(safe-area-inset-right))
-    max(8px,env(safe-area-inset-bottom))
-    max(6px,env(safe-area-inset-left));
+  height:100lvh;
+  min-height:100lvh;
   overflow:hidden;
   color:var(--gate-text);
-  background:linear-gradient(135deg,#07090d 0%,#0a1019 48%,#05070a 100%);
+  background:
+    radial-gradient(circle at 77% 16%,rgba(91,119,153,.12),transparent 25%),
+    radial-gradient(circle at 18% 80%,rgba(216,190,137,.075),transparent 26%),
+    linear-gradient(135deg,#07090d 0%,#0a1019 48%,#05070a 100%);
 }
+
+/* No hay fondos extra pegados arriba/abajo. */
 #priveAccessGate::before{
   content:"";
   position:absolute;
@@ -144,28 +144,30 @@ html.prive-access-locked body{
   pointer-events:none;
   background:linear-gradient(
     90deg,
-    rgba(4,6,9,.46) 0%,
-    rgba(4,6,9,.14) 48%,
-    rgba(4,6,9,.30) 100%
+    rgba(4,6,9,.43) 0%,
+    rgba(4,6,9,.10) 47%,
+    rgba(4,6,9,.27) 100%
   );
 }
-#priveAccessGate::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at 76% 18%,rgba(91,119,153,.13),transparent 24%),
-    radial-gradient(circle at 18% 79%,rgba(216,190,137,.08),transparent 25%);
-}
+#priveAccessGate::after{display:none!important}
 
+/*
+  El contenido se centra según el viewport visible de Safari,
+  mientras el fondo sigue hasta 100lvh.
+*/
 .prive-entry-shell{
   position:relative;
   z-index:8;
   width:min(690px,100%);
-  margin:auto;
-  padding:18px 16px 14px;
+  min-height:100svh;
+  margin:0 auto;
+  padding:
+    max(10px,env(safe-area-inset-top))
+    16px
+    max(10px,env(safe-area-inset-bottom));
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
   border:0!important;
   border-radius:0!important;
   background:transparent!important;
@@ -186,7 +188,6 @@ html.prive-access-locked body{
   position:absolute;
   inset:0;
   z-index:2;
-  overflow:hidden;
   pointer-events:none;
 }
 
@@ -194,8 +195,8 @@ html.prive-access-locked body{
   position:absolute;
   display:grid;
   place-items:center;
-  width:clamp(88px,9.5vw,128px);
-  height:clamp(118px,14vw,174px);
+  width:clamp(88px,9.5vw,126px);
+  height:clamp(118px,14vw,170px);
   pointer-events:none;
   transform:rotate(var(--tilt,0deg));
 }
@@ -205,101 +206,94 @@ html.prive-access-locked body{
   height:100%;
   object-fit:contain;
   opacity:0;
-  transform:translate3d(0,9px,0) scale(.95);
+  transform:translate3d(0,8px,0) scale(.96);
   filter:
-    drop-shadow(0 0 3px rgba(255,239,194,.12))
-    drop-shadow(0 15px 20px rgba(0,0,0,.36));
+    drop-shadow(0 0 2px rgba(255,239,194,.09))
+    drop-shadow(0 14px 19px rgba(0,0,0,.34));
   transition:
-    opacity 1.15s ease,
-    transform 1.15s cubic-bezier(.18,.76,.22,1),
-    filter 1.15s ease;
-  animation:priveBottleFloat var(--floatDur,13s) ease-in-out var(--floatDelay,0s) infinite alternate;
+    opacity 1.2s ease,
+    transform 1.2s cubic-bezier(.18,.76,.22,1),
+    filter 1.2s ease;
+  animation:priveBottleFloat var(--floatDur,14s) ease-in-out var(--floatDelay,0s) infinite alternate;
 }
-
 .prive-gate-bottle.is-visible{
   opacity:.76;
   transform:translate3d(0,0,0) scale(1);
   filter:
-    drop-shadow(0 0 4px rgba(255,239,194,.16))
-    drop-shadow(0 17px 22px rgba(0,0,0,.39));
+    drop-shadow(0 0 3px rgba(255,239,194,.12))
+    drop-shadow(0 16px 21px rgba(0,0,0,.38));
 }
-
 @keyframes priveBottleFloat{
   0%{translate:-2px -5px}
   48%{translate:4px 2px}
   100%{translate:-3px 8px}
 }
 
-/*
-  Desktop/tablet: posiciones orgánicas y seguras.
-  No se colocan botellas sobre el bloque de Acceso Privado / Catálogo Digital.
-*/
-.s1{left:2%;top:4%;--tilt:-7deg;--floatDur:12.4s}
-.s2{left:18%;top:10%;--tilt:4deg;--floatDur:14.1s;--floatDelay:-3s}
-.s3{right:20%;top:4%;--tilt:-4deg;--floatDur:13.2s;--floatDelay:-5s}
-.s4{right:2%;top:14%;--tilt:6deg;--floatDur:14.8s;--floatDelay:-2s}
-
-.s5{left:1%;top:39%;--tilt:5deg;--floatDur:13.8s;--floatDelay:-6s}
-.s6{right:1%;top:41%;--tilt:-5deg;--floatDur:12.9s;--floatDelay:-4s}
-
-.s7{left:4%;bottom:2%;--tilt:-6deg;--floatDur:14.6s;--floatDelay:-2s}
-.s8{left:28%;bottom:7%;--tilt:3deg;--floatDur:12.8s;--floatDelay:-7s}
-.s9{right:28%;bottom:2%;--tilt:-3deg;--floatDur:14.3s;--floatDelay:-4s}
-.s10{right:4%;bottom:8%;--tilt:6deg;--floatDur:13.1s;--floatDelay:-6s}
+/* Escritorio: composición aireada; zona de tarjetas totalmente libre. */
+.s1{left:2%;top:5%;--tilt:-7deg;--floatDur:13.2s}
+.s2{left:23%;top:2%;--tilt:4deg;--floatDur:14.8s;--floatDelay:-3s}
+.s3{right:22%;top:7%;--tilt:-4deg;--floatDur:13.7s;--floatDelay:-5s}
+.s4{right:2%;top:16%;--tilt:6deg;--floatDur:15.1s;--floatDelay:-2s}
+.s5{left:1%;top:31%;--tilt:5deg;--floatDur:14.2s;--floatDelay:-6s}
+.s6{left:3%;bottom:3%;--tilt:-6deg;--floatDur:15s;--floatDelay:-2s}
+.s7{left:30%;bottom:8%;--tilt:3deg;--floatDur:13.1s;--floatDelay:-7s}
+.s8{right:29%;bottom:3%;--tilt:-3deg;--floatDur:14.7s;--floatDelay:-4s}
+.s9{right:3%;bottom:9%;--tilt:6deg;--floatDur:13.5s;--floatDelay:-6s}
 
 @media(max-width:620px){
   #priveAccessGate{
-    height:100svh;
-    min-height:100svh;
-    padding:
-      max(5px,env(safe-area-inset-top))
-      4px
-      max(5px,env(safe-area-inset-bottom));
+    height:100lvh;
+    min-height:100lvh;
   }
 
   .prive-entry-shell{
+    min-height:100svh;
     width:100%;
-    padding:10px 2px 8px;
+    padding:
+      max(7px,env(safe-area-inset-top))
+      3px
+      max(7px,env(safe-area-inset-bottom));
   }
 
   .prive-entry-brand{margin-bottom:18px}
   .prive-entry-options{margin-top:18px}
 
   .prive-bottle-slot{
-    width:clamp(74px,21vw,96px);
-    height:clamp(100px,29vw,130px);
+    width:clamp(76px,22vw,98px);
+    height:clamp(102px,30vw,132px);
   }
 
   /*
-    Móvil:
-    - arriba se permiten botellas SOLO a los lados del texto;
-    - zona completa de las dos tarjetas queda libre;
-    - abajo quedan cuatro botellas escalonadas, no una fila recta.
+    Referencia exacta de la imagen anotada:
+    - S1/S2/S3 = zona superior libre alrededor de marca, SIN tapar letras.
+    - S4 = lado izquierdo del “¿Cómo deseas entrar?”, un poco arriba/izquierda.
+    - NO hay botellas a los lados del bloque Acceso Privado/Catálogo Digital.
+    - S5-S9 = zona inferior, escalonadas.
   */
-  .s1{left:-5%;top:2%;--tilt:-7deg}
-  .s2{left:5%;top:22%;--tilt:5deg}
-  .s3{right:5%;top:3%;--tilt:-4deg}
-  .s4{right:-5%;top:24%;--tilt:7deg}
+  .s1{left:-4%;top:7%;--tilt:-7deg}
+  .s2{left:33%;top:1.5%;--tilt:4deg}
+  .s3{right:-3%;top:9%;--tilt:-5deg}
 
-  .s5{left:-7%;top:37%;--tilt:5deg}
-  .s6{right:-7%;top:39%;--tilt:-5deg}
+  /* La botella cercana al signo de interrogación se mueve arriba + izquierda. */
+  .s4{left:-5%;top:27%;--tilt:6deg}
 
-  /* Estas cuatro quedan debajo de la nota final, escalonadas. */
-  .s7{left:-2%;bottom:1%;--tilt:-7deg}
-  .s8{left:25%;bottom:6%;--tilt:4deg}
-  .s9{right:24%;bottom:1%;--tilt:-4deg}
-  .s10{right:-2%;bottom:7%;--tilt:7deg}
+  /* A partir de aquí no hay ningún slot durante las tarjetas. */
+  .s5{left:-3%;top:76%;--tilt:-6deg}
+  .s6{left:23%;top:82%;--tilt:4deg}
+  .s7{left:48%;top:77%;--tilt:-4deg}
+  .s8{right:17%;top:84%;--tilt:6deg}
+  .s9{right:-4%;top:78%;--tilt:-6deg}
 
   .prive-gate-bottle.is-visible{opacity:.78}
 }
 
 @media(max-width:390px){
   .prive-bottle-slot{
-    width:clamp(68px,20vw,82px);
-    height:clamp(92px,27vw,112px);
+    width:clamp(70px,21vw,86px);
+    height:clamp(94px,28vw,116px);
   }
-  /* En pantallas muy angostas quitamos los laterales que podrían acercarse a las tarjetas. */
-  .s5,.s6{display:none}
+  .s7{left:45%;top:79%}
+  .s8{right:15%;top:85%}
 }
 
 @media(prefers-reduced-motion:reduce){

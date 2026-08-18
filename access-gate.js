@@ -152,7 +152,7 @@
     window.location.assign('/?entry=client');
   };
 
-  const SLOT_COUNT = 10;
+  const SLOT_COUNT = 9;
   const recentBySlot = new Map();
 
   const bottleMarkup = () => Array.from({ length: SLOT_COUNT }, (_, index) => `
