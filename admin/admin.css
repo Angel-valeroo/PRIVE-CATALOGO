@@ -186,18 +186,22 @@ body{
 }
 
 
-/* S15 V1.8 · Admin sobre un único canvas 100lvh */
+/* S15 V1.9 · Admin restaurado: sin 100lvh ni desplazamiento artificial */
 html,body{
-  min-height:100lvh!important;
+  min-height:100%!important;
   background:#07090d!important;
 }
 body{
-  background:radial-gradient(circle at 77% 16%,rgba(91,119,153,.12),transparent 25%),radial-gradient(circle at 18% 80%,rgba(216,190,137,.075),transparent 26%),linear-gradient(135deg,#07090d 0%,#0a1019 48%,#05070a 100%)!important;
-  background-repeat:no-repeat!important;
-  background-size:100% 100lvh!important;
+  min-height:100dvh!important;
+  background:
+    radial-gradient(circle at 77% 16%,rgba(91,119,153,.08),transparent 25%),
+    radial-gradient(circle at 18% 80%,rgba(216,190,137,.05),transparent 26%),
+    linear-gradient(135deg,#07090d 0%,#0a1019 48%,#05070a 100%)!important;
+  background-attachment:fixed!important;
+  background-size:cover!important;
 }
 body::before{display:none!important}
 .admin-shell{
-  min-height:100lvh!important;
+  min-height:100dvh!important;
   background:transparent!important;
 }

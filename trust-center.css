@@ -328,30 +328,46 @@ body.prive-trust-open{background:#07090d!important}
 }
 
 
-/* S15 V1.8 · Un solo fondo real expandido para Compra con confianza */
+/* S15 V1.9 · Compra con confianza sin scroll dentro del recuadro */
 body.prive-trust-open{
-  min-height:100lvh!important;
+  overflow:hidden!important;
   background:#07090d!important;
 }
 .prive-trust-notice{
-  position:absolute!important;
-  top:0!important;
-  left:0!important;
+  position:fixed!important;
+  inset:0!important;
+  z-index:2147483000!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
   width:100%!important;
-  height:100lvh!important;
-  min-height:100lvh!important;
-  overflow:auto!important;
-  background:radial-gradient(circle at 77% 16%,rgba(91,119,153,.12),transparent 25%),radial-gradient(circle at 18% 80%,rgba(216,190,137,.075),transparent 26%),linear-gradient(135deg,#07090d 0%,#0a1019 48%,#05070a 100%)!important;
+  height:100dvh!important;
+  min-height:100dvh!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
   padding:
     max(18px,env(safe-area-inset-top))
-    max(12px,env(safe-area-inset-right))
+    max(14px,env(safe-area-inset-right))
     max(18px,env(safe-area-inset-bottom))
-    max(12px,env(safe-area-inset-left))!important;
+    max(14px,env(safe-area-inset-left))!important;
+  background:
+    radial-gradient(circle at 77% 16%,rgba(91,119,153,.10),transparent 25%),
+    radial-gradient(circle at 18% 80%,rgba(216,190,137,.065),transparent 26%),
+    linear-gradient(135deg,#07090d 0%,#0a1019 48%,#05070a 100%)!important;
 }
-.prive-trust-notice::before{
-  content:""!important;
-  position:absolute!important;
-  inset:0!important;
-  z-index:-1!important;
-  background:linear-gradient(90deg,rgba(4,6,9,.43),rgba(4,6,9,.10) 47%,rgba(4,6,9,.27))!important;
+.prive-trust-card{
+  width:min(100%,540px)!important;
+  max-height:none!important;
+  overflow:visible!important;
+  flex:0 0 auto!important;
+}
+
+/* En pantallas bajas, scrollea la página/overlay completo, nunca la tarjeta. */
+@media(max-height:760px){
+  .prive-trust-notice{
+    align-items:flex-start!important;
+  }
+  .prive-trust-card{
+    margin:auto 0!important;
+  }
 }

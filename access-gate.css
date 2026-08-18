@@ -104,38 +104,42 @@ html.prive-access-locked body>*:not(#priveAccessGate):not(script){
 
 
 
-/* S15 V1.8 · Fondo único expandido + composición anotada */
+/* S15 V1.9 · Layout restaurado + composición según captura anotada */
 html.prive-access-locked,
 html.prive-access-locked body{
   margin:0!important;
   width:100%!important;
-  min-height:100lvh!important;
+  min-height:100%!important;
   background:#07090d!important;
-  overflow-x:hidden!important;
+  overflow:hidden!important;
 }
 
-/*
-  Un solo fondo real.
-  100lvh = el alto grande de Safari: la superficie continúa por debajo de
-  las barras del navegador en lugar de terminar en el viewport pequeño.
-*/
 #priveAccessGate{
-  position:absolute;
-  top:0;
-  left:0;
+  position:fixed;
+  inset:0;
   z-index:2147483647;
+  display:grid;
+  place-items:center;
   width:100%;
-  height:100lvh;
-  min-height:100lvh;
+  height:100dvh;
+  min-height:100dvh;
+  padding:
+    max(8px,env(safe-area-inset-top))
+    max(6px,env(safe-area-inset-right))
+    max(8px,env(safe-area-inset-bottom))
+    max(6px,env(safe-area-inset-left));
   overflow:hidden;
   color:var(--gate-text);
+
+  /*
+    Un solo fondo continuo para toda la pantalla.
+    Sin capas superior/inferior independientes.
+  */
   background:
     radial-gradient(circle at 77% 16%,rgba(91,119,153,.12),transparent 25%),
     radial-gradient(circle at 18% 80%,rgba(216,190,137,.075),transparent 26%),
     linear-gradient(135deg,#07090d 0%,#0a1019 48%,#05070a 100%);
 }
-
-/* No hay fondos extra pegados arriba/abajo. */
 #priveAccessGate::before{
   content:"";
   position:absolute;
@@ -144,30 +148,19 @@ html.prive-access-locked body{
   pointer-events:none;
   background:linear-gradient(
     90deg,
-    rgba(4,6,9,.43) 0%,
+    rgba(4,6,9,.42) 0%,
     rgba(4,6,9,.10) 47%,
-    rgba(4,6,9,.27) 100%
+    rgba(4,6,9,.26) 100%
   );
 }
 #priveAccessGate::after{display:none!important}
 
-/*
-  El contenido se centra según el viewport visible de Safari,
-  mientras el fondo sigue hasta 100lvh.
-*/
 .prive-entry-shell{
   position:relative;
   z-index:8;
   width:min(690px,100%);
-  min-height:100svh;
-  margin:0 auto;
-  padding:
-    max(10px,env(safe-area-inset-top))
-    16px
-    max(10px,env(safe-area-inset-bottom));
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+  margin:auto;
+  padding:18px 16px 14px;
   border:0!important;
   border-radius:0!important;
   background:transparent!important;
@@ -175,7 +168,6 @@ html.prive-access-locked body{
   -webkit-backdrop-filter:none!important;
   backdrop-filter:none!important;
 }
-
 .prive-entry-brand,
 .prive-entry-copy,
 .prive-entry-options,
@@ -188,9 +180,9 @@ html.prive-access-locked body{
   position:absolute;
   inset:0;
   z-index:2;
+  overflow:hidden;
   pointer-events:none;
 }
-
 .prive-bottle-slot{
   position:absolute;
   display:grid;
@@ -200,7 +192,6 @@ html.prive-access-locked body{
   pointer-events:none;
   transform:rotate(var(--tilt,0deg));
 }
-
 .prive-gate-bottle{
   width:100%;
   height:100%;
@@ -208,7 +199,7 @@ html.prive-access-locked body{
   opacity:0;
   transform:translate3d(0,8px,0) scale(.96);
   filter:
-    drop-shadow(0 0 2px rgba(255,239,194,.09))
+    drop-shadow(0 0 2px rgba(255,239,194,.08))
     drop-shadow(0 14px 19px rgba(0,0,0,.34));
   transition:
     opacity 1.2s ease,
@@ -217,10 +208,10 @@ html.prive-access-locked body{
   animation:priveBottleFloat var(--floatDur,14s) ease-in-out var(--floatDelay,0s) infinite alternate;
 }
 .prive-gate-bottle.is-visible{
-  opacity:.76;
+  opacity:.75;
   transform:translate3d(0,0,0) scale(1);
   filter:
-    drop-shadow(0 0 3px rgba(255,239,194,.12))
+    drop-shadow(0 0 3px rgba(255,239,194,.10))
     drop-shadow(0 16px 21px rgba(0,0,0,.38));
 }
 @keyframes priveBottleFloat{
@@ -229,30 +220,29 @@ html.prive-access-locked body{
   100%{translate:-3px 8px}
 }
 
-/* Escritorio: composición aireada; zona de tarjetas totalmente libre. */
-.s1{left:2%;top:5%;--tilt:-7deg;--floatDur:13.2s}
-.s2{left:23%;top:2%;--tilt:4deg;--floatDur:14.8s;--floatDelay:-3s}
-.s3{right:22%;top:7%;--tilt:-4deg;--floatDur:13.7s;--floatDelay:-5s}
-.s4{right:2%;top:16%;--tilt:6deg;--floatDur:15.1s;--floatDelay:-2s}
-.s5{left:1%;top:31%;--tilt:5deg;--floatDur:14.2s;--floatDelay:-6s}
-.s6{left:3%;bottom:3%;--tilt:-6deg;--floatDur:15s;--floatDelay:-2s}
-.s7{left:30%;bottom:8%;--tilt:3deg;--floatDur:13.1s;--floatDelay:-7s}
-.s8{right:29%;bottom:3%;--tilt:-3deg;--floatDur:14.7s;--floatDelay:-4s}
-.s9{right:3%;bottom:9%;--tilt:6deg;--floatDur:13.5s;--floatDelay:-6s}
+/* Desktop */
+.s1{left:2%;top:5%;--tilt:-7deg}
+.s2{left:33%;top:2%;--tilt:4deg}
+.s3{right:3%;top:9%;--tilt:-5deg}
+.s4{left:2%;top:29%;--tilt:6deg}
+.s5{left:3%;bottom:3%;--tilt:-6deg}
+.s6{left:27%;bottom:8%;--tilt:4deg}
+.s7{left:49%;bottom:3%;--tilt:-4deg}
+.s8{right:18%;bottom:9%;--tilt:6deg}
+.s9{right:2%;bottom:4%;--tilt:-6deg}
 
 @media(max-width:620px){
   #priveAccessGate{
-    height:100lvh;
-    min-height:100lvh;
+    min-height:100dvh;
+    padding:
+      max(6px,env(safe-area-inset-top))
+      4px
+      max(6px,env(safe-area-inset-bottom));
   }
 
   .prive-entry-shell{
-    min-height:100svh;
     width:100%;
-    padding:
-      max(7px,env(safe-area-inset-top))
-      3px
-      max(7px,env(safe-area-inset-bottom));
+    padding:10px 2px 8px;
   }
 
   .prive-entry-brand{margin-bottom:18px}
@@ -264,27 +254,28 @@ html.prive-access-locked body{
   }
 
   /*
-    Referencia exacta de la imagen anotada:
-    - S1/S2/S3 = zona superior libre alrededor de marca, SIN tapar letras.
-    - S4 = lado izquierdo del “¿Cómo deseas entrar?”, un poco arriba/izquierda.
-    - NO hay botellas a los lados del bloque Acceso Privado/Catálogo Digital.
-    - S5-S9 = zona inferior, escalonadas.
+    Captura anotada:
+    - S1 izquierda superior.
+    - S2 nueva botella en la palomita verde, arriba de PERFUMERÍA PRIVÉ.
+    - S3 derecha superior.
+    - S4 botella izquierda subida para no tocar “¿”.
+    - No hay ninguna botella a los lados de las dos tarjetas.
+    - S5-S9 viven debajo del bloque de tarjetas y la nota, escalonadas.
   */
   .s1{left:-4%;top:7%;--tilt:-7deg}
-  .s2{left:33%;top:1.5%;--tilt:4deg}
-  .s3{right:-3%;top:9%;--tilt:-5deg}
+  .s2{left:40%;top:4%;--tilt:4deg}
+  .s3{right:-3%;top:10%;--tilt:-5deg}
 
-  /* La botella cercana al signo de interrogación se mueve arriba + izquierda. */
-  .s4{left:-5%;top:27%;--tilt:6deg}
+  .s4{left:-6%;top:27%;--tilt:6deg}
 
-  /* A partir de aquí no hay ningún slot durante las tarjetas. */
-  .s5{left:-3%;top:76%;--tilt:-6deg}
-  .s6{left:23%;top:82%;--tilt:4deg}
-  .s7{left:48%;top:77%;--tilt:-4deg}
-  .s8{right:17%;top:84%;--tilt:6deg}
-  .s9{right:-4%;top:78%;--tilt:-6deg}
+  /* Zona completa de Acceso privado + Catálogo digital sin perfumes. */
+  .s5{left:-3%;top:79%;--tilt:-6deg}
+  .s6{left:22%;top:84%;--tilt:4deg}
+  .s7{left:47%;top:79%;--tilt:-4deg}
+  .s8{right:15%;top:85%;--tilt:6deg}
+  .s9{right:-4%;top:80%;--tilt:-6deg}
 
-  .prive-gate-bottle.is-visible{opacity:.78}
+  .prive-gate-bottle.is-visible{opacity:.77}
 }
 
 @media(max-width:390px){
@@ -292,8 +283,8 @@ html.prive-access-locked body{
     width:clamp(70px,21vw,86px);
     height:clamp(94px,28vw,116px);
   }
-  .s7{left:45%;top:79%}
-  .s8{right:15%;top:85%}
+  .s2{left:39%;top:5%}
+  .s7{left:45%;top:80%}
 }
 
 @media(prefers-reduced-motion:reduce){
