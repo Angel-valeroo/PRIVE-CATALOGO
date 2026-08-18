@@ -674,3 +674,28 @@ body{
 @supports(-webkit-touch-callout:none){
   html,body,.portal-shell{min-height:-webkit-fill-available}
 }
+
+
+/* S15 V1.6 · Portal comparte el mismo estándar edge-to-edge del catálogo */
+html,body{
+  background:#05070b!important;
+}
+body{
+  position:relative;
+  isolation:isolate;
+}
+body::before{
+  content:"";
+  position:fixed;
+  z-index:-1;
+  inset:-28vh -8vw;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% 28%,rgba(216,179,95,.065),transparent 31%),
+    linear-gradient(180deg,#05070b 0%,#080b10 18%,#0d1117 50%,#080b10 83%,#05070b 100%);
+}
+.portal-shell{
+  min-height:100vh;
+  min-height:100dvh;
+  background:transparent!important;
+}

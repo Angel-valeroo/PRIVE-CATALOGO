@@ -279,3 +279,28 @@ body:has(.prive-trust-notice:not([hidden])){
     max(18px,env(safe-area-inset-bottom))
     max(12px,env(safe-area-inset-left));
 }
+
+
+/* S15 V1.6 · Respaldo Oficial con bordes idénticos al fondo Safari */
+body.prive-trust-open{
+  background:#05070b!important;
+}
+.prive-trust-notice{
+  height:100vh;
+  height:100dvh;
+  min-height:100vh;
+  min-height:100dvh;
+  background:#05070b!important;
+  isolation:isolate;
+}
+.prive-trust-notice::before{
+  content:"";
+  position:fixed;
+  z-index:-1;
+  inset:-28vh -8vw;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 18% 35%,rgba(216,199,159,.07),transparent 27%),
+    radial-gradient(ellipse at 82% 64%,rgba(91,112,142,.055),transparent 29%),
+    linear-gradient(180deg,#05070b 0%,#080b10 19%,#0d1117 51%,#080b10 82%,#05070b 100%);
+}

@@ -151,3 +151,22 @@ body{
 @supports(-webkit-touch-callout:none){
   html,body,.admin-shell{min-height:-webkit-fill-available}
 }
+
+
+/* S15 V1.6 · Admin comparte estándar de viewport PRIVÉ */
+html,body{background:#05070b!important}
+body{
+  position:relative;
+  isolation:isolate;
+}
+body::before{
+  content:"";
+  position:fixed;
+  z-index:-1;
+  inset:-28vh -8vw;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% 25%,rgba(201,164,88,.055),transparent 31%),
+    linear-gradient(180deg,#05070b 0%,#090b10 18%,#0e1015 51%,#090b10 83%,#05070b 100%);
+}
+.admin-shell{min-height:100vh;min-height:100dvh;background:transparent!important}

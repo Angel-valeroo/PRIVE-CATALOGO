@@ -152,7 +152,7 @@
     window.location.assign('/?entry=client');
   };
 
-  const SLOT_COUNT = 24;
+  const SLOT_COUNT = 14;
   const recentBySlot = new Map();
 
   const bottleMarkup = () => Array.from({ length: SLOT_COUNT }, (_, index) => `
@@ -175,6 +175,111 @@
     return copy;
   };
 
+  const rectsOverlap = (a, b, gap = 0) =>
+    a.left < b.right + gap &&
+    a.right > b.left - gap &&
+    a.top < b.bottom + gap &&
+    a.bottom > b.top - gap;
+
+  const protectedRects = gate => {
+    const selectors = [
+      '.prive-gate-overline',
+      '.prive-gate-logo',
+      '.prive-entry-slogan',
+      '.prive-entry-kicker',
+      '#priveGateTitle',
+      '.prive-entry-copy > p:last-child',
+      '.prive-entry-options',
+      '.prive-entry-note'
+    ];
+    return selectors
+      .map(selector => gate.querySelector(selector))
+      .filter(Boolean)
+      .map(node => {
+        const r = node.getBoundingClientRect();
+        // Texto: margen corto. Botones: margen mayor para que la isla quede limpia.
+        const isAccessBlock = node.classList.contains('prive-entry-options');
+        const padX = isAccessBlock ? 14 : 7;
+        const padY = isAccessBlock ? 12 : 5;
+        return {
+          left: r.left - padX,
+          right: r.right + padX,
+          top: r.top - padY,
+          bottom: r.bottom + padY
+        };
+      });
+  };
+
+  const organicCandidates = (vw, vh) => {
+    // Candidatos deliberadamente irregulares. No representan filas.
+    // El motor descartará cualquiera que toque texto, botones u otra botella.
+    const raw = [
+      [.00,.02], [.16,.055], [.36,.012], [.63,.045], [.83,.015],
+      [.015,.17], [.87,.19],
+      [.00,.31], [.89,.34],
+      [.015,.45], [.89,.47],
+      [.00,.73], [.88,.71],
+      [.03,.835], [.23,.88], [.48,.84], [.70,.895], [.87,.83],
+      [.11,.095], [.75,.11],
+      [.04,.60], [.90,.59],
+      [.12,.79], [.78,.77]
+    ];
+    return raw.map(([x,y], index) => ({ x, y, index }));
+  };
+
+  const layoutBottleSlots = gate => {
+    const slots = [...gate.querySelectorAll('[data-bottle-slot]')];
+    if (!slots.length) return;
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const mobile = vw <= 620;
+    const targetVisible = mobile ? 10 : (vw <= 900 ? 12 : 14);
+    const protectedAreas = protectedRects(gate);
+    const candidates = shuffled(organicCandidates(vw, vh));
+    const used = [];
+
+    slots.forEach((slot, index) => {
+      slot.hidden = index >= targetVisible;
+      if (slot.hidden) return;
+
+      const width = slot.offsetWidth || (mobile ? 74 : 96);
+      const height = slot.offsetHeight || (mobile ? 102 : 132);
+
+      let picked = null;
+      for (const candidate of candidates) {
+        const left = Math.max(4, Math.min(vw - width - 4, candidate.x * vw));
+        const top = Math.max(4, Math.min(vh - height - 8, candidate.y * vh));
+        const rect = {
+          left, right: left + width,
+          top, bottom: top + height
+        };
+
+        const hitsProtected = protectedAreas.some(area => rectsOverlap(rect, area, mobile ? 5 : 8));
+        const hitsBottle = used.some(area => rectsOverlap(rect, area, mobile ? 10 : 15));
+        if (!hitsProtected && !hitsBottle) {
+          picked = { left, top, rect };
+          candidates.splice(candidates.indexOf(candidate), 1);
+          break;
+        }
+      }
+
+      if (!picked) {
+        slot.hidden = true;
+        return;
+      }
+
+      used.push(picked.rect);
+      slot.style.left = `${picked.left}px`;
+      slot.style.top = `${picked.top}px`;
+      slot.style.right = 'auto';
+      slot.style.bottom = 'auto';
+      slot.style.setProperty('--tilt', `${[-7,-5,-3,3,5,7][index % 6]}deg`);
+      slot.style.setProperty('--floatDur', `${10.5 + (index % 5) * .9}s`);
+      slot.style.setProperty('--floatDelay', `${-(index % 7) * .8}s`);
+    });
+  };
+
   const startBottleRotation = gate => {
     const slots = [...gate.querySelectorAll('[data-bottle-slot]')];
     if (!slots.length) return;
@@ -191,11 +296,8 @@
       img.src = item.src;
       img.title = item.alt;
       activeSources.add(item.src);
-      if (immediate) {
-        img.classList.add('is-visible');
-      } else {
-        requestAnimationFrame(() => img.classList.add('is-visible'));
-      }
+      if (immediate) img.classList.add('is-visible');
+      else requestAnimationFrame(() => img.classList.add('is-visible'));
     };
 
     slots.forEach((slot, index) => {
@@ -204,6 +306,7 @@
     });
 
     const rotateSlot = (slot, index) => {
+      if (slot.hidden) return;
       const img = slot.querySelector('.prive-gate-bottle');
       if (!img) return;
 
@@ -217,20 +320,26 @@
 
       const next = source[Math.floor(Math.random() * source.length)];
       img.classList.remove('is-visible');
-      slot.classList.add('is-changing');
 
       window.setTimeout(() => {
         assign(slot, next);
-        const nextRecent = [next.src, ...recent].slice(0, 6);
-        recentBySlot.set(index, nextRecent);
-        slot.classList.remove('is-changing');
-      }, 720);
+        recentBySlot.set(index, [next.src, ...recent].slice(0, 7));
+      }, 1050);
     };
 
+    const relayout = () => {
+      window.requestAnimationFrame(() => layoutBottleSlots(gate));
+    };
+
+    relayout();
+    window.setTimeout(relayout, 120);
+    window.addEventListener('resize', relayout, { passive: true });
+
     slots.forEach((slot, index) => {
-      const firstDelay = 5000 + Math.random() * 9000 + index * 170;
+      // Más lento: cada perfume permanece suficiente tiempo para poder reconocerlo.
+      const firstDelay = 11000 + Math.random() * 9000 + index * 230;
       const schedule = () => {
-        const interval = 9000 + Math.random() * 9000;
+        const interval = 17000 + Math.random() * 10000;
         window.setTimeout(() => {
           if (!document.body.contains(gate)) return;
           rotateSlot(slot, index);

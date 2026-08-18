@@ -3573,3 +3573,23 @@ body::before{
     radial-gradient(ellipse at 50% 0%,rgba(216,199,159,.045),transparent 34%),
     linear-gradient(180deg,#07090d,#0b0e13 52%,#07090d);
 }
+
+
+/* S15 V1.6 · Estándar PRIVÉ de viewport / Safari */
+:root{--prive-edge-bg:#05070b}
+html{
+  background:var(--prive-edge-bg)!important;
+  min-height:100%;
+}
+body{
+  min-height:100vh;
+  min-height:100dvh;
+}
+body::after{
+  content:"";
+  position:fixed;
+  z-index:-20;
+  inset:-28vh 0;
+  pointer-events:none;
+  background:var(--prive-edge-bg);
+}
