@@ -1582,16 +1582,31 @@ window.addEventListener("scroll", () => {
   }, CATALOG_IDLE_DELAY);
 }, { passive: true });
 
-window.addEventListener("pageshow", event => {
-  // Safari puede restaurar los resultados desde bfcache pero vaciar visualmente
-  // el input. Volvemos a sincronizar el texto con el estado real de búsqueda.
-  syncSearchInputs(state.query);
+function restorePublicSearchState() {
+  let savedQuery = "";
+  try { savedQuery = sessionStorage.getItem(SEARCH_SESSION_KEY) || ""; } catch (_) {}
+  if (savedQuery !== state.query) {
+    state.query = savedQuery;
+    render();
+  }
+  syncSearchInputs(savedQuery || state.query);
   scheduleCatalogSearchDockUpdate();
+}
 
-  // No alteramos el scroll restaurado por Safari al volver desde memoria/bfcache.
+window.addEventListener("pageshow", event => {
+  // En Safari/iPhone el DOM puede regresar desde bfcache con los resultados
+  // filtrados pero el input visual vacío. La fuente de verdad al volver es
+  // sessionStorage, no el valor que Safari decidió restaurar en el campo.
+  restorePublicSearchState();
+
+  // Conservamos la posición que Safari restauró al volver.
   if (!event.persisted && !location.hash.startsWith("#perfume=") && window.scrollY < 2) {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) restorePublicSearchState();
 });
 init();
 

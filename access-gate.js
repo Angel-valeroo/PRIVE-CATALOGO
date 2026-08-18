@@ -6,21 +6,33 @@
   const ROOT_PATHS = new Set(['/', '/index.html']);
 
   const bottles = [
-    { src: '/IMAGES/Caballero/CP02266.avif', cls: 'b1', alt: 'BAD BOY' },
-    { src: '/IMAGES/Caballero/CP02513.avif', cls: 'b2', alt: 'VALENTINO UOMO BORN IN ROMA' },
-    { src: '/IMAGES/Caballero/CP02158.avif', cls: 'b3', alt: 'SAUVAGE' },
+    { src: '/IMAGES/Caballero/CP02515.avif', cls: 'b1', alt: 'VALENTINO UOMO BORN IN ROMA INTENSE' },
+    { src: '/IMAGES/Caballero/CP01021.avif', cls: 'b2', alt: '1 MILLION' },
+    { src: '/IMAGES/Caballero/CP01092.avif', cls: 'b3', alt: 'INVICTUS' },
     { src: '/IMAGES/Caballero/CP02498.avif', cls: 'b4', alt: 'IMAGINATION' },
-    { src: '/IMAGES/Caballero/CP00879.avif', cls: 'b5', alt: 'LE MALE' },
+    { src: '/IMAGES/Caballero/CP02158.avif', cls: 'b5', alt: 'SAUVAGE' },
+    { src: '/IMAGES/Caballero/CP00879.avif', cls: 'b6', alt: 'LE MALE' },
+    { src: '/IMAGES/Caballero/CP00725.avif', cls: 'b7', alt: 'ACQUA DI GIO' },
+    { src: '/IMAGES/Caballero/CP01059.avif', cls: 'b8', alt: 'BLEU DE CHANEL' },
 
-    { src: '/IMAGES/Dama/DP02791.avif', cls: 'b6', alt: 'YARA' },
-    { src: '/IMAGES/Dama/DP02404.avif', cls: 'b7', alt: 'GOOD GIRL' },
-    { src: '/IMAGES/Dama/DP02522.avif', cls: 'b8', alt: 'CLOUD' },
-    { src: '/IMAGES/Dama/DP02515.avif', cls: 'b9', alt: 'LIBRE' },
-    { src: '/IMAGES/Dama/DP02753.avif', cls: 'b10', alt: 'VALENTINO DONNA BORN IN ROMA' },
+    { src: '/IMAGES/Dama/DP02404.avif', cls: 'b9', alt: 'GOOD GIRL' },
+    { src: '/IMAGES/Dama/DP02522.avif', cls: 'b10', alt: 'CLOUD' },
+    { src: '/IMAGES/Dama/DP02782.avif', cls: 'b11', alt: 'CLOUD PINK' },
+    { src: '/IMAGES/Dama/DP02331.avif', cls: 'b12', alt: 'ARI' },
+    { src: '/IMAGES/Dama/DP02632.avif', cls: 'b13', alt: 'SWEET LIKE CANDY' },
+    { src: '/IMAGES/Dama/DP02757.avif', cls: 'b14', alt: 'VALENTINO DONNA BORN IN ROMA INTENSE' },
+    { src: '/IMAGES/Dama/DP02791.avif', cls: 'b15', alt: 'YARA' },
+    { src: '/IMAGES/Dama/DP02495.avif', cls: 'b16', alt: 'BURBERRY HER' },
+    { src: '/IMAGES/Dama/DP02515.avif', cls: 'b17', alt: 'LIBRE' },
+    { src: '/IMAGES/Dama/DP02261.avif', cls: 'b18', alt: 'LA VIE EST BELLE' },
+    { src: '/IMAGES/Dama/DP02572.avif', cls: 'b19', alt: 'MY WAY' },
+    { src: '/IMAGES/Dama/DP02802.avif', cls: 'b20', alt: 'PRADA PARADOXE' },
+    { src: '/IMAGES/Dama/DP02843.avif', cls: 'b21', alt: 'DELINA EXCLUSIF' },
 
-    { src: '/IMAGES/Unisex/UP01140.avif', cls: 'b11', alt: 'BACCARAT ROUGE 540' },
-    { src: '/IMAGES/Unisex/UP01129.avif', cls: 'b12', alt: 'ERBA PURA' },
-    { src: '/IMAGES/Unisex/UP01090.avif', cls: 'b13', alt: 'OMBRE NOMADE' },
+    { src: '/IMAGES/Unisex/UP01140.avif', cls: 'b22', alt: 'BACCARAT ROUGE 540 EXTRAIT' },
+    { src: '/IMAGES/Unisex/UP01129.avif', cls: 'b23', alt: 'ERBA PURA' },
+    { src: '/IMAGES/Unisex/UP01090.avif', cls: 'b24', alt: 'OMBRE NOMADE' },
+    { src: '/IMAGES/Unisex/UP01147.avif', cls: 'b25', alt: 'ACCENTO' },
   ];
 
   const getEntryMode = () => {
@@ -132,6 +144,19 @@
   const init = () => {
     const url = new URL(window.location.href);
     const entry = url.searchParams.get('entry');
+
+    if (entry === 'home') {
+      cleanEntryParam();
+      setEntryMode('');
+      try {
+        sessionStorage.removeItem(TRUST_NOTICE_KEY);
+        sessionStorage.removeItem('prive-public-search-v1');
+      } catch (_) {}
+      const gate = createGate();
+      document.body.appendChild(gate);
+      gate.querySelector('#priveClientEntry')?.addEventListener('click', goToClientFlow);
+      return;
+    }
 
     if (entry === 'client') {
       cleanEntryParam();

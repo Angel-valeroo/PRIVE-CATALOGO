@@ -3490,3 +3490,48 @@ body.advisor-open.advisor-chrome-animating::before{
 @media(max-width:520px){
   .catalog-search-dock__box::after{right:38px}
 }
+
+
+/* S15 V1.2 · Inicio siempre accesible desde el catálogo */
+.prive-home-fixed{
+  position:fixed;
+  top:max(12px,env(safe-area-inset-top));
+  left:max(12px,env(safe-area-inset-left));
+  z-index:760;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  min-height:42px;
+  padding:0 13px;
+  border:1px solid rgba(216,199,159,.28);
+  border-radius:999px;
+  color:#f7f3ea;
+  background:rgba(8,10,14,.76);
+  box-shadow:0 12px 30px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.06);
+  -webkit-backdrop-filter:blur(14px) saturate(120%);
+  backdrop-filter:blur(14px) saturate(120%);
+  text-decoration:none;
+  font-size:12px;
+  font-weight:750;
+  letter-spacing:.03em;
+  transition:transform .16s ease,border-color .16s ease,background .16s ease;
+}
+.prive-home-fixed:hover{
+  transform:translateY(-1px);
+  border-color:rgba(216,199,159,.55);
+  background:rgba(18,20,25,.88);
+}
+.prive-home-fixed svg{
+  width:17px;height:17px;
+  fill:none;stroke:#d8c79f;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;
+}
+body.dialog-open .prive-home-fixed{opacity:0;pointer-events:none}
+@media(max-width:520px){
+  .prive-home-fixed{
+    top:max(9px,env(safe-area-inset-top));
+    left:max(9px,env(safe-area-inset-left));
+    min-height:40px;
+    padding:0 11px;
+    font-size:11px;
+  }
+}
