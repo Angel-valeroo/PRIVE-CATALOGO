@@ -389,3 +389,138 @@ html.prive-access-locked body > *:not(#priveAccessGate):not(script){
   .s6{left:38%!important;top:87%!important}
   .s7{right:2%!important;top:82%!important}
 }
+
+
+/* =========================================================
+   S15 V2.1 · ROOT CANVAS SAFARI + 3 ARRIBA / 3 ABAJO
+   ========================================================= */
+
+/*
+  El fondo se pinta en <html>, que es el canvas raíz del documento.
+  body y el gate son transparentes para no crear una segunda superficie
+  que empiece justo debajo de las barras de Safari.
+*/
+html.prive-access-locked{
+  min-height:100%;
+  background-color:#07090d!important;
+  background-image:
+    radial-gradient(circle at 77% 18%,rgba(91,119,153,.11),transparent 26%),
+    radial-gradient(circle at 18% 82%,rgba(216,190,137,.07),transparent 27%),
+    linear-gradient(135deg,#07090d 0%,#0a1019 48%,#05070a 100%)!important;
+  background-repeat:no-repeat!important;
+  background-size:100% 100%!important;
+  background-attachment:scroll!important;
+}
+
+html.prive-access-locked body{
+  margin:0!important;
+  padding:0!important;
+  min-height:100svh!important;
+  background:transparent!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+}
+
+#priveAccessGate{
+  position:relative!important;
+  inset:auto!important;
+  width:100%!important;
+  min-height:100svh!important;
+  height:auto!important;
+  background:transparent!important;
+  overflow:hidden!important;
+}
+
+/* Ninguna capa adicional puede crear una línea/corte de color. */
+#priveAccessGate::before,
+#priveAccessGate::after{
+  display:none!important;
+}
+
+/* Botellas algo grandes, sin saturación. */
+.prive-bottle-slot{
+  width:clamp(80px,22vw,102px)!important;
+  height:clamp(108px,30vw,138px)!important;
+}
+
+/* Solo 6 slots. Cualquier slot viejo queda apagado. */
+.s7,.s8,.s9,.s10,.s11,.s12,.s13,.s14{
+  display:none!important;
+}
+
+@media(max-width:620px){
+  /*
+    Tres arriba tal como pidió el usuario.
+    Conservan el aire alrededor del bloque principal.
+  */
+  .s1{
+    display:grid!important;
+    left:-5%!important;
+    top:8%!important;
+    bottom:auto!important;
+    right:auto!important;
+    --tilt:-7deg;
+  }
+  .s2{
+    display:grid!important;
+    left:39%!important;
+    top:3%!important;
+    bottom:auto!important;
+    right:auto!important;
+    --tilt:4deg;
+  }
+  .s3{
+    display:grid!important;
+    right:-4%!important;
+    top:10%!important;
+    bottom:auto!important;
+    left:auto!important;
+    --tilt:-5deg;
+  }
+
+  /*
+    Tres abajo, claramente separados:
+    izquierda / centro / derecha. Sin diagonales que puedan chocar.
+  */
+  .s4{
+    display:grid!important;
+    left:2%!important;
+    right:auto!important;
+    top:auto!important;
+    bottom:max(22px,env(safe-area-inset-bottom))!important;
+    --tilt:-5deg;
+  }
+  .s5{
+    display:grid!important;
+    left:50%!important;
+    right:auto!important;
+    top:auto!important;
+    bottom:max(10px,env(safe-area-inset-bottom))!important;
+    transform:translateX(-50%) rotate(3deg)!important;
+    --tilt:3deg;
+  }
+  .s6{
+    display:grid!important;
+    right:2%!important;
+    left:auto!important;
+    top:auto!important;
+    bottom:max(26px,env(safe-area-inset-bottom))!important;
+    --tilt:5deg;
+  }
+
+  .prive-gate-bottle.is-visible{
+    opacity:.76!important;
+  }
+}
+
+@media(max-width:390px){
+  .prive-bottle-slot{
+    width:clamp(70px,20vw,86px)!important;
+    height:clamp(95px,27vw,116px)!important;
+  }
+  .s1{left:-4%!important}
+  .s2{left:39%!important}
+  .s3{right:-4%!important}
+  .s4{left:1%!important}
+  .s6{right:1%!important}
+}

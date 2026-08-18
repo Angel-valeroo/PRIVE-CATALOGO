@@ -766,3 +766,24 @@ body::before,
 body::after{
   display:none!important;
 }
+
+
+/* S15 V2.1 · Canvas raíz PRIVÉ */
+html{
+  min-height:100%;
+  background-color:#07090d!important;
+  background-image:
+    radial-gradient(circle at 77% 18%,rgba(91,119,153,.09),transparent 26%),
+    radial-gradient(circle at 18% 82%,rgba(216,190,137,.06),transparent 27%),
+    linear-gradient(135deg,#07090d 0%,#0a1019 48%,#05070a 100%)!important;
+  background-repeat:no-repeat!important;
+  background-size:100% 100%!important;
+}
+body{
+  min-height:100svh!important;
+  background:transparent!important;
+}
+body::before,
+body::after{
+  display:none!important;
+}

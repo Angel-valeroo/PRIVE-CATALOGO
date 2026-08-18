@@ -49,9 +49,11 @@
     if (alreadySeen() || document.getElementById('priveTrustNotice')) return;
     const notice = buildNotice();
     document.body.appendChild(notice);
+    document.documentElement.classList.add('prive-trust-open');
     document.body.classList.add('prive-trust-open');
     const close = () => {
       markSeen();
+      document.documentElement.classList.remove('prive-trust-open');
       document.body.classList.remove('prive-trust-open');
       notice.remove();
       window.dispatchEvent(new CustomEvent('prive:catalog-entered'));

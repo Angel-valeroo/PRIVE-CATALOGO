@@ -428,3 +428,35 @@ body.prive-trust-open > *:not(.prive-trust-notice):not(script){
     align-items:flex-start!important;
   }
 }
+
+
+/* S15 V2.1 · Respaldo Oficial usa el canvas raíz */
+html.prive-trust-open{
+  min-height:100%;
+  background-color:#07090d!important;
+  background-image:
+    radial-gradient(circle at 77% 18%,rgba(91,119,153,.10),transparent 26%),
+    radial-gradient(circle at 18% 82%,rgba(216,190,137,.06),transparent 27%),
+    linear-gradient(135deg,#07090d 0%,#0a1019 48%,#05070a 100%)!important;
+  background-repeat:no-repeat!important;
+  background-size:100% 100%!important;
+}
+
+html.prive-trust-open body{
+  background:transparent!important;
+}
+
+.prive-trust-notice{
+  background:transparent!important;
+  min-height:100svh!important;
+}
+
+.prive-trust-notice::before,
+.prive-trust-notice::after{
+  display:none!important;
+}
+
+.prive-trust-card{
+  max-height:none!important;
+  overflow:visible!important;
+}
