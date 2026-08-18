@@ -126,3 +126,61 @@ body{background:radial-gradient(circle at 50% -10%,rgba(201,164,88,.16),transpar
   input,select,textarea{font-size:16px!important}
   .stack-form input,.search-box input,.perfume-admin-form input,.perfume-admin-form select{font-size:16px!important}
 }
+
+
+/* S15 V1.5 · Admin a alto completo y safe areas */
+html{
+  min-height:100%;
+  min-height:100dvh;
+  background:#0a0b0f;
+}
+body{
+  min-height:100%;
+  min-height:100dvh;
+  min-height:-webkit-fill-available;
+  background:
+    radial-gradient(ellipse at 50% -5%,rgba(201,164,88,.07),transparent 34%),
+    linear-gradient(160deg,#090a0e 0%,#0f1117 50%,#090a0e 100%);
+  background-attachment:fixed;
+}
+.admin-shell{
+  min-height:100dvh;
+  padding-top:max(20px,env(safe-area-inset-top));
+  padding-bottom:max(44px,env(safe-area-inset-bottom));
+}
+@supports(-webkit-touch-callout:none){
+  html,body,.admin-shell{min-height:-webkit-fill-available}
+}
+
+
+/* S15 V1.6 · Admin comparte estándar de viewport PRIVÉ */
+html,body{background:#05070b!important}
+body{
+  position:relative;
+  isolation:isolate;
+}
+body::before{
+  content:"";
+  position:fixed;
+  z-index:-1;
+  inset:-28vh -8vw;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% 25%,rgba(201,164,88,.055),transparent 31%),
+    linear-gradient(180deg,#05070b 0%,#090b10 18%,#0e1015 51%,#090b10 83%,#05070b 100%);
+}
+.admin-shell{min-height:100vh;min-height:100dvh;background:transparent!important}
+
+
+/* S15 V1.7 · Admin hereda el estándar visual del catálogo */
+html,body{background:#07090d!important}
+body{
+  min-height:100vh;
+  min-height:100svh;
+  background:linear-gradient(135deg,#07090d 0%,#0a1019 48%,#05070a 100%)!important;
+}
+.admin-shell{
+  min-height:100vh!important;
+  min-height:100svh!important;
+  background:transparent!important;
+}

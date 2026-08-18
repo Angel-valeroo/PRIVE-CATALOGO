@@ -644,3 +644,80 @@ body::before{
   input,select,textarea{font-size:16px!important}
   .auth-form input,.search-field input,.note-field input{font-size:16px!important}
 }
+
+
+/* S15 V1.5 · Portal a alto completo y fondo continuo en Safari/iPhone */
+html{
+  min-height:100%;
+  min-height:100dvh;
+  background:#07090d;
+}
+body{
+  min-height:100%;
+  min-height:100dvh;
+  min-height:-webkit-fill-available;
+  background:
+    radial-gradient(ellipse at 50% -4%,rgba(216,179,95,.085),transparent 34%),
+    linear-gradient(160deg,#07090d 0%,#0d1016 52%,#07090d 100%);
+  background-attachment:fixed;
+}
+.portal-shell{
+  min-height:100dvh;
+  padding-top:max(24px,env(safe-area-inset-top));
+  padding-right:max(0px,env(safe-area-inset-right));
+  padding-bottom:max(56px,env(safe-area-inset-bottom));
+  padding-left:max(0px,env(safe-area-inset-left));
+}
+.auth-view{
+  min-height:calc(100dvh - 110px);
+}
+@supports(-webkit-touch-callout:none){
+  html,body,.portal-shell{min-height:-webkit-fill-available}
+}
+
+
+/* S15 V1.6 · Portal comparte el mismo estándar edge-to-edge del catálogo */
+html,body{
+  background:#05070b!important;
+}
+body{
+  position:relative;
+  isolation:isolate;
+}
+body::before{
+  content:"";
+  position:fixed;
+  z-index:-1;
+  inset:-28vh -8vw;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% 28%,rgba(216,179,95,.065),transparent 31%),
+    linear-gradient(180deg,#05070b 0%,#080b10 18%,#0d1117 50%,#080b10 83%,#05070b 100%);
+}
+.portal-shell{
+  min-height:100vh;
+  min-height:100dvh;
+  background:transparent!important;
+}
+
+
+/* S15 V1.7 · Portal usa exactamente el fondo base del catálogo */
+html,body{background:#07090d!important}
+body{
+  min-height:100vh;
+  min-height:100svh;
+  background:linear-gradient(135deg,#07090d 0%,#0a1019 48%,#05070a 100%)!important;
+  background-attachment:scroll!important;
+}
+body::before{
+  content:""!important;
+  position:fixed!important;
+  inset:0!important;
+  z-index:-1!important;
+  background:linear-gradient(90deg,rgba(4,6,9,.46),rgba(4,6,9,.12) 48%,rgba(4,6,9,.28))!important;
+}
+.portal-shell{
+  min-height:100vh!important;
+  min-height:100svh!important;
+  background:transparent!important;
+}

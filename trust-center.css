@@ -304,3 +304,25 @@ body.prive-trust-open{
     radial-gradient(ellipse at 82% 64%,rgba(91,112,142,.055),transparent 29%),
     linear-gradient(180deg,#05070b 0%,#080b10 19%,#0d1117 51%,#080b10 82%,#05070b 100%);
 }
+
+
+/* S15 V1.7 · Fondo idéntico al hero público */
+body.prive-trust-open{background:#07090d!important}
+.prive-trust-notice{
+  position:fixed!important;
+  inset:0!important;
+  width:100%!important;
+  height:100vh!important;
+  height:100svh!important;
+  min-height:100vh!important;
+  min-height:100svh!important;
+  background:linear-gradient(135deg,#07090d 0%,#0a1019 48%,#05070a 100%)!important;
+}
+.prive-trust-notice::before{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:-1!important;
+  background:
+    linear-gradient(90deg,rgba(4,6,9,.42) 0%,rgba(4,6,9,.12) 48%,rgba(4,6,9,.28) 100%)!important;
+}

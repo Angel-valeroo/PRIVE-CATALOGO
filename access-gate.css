@@ -102,18 +102,19 @@ html.prive-access-locked body>*:not(#priveAccessGate):not(script){
 
 
 
-/* S15 V1.6 · Composición dinámica con colisiones reales */
+
+/* S15 V1.7 · Referencia directa del hero del catálogo */
 html.prive-access-locked,
 html.prive-access-locked body{
-  width:100%;
-  min-height:100%;
-  background:#05070b!important;
+  margin:0!important;
+  min-height:100%!important;
+  background:#07090d!important;
+  overflow:hidden!important;
 }
 
 /*
-  Importante para Safari:
-  los extremos superior/inferior usan el MISMO tono que theme-color.
-  Así no aparece una línea visual donde comienzan/terminan las barras del navegador.
+  Mismo fondo base que usa .hero en el catálogo.
+  Sin capas que cambien de tono justo en los bordes del viewport.
 */
 #priveAccessGate{
   position:fixed;
@@ -122,46 +123,41 @@ html.prive-access-locked body{
   display:grid;
   place-items:center;
   width:100%;
-  min-width:100%;
   height:100vh;
-  height:100dvh;
+  height:100svh;
   min-height:100vh;
-  min-height:100dvh;
+  min-height:100svh;
   padding:
-    max(10px,env(safe-area-inset-top))
-    max(8px,env(safe-area-inset-right))
-    max(10px,env(safe-area-inset-bottom))
-    max(8px,env(safe-area-inset-left));
+    max(8px,env(safe-area-inset-top))
+    max(6px,env(safe-area-inset-right))
+    max(8px,env(safe-area-inset-bottom))
+    max(6px,env(safe-area-inset-left));
   overflow:hidden;
   color:var(--gate-text);
-  background:#05070b;
+  background:linear-gradient(135deg,#07090d 0%,#0a1019 48%,#05070a 100%);
 }
 #priveAccessGate::before{
   content:"";
-  position:fixed;
+  position:absolute;
+  inset:0;
   z-index:0;
-  /* excede el viewport para pintar también overscroll/transparencias de Safari */
-  inset:-28vh -8vw;
   pointer-events:none;
-  background:
-    radial-gradient(ellipse at 16% 28%,rgba(216,199,159,.075),transparent 25%),
-    radial-gradient(ellipse at 84% 61%,rgba(91,112,142,.065),transparent 27%),
-    linear-gradient(
-      180deg,
-      #05070b 0%,
-      #070a0f 16%,
-      #0d1117 48%,
-      #080b10 84%,
-      #05070b 100%
-    );
+  background:linear-gradient(
+    90deg,
+    rgba(4,6,9,.46) 0%,
+    rgba(4,6,9,.14) 48%,
+    rgba(4,6,9,.30) 100%
+  );
 }
 #priveAccessGate::after{
   content:"";
-  position:fixed;
-  z-index:1;
+  position:absolute;
   inset:0;
+  z-index:1;
   pointer-events:none;
-  background:radial-gradient(ellipse at 50% 48%,transparent 35%,rgba(0,0,0,.14) 100%);
+  background:
+    radial-gradient(circle at 76% 18%,rgba(91,119,153,.13),transparent 24%),
+    radial-gradient(circle at 18% 79%,rgba(216,190,137,.08),transparent 25%);
 }
 
 .prive-entry-shell{
@@ -169,7 +165,7 @@ html.prive-access-locked body{
   z-index:8;
   width:min(690px,100%);
   margin:auto;
-  padding:22px 18px 18px;
+  padding:18px 16px 14px;
   border:0!important;
   border-radius:0!important;
   background:transparent!important;
@@ -177,6 +173,7 @@ html.prive-access-locked body{
   -webkit-backdrop-filter:none!important;
   backdrop-filter:none!important;
 }
+
 .prive-entry-brand,
 .prive-entry-copy,
 .prive-entry-options,
@@ -186,22 +183,22 @@ html.prive-access-locked body{
 }
 
 .prive-gate-bottles{
-  position:fixed;
+  position:absolute;
   inset:0;
   z-index:2;
   overflow:hidden;
   pointer-events:none;
 }
+
 .prive-bottle-slot{
   position:absolute;
-  width:clamp(78px,8.5vw,122px);
-  height:clamp(105px,13vw,166px);
   display:grid;
   place-items:center;
+  width:clamp(88px,9.5vw,128px);
+  height:clamp(118px,14vw,174px);
   pointer-events:none;
   transform:rotate(var(--tilt,0deg));
 }
-.prive-bottle-slot[hidden]{display:none!important}
 
 .prive-gate-bottle{
   width:100%;
@@ -209,63 +206,100 @@ html.prive-access-locked body{
   object-fit:contain;
   opacity:0;
   transform:translate3d(0,9px,0) scale(.95);
-  /* brillo mucho más discreto que V1.5 */
   filter:
-    drop-shadow(0 0 4px rgba(255,239,194,.17))
-    drop-shadow(0 13px 18px rgba(0,0,0,.34));
+    drop-shadow(0 0 3px rgba(255,239,194,.12))
+    drop-shadow(0 15px 20px rgba(0,0,0,.36));
   transition:
-    opacity 1.05s ease,
-    transform 1.05s cubic-bezier(.18,.76,.22,1),
-    filter 1.05s ease;
-  animation:priveBottleFloat var(--floatDur,12s) ease-in-out var(--floatDelay,0s) infinite alternate;
+    opacity 1.15s ease,
+    transform 1.15s cubic-bezier(.18,.76,.22,1),
+    filter 1.15s ease;
+  animation:priveBottleFloat var(--floatDur,13s) ease-in-out var(--floatDelay,0s) infinite alternate;
 }
+
 .prive-gate-bottle.is-visible{
-  opacity:.72;
+  opacity:.76;
   transform:translate3d(0,0,0) scale(1);
   filter:
-    drop-shadow(0 0 5px rgba(255,239,194,.22))
-    drop-shadow(0 16px 20px rgba(0,0,0,.38));
+    drop-shadow(0 0 4px rgba(255,239,194,.16))
+    drop-shadow(0 17px 22px rgba(0,0,0,.39));
 }
+
 @keyframes priveBottleFloat{
   0%{translate:-2px -5px}
-  45%{translate:4px 2px}
+  48%{translate:4px 2px}
   100%{translate:-3px 8px}
 }
 
-@media(max-width:820px){
-  .prive-entry-shell{width:min(620px,96vw);padding:18px 10px 15px}
-  .prive-bottle-slot{
-    width:clamp(70px,15vw,94px);
-    height:clamp(94px,21vw,126px);
-  }
-}
+/*
+  Desktop/tablet: posiciones orgánicas y seguras.
+  No se colocan botellas sobre el bloque de Acceso Privado / Catálogo Digital.
+*/
+.s1{left:2%;top:4%;--tilt:-7deg;--floatDur:12.4s}
+.s2{left:18%;top:10%;--tilt:4deg;--floatDur:14.1s;--floatDelay:-3s}
+.s3{right:20%;top:4%;--tilt:-4deg;--floatDur:13.2s;--floatDelay:-5s}
+.s4{right:2%;top:14%;--tilt:6deg;--floatDur:14.8s;--floatDelay:-2s}
+
+.s5{left:1%;top:39%;--tilt:5deg;--floatDur:13.8s;--floatDelay:-6s}
+.s6{right:1%;top:41%;--tilt:-5deg;--floatDur:12.9s;--floatDelay:-4s}
+
+.s7{left:4%;bottom:2%;--tilt:-6deg;--floatDur:14.6s;--floatDelay:-2s}
+.s8{left:28%;bottom:7%;--tilt:3deg;--floatDur:12.8s;--floatDelay:-7s}
+.s9{right:28%;bottom:2%;--tilt:-3deg;--floatDur:14.3s;--floatDelay:-4s}
+.s10{right:4%;bottom:8%;--tilt:6deg;--floatDur:13.1s;--floatDelay:-6s}
 
 @media(max-width:620px){
   #priveAccessGate{
+    height:100svh;
+    min-height:100svh;
     padding:
-      max(7px,env(safe-area-inset-top))
-      max(4px,env(safe-area-inset-right))
-      max(7px,env(safe-area-inset-bottom))
-      max(4px,env(safe-area-inset-left));
+      max(5px,env(safe-area-inset-top))
+      4px
+      max(5px,env(safe-area-inset-bottom));
   }
+
   .prive-entry-shell{
     width:100%;
-    padding:11px 2px 9px;
+    padding:10px 2px 8px;
   }
-  .prive-entry-brand{margin-bottom:17px}
-  .prive-entry-options{margin-top:17px}
+
+  .prive-entry-brand{margin-bottom:18px}
+  .prive-entry-options{margin-top:18px}
+
   .prive-bottle-slot{
-    width:clamp(66px,19vw,86px);
-    height:clamp(88px,27vw,116px);
+    width:clamp(74px,21vw,96px);
+    height:clamp(100px,29vw,130px);
   }
-  .prive-gate-bottle.is-visible{opacity:.74}
+
+  /*
+    Móvil:
+    - arriba se permiten botellas SOLO a los lados del texto;
+    - zona completa de las dos tarjetas queda libre;
+    - abajo quedan cuatro botellas escalonadas, no una fila recta.
+  */
+  .s1{left:-5%;top:2%;--tilt:-7deg}
+  .s2{left:5%;top:22%;--tilt:5deg}
+  .s3{right:5%;top:3%;--tilt:-4deg}
+  .s4{right:-5%;top:24%;--tilt:7deg}
+
+  .s5{left:-7%;top:37%;--tilt:5deg}
+  .s6{right:-7%;top:39%;--tilt:-5deg}
+
+  /* Estas cuatro quedan debajo de la nota final, escalonadas. */
+  .s7{left:-2%;bottom:1%;--tilt:-7deg}
+  .s8{left:25%;bottom:6%;--tilt:4deg}
+  .s9{right:24%;bottom:1%;--tilt:-4deg}
+  .s10{right:-2%;bottom:7%;--tilt:7deg}
+
+  .prive-gate-bottle.is-visible{opacity:.78}
 }
 
 @media(max-width:390px){
   .prive-bottle-slot{
-    width:clamp(62px,18vw,76px);
-    height:clamp(84px,25vw,105px);
+    width:clamp(68px,20vw,82px);
+    height:clamp(92px,27vw,112px);
   }
+  /* En pantallas muy angostas quitamos los laterales que podrían acercarse a las tarjetas. */
+  .s5,.s6{display:none}
 }
 
 @media(prefers-reduced-motion:reduce){
