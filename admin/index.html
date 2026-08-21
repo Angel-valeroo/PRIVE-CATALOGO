@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./admin.css?v=3.2">
+  <link rel="stylesheet" href="./admin.css?v=2.6">
 </head>
 <body>
   <main class="admin-shell">
@@ -311,6 +311,37 @@
       </section>
     </div>
 
+
+    <div id="orderRestoreModal" class="admin-modal" hidden>
+      <div class="admin-modal-backdrop" data-close-order-restore-modal></div>
+      <section class="admin-modal-card admin-modal-card-small" role="dialog" aria-modal="true" aria-labelledby="orderRestoreModalTitle">
+        <div class="admin-modal-head">
+          <div>
+            <p class="eyebrow">ACCIÓN ADMINISTRATIVA</p>
+            <h2 id="orderRestoreModalTitle">Restaurar pedido</h2>
+            <p id="orderRestoreMeta" class="muted order-tool-meta"></p>
+          </div>
+          <button id="closeOrderRestoreModal" class="modal-close" type="button" aria-label="Cerrar">×</button>
+        </div>
+        <form id="orderRestoreForm" class="perfume-admin-form">
+          <label>
+            Corte destino
+            <select id="orderRestoreCycleSelect" required></select>
+          </label>
+          <label>
+            Motivo <small>Opcional. Queda guardado en el historial administrativo.</small>
+            <input id="orderRestoreReasonInput" type="text" maxlength="240" placeholder="Ej. Cancelación realizada por error">
+          </label>
+          <p class="order-tool-warning">El pedido volverá a estado confirmado con el mismo folio, perfumes, muestras y notas. Debes elegir un corte abierto.</p>
+          <p id="orderRestoreError" class="form-error"></p>
+          <div class="admin-modal-actions">
+            <button class="btn btn-ghost" type="button" data-close-order-restore-modal>Cancelar</button>
+            <button id="confirmOrderRestoreBtn" class="btn btn-primary" type="submit">Restaurar pedido</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
     <div id="perfumeAdminModal" class="admin-modal" hidden>
       <div class="admin-modal-backdrop" data-close-perfume-modal></div>
       <section class="admin-modal-card" role="dialog" aria-modal="true" aria-labelledby="perfumeAdminModalTitle">
@@ -436,6 +467,6 @@
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
     <div id="loadingLayer" class="loading-layer" hidden><div class="spinner"></div><span>Procesando…</span></div>
   </main>
-  <script src="./admin.js?v=2.4" defer></script>
+  <script src="./admin.js?v=2.5" defer></script>
 </body>
 </html>

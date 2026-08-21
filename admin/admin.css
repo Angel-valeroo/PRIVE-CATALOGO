@@ -266,3 +266,31 @@ body::after{
   #orderMoveModal .admin-modal-card{max-height:calc(100dvh - 20px);overflow:auto}
   .detail-admin-actions .btn{flex:1 1 100%;min-height:44px}
 }
+
+
+/* S16 V1.1 · Historial cancelado + restaurar */
+.status-pill.status-cancelled{
+  color:#ffb6b6;
+  border-color:rgba(207,86,86,.45);
+  background:rgba(118,34,34,.18);
+}
+.order-card.order-card-cancelled{
+  border-color:rgba(207,86,86,.22);
+  background:linear-gradient(180deg,rgba(72,24,24,.10),rgba(9,12,17,.92));
+}
+.cancelled-meta{
+  margin-top:8px;
+  color:#b99a9a;
+  font-size:.72rem;
+  line-height:1.45;
+}
+.btn.btn-restore{
+  border-color:rgba(201,164,88,.48);
+  color:#e2c77f;
+  background:rgba(201,164,88,.08);
+}
+.btn.btn-restore:hover{background:rgba(201,164,88,.14)}
+@media(max-width:520px){
+  #orderRestoreModal{z-index:9999}
+  #orderRestoreModal .admin-modal-card{max-height:calc(100dvh - 20px);overflow:auto}
+}

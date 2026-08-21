@@ -19,6 +19,7 @@
     selectedCycle: null,
     selectedOrder: null,
     selectedOrderDetail: null,
+    selectedHistoryOrder: null,
     detailOrigin: 'orders',
     session: null,
     config: null,
@@ -70,7 +71,8 @@
     userFullNameInput: $('#userFullNameInput'), userAliasInput: $('#userAliasInput'), userEmailInput: $('#userEmailInput'), userPhoneInput: $('#userPhoneInput'), userRoleInput: $('#userRoleInput'), userStatusInput: $('#userStatusInput'),
     userCityInput: $('#userCityInput'), deliveriesSection: $('#deliveriesSection'), deliveriesRefreshBtn: $('#deliveriesRefreshBtn'), deliveryCyclePicker: $('#deliveryCyclePicker'), deliveryWorkspace: $('#deliveryWorkspace'), deliveryCycleTitle: $('#deliveryCycleTitle'), deliveryCycleMeta: $('#deliveryCycleMeta'), deliverySummary: $('#deliverySummary'), deliveryRecipientPicker: $('#deliveryRecipientPicker'), deliveryRecipientWorkspace: $('#deliveryRecipientWorkspace'), backToDeliveryRecipients: $('#backToDeliveryRecipients'), deliveryRecipientTitle: $('#deliveryRecipientTitle'), deliveryRecipientMeta: $('#deliveryRecipientMeta'), deliveryTypeFilters: $('#deliveryTypeFilters'), deliveryPerfumeTabCount: $('#deliveryPerfumeTabCount'), deliverySampleTabCount: $('#deliverySampleTabCount'), deliveryStatusFilters: $('#deliveryStatusFilters'), deliverySearchInput: $('#deliverySearchInput'), deliveryCount: $('#deliveryCount'), deliveryList: $('#deliveryList'), archiveDeliveryCycleBtn: $('#archiveDeliveryCycleBtn'), createPasswordField: $('#createPasswordField'), userPasswordInput: $('#userPasswordInput'), userAdminError: $('#userAdminError'), saveUserAdminBtn: $('#saveUserAdminBtn'),
     passwordAdminModal: $('#passwordAdminModal'), closePasswordAdminModal: $('#closePasswordAdminModal'), passwordAdminForm: $('#passwordAdminForm'), passwordUserId: $('#passwordUserId'), passwordUserLabel: $('#passwordUserLabel'), passwordNewInput: $('#passwordNewInput'), passwordConfirmInput: $('#passwordConfirmInput'), passwordAdminError: $('#passwordAdminError'),
-    orderMoveModal: $('#orderMoveModal'), closeOrderMoveModal: $('#closeOrderMoveModal'), orderMoveForm: $('#orderMoveForm'), orderMoveMeta: $('#orderMoveMeta'), orderMoveCycleSelect: $('#orderMoveCycleSelect'), orderMoveReasonInput: $('#orderMoveReasonInput'), orderMoveError: $('#orderMoveError'), confirmOrderMoveBtn: $('#confirmOrderMoveBtn')
+    orderMoveModal: $('#orderMoveModal'), closeOrderMoveModal: $('#closeOrderMoveModal'), orderMoveForm: $('#orderMoveForm'), orderMoveMeta: $('#orderMoveMeta'), orderMoveCycleSelect: $('#orderMoveCycleSelect'), orderMoveReasonInput: $('#orderMoveReasonInput'), orderMoveError: $('#orderMoveError'), confirmOrderMoveBtn: $('#confirmOrderMoveBtn'),
+    orderRestoreModal: $('#orderRestoreModal'), closeOrderRestoreModal: $('#closeOrderRestoreModal'), orderRestoreForm: $('#orderRestoreForm'), orderRestoreMeta: $('#orderRestoreMeta'), orderRestoreCycleSelect: $('#orderRestoreCycleSelect'), orderRestoreReasonInput: $('#orderRestoreReasonInput'), orderRestoreError: $('#orderRestoreError'), confirmOrderRestoreBtn: $('#confirmOrderRestoreBtn')
   };
 
   const safeJson = value => { try { return JSON.parse(value); } catch { return null; } };
@@ -1686,40 +1688,47 @@
     const query = state.historySearch.trim().toLowerCase();
     if (!query) return true;
     const visibleName = order.user_alias || order.user_name || '';
-    const haystack = `${order.folio || ''} ${visibleName} ${order.cycle_name || ''} ${formatDateTime(order.confirmed_at)}`.toLowerCase();
+    const haystack = `${order.folio || ''} ${visibleName} ${order.cycle_name || ''} ${formatDateTime(order.confirmed_at)} ${order.status || ''} ${order.cancel_reason || ''}`.toLowerCase();
     return haystack.includes(query);
   }
 
   function renderHistory() {
     const list = state.history.filter(historyMatches);
-    els.historyCount.textContent = `${list.length} ${list.length === 1 ? 'pedido confirmado' : 'pedidos confirmados'}`;
+    els.historyCount.textContent = `${list.length} ${list.length === 1 ? 'pedido en historial' : 'pedidos en historial'}`;
     if (!list.length) {
       els.historyList.innerHTML = '<div class="empty-state">No hay pedidos que coincidan con la búsqueda.</div>';
       return;
     }
-    els.historyList.innerHTML = list.map(order => `
-      <article class="order-card" data-order-id="${esc(order.order_id)}">
+    els.historyList.innerHTML = list.map(order => {
+      const cancelled = order.status === 'cancelled';
+      const statusLabel = cancelled ? 'CANCELADO' : 'CONFIRMADO';
+      const statusClass = cancelled ? 'status-cancelled' : 'status-confirmed';
+      const cancelledMeta = cancelled
+        ? `<p class="cancelled-meta">Cancelado: ${esc(formatDateTime(order.cancelled_at))}${order.cancel_reason ? `<br>Motivo: ${esc(order.cancel_reason)}` : ''}</p>`
+        : '';
+      const actions = cancelled
+        ? `<button class="btn btn-primary" data-action="detail" type="button">Ver detalle</button><button class="btn btn-restore" data-action="restore" type="button">Restaurar</button>`
+        : `<button class="btn btn-primary" data-action="detail" type="button">Ver detalle</button><button class="btn btn-ghost" data-action="user-xlsx" type="button">Excel</button><button class="btn btn-ghost" data-action="user-pdf" type="button">PDF</button>`;
+      return `
+      <article class="order-card ${cancelled ? 'order-card-cancelled' : ''}" data-order-id="${esc(order.order_id)}">
         <div class="card-top">
-          <div><h3 class="card-title">${esc(order.user_alias || order.user_name || 'Usuario')}</h3><p class="card-sub">${esc(order.folio || 'Sin folio')}<br>${esc(order.cycle_name || 'Sin corte')}<br>${esc(formatDateTime(order.confirmed_at))}</p></div>
-          <span class="status-pill status-confirmed">CONFIRMADO</span>
+          <div><h3 class="card-title">${esc(order.user_alias || order.user_name || 'Usuario')}</h3><p class="card-sub">${esc(order.folio || 'Sin folio')}<br>${esc(order.cycle_name || 'Sin corte')}<br>${esc(formatDateTime(order.confirmed_at))}</p>${cancelledMeta}</div>
+          <span class="status-pill ${statusClass}">${statusLabel}</span>
         </div>
         <div class="stats-row stats-row-two">
           <div class="stat"><strong>${Number(order.total_perfumes)||0}</strong><span>PERFUMES</span></div>
           <div class="stat"><strong>${Number(order.total_samples)||0}</strong><span>MUESTRAS</span></div>
         </div>
-        <div class="card-actions">
-          <button class="btn btn-primary" data-action="detail" type="button">Ver detalle</button>
-          <button class="btn btn-ghost" data-action="user-xlsx" type="button">Excel</button>
-          <button class="btn btn-ghost" data-action="user-pdf" type="button">PDF</button>
-        </div>
-      </article>`).join('');
+        <div class="card-actions">${actions}</div>
+      </article>`;
+    }).join('');
   }
 
   async function loadHistory(force = false) {
     if (state.history.length && !force) { renderHistory(); return; }
     setLoading(true, 'Cargando historial…');
     try {
-      state.history = await rpc('get_confirmed_order_history');
+      state.history = await rpc('admin_get_order_history');
       renderHistory();
     } finally { setLoading(false); }
   }
@@ -1769,7 +1778,12 @@
       ['Muestras', totalSamples]
     ].map(([label, value]) => `<div class="summary-box"><span>${esc(label)}</span><strong>${esc(value)}</strong></div>`).join('');
     els.detailTableBody.innerHTML = rows.map(row => `<tr><td>${Number(row.quantity)||0}</td><td>${esc(row.perfume_name)}</td><td>${esc(row.perfume_code)}</td><td>${esc(row.presentation === 'dama' ? 'Dama' : (row.presentation === 'caballero' ? 'Caballero' : '—'))}</td><td>${Number(row.sample_quantity)||0}</td><td>${esc(row.customer_note || '—')}</td></tr>`).join('');
-    els.detailDownloadActions.innerHTML = `
+    const isCancelled = state.selectedHistoryOrder?.status === 'cancelled';
+    els.detailDownloadActions.innerHTML = isCancelled ? `
+      <div class="action-row detail-admin-actions">
+        <button class="btn btn-restore" data-detail-action="restore" type="button">Restaurar pedido</button>
+      </div>
+    ` : `
       <button class="btn btn-primary" data-detail-download="xlsx">Excel individual</button>
       <button class="btn btn-ghost" data-detail-download="pdf">PDF individual</button>
       <button class="btn btn-warning" data-detail-action="reopen" type="button">Reabrir pedido</button>
@@ -1783,6 +1797,7 @@
   async function openOrder(orderId, origin = 'orders') {
     state.selectedOrder = orderId;
     state.detailOrigin = origin;
+    state.selectedHistoryOrder = origin === 'history' ? (state.history.find(order => order.order_id === orderId) || null) : null;
     showPanelSection('detail');
     els.backToOrders.textContent = origin === 'history' ? '← Historial' : '← Pedidos';
     setLoading(true, 'Cargando detalle…');
@@ -1834,6 +1849,12 @@
     if (!orderId) return;
     const action = btn.dataset.action;
     if (action === 'detail') openOrder(orderId, origin);
+    if (action === 'restore') {
+      state.selectedOrder = orderId;
+      state.detailOrigin = origin;
+      state.selectedHistoryOrder = state.history.find(order => order.order_id === orderId) || null;
+      openOrderRestoreModal();
+    }
     if (action === 'user-xlsx') downloadEdge('generate-user-order-excel', { order_id: orderId }, 'PRIVE-PEDIDO-INDIVIDUAL.xlsx').catch(e => toast(e.message, true));
     if (action === 'user-pdf') downloadEdge('generate-user-order-pdf', { order_id: orderId }, 'PRIVE-PEDIDO-INDIVIDUAL.pdf').catch(e => toast(e.message, true));
   }
@@ -2169,6 +2190,84 @@
 
 
 
+  function closeOrderRestoreModal() {
+    if (!els.orderRestoreModal) return;
+    els.orderRestoreModal.hidden = true;
+    els.orderRestoreError.textContent = '';
+    els.orderRestoreReasonInput.value = '';
+    document.body.style.overflow = '';
+  }
+
+  async function openOrderRestoreModal() {
+    if (!state.selectedOrder || !els.orderRestoreModal) return;
+
+    const historyOrder = state.selectedHistoryOrder || state.history.find(order => order.order_id === state.selectedOrder) || null;
+    els.orderRestoreError.textContent = '';
+    els.orderRestoreCycleSelect.innerHTML = '<option value="">Cargando cortes…</option>';
+    els.orderRestoreReasonInput.value = '';
+    els.orderRestoreMeta.textContent = `${historyOrder?.folio || 'Pedido'} · ${historyOrder?.cycle_name || 'Sin corte'}`;
+    els.orderRestoreModal.hidden = false;
+    document.body.style.overflow = 'hidden';
+
+    try {
+      const cycles = await rpc('admin_get_order_restore_cycles', { p_order_id: state.selectedOrder });
+      if (!Array.isArray(cycles) || !cycles.length) {
+        els.orderRestoreCycleSelect.innerHTML = '<option value="">No hay cortes abiertos disponibles</option>';
+        els.confirmOrderRestoreBtn.disabled = true;
+        return;
+      }
+
+      els.confirmOrderRestoreBtn.disabled = false;
+      els.orderRestoreCycleSelect.innerHTML = `
+        <option value="">Selecciona el corte destino</option>
+        ${cycles.map(cycle => `<option value="${esc(cycle.cycle_id)}">${esc(cycle.cycle_name || 'Corte')} · ${esc(formatDate(cycle.order_day))} · cierra ${esc(formatDateTime(cycle.cutoff_at))}</option>`).join('')}
+      `;
+    } catch (error) {
+      els.orderRestoreError.textContent = friendlyNetworkError(error).message;
+      els.confirmOrderRestoreBtn.disabled = true;
+    }
+  }
+
+  async function restoreSelectedOrder() {
+    if (!state.selectedOrder) return;
+    const cycleId = els.orderRestoreCycleSelect.value;
+    if (!cycleId) {
+      els.orderRestoreError.textContent = 'Selecciona el corte donde se restaurará el pedido.';
+      return;
+    }
+
+    const option = els.orderRestoreCycleSelect.selectedOptions?.[0];
+    const destination = option?.textContent?.trim() || 'el corte seleccionado';
+    const label = state.selectedHistoryOrder?.folio || 'este pedido';
+    if (!window.confirm(`¿Restaurar ${label} en ${destination}?\n\nVolverá a aparecer como pedido confirmado y conservará el mismo folio, perfumes, muestras y notas.`)) return;
+
+    els.confirmOrderRestoreBtn.disabled = true;
+    setLoading(true, 'Restaurando pedido…');
+    try {
+      await rpc('admin_restore_order', {
+        p_order_id: state.selectedOrder,
+        p_cycle_id: cycleId,
+        p_reason: els.orderRestoreReasonInput.value.trim() || null
+      });
+      closeOrderRestoreModal();
+      state.history = [];
+      state.cycles = [];
+      state.selectedOrder = null;
+      state.selectedOrderDetail = null;
+      state.selectedHistoryOrder = null;
+      showPanelSection('history');
+      await loadHistory(true);
+      toast('Pedido restaurado correctamente.');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+      els.orderRestoreError.textContent = friendlyNetworkError(error).message;
+      toast(els.orderRestoreError.textContent, true);
+    } finally {
+      els.confirmOrderRestoreBtn.disabled = false;
+      setLoading(false);
+    }
+  }
+
   function closeOrderMoveModal() {
     if (!els.orderMoveModal) return;
     els.orderMoveModal.hidden = true;
@@ -2376,6 +2475,7 @@
       if (actionBtn.dataset.detailAction === 'reopen') reopenSelectedOrder();
       if (actionBtn.dataset.detailAction === 'move') openOrderMoveModal();
       if (actionBtn.dataset.detailAction === 'cancel') cancelSelectedOrder();
+      if (actionBtn.dataset.detailAction === 'restore') openOrderRestoreModal();
       return;
     }
 
@@ -2426,4 +2526,14 @@
   }
 
   init();
+
+  if (els.orderRestoreForm) {
+    els.orderRestoreForm.addEventListener('submit', event => {
+      event.preventDefault();
+      restoreSelectedOrder();
+    });
+  }
+  if (els.closeOrderRestoreModal) els.closeOrderRestoreModal.addEventListener('click', closeOrderRestoreModal);
+  document.querySelectorAll('[data-close-order-restore-modal]').forEach(el => el.addEventListener('click', closeOrderRestoreModal));
+
 })();
