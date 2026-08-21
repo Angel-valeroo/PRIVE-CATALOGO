@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./admin.css?v=3.1">
+  <link rel="stylesheet" href="./admin.css?v=3.2">
 </head>
 <body>
   <main class="admin-shell">
@@ -279,6 +279,38 @@
     </section>
 
 
+
+
+    <div id="orderMoveModal" class="admin-modal" hidden>
+      <div class="admin-modal-backdrop" data-close-order-move-modal></div>
+      <section class="admin-modal-card admin-modal-card-small" role="dialog" aria-modal="true" aria-labelledby="orderMoveModalTitle">
+        <div class="admin-modal-head">
+          <div>
+            <p class="eyebrow">ACCIÓN ADMINISTRATIVA</p>
+            <h2 id="orderMoveModalTitle">Mover pedido de corte</h2>
+            <p id="orderMoveMeta" class="muted order-tool-meta"></p>
+          </div>
+          <button id="closeOrderMoveModal" class="modal-close" type="button" aria-label="Cerrar">×</button>
+        </div>
+        <form id="orderMoveForm" class="perfume-admin-form">
+          <label>
+            Corte destino
+            <select id="orderMoveCycleSelect" required></select>
+          </label>
+          <label>
+            Motivo <small>Opcional. Queda guardado en el historial administrativo.</small>
+            <input id="orderMoveReasonInput" type="text" maxlength="240" placeholder="Ej. Cliente pidió moverlo al siguiente corte">
+          </label>
+          <p class="order-tool-warning">Al moverlo se conserva el mismo folio, perfumes, muestras y notas. El progreso temporal de entrega de este pedido se reinicia.</p>
+          <p id="orderMoveError" class="form-error"></p>
+          <div class="admin-modal-actions">
+            <button class="btn btn-ghost" type="button" data-close-order-move-modal>Cancelar</button>
+            <button id="confirmOrderMoveBtn" class="btn btn-primary" type="submit">Mover pedido</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
     <div id="perfumeAdminModal" class="admin-modal" hidden>
       <div class="admin-modal-backdrop" data-close-perfume-modal></div>
       <section class="admin-modal-card" role="dialog" aria-modal="true" aria-labelledby="perfumeAdminModalTitle">
@@ -404,6 +436,6 @@
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
     <div id="loadingLayer" class="loading-layer" hidden><div class="spinner"></div><span>Procesando…</span></div>
   </main>
-  <script src="./admin.js?v=2.3" defer></script>
+  <script src="./admin.js?v=2.4" defer></script>
 </body>
 </html>

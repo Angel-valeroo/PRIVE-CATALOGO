@@ -18,6 +18,7 @@
     historySearch: '',
     selectedCycle: null,
     selectedOrder: null,
+    selectedOrderDetail: null,
     detailOrigin: 'orders',
     session: null,
     config: null,
@@ -68,7 +69,8 @@
     userAdminModal: $('#userAdminModal'), closeUserAdminModal: $('#closeUserAdminModal'), userAdminForm: $('#userAdminForm'), userAdminId: $('#userAdminId'), userAdminModalTitle: $('#userAdminModalTitle'),
     userFullNameInput: $('#userFullNameInput'), userAliasInput: $('#userAliasInput'), userEmailInput: $('#userEmailInput'), userPhoneInput: $('#userPhoneInput'), userRoleInput: $('#userRoleInput'), userStatusInput: $('#userStatusInput'),
     userCityInput: $('#userCityInput'), deliveriesSection: $('#deliveriesSection'), deliveriesRefreshBtn: $('#deliveriesRefreshBtn'), deliveryCyclePicker: $('#deliveryCyclePicker'), deliveryWorkspace: $('#deliveryWorkspace'), deliveryCycleTitle: $('#deliveryCycleTitle'), deliveryCycleMeta: $('#deliveryCycleMeta'), deliverySummary: $('#deliverySummary'), deliveryRecipientPicker: $('#deliveryRecipientPicker'), deliveryRecipientWorkspace: $('#deliveryRecipientWorkspace'), backToDeliveryRecipients: $('#backToDeliveryRecipients'), deliveryRecipientTitle: $('#deliveryRecipientTitle'), deliveryRecipientMeta: $('#deliveryRecipientMeta'), deliveryTypeFilters: $('#deliveryTypeFilters'), deliveryPerfumeTabCount: $('#deliveryPerfumeTabCount'), deliverySampleTabCount: $('#deliverySampleTabCount'), deliveryStatusFilters: $('#deliveryStatusFilters'), deliverySearchInput: $('#deliverySearchInput'), deliveryCount: $('#deliveryCount'), deliveryList: $('#deliveryList'), archiveDeliveryCycleBtn: $('#archiveDeliveryCycleBtn'), createPasswordField: $('#createPasswordField'), userPasswordInput: $('#userPasswordInput'), userAdminError: $('#userAdminError'), saveUserAdminBtn: $('#saveUserAdminBtn'),
-    passwordAdminModal: $('#passwordAdminModal'), closePasswordAdminModal: $('#closePasswordAdminModal'), passwordAdminForm: $('#passwordAdminForm'), passwordUserId: $('#passwordUserId'), passwordUserLabel: $('#passwordUserLabel'), passwordNewInput: $('#passwordNewInput'), passwordConfirmInput: $('#passwordConfirmInput'), passwordAdminError: $('#passwordAdminError')
+    passwordAdminModal: $('#passwordAdminModal'), closePasswordAdminModal: $('#closePasswordAdminModal'), passwordAdminForm: $('#passwordAdminForm'), passwordUserId: $('#passwordUserId'), passwordUserLabel: $('#passwordUserLabel'), passwordNewInput: $('#passwordNewInput'), passwordConfirmInput: $('#passwordConfirmInput'), passwordAdminError: $('#passwordAdminError'),
+    orderMoveModal: $('#orderMoveModal'), closeOrderMoveModal: $('#closeOrderMoveModal'), orderMoveForm: $('#orderMoveForm'), orderMoveMeta: $('#orderMoveMeta'), orderMoveCycleSelect: $('#orderMoveCycleSelect'), orderMoveReasonInput: $('#orderMoveReasonInput'), orderMoveError: $('#orderMoveError'), confirmOrderMoveBtn: $('#confirmOrderMoveBtn')
   };
 
   const safeJson = value => { try { return JSON.parse(value); } catch { return null; } };
@@ -1755,6 +1757,7 @@
 
   function renderDetail(rows) {
     const first = rows[0];
+    state.selectedOrderDetail = first || null;
     const totalPerfumes = rows.reduce((sum, row) => sum + Number(row.quantity || 0), 0);
     const totalSamples = rows.reduce((sum, row) => sum + Number(row.sample_quantity || 0), 0);
     els.detailTitle.textContent = first?.folio || 'Detalle del pedido';
@@ -1770,6 +1773,10 @@
       <button class="btn btn-primary" data-detail-download="xlsx">Excel individual</button>
       <button class="btn btn-ghost" data-detail-download="pdf">PDF individual</button>
       <button class="btn btn-warning" data-detail-action="reopen" type="button">Reabrir pedido</button>
+      <div class="action-row detail-admin-actions">
+        <button class="btn btn-ghost" data-detail-action="move" type="button">Mover de corte</button>
+        <button class="btn btn-danger" data-detail-action="cancel" type="button">Cancelar pedido</button>
+      </div>
     `;
   }
 
@@ -2161,6 +2168,133 @@
   });
 
 
+
+  function closeOrderMoveModal() {
+    if (!els.orderMoveModal) return;
+    els.orderMoveModal.hidden = true;
+    els.orderMoveError.textContent = '';
+    els.orderMoveReasonInput.value = '';
+    document.body.style.overflow = '';
+  }
+
+  async function openOrderMoveModal() {
+    if (!state.selectedOrder || !els.orderMoveModal) return;
+
+    els.orderMoveError.textContent = '';
+    els.orderMoveCycleSelect.innerHTML = '<option value="">Cargando cortes…</option>';
+    els.orderMoveReasonInput.value = '';
+    els.orderMoveMeta.textContent = `${state.selectedOrderDetail?.folio || 'Pedido'} · ${state.selectedOrderDetail?.cycle_name || 'Sin corte'}`;
+    els.orderMoveModal.hidden = false;
+    document.body.style.overflow = 'hidden';
+
+    try {
+      const cycles = await rpc('admin_get_order_move_cycles', { p_order_id: state.selectedOrder });
+      if (!Array.isArray(cycles) || !cycles.length) {
+        els.orderMoveCycleSelect.innerHTML = '<option value="">No hay otro corte abierto disponible</option>';
+        els.confirmOrderMoveBtn.disabled = true;
+        return;
+      }
+
+      els.confirmOrderMoveBtn.disabled = false;
+      els.orderMoveCycleSelect.innerHTML = `
+        <option value="">Selecciona el corte destino</option>
+        ${cycles.map(cycle => `<option value="${esc(cycle.cycle_id)}">${esc(cycle.cycle_name || 'Corte')} · ${esc(formatDate(cycle.order_day))} · cierra ${esc(formatDateTime(cycle.cutoff_at))}</option>`).join('')}
+      `;
+    } catch (error) {
+      els.orderMoveError.textContent = friendlyNetworkError(error).message;
+      els.confirmOrderMoveBtn.disabled = true;
+    }
+  }
+
+  async function refreshAfterOrderAdminAction(message) {
+    toast(message);
+    state.history = [];
+    state.cycles = [];
+
+    if (state.detailOrigin === 'history') {
+      showPanelSection('history');
+      await loadHistory(true);
+    } else if (state.selectedCycle) {
+      const refreshedCycles = await rpc('get_admin_cycles_dashboard');
+      state.cycles = Array.isArray(refreshedCycles) ? refreshedCycles : [];
+      renderOverview();
+      const refreshedCycle = state.cycles.find(c => c.cycle_id === state.selectedCycle.cycle_id) || state.selectedCycle;
+      state.selectedCycle = refreshedCycle;
+      showPanelSection('orders');
+      els.ordersCycleTitle.textContent = refreshedCycle.cycle_name || 'Pedidos';
+      els.ordersCycleMeta.textContent = `${Number(refreshedCycle.confirmed_orders)||0} pedidos · ${Number(refreshedCycle.total_perfumes)||0} perfumes · ${Number(refreshedCycle.total_samples)||0} muestras`;
+      const orders = await rpc('get_admin_cycle_orders', { p_cycle_id: refreshedCycle.cycle_id });
+      renderOrders(orders);
+    } else {
+      showPanelSection('cycles');
+      await loadCycles();
+    }
+
+    state.selectedOrder = null;
+    state.selectedOrderDetail = null;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function moveSelectedOrder() {
+    if (!state.selectedOrder) return;
+    const cycleId = els.orderMoveCycleSelect.value;
+    if (!cycleId) {
+      els.orderMoveError.textContent = 'Selecciona el corte destino.';
+      return;
+    }
+
+    const option = els.orderMoveCycleSelect.selectedOptions?.[0];
+    const destination = option?.textContent?.trim() || 'el corte seleccionado';
+    if (!window.confirm(`¿Mover este pedido a ${destination}?\n\nSe conservarán folio, perfumes, muestras y notas.`)) return;
+
+    els.confirmOrderMoveBtn.disabled = true;
+    setLoading(true, 'Moviendo pedido…');
+    try {
+      await rpc('admin_move_order', {
+        p_order_id: state.selectedOrder,
+        p_cycle_id: cycleId,
+        p_reason: els.orderMoveReasonInput.value.trim() || null
+      });
+      closeOrderMoveModal();
+      await refreshAfterOrderAdminAction('Pedido movido al nuevo corte.');
+    } catch (error) {
+      els.orderMoveError.textContent = friendlyNetworkError(error).message;
+      toast(els.orderMoveError.textContent, true);
+    } finally {
+      els.confirmOrderMoveBtn.disabled = false;
+      setLoading(false);
+    }
+  }
+
+  async function cancelSelectedOrder() {
+    if (!state.selectedOrder) return;
+
+    const label = state.selectedOrderDetail?.folio || 'este pedido';
+    const reason = window.prompt(
+      `Motivo de cancelación de ${label} (opcional):`,
+      ''
+    );
+    if (reason === null) return;
+
+    const confirmed = window.confirm(
+      `¿Cancelar ${label}?\n\nDesaparecerá de cortes, reportes operativos y pendientes de entrega. No se borrarán sus líneas ni su historial.`
+    );
+    if (!confirmed) return;
+
+    setLoading(true, 'Cancelando pedido…');
+    try {
+      await rpc('admin_cancel_order', {
+        p_order_id: state.selectedOrder,
+        p_reason: reason.trim() || null
+      });
+      await refreshAfterOrderAdminAction('Pedido cancelado. El registro se conserva internamente.');
+    } catch (error) {
+      toast(friendlyNetworkError(error).message, true);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function reopenSelectedOrder() {
     if (!state.selectedOrder) return;
 
@@ -2228,10 +2362,20 @@
     }
   }
 
+
+  if (els.closeOrderMoveModal) els.closeOrderMoveModal.addEventListener('click', closeOrderMoveModal);
+  if (els.orderMoveModal) els.orderMoveModal.querySelectorAll('[data-close-order-move-modal]').forEach(node => node.addEventListener('click', closeOrderMoveModal));
+  if (els.orderMoveForm) els.orderMoveForm.addEventListener('submit', event => {
+    event.preventDefault();
+    moveSelectedOrder();
+  });
+
   els.detailDownloadActions.addEventListener('click', event => {
-    const reopenBtn = event.target.closest('[data-detail-action="reopen"]');
-    if (reopenBtn) {
-      reopenSelectedOrder();
+    const actionBtn = event.target.closest('[data-detail-action]');
+    if (actionBtn) {
+      if (actionBtn.dataset.detailAction === 'reopen') reopenSelectedOrder();
+      if (actionBtn.dataset.detailAction === 'move') openOrderMoveModal();
+      if (actionBtn.dataset.detailAction === 'cancel') cancelSelectedOrder();
       return;
     }
 

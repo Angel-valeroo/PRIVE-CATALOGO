@@ -247,3 +247,22 @@ body::before,
 body::after{
   display:none!important;
 }
+
+
+/* S16 V1 · Herramientas administrativas de pedidos */
+.order-tool-meta{margin:7px 0 0;font-size:.76rem}
+.order-tool-warning{
+  margin:0;padding:12px 13px;border:1px solid rgba(201,164,88,.24);
+  border-radius:14px;background:rgba(201,164,88,.07);color:#d8d0bd;
+  font-size:.72rem;line-height:1.55
+}
+.detail-admin-actions{margin-top:4px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06)}
+.detail-admin-actions::before{
+  content:"ACCIONES ADMINISTRATIVAS";flex:1 0 100%;color:#77746e;
+  font-size:.58rem;font-weight:800;letter-spacing:.11em
+}
+@media(max-width:520px){
+  #orderMoveModal{z-index:9999}
+  #orderMoveModal .admin-modal-card{max-height:calc(100dvh - 20px);overflow:auto}
+  .detail-admin-actions .btn{flex:1 1 100%;min-height:44px}
+}
