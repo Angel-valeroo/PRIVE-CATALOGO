@@ -1485,15 +1485,29 @@ function publicIdentity(value) {
     .trim();
 }
 
+async function fetchWithTimeout(url, options = {}, timeoutMs = 10000) {
+  if (typeof AbortController === "undefined") return fetch(url, options);
+
+  const controller = new AbortController();
+  const timer = window.setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    window.clearTimeout(timer);
+  }
+}
+
+const wait = ms => new Promise(resolve => window.setTimeout(resolve, ms));
+
 async function loadPublicCatalogFromSupabase() {
-  const response = await fetch(`${PUBLIC_SUPABASE_URL}/rest/v1/rpc/get_public_catalog`, {
+  const response = await fetchWithTimeout(`${PUBLIC_SUPABASE_URL}/rest/v1/rpc/get_public_catalog`, {
     method: "POST",
     headers: {
       apikey: PUBLIC_SUPABASE_KEY,
       "Content-Type": "application/json"
     },
     body: "{}"
-  });
+  }, 10000);
   if (!response.ok) throw new Error(`Supabase catálogo público respondió ${response.status}.`);
   const rows = await response.json();
   if (!Array.isArray(rows)) throw new Error("La respuesta del catálogo público no es válida.");
@@ -1517,10 +1531,26 @@ async function loadPublicCatalogFromSupabase() {
 }
 
 async function loadProductionCatalog() {
-  // S12 V3: Supabase es la fuente única del catálogo público y de sus perfiles.
-  // Ya no se consulta data/prive-catalog.json ni data/core en tiempo de ejecución.
-  const perfumes = await loadPublicCatalogFromSupabase();
-  return { perfumes, source: "supabase" };
+  // S17: Supabase sigue siendo la fuente única. Se permite un segundo intento
+  // corto para absorber fallos transitorios de DNS/red móvil sin colgar la UI.
+  let firstError = null;
+  try {
+    const perfumes = await loadPublicCatalogFromSupabase();
+    return { perfumes, source: "supabase" };
+  } catch (error) {
+    firstError = error;
+    console.warn("PRIVÉ: primer intento de catálogo falló; reintentando.", error);
+  }
+
+  await wait(900);
+
+  try {
+    const perfumes = await loadPublicCatalogFromSupabase();
+    return { perfumes, source: "supabase-retry" };
+  } catch (error) {
+    error.cause = firstError;
+    throw error;
+  }
 }
 
 let catalogDockFrame = 0;
@@ -1572,7 +1602,32 @@ async function init(){
     console.info(`PRIVÉ: ${state.perfumes.length} fragancias cargadas desde ${production.source}.`);
     populateFilters(); render(); syncSearchInputs(state.query); renderAdvisorOptions(); startSearchPlaceholderRotation(); openFromHash(); scheduleCatalogSearchDockUpdate();
   }catch(error){
-    elements.catalog.innerHTML='<p class="load-error">No se pudo cargar el catálogo. Intenta actualizar la página.</p>';
+    elements.catalog.innerHTML = `
+      <div class="catalog-network-error" role="alert">
+        <strong>No pudimos conectar con el catálogo.</strong>
+        <span>La página sí cargó, pero la conexión de datos no respondió.</span>
+        <button id="retryCatalogConnection" type="button">Reintentar conexión</button>
+      </div>`;
+    document.getElementById("retryCatalogConnection")?.addEventListener("click", async event => {
+      const button = event.currentTarget;
+      button.disabled = true;
+      button.textContent = "Conectando…";
+      try {
+        const production = await loadProductionCatalog();
+        state.perfumes = production.perfumes;
+        populateFilters();
+        render();
+        syncSearchInputs(state.query);
+        renderAdvisorOptions();
+        startSearchPlaceholderRotation();
+        openFromHash();
+        scheduleCatalogSearchDockUpdate();
+      } catch (retryError) {
+        button.disabled = false;
+        button.textContent = "Reintentar conexión";
+        console.error(retryError);
+      }
+    }, { once: true });
     console.error(error);
   }
 }

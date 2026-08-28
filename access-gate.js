@@ -245,6 +245,12 @@
   };
 
   const createGate = () => {
+    const existing = document.getElementById('priveAccessGate');
+    if (existing) {
+      window.setTimeout(() => startBottleRotation(existing), 30);
+      return existing;
+    }
+
     const gate = document.createElement('section');
     gate.id = 'priveAccessGate';
     gate.setAttribute('role', 'dialog');
@@ -278,7 +284,7 @@
             <span class="prive-entry-arrow" aria-hidden="true">→</span>
           </a>
 
-          <button id="priveClientEntry" class="prive-entry-option prive-entry-option--client" type="button">
+          <a id="priveClientEntry" class="prive-entry-option prive-entry-option--client" href="/?entry=client">
             <span class="prive-entry-option-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6S2.5 12 2.5 12Zm9.5 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>
             </span>
@@ -288,7 +294,7 @@
               <span>Consulta el respaldo oficial PRIVÉ y explora nuestra colección pública.</span>
             </span>
             <span class="prive-entry-arrow" aria-hidden="true">→</span>
-          </button>
+          </a>
         </div>
 
         <p class="prive-entry-note">Las claves internas de los perfumes permanecen privadas y no se muestran en el catálogo público.</p>
@@ -310,7 +316,7 @@
       } catch (_) {}
       const gate = createGate();
       document.body.appendChild(gate);
-      gate.querySelector('#priveClientEntry')?.addEventListener('click', goToClientFlow);
+      gate.querySelector('#priveClientEntry')?.addEventListener('click', event => { event.preventDefault(); goToClientFlow(); });
       return;
     }
 
@@ -335,7 +341,7 @@
 
     const gate = createGate();
     document.body.appendChild(gate);
-    gate.querySelector('#priveClientEntry')?.addEventListener('click', goToClientFlow);
+    gate.querySelector('#priveClientEntry')?.addEventListener('click', event => { event.preventDefault(); goToClientFlow(); });
   };
 
   if (document.readyState === 'loading') {

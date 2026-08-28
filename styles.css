@@ -3593,3 +3593,49 @@ body::after{
   pointer-events:none;
   background:var(--prive-edge-bg);
 }
+
+
+/* S17 V1 · Estados de arranque y red visibles */
+.catalog-loading{
+  grid-column:1/-1;
+  margin:18px 0;
+  padding:22px 18px;
+  text-align:center;
+  color:rgba(245,242,235,.72);
+  border:1px solid rgba(216,199,159,.14);
+  border-radius:18px;
+  background:rgba(8,12,18,.42);
+}
+.catalog-network-error{
+  grid-column:1/-1;
+  display:grid;
+  gap:8px;
+  justify-items:center;
+  margin:18px 0;
+  padding:24px 18px;
+  text-align:center;
+  border:1px solid rgba(216,199,159,.22);
+  border-radius:18px;
+  background:rgba(8,12,18,.72);
+  color:#f5f2eb;
+}
+.catalog-network-error span{
+  max-width:520px;
+  color:rgba(245,242,235,.68);
+  line-height:1.55;
+}
+.catalog-network-error button{
+  margin-top:6px;
+  min-height:44px;
+  padding:10px 18px;
+  border:1px solid rgba(216,199,159,.42);
+  border-radius:999px;
+  background:rgba(216,199,159,.10);
+  color:#f5f2eb;
+  font:inherit;
+  cursor:pointer;
+}
+.catalog-network-error button:disabled{
+  opacity:.58;
+  cursor:wait;
+}

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es-MX">
+<html lang="es-MX" class="prive-access-locked">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -64,10 +64,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <script>document.documentElement.classList.add("prive-access-locked")</script>
-  <link rel="stylesheet" href="/access-gate.css?v=3.1">
-  <script src="/access-gate.js?v=3.1" defer></script>
-  <link rel="stylesheet" href="styles.css?v=12.9">
+  <link rel="stylesheet" href="/access-gate.css?v=4.0">
+  <script src="/access-gate.js?v=4.0" defer></script>
+  <link rel="stylesheet" href="styles.css?v=13.0">
   <link rel="stylesheet" href="/trust-center.css?v=2.1">
   <script src="/trust-center.js?v=1.4" defer></script>
   <script>
@@ -77,6 +76,67 @@
   </script>
 </head>
 <body>
+
+  <!-- S17 V1: shell crítico renderizado en HTML. No depende de JS para aparecer. -->
+  <section id="priveAccessGate" role="dialog" aria-modal="true" aria-labelledby="priveGateTitle">
+    <div class="prive-gate-bottles" aria-hidden="true">
+      <span class="prive-bottle-slot s1" data-bottle-slot="0"><img class="prive-gate-bottle" alt="" aria-hidden="true" decoding="async" fetchpriority="low"></span>
+      <span class="prive-bottle-slot s2" data-bottle-slot="1"><img class="prive-gate-bottle" alt="" aria-hidden="true" decoding="async" fetchpriority="low"></span>
+      <span class="prive-bottle-slot s3" data-bottle-slot="2"><img class="prive-gate-bottle" alt="" aria-hidden="true" decoding="async" fetchpriority="low"></span>
+      <span class="prive-bottle-slot s4" data-bottle-slot="3"><img class="prive-gate-bottle" alt="" aria-hidden="true" decoding="async" fetchpriority="low"></span>
+      <span class="prive-bottle-slot s5" data-bottle-slot="4"><img class="prive-gate-bottle" alt="" aria-hidden="true" decoding="async" fetchpriority="low"></span>
+      <span class="prive-bottle-slot s6" data-bottle-slot="5"><img class="prive-gate-bottle" alt="" aria-hidden="true" decoding="async" fetchpriority="low"></span>
+    </div>
+
+    <div class="prive-entry-shell">
+      <div class="prive-entry-brand">
+        <p class="prive-gate-overline">PERFUMERÍA PRIVÉ</p>
+        <p class="prive-gate-logo" aria-hidden="true">PRIVÉ</p>
+        <p class="prive-entry-slogan">Huelen mejor de lo que cuestan.</p>
+      </div>
+
+      <div class="prive-entry-copy">
+        <p class="prive-entry-kicker">BIENVENIDO</p>
+        <h1 id="priveGateTitle">¿Cómo deseas entrar?</h1>
+        <p>Elige tu acceso para continuar a la experiencia PRIVÉ.</p>
+      </div>
+
+      <div class="prive-entry-options">
+        <a class="prive-entry-option prive-entry-option--distributor" href="/portal/">
+          <span class="prive-entry-option-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 20v-1.5A4.5 4.5 0 0 1 8.5 14h7a4.5 4.5 0 0 1 4.5 4.5V20M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/></svg>
+          </span>
+          <span class="prive-entry-option-copy">
+            <small>ACCESO PRIVADO</small>
+            <strong>Acceder como distribuidor</strong>
+            <span>Inicia sesión para consultar el catálogo operativo y gestionar tus pedidos.</span>
+          </span>
+          <span class="prive-entry-arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a id="priveClientEntry" class="prive-entry-option prive-entry-option--client" href="/?entry=client">
+          <span class="prive-entry-option-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6S2.5 12 2.5 12Zm9.5 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>
+          </span>
+          <span class="prive-entry-option-copy">
+            <small>CATÁLOGO DIGITAL</small>
+            <strong>Continuar como cliente</strong>
+            <span>Consulta el respaldo oficial PRIVÉ y explora nuestra colección pública.</span>
+          </span>
+          <span class="prive-entry-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <p class="prive-entry-note">Las claves internas de los perfumes permanecen privadas y no se muestran en el catálogo público.</p>
+
+      <noscript>
+        <p class="prive-entry-fallback-note">
+          JavaScript está desactivado. Puedes consultar el <a href="/perfumes/">índice de fragancias</a>.
+        </p>
+      </noscript>
+    </div>
+  </section>
+
   <a class="prive-home-fixed" href="/?entry=home" aria-label="Regresar al inicio">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1v-9Z"/></svg>
     <span>Inicio</span>
@@ -166,7 +226,7 @@
         <button id="resetFilters" class="text-button" type="button">Restablecer filtros</button>
       </div>
       <div id="activeFilters" class="active-filters" hidden aria-live="polite"></div>
-      <div id="catalog" class="catalog-grid" aria-live="polite"></div>
+      <div id="catalog" class="catalog-grid" aria-live="polite"><p class="catalog-loading">Conectando con el catálogo PRIVÉ…</p></div>
       <div id="emptyState" class="empty-state" hidden>
         <p class="empty-title">No encontramos esa fragancia.</p>
         <p>Prueba con otro nombre, diseñador o nota.</p>
@@ -376,6 +436,6 @@
   </dialog>
 
   <script src="core-adapter.js?v=7.0" defer></script>
-  <script src="app.js?v=12.8" defer></script>
+  <script src="app.js?v=13.0" defer></script>
 </body>
 </html>
