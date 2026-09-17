@@ -4,6 +4,13 @@ const state={rows:[],scope:"Todos"};
 const $=s=>document.querySelector(s);
 const grid=$("#topGrid"),tabs=$("#topTabs"),month=$("#topMonth");
 
+function resolveImageUrl(value){
+  const raw=String(value||"").trim();
+  if(!raw)return "";
+  if(/^https?:\/\//i.test(raw))return raw;
+  return new URL(`../${raw.replace(/^\/+/,"")}`,window.location.href).href;
+}
+
 function monthLabel(value){
   const date=value?new Date(`${value}T12:00:00`):new Date();
   const text=new Intl.DateTimeFormat("es-MX",{month:"long",year:"numeric"}).format(date);
@@ -28,7 +35,7 @@ function render(){
     card.href=`/?entry=catalog#perfume=${encodeURIComponent(row.perfume_id)}`;
     card.innerHTML=`
       <span class="top-rank">${row.rank}</span>
-      <span class="top-image">${row.image_url?`<img src="${row.image_url}" alt="" loading="lazy" decoding="async">`:""}</span>
+      <span class="top-image">${resolveImageUrl(row.image_url)?`<img src="${resolveImageUrl(row.image_url)}" alt="" loading="lazy" decoding="async">`:""}</span>
       <span class="top-copy"><small>${row.designer||"PRIVÉ"}</small><strong>${row.perfume_name||""}</strong><em>${row.category||""}</em></span>
       <span class="top-arrow" aria-hidden="true">→</span>`;
     grid.appendChild(card);

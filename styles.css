@@ -3872,3 +3872,43 @@ body::after{
 @media(prefers-reduced-motion:reduce){
   .prive-banner-product img,.prive-banner-orb,.prive-banner-spark{animation:none!important}
 }
+
+
+/* S18 V1.2 · Entrada fluida del carrusel principal */
+.reveal--five{
+  animation-delay:1.72s;
+}
+.entry-paths.reveal--four{
+  animation-delay:2.22s;
+}
+.prive-banner-carousel.reveal{
+  transform:translateY(22px) scale(.985);
+  animation-name:priveBannerReveal;
+  animation-duration:1.05s;
+  animation-timing-function:cubic-bezier(.2,.78,.2,1);
+  animation-fill-mode:forwards;
+}
+@keyframes priveBannerReveal{
+  0%{
+    opacity:0;
+    transform:translateY(22px) scale(.985);
+    filter:blur(3px);
+  }
+  55%{
+    opacity:.78;
+    filter:blur(.5px);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .prive-banner-carousel.reveal{
+    opacity:1;
+    transform:none;
+    filter:none;
+    animation:none!important;
+  }
+}
