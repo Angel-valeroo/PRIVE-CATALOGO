@@ -3713,3 +3713,162 @@ body::after{
   .top-sales-card:first-child{grid-template-columns:34px 105px 1fr}
   .top-sales-card:first-child .top-sales-image img{height:100px}
 }
+
+
+/* =========================================================
+   S18 V1.1 · Carrusel principal más grande y visual
+   ========================================================= */
+.prive-banner-carousel{
+  width:min(1120px,100%);
+  margin:28px auto 26px;
+  padding:0 50px 28px;
+}
+.prive-banner-viewport{
+  border-radius:30px;
+  border:1px solid rgba(226,204,150,.24);
+  background:#080c13;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.34),
+    inset 0 1px 0 rgba(255,255,255,.035);
+}
+.prive-banner-slide{
+  min-height:330px;
+  padding:42px 48px;
+  grid-template-columns:minmax(0,1.32fr) minmax(220px,.68fr);
+  gap:34px;
+  isolation:isolate;
+}
+.prive-banner-slide::before{
+  inset:0;
+  height:auto;
+  background:
+    linear-gradient(115deg,rgba(255,255,255,.025),transparent 42%),
+    radial-gradient(circle at 72% 45%,rgba(218,199,151,.14),transparent 31%);
+  z-index:0;
+}
+.prive-banner-slide::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  background:linear-gradient(90deg,rgba(2,4,8,.12),transparent 42%,rgba(2,4,8,.12));
+  pointer-events:none;
+}
+.prive-banner-slide--gold{background:linear-gradient(135deg,#17130c 0%,#0b1018 52%,#080b11 100%)}
+.prive-banner-slide--blue{background:linear-gradient(135deg,#07121f 0%,#0a101a 55%,#070a10 100%)}
+.prive-banner-slide--rose{background:linear-gradient(135deg,#1b0d15 0%,#101019 55%,#080a10 100%)}
+.prive-banner-slide--emerald{background:linear-gradient(135deg,#071713 0%,#0a1117 55%,#070a0f 100%)}
+.prive-banner-slide--amber{background:linear-gradient(135deg,#1c1207 0%,#121017 55%,#080a0f 100%)}
+.prive-banner-slide--violet{background:linear-gradient(135deg,#130d20 0%,#0e1019 55%,#070a0f 100%)}
+.prive-banner-copy{gap:12px}
+.prive-banner-eyebrow{
+  font-size:.73rem;
+  letter-spacing:.24em;
+  text-shadow:0 0 20px rgba(217,194,139,.26);
+}
+.prive-banner-copy h3{
+  max-width:650px;
+  font-family:"Playfair Display",serif;
+  font-size:clamp(2.15rem,4vw,3.6rem);
+  font-weight:500;
+  letter-spacing:-.035em;
+  line-height:.94;
+}
+.prive-banner-copy p{
+  max-width:590px;
+  font-size:1rem;
+  line-height:1.65;
+}
+.prive-banner-cta{
+  margin-top:12px;
+  min-height:44px;
+  padding:10px 16px;
+  border:1px solid rgba(225,203,150,.28);
+  border-radius:999px;
+  background:rgba(225,203,150,.08);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
+  transition:transform .25s ease,background .25s ease,border-color .25s ease;
+}
+.prive-banner-cta:hover{transform:translateY(-2px);background:rgba(225,203,150,.13);border-color:rgba(225,203,150,.45)}
+.prive-banner-product{min-height:245px}
+.prive-banner-product img{
+  width:min(230px,88%);
+  height:225px;
+  filter:drop-shadow(0 28px 26px rgba(0,0,0,.48));
+  animation:priveBannerBottleFloat 5.8s ease-in-out infinite;
+}
+.prive-banner-product small{font-size:.68rem;letter-spacing:.16em}
+.prive-banner-product strong{font-size:1rem}
+.prive-banner-orb{
+  position:absolute;
+  z-index:0;
+  width:190px;
+  height:190px;
+  border-radius:50%;
+  filter:blur(10px);
+  opacity:.18;
+  pointer-events:none;
+  animation:priveBannerOrb 7s ease-in-out infinite alternate;
+}
+.prive-banner-orb--one{right:9%;top:-65px;background:#d8bf7e}
+.prive-banner-orb--two{right:24%;bottom:-95px;background:#526f97;animation-delay:-2.4s}
+.prive-banner-spark{
+  position:absolute;
+  right:31%;
+  top:17%;
+  z-index:1;
+  color:rgba(229,207,153,.46);
+  font-size:1.15rem;
+  animation:priveBannerSpark 3s ease-in-out infinite;
+}
+.prive-banner-nav{
+  width:42px;
+  height:42px;
+  border-color:rgba(218,199,151,.30);
+  box-shadow:0 10px 24px rgba(0,0,0,.25);
+}
+@keyframes priveBannerBottleFloat{
+  0%,100%{transform:translateY(0) rotate(-.4deg)}
+  50%{transform:translateY(-8px) rotate(.5deg)}
+}
+@keyframes priveBannerOrb{
+  from{transform:translate3d(-8px,-4px,0) scale(.96)}
+  to{transform:translate3d(12px,10px,0) scale(1.08)}
+}
+@keyframes priveBannerSpark{
+  0%,100%{opacity:.28;transform:scale(.8) rotate(0)}
+  50%{opacity:.78;transform:scale(1.15) rotate(18deg)}
+}
+
+/* El carrusel es ahora el primer bloque de descubrimiento bajo el buscador. */
+.hero-inner > .prive-banner-carousel{order:initial}
+.hero-inner > .entry-paths{margin-top:4px}
+
+@media(max-width:620px){
+  .prive-banner-carousel{
+    width:calc(100% + 8px);
+    margin:20px -4px 24px;
+    padding:0 0 30px;
+  }
+  .prive-banner-viewport{border-radius:24px}
+  .prive-banner-slide{
+    min-height:285px;
+    grid-template-columns:minmax(0,1.22fr) minmax(112px,.78fr);
+    padding:30px 20px 28px;
+    gap:8px;
+  }
+  .prive-banner-copy{gap:9px}
+  .prive-banner-eyebrow{font-size:.61rem;letter-spacing:.18em}
+  .prive-banner-copy h3{font-size:clamp(1.72rem,8.5vw,2.3rem);line-height:.96}
+  .prive-banner-copy p{font-size:.79rem;line-height:1.48;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .prive-banner-cta{font-size:.74rem;padding:8px 12px;min-height:40px}
+  .prive-banner-product{min-height:190px}
+  .prive-banner-product img{height:170px;width:100%}
+  .prive-banner-product strong{font-size:.74rem}
+  .prive-banner-product small{font-size:.55rem}
+  .prive-banner-spark{right:29%;top:14%}
+  .prive-banner-nav{width:34px;height:34px}
+}
+@media(prefers-reduced-motion:reduce){
+  .prive-banner-product img,.prive-banner-orb,.prive-banner-spark{animation:none!important}
+}

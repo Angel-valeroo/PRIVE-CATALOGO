@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07090d">
+  <title>Top más vendidos · PRIVÉ</title>
+  <meta name="description" content="Los perfumes más vendidos del mes en PRIVÉ.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./top.css?v=1.1">
+</head>
+<body>
+  <main class="top-page">
+    <header class="top-hero">
+      <a class="top-back" href="/?entry=catalog" aria-label="Volver al catálogo">← <span>Catálogo</span></a>
+      <div class="top-brand">
+        <p>PERFUMERÍA PRIVÉ</p>
+        <strong>PRIVÉ</strong>
+      </div>
+      <div class="top-intro">
+        <p class="top-kicker">LO QUE MÁS SE PIDE EN PRIVÉ</p>
+        <h1>Top más vendidos</h1>
+        <p id="topMonth" class="top-month">Cargando ranking del mes…</p>
+        <p class="top-explainer">Ranking automático construido con pedidos confirmados. Las cantidades permanecen privadas.</p>
+      </div>
+      <div class="top-medal" aria-hidden="true">🏅</div>
+    </header>
+
+    <section class="top-content" aria-labelledby="rankingTitle">
+      <div class="top-tabs" id="topTabs" role="tablist" aria-label="Filtrar ranking por presentación">
+        <button type="button" data-scope="Todos" class="is-active" role="tab" aria-selected="true">Todos</button>
+        <button type="button" data-scope="Caballero" role="tab" aria-selected="false">Caballero</button>
+        <button type="button" data-scope="Dama" role="tab" aria-selected="false">Dama</button>
+        <button type="button" data-scope="Unisex" role="tab" aria-selected="false">Unisex</button>
+      </div>
+
+      <div class="top-heading-row">
+        <div>
+          <p class="top-section-label">RANKING DEL MES</p>
+          <h2 id="rankingTitle">Los favoritos de nuestros pedidos</h2>
+        </div>
+        <span class="top-live"><i></i> Actualizado automáticamente</span>
+      </div>
+
+      <div id="topGrid" class="top-grid" aria-live="polite">
+        <p class="top-loading">Calculando los más vendidos…</p>
+      </div>
+    </section>
+  </main>
+  <script src="./top.js?v=1.1" defer></script>
+</body>
+</html>

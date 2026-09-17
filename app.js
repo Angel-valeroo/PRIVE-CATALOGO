@@ -1,7 +1,7 @@
 const state = {
   perfumes: [], query: "", designer: "", family: "", category: "",
   tags: new Set(), selectedPerfume: null,
-  codeMatchId: null, codeLookupQuery: "", codeLookupPending: false,
+  codeMatchIds: [], codeLookupQuery: "", codeLookupPending: false,
   monthlyTop: [], newArrivals: [], topScope: "Todos", bannerIndex: 0,
   advisor: { step: 0, answers: { category: "", age: "", occasion: "", profile: "", intensity: "", climate: "" }, resultReturnActive: false }
 };
@@ -209,25 +209,31 @@ function searchTokens(value) {
   return normalize(value).split(/\s+/).filter(Boolean);
 }
 function normalizedPerfumeCode(value) {
-  return String(value || "").toUpperCase().replace(/\s+/g, "");
+  return String(value || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+}
+function publicCodeQuery(value) {
+  const compact = normalizedPerfumeCode(value);
+  if (/^(?:CP|DP|UP)\d{4,7}$/.test(compact)) return compact;
+  if (/^\d{4,7}$/.test(compact)) return compact;
+  return "";
 }
 function looksLikePerfumeCode(value) {
-  return /^(?:CP|DP|UP)\d{4,7}$/.test(normalizedPerfumeCode(value));
+  return Boolean(publicCodeQuery(value));
 }
 let codeLookupSerial = 0;
 async function resolvePublicCodeSearch(value) {
-  const code = normalizedPerfumeCode(value);
+  const code = publicCodeQuery(value);
   const serial = ++codeLookupSerial;
-  if (!looksLikePerfumeCode(code)) {
+  if (!code) {
     state.codeLookupPending = false;
     state.codeLookupQuery = "";
-    state.codeMatchId = null;
+    state.codeMatchIds = [];
     return;
   }
 
   state.codeLookupPending = true;
   state.codeLookupQuery = code;
-  state.codeMatchId = null;
+  state.codeMatchIds = [];
   render();
 
   try {
@@ -242,10 +248,10 @@ async function resolvePublicCodeSearch(value) {
     }, 7000);
     if (!response.ok) throw new Error(`Búsqueda por clave respondió ${response.status}`);
     const rows = await response.json();
-    if (serial !== codeLookupSerial || normalizedPerfumeCode(state.query) !== code) return;
-    state.codeMatchId = rows?.[0]?.perfume_id || null;
+    if (serial !== codeLookupSerial || publicCodeQuery(state.query) !== code) return;
+    state.codeMatchIds = [...new Set((rows || []).map(row => row?.perfume_id).filter(Boolean))];
   } catch (error) {
-    if (serial === codeLookupSerial) state.codeMatchId = null;
+    if (serial === codeLookupSerial) state.codeMatchIds = [];
     console.warn("PRIVÉ: no se pudo resolver la clave pública.", error);
   } finally {
     if (serial === codeLookupSerial) {
@@ -278,7 +284,7 @@ function filteredPerfumes() {
     .filter(perfume => {
       const values = perfumeTags(perfume).map(normalize);
       const searchMatches = codeQuery
-        ? (!state.codeLookupPending && Boolean(state.codeMatchId) && perfume.id === state.codeMatchId)
+        ? (!state.codeLookupPending && state.codeMatchIds.includes(perfume.id))
         : perfumeSearchScore(perfume, tokens) >= 0;
       return (!state.category || perfume.category === state.category)
         && (!state.designer || perfume.designer === state.designer)
@@ -1318,7 +1324,7 @@ function applySearch(value, { scroll = false, scrollBehavior = "smooth" } = {}) 
     codeLookupSerial += 1;
     state.codeLookupPending = false;
     state.codeLookupQuery = "";
-    state.codeMatchId = null;
+    state.codeMatchIds = [];
     render();
   }
   if (scroll) scrollToCatalog(scrollBehavior);
@@ -1677,12 +1683,12 @@ function firstProfileMatch(label) {
   const source = [...ranked, ...state.perfumes.filter(perfume => !topIds.has(perfume.id))];
   return source.find(perfume => perfumeTags(perfume).some(tag => normalize(tag).includes(wanted))) || null;
 }
-function bannerSlide({ eyebrow, title, copy, perfume, target = "#top-ventas", action = "Ver más" }) {
+function bannerSlide({ eyebrow, title, copy, perfume, target = "/top/", action = "Ver más", tone = "gold" }) {
   const image = perfume?.imageUrl || perfume?.image_url || "";
   const designer = perfume?.designer || "PRIVÉ";
   const name = perfume?.name || perfume?.perfume_name || "Descubre la colección";
   const perfumeId = perfume?.id || perfume?.perfume_id || "";
-  return { eyebrow, title, copy, image, designer, name, perfumeId, target, action };
+  return { eyebrow, title, copy, image, designer, name, perfumeId, target, action, tone };
 }
 function buildPublicBanners() {
   const general = topRows("Todos")[0] || null;
@@ -1694,12 +1700,12 @@ function buildPublicBanners() {
   const season = firstProfileMatch(currentSeasonLabel());
   const slides = [];
 
-  if (general) slides.push(bannerSlide({ eyebrow: "TOP DEL MES", title: general.perfume_name, copy: `El #1 más pedido de ${monthLabelFromDate(general.month_start)}.`, perfume: general, action: "Ver Top 5" }));
-  if (men) slides.push(bannerSlide({ eyebrow: "CABALLERO", title: men.perfume_name, copy: "El favorito de Caballero según pedidos confirmados.", perfume: men, action: "Ver ranking" }));
-  if (women) slides.push(bannerSlide({ eyebrow: "DAMA", title: women.perfume_name, copy: "El favorito de Dama según pedidos confirmados.", perfume: women, action: "Ver ranking" }));
-  if (newest) slides.push(bannerSlide({ eyebrow: "NUEVO EN PRIVÉ", title: newest.name, copy: "Una de las integraciones más recientes del catálogo.", perfume: newest, target: `#perfume=${encodeURIComponent(newest.id)}`, action: "Conocer fragancia" }));
-  if (sweet) slides.push(bannerSlide({ eyebrow: "PERFIL DULCE", title: sweet.name, copy: "Para quienes buscan un perfil dulce y envolvente.", perfume: sweet, target: `#perfume=${encodeURIComponent(sweet.id)}`, action: "Ver fragancia" }));
-  if (season) slides.push(bannerSlide({ eyebrow: `${currentSeasonLabel().toUpperCase()} EN PRIVÉ`, title: season.name, copy: `Una recomendación del catálogo para ${currentSeasonLabel().toLowerCase()}.`, perfume: season, target: `#perfume=${encodeURIComponent(season.id)}`, action: "Ver recomendación" }));
+  if (general) slides.push(bannerSlide({ eyebrow: "TOP DEL MES", title: general.perfume_name, copy: `El #1 más pedido de ${monthLabelFromDate(general.month_start)}.`, perfume: general, target:"/top/", action: "Ver Top 5", tone:"gold" }));
+  if (men) slides.push(bannerSlide({ eyebrow: "CABALLERO", title: men.perfume_name, copy: "El favorito de Caballero según pedidos confirmados.", perfume: men, target:"/top/?scope=Caballero", action: "Ver ranking", tone:"blue" }));
+  if (women) slides.push(bannerSlide({ eyebrow: "DAMA", title: women.perfume_name, copy: "El favorito de Dama según pedidos confirmados.", perfume: women, target:"/top/?scope=Dama", action: "Ver ranking", tone:"rose" }));
+  if (newest) slides.push(bannerSlide({ eyebrow: "NUEVO EN PRIVÉ", title: newest.name, copy: "Una de las integraciones más recientes del catálogo.", perfume: newest, target: `#perfume=${encodeURIComponent(newest.id)}`, action: "Conocer fragancia", tone:"emerald" }));
+  if (sweet) slides.push(bannerSlide({ eyebrow: "PERFIL DULCE", title: sweet.name, copy: "Para quienes buscan un perfil dulce y envolvente.", perfume: sweet, target: `#perfume=${encodeURIComponent(sweet.id)}`, action: "Ver fragancia", tone:"amber" }));
+  if (season) slides.push(bannerSlide({ eyebrow: `${currentSeasonLabel().toUpperCase()} EN PRIVÉ`, title: season.name, copy: `Una recomendación del catálogo para ${currentSeasonLabel().toLowerCase()}.`, perfume: season, target: `#perfume=${encodeURIComponent(season.id)}`, action: "Ver recomendación", tone:"violet" }));
   return slides;
 }
 let bannerTimer = 0;
@@ -1734,8 +1740,11 @@ function renderPublicBanners() {
   elements.bannerViewport?.closest(".prive-banner-carousel")?.removeAttribute("hidden");
   slides.forEach((slide, index) => {
     const article = document.createElement("article");
-    article.className = "prive-banner-slide";
+    article.className = `prive-banner-slide prive-banner-slide--${slide.tone || "gold"}`;
     article.innerHTML = `
+      <span class="prive-banner-orb prive-banner-orb--one" aria-hidden="true"></span>
+      <span class="prive-banner-orb prive-banner-orb--two" aria-hidden="true"></span>
+      <span class="prive-banner-spark" aria-hidden="true">✦</span>
       <div class="prive-banner-copy">
         <span class="prive-banner-eyebrow">${slide.eyebrow}</span>
         <h3>${slide.title}</h3>
@@ -1750,9 +1759,13 @@ function renderPublicBanners() {
       if (slide.perfumeId && slide.target.startsWith("#perfume=")) {
         const perfume = perfumeById(slide.perfumeId);
         if (perfume) openPerfume(perfume, true);
-      } else {
-        document.querySelector(slide.target)?.scrollIntoView({ behavior:"smooth", block:"start" });
+        return;
       }
+      if (slide.target.startsWith("/")) {
+        window.location.assign(slide.target);
+        return;
+      }
+      document.querySelector(slide.target)?.scrollIntoView({ behavior:"smooth", block:"start" });
     });
     elements.bannerTrack.appendChild(article);
 
@@ -1815,7 +1828,6 @@ async function loadPublicDiscovery() {
     state.monthlyTop = [];
     state.newArrivals = [];
   }
-  renderTopSales();
   renderPublicBanners();
 }
 function setupDiscoveryControls() {
