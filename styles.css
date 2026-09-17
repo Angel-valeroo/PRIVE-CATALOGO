@@ -3639,3 +3639,77 @@ body::after{
   opacity:.58;
   cursor:wait;
 }
+
+
+/* =========================================================
+   S18 V1 · Banners dinámicos + Top mensual
+   ========================================================= */
+.entry-card--top{position:relative;overflow:hidden}
+.entry-card--top::after{content:"EN VIVO";position:absolute;right:14px;top:12px;font-size:.58rem;letter-spacing:.16em;font-weight:800;color:#d9c28b;border:1px solid rgba(217,194,139,.35);border-radius:999px;padding:4px 7px;background:rgba(217,194,139,.08)}
+
+.prive-banner-carousel{position:relative;width:min(100%,900px);margin:20px auto 0;padding:0 42px 24px}
+.prive-banner-carousel[hidden]{display:none!important}
+.prive-banner-viewport{overflow:hidden;border:1px solid rgba(218,199,151,.17);border-radius:24px;background:linear-gradient(135deg,rgba(18,24,34,.86),rgba(7,10,16,.92));box-shadow:0 18px 48px rgba(0,0,0,.25)}
+.prive-banner-track{display:flex;width:100%;transition:transform .62s cubic-bezier(.22,.75,.22,1);will-change:transform}
+.prive-banner-slide{flex:0 0 100%;min-width:100%;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(180px,.75fr);align-items:center;gap:22px;min-height:230px;padding:28px 34px;position:relative;overflow:hidden}
+.prive-banner-slide::before{content:"";position:absolute;inset:auto -10% -55% 22%;height:190px;background:radial-gradient(circle,rgba(218,199,151,.11),transparent 68%);pointer-events:none}
+.prive-banner-copy{position:relative;z-index:2;display:grid;gap:9px;align-content:center}
+.prive-banner-eyebrow{font-size:.7rem;font-weight:800;letter-spacing:.19em;color:#d9c28b}
+.prive-banner-copy h3{margin:0;font-size:clamp(1.55rem,3vw,2.45rem);line-height:1.02;color:#f5f2eb}
+.prive-banner-copy p{margin:0;max-width:520px;color:rgba(245,242,235,.7);line-height:1.5}
+.prive-banner-cta{justify-self:start;margin-top:6px;border:0;border-bottom:1px solid rgba(217,194,139,.5);background:transparent;color:#e8d5a5;padding:6px 0;font:inherit;font-weight:700;cursor:pointer}
+.prive-banner-product{position:relative;z-index:2;display:grid;justify-items:center;align-items:end;gap:4px;min-height:180px}
+.prive-banner-product img{width:min(150px,75%);height:150px;object-fit:contain;filter:drop-shadow(0 18px 18px rgba(0,0,0,.38))}
+.prive-banner-product div{text-align:center;display:grid;gap:2px}
+.prive-banner-product small{color:rgba(245,242,235,.48);font-size:.62rem;letter-spacing:.12em}
+.prive-banner-product strong{color:#f5f2eb;font-size:.84rem;line-height:1.15}
+.prive-banner-nav{position:absolute;top:50%;translate:0 -58%;z-index:4;width:36px;height:36px;border-radius:50%;border:1px solid rgba(218,199,151,.22);background:rgba(7,10,16,.72);color:#f0dfb5;font-size:1.7rem;line-height:1;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(8px)}
+.prive-banner-nav--prev{left:0}.prive-banner-nav--next{right:0}
+.prive-banner-dots{position:absolute;left:50%;bottom:4px;translate:-50% 0;display:flex;gap:7px;align-items:center}
+.prive-banner-dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:rgba(245,242,235,.25);transition:width .25s ease,background .25s ease;cursor:pointer}
+.prive-banner-dot.is-active{width:22px;border-radius:999px;background:#d9c28b}
+
+.top-sales-shell{padding:72px max(20px,calc((100vw - 1180px)/2));background:linear-gradient(180deg,#070a0f 0%,#090d14 52%,#070a0f 100%);border-top:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04);scroll-margin-top:24px}
+.top-sales-heading h2 span{font-size:.48em;font-weight:500;color:#c7b68e;white-space:nowrap}
+.top-sales-tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 0 18px;scrollbar-width:none}
+.top-sales-tabs::-webkit-scrollbar{display:none}
+.top-sales-tab{flex:0 0 auto;border:1px solid rgba(218,199,151,.18);border-radius:999px;background:rgba(255,255,255,.025);color:rgba(245,242,235,.68);padding:9px 14px;font:inherit;font-size:.82rem;cursor:pointer}
+.top-sales-tab.is-active{color:#1b1810;background:#d9c28b;border-color:#d9c28b;font-weight:800}
+.top-sales-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.top-sales-card{min-width:0;position:relative;display:grid;grid-template-rows:auto 150px auto;gap:7px;text-align:left;padding:14px;border:1px solid rgba(218,199,151,.13);border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));color:#f5f2eb;cursor:pointer;overflow:hidden}
+.top-sales-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 5%,rgba(218,199,151,.08),transparent 35%);pointer-events:none}
+.top-sales-rank{position:relative;z-index:2;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(218,199,151,.27);font-weight:900;color:#d9c28b;background:rgba(5,7,10,.64)}
+.top-sales-card--rank-1 .top-sales-rank{background:linear-gradient(135deg,#e5cc83,#a67b28);color:#171109;border-color:transparent;box-shadow:0 0 20px rgba(229,204,131,.18)}
+.top-sales-image{display:grid;place-items:center;position:relative;z-index:2}
+.top-sales-image img{width:100%;height:145px;object-fit:contain;filter:drop-shadow(0 14px 14px rgba(0,0,0,.36))}
+.top-sales-copy{position:relative;z-index:2;display:grid;gap:3px;min-width:0}
+.top-sales-copy small{font-size:.62rem;letter-spacing:.12em;color:rgba(245,242,235,.45);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-sales-copy strong{font-size:.89rem;line-height:1.18;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.top-sales-copy em{font-style:normal;color:#bfae84;font-size:.7rem}
+.top-sales-open{position:absolute;right:12px;top:14px;color:rgba(245,242,235,.42)}
+.top-sales-loading,.top-sales-empty{grid-column:1/-1;margin:0;padding:30px 18px;text-align:center;border:1px dashed rgba(218,199,151,.18);border-radius:18px;color:rgba(245,242,235,.6)}
+.catalog-code-loading{grid-column:1/-1;text-align:center;padding:28px;color:rgba(245,242,235,.62)}
+
+@media(max-width:820px){
+  .top-sales-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .top-sales-card:first-child{grid-column:1/-1;grid-template-columns:42px 130px 1fr;grid-template-rows:auto;align-items:center}
+  .top-sales-card:first-child .top-sales-image img{height:120px}
+}
+@media(max-width:620px){
+  .prive-banner-carousel{width:100%;margin-top:16px;padding:0 0 26px}
+  .prive-banner-viewport{border-radius:20px}
+  .prive-banner-slide{grid-template-columns:1.2fr .8fr;min-height:205px;padding:22px 18px;gap:8px}
+  .prive-banner-copy h3{font-size:1.45rem}
+  .prive-banner-copy p{font-size:.78rem;line-height:1.4}
+  .prive-banner-product{min-height:150px}
+  .prive-banner-product img{width:100%;height:125px}
+  .prive-banner-product strong{font-size:.72rem}
+  .prive-banner-nav{width:32px;height:32px;top:auto;bottom:-1px;translate:0 0;background:transparent;border-color:transparent}
+  .prive-banner-nav--prev{left:10px}.prive-banner-nav--next{right:10px}
+  .top-sales-shell{padding:54px 16px}
+  .top-sales-grid{gap:9px}
+  .top-sales-card{grid-template-rows:auto 122px auto;padding:11px;border-radius:17px}
+  .top-sales-image img{height:118px}
+  .top-sales-card:first-child{grid-template-columns:34px 105px 1fr}
+  .top-sales-card:first-child .top-sales-image img{height:100px}
+}

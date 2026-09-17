@@ -66,7 +66,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/access-gate.css?v=4.0">
   <script src="/access-gate.js?v=4.0" defer></script>
-  <link rel="stylesheet" href="styles.css?v=13.0">
+  <link rel="stylesheet" href="styles.css?v=18.0">
   <link rel="stylesheet" href="/trust-center.css?v=2.1">
   <script src="/trust-center.js?v=1.4" defer></script>
   <script>
@@ -165,7 +165,7 @@
         <div class="search-area reveal reveal--three">
           <label class="search-box" for="search">
             <svg class="search-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg>
-            <input id="search" type="search" autocomplete="off" placeholder="Busca por nombre o diseñador...">
+            <input id="search" type="search" autocomplete="off" placeholder="Busca por nombre, diseñador o clave...">
             <button id="submitSearch" class="search-submit" type="button" aria-label="Buscar perfumes">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg>
             </button>
@@ -191,18 +191,45 @@
             <span class="entry-copy"><strong>Ayúdame a elegir</strong><small>Deja que el Asesor Inteligente PRIVÉ encuentre tu fragancia ideal.</small></span>
             <span class="entry-arrow entry-arrow--advisor" aria-hidden="true">✦</span>
           </button>
-          <article class="entry-card entry-card--coming" aria-label="Top más vendidos, próximamente">
+          <a class="entry-card entry-card--top" href="#top-ventas">
             <span class="entry-index">02</span>
-            <span class="entry-copy"><strong>Top más vendidos</strong><small>Los perfumes más vendidos de PRIVÉ.</small></span>
+            <span class="entry-copy"><strong>Top más vendidos</strong><small>Descubre el ranking real del mes en PRIVÉ.</small></span>
             <span class="entry-arrow entry-arrow--bestsellers" aria-hidden="true">🏅</span>
-            <span class="entry-coming-badge">Próximamente</span>
-          </article>
+          </a>
           <a class="entry-card" href="#catalogo">
             <span class="entry-index">03</span>
             <span class="entry-copy"><strong>Explorar catálogo</strong><small>Conoce la colección completa de PRIVÉ.</small></span>
             <span class="entry-arrow" aria-hidden="true">↓</span>
           </a>
         </div>
+
+        <section class="prive-banner-carousel reveal reveal--five" aria-label="Destacados PRIVÉ">
+          <div class="prive-banner-viewport" id="priveBannerViewport">
+            <div class="prive-banner-track" id="priveBannerTrack" aria-live="polite"></div>
+          </div>
+          <button class="prive-banner-nav prive-banner-nav--prev" id="priveBannerPrev" type="button" aria-label="Banner anterior">‹</button>
+          <button class="prive-banner-nav prive-banner-nav--next" id="priveBannerNext" type="button" aria-label="Banner siguiente">›</button>
+          <div class="prive-banner-dots" id="priveBannerDots" aria-label="Seleccionar banner"></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="top-ventas" class="top-sales-shell" aria-labelledby="topSalesTitle">
+      <div class="section-heading top-sales-heading">
+        <div>
+          <p class="section-kicker">LO QUE MÁS SE PIDE EN PRIVÉ</p>
+          <h2 id="topSalesTitle">Top más vendidos <span id="topSalesMonth"></span></h2>
+        </div>
+        <p>Ranking automático basado en pedidos confirmados. Las cantidades permanecen privadas.</p>
+      </div>
+      <div class="top-sales-tabs" id="topSalesTabs" role="tablist" aria-label="Top por presentación">
+        <button type="button" class="top-sales-tab is-active" data-top-scope="Todos" role="tab" aria-selected="true">Todos</button>
+        <button type="button" class="top-sales-tab" data-top-scope="Caballero" role="tab" aria-selected="false">Caballero</button>
+        <button type="button" class="top-sales-tab" data-top-scope="Dama" role="tab" aria-selected="false">Dama</button>
+        <button type="button" class="top-sales-tab" data-top-scope="Unisex" role="tab" aria-selected="false">Unisex</button>
+      </div>
+      <div id="topSalesGrid" class="top-sales-grid" aria-live="polite">
+        <p class="top-sales-loading">Calculando los más vendidos del mes…</p>
       </div>
     </section>
 
@@ -436,6 +463,6 @@
   </dialog>
 
   <script src="core-adapter.js?v=7.0" defer></script>
-  <script src="app.js?v=13.0" defer></script>
+  <script src="app.js?v=18.0" defer></script>
 </body>
 </html>
