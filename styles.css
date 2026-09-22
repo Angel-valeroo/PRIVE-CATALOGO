@@ -3912,3 +3912,147 @@ body::after{
     animation:none!important;
   }
 }
+
+
+/* =========================================================
+   S21 V1 · ESTRUCTURA WEB PRIVÉ
+   ========================================================= */
+.prive-web-hub{
+  width:min(1280px,100%);
+  margin:0 auto;
+  padding:96px clamp(18px,4vw,56px) 86px;
+  background:#f3efe7;
+}
+.prive-web-hub__heading{
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(280px,.7fr);
+  gap:38px;
+  align-items:end;
+  margin-bottom:38px;
+  padding-bottom:28px;
+  border-bottom:1px solid rgba(23,21,18,.13);
+}
+.prive-web-hub__heading h2,
+.prive-learn__intro h2{
+  margin:7px 0 0;
+  max-width:720px;
+  font-family:"Playfair Display",serif;
+  font-size:clamp(2.5rem,6.2vw,4.9rem);
+  line-height:.98;
+  font-weight:500;
+  letter-spacing:-.035em;
+  color:#171512;
+}
+.prive-web-hub__heading>p,
+.prive-learn__intro>p{
+  margin:0;
+  color:#6b665d;
+  font-size:.8rem;
+  line-height:1.8;
+  letter-spacing:.015em;
+}
+.prive-web-hub__grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.prive-web-card{
+  min-height:252px;
+  padding:26px;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  text-align:left;
+  overflow:hidden;
+  border:1px solid rgba(23,21,18,.10);
+  border-radius:2px;
+  background:#faf8f4;
+  color:#171512;
+  cursor:pointer;
+  appearance:none;
+  font:inherit;
+  text-decoration:none;
+  transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s ease,border-color .3s ease,background .3s ease;
+}
+.prive-web-card::before{
+  content:"";
+  width:180px;
+  height:180px;
+  position:absolute;
+  right:-70px;
+  top:-70px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(189,166,120,.20),rgba(189,166,120,0) 72%);
+  transition:transform .5s ease,opacity .4s ease;
+}
+.prive-web-card:hover{
+  transform:translateY(-6px);
+  border-color:rgba(183,150,93,.36);
+  box-shadow:0 24px 60px rgba(29,24,18,.11);
+  background:#fffdf9;
+}
+.prive-web-card:hover::before{transform:scale(1.18);opacity:1}
+.prive-web-card__number{color:#a58b5d;font-size:.58rem;letter-spacing:.18em}
+.prive-web-card__eyebrow{margin-top:auto;color:#8a8174;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase}
+.prive-web-card strong{margin-top:7px;font-family:"Playfair Display",serif;font-size:clamp(1.55rem,3vw,2.35rem);font-weight:500;line-height:1.05}
+.prive-web-card>span:not(.prive-web-card__number):not(.prive-web-card__eyebrow){max-width:430px;margin-top:12px;color:#6d675f;font-size:.73rem;line-height:1.65}
+.prive-web-card i{position:absolute;right:24px;bottom:24px;color:#9f8351;font-size:1.15rem;font-style:normal}
+.prive-web-card--discover{background:#11151b;color:#fff;border-color:rgba(216,199,159,.24)}
+.prive-web-card--discover .prive-web-card__eyebrow,.prive-web-card--discover .prive-web-card__number{color:#d8c79f}
+.prive-web-card--discover>span:not(.prive-web-card__number):not(.prive-web-card__eyebrow){color:rgba(255,255,255,.62)}
+.prive-web-card--discover i{color:#d8c79f}
+.prive-web-card--discover:hover{background:#171c24;border-color:rgba(216,199,159,.55)}
+
+.prive-learn{
+  width:min(1280px,100%);
+  margin:0 auto;
+  padding:86px clamp(18px,4vw,56px) 92px;
+  background:#0a0d12;
+  color:#fff;
+}
+.prive-learn__intro{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.7fr);gap:38px;align-items:end;margin-bottom:36px}
+.prive-learn__intro h2{color:#fff}
+.prive-learn__intro>p{color:rgba(255,255,255,.55)}
+.prive-learn .section-kicker{color:#c9b37d}
+.prive-learn__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.prive-learn-card{min-height:220px;padding:26px;border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.035)}
+.prive-learn-card>span{color:#c9b37d;font-size:.58rem;letter-spacing:.18em}
+.prive-learn-card h3{margin:44px 0 12px;font-family:"Playfair Display",serif;font-size:1.55rem;font-weight:500}
+.prive-learn-card p{margin:0;color:rgba(255,255,255,.55);font-size:.72rem;line-height:1.7}
+.prive-learn__cta{
+  width:100%;
+  margin-top:12px;
+  padding:22px 24px;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:18px;
+  align-items:center;
+  border:1px solid rgba(216,199,159,.28);
+  background:rgba(189,166,120,.07);
+  color:#fff;
+  text-align:left;
+  cursor:pointer;
+  font:inherit;
+}
+.prive-learn__cta span{color:rgba(255,255,255,.52);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase}
+.prive-learn__cta strong{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:500}
+.prive-learn__cta i{color:#d8c79f;font-style:normal;font-size:1.1rem}
+.prive-learn__cta:hover{background:rgba(189,166,120,.12);border-color:rgba(216,199,159,.52)}
+
+@media (max-width:760px){
+  .prive-web-hub{padding:70px 16px 66px}
+  .prive-web-hub__heading,.prive-learn__intro{grid-template-columns:1fr;gap:18px}
+  .prive-web-hub__heading{margin-bottom:22px;padding-bottom:22px}
+  .prive-web-hub__heading h2,.prive-learn__intro h2{font-size:clamp(2.5rem,13vw,4rem)}
+  .prive-web-hub__grid{grid-template-columns:1fr;gap:8px}
+  .prive-web-card{min-height:208px;padding:22px}
+  .prive-web-card strong{font-size:1.8rem}
+  .prive-learn{padding:70px 16px 76px}
+  .prive-learn__grid{grid-template-columns:1fr;gap:8px}
+  .prive-learn-card{min-height:auto;padding:22px}
+  .prive-learn-card h3{margin:28px 0 10px}
+  .prive-learn__cta{grid-template-columns:1fr auto;gap:5px 14px}
+  .prive-learn__cta span{grid-column:1/-1}
+}
+@media (prefers-reduced-motion:reduce){.prive-web-card{transition:none}}

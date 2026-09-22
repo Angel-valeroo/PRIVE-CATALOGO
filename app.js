@@ -1510,6 +1510,10 @@ elements.dialog.addEventListener("click",event=>{if(event.target===elements.dial
 elements.dialog.addEventListener("cancel",event=>{event.preventDefault();closePerfume();});
 elements.dialog.addEventListener("scroll", updateDetailScrollProgress, { passive: true });
 elements.openAdvisor.addEventListener("click", openAdvisor);
+["openAdvisorHub", "openAdvisorLearn"].forEach((id) => {
+  const trigger = document.getElementById(id);
+  if (trigger) trigger.addEventListener("click", openAdvisor);
+});
 elements.closeAdvisor.addEventListener("click", exitAdvisorToHome);
 elements.advisorDialog.addEventListener("click", event => { if (event.target === elements.advisorDialog) exitAdvisorToHome(); });
 elements.advisorDialog.addEventListener("cancel", event => { event.preventDefault(); exitAdvisorToHome(); });

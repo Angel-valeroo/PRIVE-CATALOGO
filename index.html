@@ -66,7 +66,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/access-gate.css?v=4.0">
   <script src="/access-gate.js?v=4.0" defer></script>
-  <link rel="stylesheet" href="styles.css?v=18.2">
+  <link rel="stylesheet" href="styles.css?v=21.0">
   <link rel="stylesheet" href="/trust-center.css?v=2.1">
   <script src="/trust-center.js?v=1.4" defer></script>
   <script>
@@ -212,6 +212,82 @@
           </a>
         </div>
       </div>
+    </section>
+
+    <section id="explora-prive" class="prive-web-hub" aria-labelledby="priveWebHubTitle">
+      <div class="prive-web-hub__heading">
+        <div>
+          <p class="section-kicker">EXPERIENCIA PRIVÉ</p>
+          <h2 id="priveWebHubTitle">Más que un catálogo.</h2>
+        </div>
+        <p>Explora PRIVÉ según lo que necesitas: descubrir una fragancia, conocer lo que más se vende o aprender a elegir mejor.</p>
+      </div>
+
+      <div class="prive-web-hub__grid">
+        <a class="prive-web-card prive-web-card--catalog" href="#catalogo">
+          <span class="prive-web-card__number">01</span>
+          <span class="prive-web-card__eyebrow">COLECCIÓN</span>
+          <strong>Catálogo</strong>
+          <span>Explora toda la colección por diseñador, categoría y perfil.</span>
+          <i aria-hidden="true">→</i>
+        </a>
+
+        <button id="openAdvisorHub" class="prive-web-card prive-web-card--discover" type="button">
+          <span class="prive-web-card__number">02</span>
+          <span class="prive-web-card__eyebrow">DESCUBRE</span>
+          <strong>Encuentra tu fragancia</strong>
+          <span>Responde unas preguntas y deja que el Asesor Inteligente PRIVÉ afine la búsqueda.</span>
+          <i aria-hidden="true">✦</i>
+        </button>
+
+        <a class="prive-web-card prive-web-card--trend" href="/top/">
+          <span class="prive-web-card__number">03</span>
+          <span class="prive-web-card__eyebrow">TENDENCIAS</span>
+          <strong>Top más vendidos</strong>
+          <span>Conoce las fragancias que están destacando este mes en PRIVÉ.</span>
+          <i aria-hidden="true">↗</i>
+        </a>
+
+        <a class="prive-web-card prive-web-card--learn" href="#aprende">
+          <span class="prive-web-card__number">04</span>
+          <span class="prive-web-card__eyebrow">APRENDE</span>
+          <strong>Conoce tu perfume</strong>
+          <span>Entiende familias, intensidad y ocasión sin complicaciones.</span>
+          <i aria-hidden="true">↓</i>
+        </a>
+      </div>
+    </section>
+
+    <section id="aprende" class="prive-learn" aria-labelledby="priveLearnTitle">
+      <div class="prive-learn__intro">
+        <p class="section-kicker">APRENDE CON PRIVÉ</p>
+        <h2 id="priveLearnTitle">Elegir perfume puede ser sencillo.</h2>
+        <p>No necesitas conocer términos técnicos. Tres ideas básicas te ayudan a entender qué buscar y por qué una fragancia puede sentirse diferente en cada momento.</p>
+      </div>
+
+      <div class="prive-learn__grid">
+        <article class="prive-learn-card">
+          <span>01</span>
+          <h3>Familias olfativas</h3>
+          <p>Dulce, fresco, amaderado, floral o especiado son formas simples de describir la personalidad general de una fragancia.</p>
+        </article>
+        <article class="prive-learn-card">
+          <span>02</span>
+          <h3>Intensidad</h3>
+          <p>Algunas fragancias se sienten discretas y cercanas; otras tienen más presencia. La mejor depende de cómo quieres que te acompañe.</p>
+        </article>
+        <article class="prive-learn-card">
+          <span>03</span>
+          <h3>Momento y clima</h3>
+          <p>El calor, el frío y la ocasión cambian cómo percibimos un aroma. Por eso el contexto puede ayudarte a elegir mejor.</p>
+        </article>
+      </div>
+
+      <button id="openAdvisorLearn" class="prive-learn__cta" type="button">
+        <span>¿No sabes por dónde empezar?</span>
+        <strong>Usa el Asesor Inteligente PRIVÉ</strong>
+        <i aria-hidden="true">✦</i>
+      </button>
     </section>
 
     <section id="catalogo" class="catalog-shell" aria-labelledby="catalogTitle">
@@ -444,6 +520,6 @@
   </dialog>
 
   <script src="core-adapter.js?v=7.0" defer></script>
-  <script src="app.js?v=18.1" defer></script>
+  <script src="app.js?v=21.0" defer></script>
 </body>
 </html>
