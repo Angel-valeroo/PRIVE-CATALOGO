@@ -294,3 +294,79 @@ body::after{
   #orderRestoreModal{z-index:9999}
   #orderRestoreModal .admin-modal-card{max-height:calc(100dvh - 20px);overflow:auto}
 }
+
+
+/* S19 V1.1 · Selección visible + acciones flotantes en Pendientes de entrega */
+.delivery-selection-bar{
+  position:sticky;
+  top:12px;
+  z-index:30;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin:12px 0 16px;
+  padding:13px 14px;
+  border:1px solid rgba(216,179,95,.58);
+  border-radius:17px;
+  background:rgba(8,10,14,.96);
+  box-shadow:0 16px 38px rgba(0,0,0,.46),0 0 0 1px rgba(216,179,95,.05);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px)
+}
+.delivery-selection-bar[hidden]{display:none!important}
+.delivery-selection-copy{display:grid;gap:3px;min-width:0}
+.delivery-selection-copy span{color:var(--gold);font-size:.6rem;font-weight:800;letter-spacing:.12em}
+.delivery-selection-copy strong{font-size:.88rem;color:#f2eee6}
+.delivery-selection-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.delivery-selection-actions .btn{min-height:40px;padding:9px 12px}
+
+.delivery-allocation[data-delivery-selectable="true"]{
+  cursor:pointer;
+  transition:background .16s ease,border-color .16s ease,box-shadow .16s ease,transform .12s ease
+}
+.delivery-allocation[data-delivery-selectable="true"]:hover{background:rgba(216,179,95,.045)}
+.delivery-allocation.is-selected{
+  background:linear-gradient(90deg,rgba(216,179,95,.20),rgba(216,179,95,.075));
+  box-shadow:inset 4px 0 0 var(--gold)
+}
+.delivery-allocation.is-selected .delivery-allocation-title strong{color:#f2d58d}
+.delivery-allocation.is-selected .delivery-check{
+  background:var(--gold);
+  border-color:var(--gold);
+  color:#111;
+  box-shadow:0 0 0 4px rgba(216,179,95,.13)
+}
+.delivery-check{display:grid;place-items:center;transition:background .14s ease,border-color .14s ease,transform .14s ease,box-shadow .14s ease}
+.delivery-check:active{transform:scale(.94)}
+.delivery-check.is-delivered-check{cursor:pointer}
+
+/* Hace evidente que ese perfume contiene una selección. */
+.delivery-perfume-card.has-selection{
+  border-color:rgba(216,179,95,.68);
+  box-shadow:0 0 0 1px rgba(216,179,95,.10),0 14px 32px rgba(0,0,0,.20)
+}
+.delivery-perfume-card.has-selection .delivery-perfume-head{
+  background:linear-gradient(90deg,rgba(216,179,95,.16),rgba(216,179,95,.045));
+  border-bottom-color:rgba(216,179,95,.28)
+}
+.delivery-perfume-card.has-selection .delivery-perfume-head h3{color:#f3d995}
+.delivery-perfume-card.is-selected{border-color:rgba(216,179,95,.88)}
+
+@media(max-width:760px){
+  .delivery-selection-bar{
+    top:68px;
+    z-index:35;
+    display:grid;
+    grid-template-columns:1fr;
+    margin:10px 0 14px;
+    padding:12px;
+    box-shadow:0 14px 34px rgba(0,0,0,.54)
+  }
+  .delivery-selection-actions{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.35fr);width:100%}
+  .delivery-selection-actions .btn{width:100%;min-height:44px;font-size:.7rem}
+  .delivery-allocation[data-delivery-selectable="true"]{touch-action:manipulation}
+}
+@media(max-width:390px){
+  .delivery-selection-actions{grid-template-columns:1fr}
+}

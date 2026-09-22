@@ -1512,7 +1512,11 @@
       const samples = group.rows.reduce((s,r)=>s+Number(r.sample_quantity||0),0);
       const presentation = group.presentation === 'dama' ? 'Dama' : (group.presentation === 'caballero' ? 'Caballero' : '');
       const total = state.deliveryType === 'samples' ? samples : qty;
-      return `<article class="delivery-perfume-card">
+      const selectableRows = group.rows.filter(row => !row.delivered);
+      const selectedRows = selectableRows.filter(row => state.deliverySelection.has(String(row.delivery_key || '')));
+      const hasSelection = selectedRows.length > 0;
+      const allSelected = selectableRows.length > 0 && selectedRows.length === selectableRows.length;
+      return `<article class="delivery-perfume-card ${hasSelection ? 'has-selection' : ''} ${allSelected ? 'is-selected' : ''}" aria-selected="${hasSelection ? 'true' : 'false'}">
         <div class="delivery-perfume-head">
           <div><h3>${esc(group.name || 'Perfume')}</h3><p>${esc(group.code || '')}${presentation ? ` · ${esc(presentation)}` : ''}</p></div>
           <div class="delivery-totals"><span><strong>${total}</strong> ${state.deliveryType === 'samples' ? `muestra${total===1?'':'s'}` : `perfume${total===1?'':'s'}`}</span></div>
