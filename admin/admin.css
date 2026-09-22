@@ -296,7 +296,7 @@ body::after{
 }
 
 
-/* S19 V1.1 · Selección visible + acciones flotantes en Pendientes de entrega */
+/* S19 V1.2 · Selección visible + acciones flotantes + seleccionar todos */
 .delivery-selection-bar{
   position:sticky;
   top:12px;
@@ -363,10 +363,12 @@ body::after{
     padding:12px;
     box-shadow:0 14px 34px rgba(0,0,0,.54)
   }
-  .delivery-selection-actions{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.35fr);width:100%}
+  .delivery-selection-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}
   .delivery-selection-actions .btn{width:100%;min-height:44px;font-size:.7rem}
+  #markSelectedDeliveredBtn{grid-column:1/-1}
   .delivery-allocation[data-delivery-selectable="true"]{touch-action:manipulation}
 }
 @media(max-width:390px){
   .delivery-selection-actions{grid-template-columns:1fr}
+  #markSelectedDeliveredBtn{grid-column:auto}
 }

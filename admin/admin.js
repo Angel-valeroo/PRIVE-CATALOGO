@@ -71,7 +71,7 @@
     usersSection: $('#usersSection'), usersSearchInput: $('#usersSearchInput'), usersRoleFilters: $('#usersRoleFilters'), usersCount: $('#usersCount'), usersList: $('#usersList'), newUserBtn: $('#newUserBtn'),
     userAdminModal: $('#userAdminModal'), closeUserAdminModal: $('#closeUserAdminModal'), userAdminForm: $('#userAdminForm'), userAdminId: $('#userAdminId'), userAdminModalTitle: $('#userAdminModalTitle'),
     userFullNameInput: $('#userFullNameInput'), userAliasInput: $('#userAliasInput'), userEmailInput: $('#userEmailInput'), userPhoneInput: $('#userPhoneInput'), userRoleInput: $('#userRoleInput'), userStatusInput: $('#userStatusInput'),
-    userCityInput: $('#userCityInput'), deliveriesSection: $('#deliveriesSection'), deliveriesRefreshBtn: $('#deliveriesRefreshBtn'), deliveryCyclePicker: $('#deliveryCyclePicker'), deliveryWorkspace: $('#deliveryWorkspace'), deliveryCycleTitle: $('#deliveryCycleTitle'), deliveryCycleMeta: $('#deliveryCycleMeta'), deliverySummary: $('#deliverySummary'), deliveryRecipientPicker: $('#deliveryRecipientPicker'), deliveryRecipientWorkspace: $('#deliveryRecipientWorkspace'), backToDeliveryRecipients: $('#backToDeliveryRecipients'), deliveryRecipientTitle: $('#deliveryRecipientTitle'), deliveryRecipientMeta: $('#deliveryRecipientMeta'), deliveryTypeFilters: $('#deliveryTypeFilters'), deliveryPerfumeTabCount: $('#deliveryPerfumeTabCount'), deliverySampleTabCount: $('#deliverySampleTabCount'), deliveryStatusFilters: $('#deliveryStatusFilters'), deliverySearchInput: $('#deliverySearchInput'), deliveryCount: $('#deliveryCount'), deliverySelectionBar: $('#deliverySelectionBar'), deliverySelectionCount: $('#deliverySelectionCount'), clearDeliverySelectionBtn: $('#clearDeliverySelectionBtn'), markSelectedDeliveredBtn: $('#markSelectedDeliveredBtn'), deliveryList: $('#deliveryList'), archiveDeliveryCycleBtn: $('#archiveDeliveryCycleBtn'), createPasswordField: $('#createPasswordField'), userPasswordInput: $('#userPasswordInput'), userAdminError: $('#userAdminError'), saveUserAdminBtn: $('#saveUserAdminBtn'),
+    userCityInput: $('#userCityInput'), deliveriesSection: $('#deliveriesSection'), deliveriesRefreshBtn: $('#deliveriesRefreshBtn'), deliveryCyclePicker: $('#deliveryCyclePicker'), deliveryWorkspace: $('#deliveryWorkspace'), deliveryCycleTitle: $('#deliveryCycleTitle'), deliveryCycleMeta: $('#deliveryCycleMeta'), deliverySummary: $('#deliverySummary'), deliveryRecipientPicker: $('#deliveryRecipientPicker'), deliveryRecipientWorkspace: $('#deliveryRecipientWorkspace'), backToDeliveryRecipients: $('#backToDeliveryRecipients'), deliveryRecipientTitle: $('#deliveryRecipientTitle'), deliveryRecipientMeta: $('#deliveryRecipientMeta'), deliveryTypeFilters: $('#deliveryTypeFilters'), deliveryPerfumeTabCount: $('#deliveryPerfumeTabCount'), deliverySampleTabCount: $('#deliverySampleTabCount'), deliveryStatusFilters: $('#deliveryStatusFilters'), deliverySearchInput: $('#deliverySearchInput'), deliveryCount: $('#deliveryCount'), deliverySelectionBar: $('#deliverySelectionBar'), deliverySelectionCount: $('#deliverySelectionCount'), selectAllDeliveryBtn: $('#selectAllDeliveryBtn'), clearDeliverySelectionBtn: $('#clearDeliverySelectionBtn'), markSelectedDeliveredBtn: $('#markSelectedDeliveredBtn'), deliveryList: $('#deliveryList'), archiveDeliveryCycleBtn: $('#archiveDeliveryCycleBtn'), createPasswordField: $('#createPasswordField'), userPasswordInput: $('#userPasswordInput'), userAdminError: $('#userAdminError'), saveUserAdminBtn: $('#saveUserAdminBtn'),
     passwordAdminModal: $('#passwordAdminModal'), closePasswordAdminModal: $('#closePasswordAdminModal'), passwordAdminForm: $('#passwordAdminForm'), passwordUserId: $('#passwordUserId'), passwordUserLabel: $('#passwordUserLabel'), passwordNewInput: $('#passwordNewInput'), passwordConfirmInput: $('#passwordConfirmInput'), passwordAdminError: $('#passwordAdminError'),
     orderMoveModal: $('#orderMoveModal'), closeOrderMoveModal: $('#closeOrderMoveModal'), orderMoveForm: $('#orderMoveForm'), orderMoveMeta: $('#orderMoveMeta'), orderMoveCycleSelect: $('#orderMoveCycleSelect'), orderMoveReasonInput: $('#orderMoveReasonInput'), orderMoveError: $('#orderMoveError'), confirmOrderMoveBtn: $('#confirmOrderMoveBtn'),
     orderRestoreModal: $('#orderRestoreModal'), closeOrderRestoreModal: $('#closeOrderRestoreModal'), orderRestoreForm: $('#orderRestoreForm'), orderRestoreMeta: $('#orderRestoreMeta'), orderRestoreCycleSelect: $('#orderRestoreCycleSelect'), orderRestoreReasonInput: $('#orderRestoreReasonInput'), orderRestoreError: $('#orderRestoreError'), confirmOrderRestoreBtn: $('#confirmOrderRestoreBtn')
@@ -1330,6 +1330,18 @@
     return state.deliveryItems.filter(row => !row.delivered && state.deliverySelection.has(String(row.delivery_key || '')));
   }
 
+  function selectableDeliveryRows() {
+    if (!state.selectedDeliveryRecipient) return [];
+    return state.deliveryItems.filter(row => !row.delivered && deliveryMatches(row) && String(row.delivery_key || ''));
+  }
+
+  function selectAllDeliveries() {
+    if (state.deliveryBatchBusy) return;
+    const rows = selectableDeliveryRows();
+    for (const row of rows) state.deliverySelection.add(String(row.delivery_key));
+    renderDeliveries();
+  }
+
   function clearDeliverySelection(render = true) {
     state.deliverySelection.clear();
     if (render) renderDeliveries();
@@ -1338,20 +1350,30 @@
   function renderDeliverySelectionBar() {
     if (!els.deliverySelectionBar) return;
     const rows = selectedDeliveryRows();
-    if (!rows.length || !state.selectedDeliveryRecipient) {
+    const selectableRows = selectableDeliveryRows();
+    if (!selectableRows.length || !state.selectedDeliveryRecipient) {
       els.deliverySelectionBar.hidden = true;
       els.deliverySelectionCount.textContent = '0 seleccionados';
-      els.clearDeliverySelectionBtn.disabled = state.deliveryBatchBusy;
+      els.selectAllDeliveryBtn.disabled = true;
+      els.clearDeliverySelectionBtn.disabled = true;
       els.markSelectedDeliveredBtn.disabled = true;
       return;
     }
 
     const units = rows.reduce((sum, row) => sum + (state.deliveryType === 'samples' ? Number(row.sample_quantity || 0) : Number(row.quantity || 0)), 0);
     const unitLabel = state.deliveryType === 'samples' ? `muestra${units === 1 ? '' : 's'}` : `perfume${units === 1 ? '' : 's'}`;
+    const allSelected = selectableRows.every(row => state.deliverySelection.has(String(row.delivery_key || '')));
+    const allLabel = state.deliveryType === 'samples' ? 'Seleccionar todas' : 'Seleccionar todos';
+    const selectedAllLabel = state.deliveryType === 'samples' ? 'Todas seleccionadas' : 'Todos seleccionados';
+
     els.deliverySelectionBar.hidden = false;
-    els.deliverySelectionCount.textContent = `${rows.length} ${rows.length === 1 ? 'seleccionado' : 'seleccionados'} · ${units} ${unitLabel}`;
-    els.clearDeliverySelectionBtn.disabled = state.deliveryBatchBusy;
-    els.markSelectedDeliveredBtn.disabled = state.deliveryBatchBusy;
+    els.deliverySelectionCount.textContent = rows.length
+      ? `${rows.length} ${rows.length === 1 ? 'seleccionado' : 'seleccionados'} · ${units} ${unitLabel}`
+      : '0 seleccionados';
+    els.selectAllDeliveryBtn.disabled = state.deliveryBatchBusy || allSelected;
+    els.selectAllDeliveryBtn.textContent = allSelected ? `${selectedAllLabel} (${selectableRows.length})` : `${allLabel} (${selectableRows.length})`;
+    els.clearDeliverySelectionBtn.disabled = state.deliveryBatchBusy || !rows.length;
+    els.markSelectedDeliveredBtn.disabled = state.deliveryBatchBusy || !rows.length;
     els.markSelectedDeliveredBtn.textContent = rows.length === 1 ? 'Marcar como entregado' : `Marcar como entregados (${rows.length})`;
   }
 
@@ -2067,6 +2089,7 @@
     state.deliverySearch = els.deliverySearchInput.value;
     renderDeliveries();
   });
+  els.selectAllDeliveryBtn.addEventListener('click', selectAllDeliveries);
   els.clearDeliverySelectionBtn.addEventListener('click', () => clearDeliverySelection());
   els.markSelectedDeliveredBtn.addEventListener('click', () => {
     setSelectedDeliveries().catch(error => toast(friendlyNetworkError(error).message, true));

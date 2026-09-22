@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./admin.css?v=2.8">
+  <link rel="stylesheet" href="./admin.css?v=2.9">
 </head>
 <body>
   <main class="admin-shell">
@@ -237,6 +237,7 @@
                 <strong id="deliverySelectionCount">0 seleccionados</strong>
               </div>
               <div class="delivery-selection-actions">
+                <button id="selectAllDeliveryBtn" class="btn btn-ghost" type="button">Seleccionar todos</button>
                 <button id="clearDeliverySelectionBtn" class="btn btn-ghost" type="button">Desmarcar</button>
                 <button id="markSelectedDeliveredBtn" class="btn btn-primary" type="button">Marcar como entregados</button>
               </div>
@@ -477,6 +478,6 @@
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
     <div id="loadingLayer" class="loading-layer" hidden><div class="spinner"></div><span>Procesando…</span></div>
   </main>
-  <script src="./admin.js?v=2.7" defer></script>
+  <script src="./admin.js?v=2.8" defer></script>
 </body>
 </html>
