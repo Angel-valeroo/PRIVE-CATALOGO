@@ -787,3 +787,7 @@ body::before,
 body::after{
   display:none!important;
 }
+
+/* S20 · La clave se muestra únicamente cuando portal.js valida rol Administrador. */
+.perfume-admin-code{margin:.42rem 0 0;font-size:.72rem;letter-spacing:.04em;color:#d9c17f}
+.perfume-admin-code strong{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;color:#f0d995;font-weight:700}

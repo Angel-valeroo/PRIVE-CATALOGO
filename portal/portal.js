@@ -14,6 +14,9 @@
     filtered: [],
     category: 'all',
     search: '',
+    codeMatchIds: [],
+    codeLookupQuery: '',
+    codeLookupPending: false,
     visibleCount: PAGE_SIZE,
     order: null,
     orderItems: [],
@@ -254,9 +257,17 @@
   async function loadPerfumes({ quiet = false } = {}) {
     if (!quiet) setLoading(true, 'Cargando catálogo…');
     try {
-      const response = await authedRequest('/rest/v1/perfumes?active=eq.true&select=id,name,designer,category,image_url,availability_status,profile_status&order=designer.asc,name.asc');
-      if (!response.ok) throw await parseError(response);
-      const rows = await response.json();
+      let rows = [];
+      if (state.profile?.role === 'admin') {
+        // Solo una cuenta Administrador recibe la clave real para poder mostrarla.
+        const adminRows = await rpc('admin_get_catalog_perfumes');
+        rows = (Array.isArray(adminRows) ? adminRows : []).filter(item => item.active !== false);
+      } else {
+        // Distribuidores reciben únicamente campos públicos/operativos, nunca la clave.
+        const response = await authedRequest('/rest/v1/perfumes?active=eq.true&select=id,name,designer,category,image_url,availability_status,profile_status&order=designer.asc,name.asc');
+        if (!response.ok) throw await parseError(response);
+        rows = await response.json();
+      }
       state.perfumes = (Array.isArray(rows) ? rows : []).sort((a, b) => {
         const byDesigner = String(a.designer || '').localeCompare(String(b.designer || ''), 'es', { sensitivity: 'base' });
         if (byDesigner !== 0) return byDesigner;
@@ -308,6 +319,48 @@
     return norm(value).split(/\s+/).filter(Boolean);
   }
 
+  function normalizedPerfumeCode(value) {
+    return String(value || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  }
+
+  function publicCodeQuery(value) {
+    const compact = normalizedPerfumeCode(value);
+    if (/^(?:CP|DP|UP)\d{4,7}$/.test(compact)) return compact;
+    if (/^\d{4,7}$/.test(compact)) return compact;
+    return '';
+  }
+
+  let codeLookupSerial = 0;
+  async function resolveCodeSearch(value) {
+    const code = publicCodeQuery(value);
+    const serial = ++codeLookupSerial;
+    if (!code) {
+      state.codeLookupPending = false;
+      state.codeLookupQuery = '';
+      state.codeMatchIds = [];
+      return;
+    }
+
+    state.codeLookupPending = true;
+    state.codeLookupQuery = code;
+    state.codeMatchIds = [];
+    applyFilters();
+    try {
+      // Esta RPC devuelve únicamente IDs; jamás devuelve la clave consultada.
+      const rows = await rpc('get_public_perfume_id_by_code', { p_code: code });
+      if (serial !== codeLookupSerial || publicCodeQuery(state.search) !== code) return;
+      state.codeMatchIds = [...new Set((Array.isArray(rows) ? rows : []).map(row => row?.perfume_id).filter(Boolean))];
+    } catch (error) {
+      if (serial === codeLookupSerial) state.codeMatchIds = [];
+      console.warn('PRIVÉ: no se pudo resolver la búsqueda por clave en el portal.', error);
+    } finally {
+      if (serial === codeLookupSerial) {
+        state.codeLookupPending = false;
+        applyFilters();
+      }
+    }
+  }
+
   function perfumeSearchScore(item, tokens) {
     if (!tokens.length) return 0;
     const name = norm(item.name);
@@ -326,13 +379,16 @@
 
   function applyFilters() {
     const tokens = searchTokens(state.search);
+    const codeQuery = publicCodeQuery(state.search);
     state.filtered = state.perfumes
       .filter(item => {
         const categoryOk = state.category === 'all' || item.category === state.category;
-        return categoryOk && perfumeSearchScore(item, tokens) >= 0;
+        if (!categoryOk) return false;
+        if (codeQuery) return !state.codeLookupPending && state.codeMatchIds.includes(item.id);
+        return perfumeSearchScore(item, tokens) >= 0;
       })
       .sort((a, b) => {
-        if (tokens.length) {
+        if (tokens.length && !codeQuery) {
           const diff = perfumeSearchScore(b, tokens) - perfumeSearchScore(a, tokens);
           if (diff) return diff;
         }
@@ -345,14 +401,17 @@
     const total = state.filtered.length;
     const visible = state.filtered.slice(0, state.visibleCount);
     const editable = orderIsEditable();
-    els.catalogCount.textContent = `${total} ${total === 1 ? 'perfume' : 'perfumes'}`;
-    els.emptyState.hidden = total !== 0;
+    els.catalogCount.textContent = state.codeLookupPending ? 'Buscando clave…' : `${total} ${total === 1 ? 'perfume' : 'perfumes'}`;
+    els.emptyState.hidden = total !== 0 || state.codeLookupPending;
     els.loadMoreBtn.hidden = state.visibleCount >= total;
 
     els.catalogGrid.innerHTML = visible.map(item => {
       const image = resolveImageUrl(item.image_url);
       const outOfStock = item.availability_status === 'out_of_stock';
       const canAdd = editable && !outOfStock;
+      const adminCode = state.profile?.role === 'admin' && item.code
+        ? `<p class="perfume-admin-code">Clave: <strong>${esc(item.code)}</strong></p>`
+        : '';
       return `
         <article class="perfume-card ${outOfStock ? 'is-out-of-stock' : ''}">
           <div class="perfume-image-wrap">
@@ -363,6 +422,7 @@
             <span class="perfume-category">${esc(item.category || '')}</span>
             <h2>${esc(item.name || '')}</h2>
             <p class="perfume-designer">${esc(item.designer || '')}</p>
+            ${adminCode}
             ${outOfStock ? '<p class="stock-notice">Agotado temporalmente · Pronto estará disponible</p>' : ''}
             <button class="add-order-btn" type="button" data-perfume-id="${esc(item.id)}" ${canAdd ? '' : 'disabled'}>${outOfStock ? 'Agotado temporalmente' : (editable ? 'Agregar al pedido' : 'Pedido cerrado')}</button>
           </div>
@@ -417,6 +477,9 @@
     els.cartItems.innerHTML = state.orderItems.map(item => {
       const image = resolveImageUrl(item.image_url);
       const note = item.customer_note ? `<span class="cart-note">Cliente: <strong>${esc(item.customer_note)}</strong></span>` : '<span class="cart-note is-empty">Sin nota de cliente</span>';
+      const adminCode = state.profile?.role === 'admin'
+        ? (item.perfume_code || state.perfumes.find(perfume => perfume.id === item.perfume_id)?.code || '')
+        : '';
       const presentation = item.presentation
         ? `<span class="cart-presentation">Presentación: <strong>${item.presentation === 'dama' ? 'Dama' : 'Caballero'}</strong></span>`
         : '';
@@ -426,7 +489,7 @@
           <div class="cart-item-main">
             <small>${esc(item.designer || '')}</small>
             <h3>${esc(item.perfume_name || '')}</h3>
-            ${item.perfume_code ? `<span class="cart-code">Clave: <strong>${esc(item.perfume_code)}</strong></span>` : ''}
+            ${adminCode ? `<span class="cart-code">Clave: <strong>${esc(adminCode)}</strong></span>` : ''}
             <div class="cart-item-stats"><span><b>${Number(item.quantity || 0)}</b> perfume${Number(item.quantity || 0) === 1 ? '' : 's'}</span><span><b>${Number(item.sample_quantity || 0)}</b> muestra${Number(item.sample_quantity || 0) === 1 ? '' : 's'}</span></div>
             ${presentation}
             ${note}
@@ -726,7 +789,7 @@
           <div>
             <small>${esc(row.designer || '')}</small>
             <h3>${esc(row.perfume_name || '')}</h3>
-            <span class="history-code">Clave: <strong>${esc(row.perfume_code || '—')}</strong></span>
+            ${state.profile?.role === 'admin' && row.perfume_code ? `<span class="history-code">Clave: <strong>${esc(row.perfume_code)}</strong></span>` : ''}
             ${row.presentation ? `<span>Presentación: <strong>${esc(presentationLabel(row.presentation))}</strong></span>` : ''}
             ${row.customer_note ? `<span>Cliente: <strong>${esc(row.customer_note)}</strong></span>` : ''}
           </div>
@@ -812,6 +875,9 @@
       state.profile = null;
       state.perfumes = [];
       state.filtered = [];
+      state.codeMatchIds = [];
+      state.codeLookupQuery = '';
+      state.codeLookupPending = false;
       state.order = null;
       state.orderItems = [];
       state.selectedPerfume = null;
@@ -853,7 +919,12 @@
   els.successCloseBtn.addEventListener('click', closeSuccessModal);
   els.successModal.addEventListener('click', event => { if (event.target === els.successModal) closeSuccessModal(); });
 
-  els.searchInput.addEventListener('input', () => { state.search = els.searchInput.value; state.visibleCount = PAGE_SIZE; applyFilters(); });
+  els.searchInput.addEventListener('input', () => {
+    state.search = els.searchInput.value;
+    state.visibleCount = PAGE_SIZE;
+    applyFilters();
+    resolveCodeSearch(state.search);
+  });
   els.categoryFilters.addEventListener('click', event => {
     const btn = event.target.closest('[data-category]'); if (!btn) return;
     state.category = btn.dataset.category || 'all'; state.visibleCount = PAGE_SIZE;

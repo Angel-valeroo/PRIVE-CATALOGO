@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./portal.css?v=4.1">
+  <link rel="stylesheet" href="./portal.css?v=4.2">
 </head>
 <body>
   <main class="portal-shell">
@@ -48,7 +48,7 @@
           <button id="loginBtn" class="primary-btn" type="submit">Entrar al portal</button>
           <p id="loginError" class="form-error" role="alert" aria-live="polite"></p>
         </form>
-        <p class="auth-note">Las claves internas de los perfumes permanecen ocultas durante la navegación y antes de confirmar un pedido.</p>
+        <p class="auth-note">Las claves internas son visibles únicamente para cuentas de Administrador. Puedes buscar por clave sin que se muestre.</p>
       </div>
     </section>
 
@@ -69,8 +69,8 @@
       </div>
 
       <div class="portal-notice">
-        <strong>Las claves permanecen privadas.</strong>
-        <span>Se mostrarán únicamente después de confirmar un pedido, en las vistas y documentos autorizados.</span>
+        <strong>Las claves son exclusivas del Administrador.</strong>
+        <span>Distribuidores pueden buscar por clave para localizar un perfume, pero la clave nunca se muestra en su cuenta.</span>
       </div>
 
       <section class="order-overview" aria-label="Estado del pedido">
@@ -91,7 +91,7 @@
       <div class="catalog-toolbar">
         <label class="search-field">
           <span class="sr-only">Buscar perfume o marca</span>
-          <input id="searchInput" type="search" placeholder="Buscar perfume o marca" autocomplete="off">
+          <input id="searchInput" type="search" placeholder="Buscar perfume, marca o clave" autocomplete="off">
         </label>
         <div id="categoryFilters" class="filter-pills" aria-label="Filtrar por categoría">
           <button type="button" class="filter-pill is-active" data-category="all">Todos</button>
@@ -294,6 +294,6 @@
   </div>
   <div id="toast" class="toast" hidden role="status" aria-live="polite"></div>
 
-  <script src="./portal.js?v=2.7" defer></script>
+  <script src="./portal.js?v=2.8" defer></script>
 </body>
 </html>
