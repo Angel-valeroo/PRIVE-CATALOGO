@@ -39,7 +39,9 @@
     selectedDeliveryRecipient: null,
     deliveryType: 'perfumes',
     deliveryFilter: 'pending',
-    deliverySearch: ''
+    deliverySearch: '',
+    deliverySelection: new Set(),
+    deliveryBatchBusy: false
   };
 
   const $ = selector => document.querySelector(selector);
@@ -69,7 +71,7 @@
     usersSection: $('#usersSection'), usersSearchInput: $('#usersSearchInput'), usersRoleFilters: $('#usersRoleFilters'), usersCount: $('#usersCount'), usersList: $('#usersList'), newUserBtn: $('#newUserBtn'),
     userAdminModal: $('#userAdminModal'), closeUserAdminModal: $('#closeUserAdminModal'), userAdminForm: $('#userAdminForm'), userAdminId: $('#userAdminId'), userAdminModalTitle: $('#userAdminModalTitle'),
     userFullNameInput: $('#userFullNameInput'), userAliasInput: $('#userAliasInput'), userEmailInput: $('#userEmailInput'), userPhoneInput: $('#userPhoneInput'), userRoleInput: $('#userRoleInput'), userStatusInput: $('#userStatusInput'),
-    userCityInput: $('#userCityInput'), deliveriesSection: $('#deliveriesSection'), deliveriesRefreshBtn: $('#deliveriesRefreshBtn'), deliveryCyclePicker: $('#deliveryCyclePicker'), deliveryWorkspace: $('#deliveryWorkspace'), deliveryCycleTitle: $('#deliveryCycleTitle'), deliveryCycleMeta: $('#deliveryCycleMeta'), deliverySummary: $('#deliverySummary'), deliveryRecipientPicker: $('#deliveryRecipientPicker'), deliveryRecipientWorkspace: $('#deliveryRecipientWorkspace'), backToDeliveryRecipients: $('#backToDeliveryRecipients'), deliveryRecipientTitle: $('#deliveryRecipientTitle'), deliveryRecipientMeta: $('#deliveryRecipientMeta'), deliveryTypeFilters: $('#deliveryTypeFilters'), deliveryPerfumeTabCount: $('#deliveryPerfumeTabCount'), deliverySampleTabCount: $('#deliverySampleTabCount'), deliveryStatusFilters: $('#deliveryStatusFilters'), deliverySearchInput: $('#deliverySearchInput'), deliveryCount: $('#deliveryCount'), deliveryList: $('#deliveryList'), archiveDeliveryCycleBtn: $('#archiveDeliveryCycleBtn'), createPasswordField: $('#createPasswordField'), userPasswordInput: $('#userPasswordInput'), userAdminError: $('#userAdminError'), saveUserAdminBtn: $('#saveUserAdminBtn'),
+    userCityInput: $('#userCityInput'), deliveriesSection: $('#deliveriesSection'), deliveriesRefreshBtn: $('#deliveriesRefreshBtn'), deliveryCyclePicker: $('#deliveryCyclePicker'), deliveryWorkspace: $('#deliveryWorkspace'), deliveryCycleTitle: $('#deliveryCycleTitle'), deliveryCycleMeta: $('#deliveryCycleMeta'), deliverySummary: $('#deliverySummary'), deliveryRecipientPicker: $('#deliveryRecipientPicker'), deliveryRecipientWorkspace: $('#deliveryRecipientWorkspace'), backToDeliveryRecipients: $('#backToDeliveryRecipients'), deliveryRecipientTitle: $('#deliveryRecipientTitle'), deliveryRecipientMeta: $('#deliveryRecipientMeta'), deliveryTypeFilters: $('#deliveryTypeFilters'), deliveryPerfumeTabCount: $('#deliveryPerfumeTabCount'), deliverySampleTabCount: $('#deliverySampleTabCount'), deliveryStatusFilters: $('#deliveryStatusFilters'), deliverySearchInput: $('#deliverySearchInput'), deliveryCount: $('#deliveryCount'), deliverySelectionBar: $('#deliverySelectionBar'), deliverySelectionCount: $('#deliverySelectionCount'), clearDeliverySelectionBtn: $('#clearDeliverySelectionBtn'), markSelectedDeliveredBtn: $('#markSelectedDeliveredBtn'), deliveryList: $('#deliveryList'), archiveDeliveryCycleBtn: $('#archiveDeliveryCycleBtn'), createPasswordField: $('#createPasswordField'), userPasswordInput: $('#userPasswordInput'), userAdminError: $('#userAdminError'), saveUserAdminBtn: $('#saveUserAdminBtn'),
     passwordAdminModal: $('#passwordAdminModal'), closePasswordAdminModal: $('#closePasswordAdminModal'), passwordAdminForm: $('#passwordAdminForm'), passwordUserId: $('#passwordUserId'), passwordUserLabel: $('#passwordUserLabel'), passwordNewInput: $('#passwordNewInput'), passwordConfirmInput: $('#passwordConfirmInput'), passwordAdminError: $('#passwordAdminError'),
     orderMoveModal: $('#orderMoveModal'), closeOrderMoveModal: $('#closeOrderMoveModal'), orderMoveForm: $('#orderMoveForm'), orderMoveMeta: $('#orderMoveMeta'), orderMoveCycleSelect: $('#orderMoveCycleSelect'), orderMoveReasonInput: $('#orderMoveReasonInput'), orderMoveError: $('#orderMoveError'), confirmOrderMoveBtn: $('#confirmOrderMoveBtn'),
     orderRestoreModal: $('#orderRestoreModal'), closeOrderRestoreModal: $('#closeOrderRestoreModal'), orderRestoreForm: $('#orderRestoreForm'), orderRestoreMeta: $('#orderRestoreMeta'), orderRestoreCycleSelect: $('#orderRestoreCycleSelect'), orderRestoreReasonInput: $('#orderRestoreReasonInput'), orderRestoreError: $('#orderRestoreError'), confirmOrderRestoreBtn: $('#confirmOrderRestoreBtn')
@@ -1323,6 +1325,36 @@
     return `${row.perfume_name || ''} ${row.perfume_code || ''} ${deliveryVisibleName(row)} ${row.customer_note || ''} ${row.folio || ''}`.toLowerCase().includes(q);
   }
 
+  function selectedDeliveryRows() {
+    if (!state.deliverySelection.size) return [];
+    return state.deliveryItems.filter(row => !row.delivered && state.deliverySelection.has(String(row.delivery_key || '')));
+  }
+
+  function clearDeliverySelection(render = true) {
+    state.deliverySelection.clear();
+    if (render) renderDeliveries();
+  }
+
+  function renderDeliverySelectionBar() {
+    if (!els.deliverySelectionBar) return;
+    const rows = selectedDeliveryRows();
+    if (!rows.length || !state.selectedDeliveryRecipient) {
+      els.deliverySelectionBar.hidden = true;
+      els.deliverySelectionCount.textContent = '0 seleccionados';
+      els.clearDeliverySelectionBtn.disabled = state.deliveryBatchBusy;
+      els.markSelectedDeliveredBtn.disabled = true;
+      return;
+    }
+
+    const units = rows.reduce((sum, row) => sum + (state.deliveryType === 'samples' ? Number(row.sample_quantity || 0) : Number(row.quantity || 0)), 0);
+    const unitLabel = state.deliveryType === 'samples' ? `muestra${units === 1 ? '' : 's'}` : `perfume${units === 1 ? '' : 's'}`;
+    els.deliverySelectionBar.hidden = false;
+    els.deliverySelectionCount.textContent = `${rows.length} ${rows.length === 1 ? 'seleccionado' : 'seleccionados'} · ${units} ${unitLabel}`;
+    els.clearDeliverySelectionBtn.disabled = state.deliveryBatchBusy;
+    els.markSelectedDeliveredBtn.disabled = state.deliveryBatchBusy;
+    els.markSelectedDeliveredBtn.textContent = rows.length === 1 ? 'Marcar como entregado' : `Marcar como entregados (${rows.length})`;
+  }
+
   function deliveryPersonGroups() {
     const groups = new Map();
     for (const row of state.deliveryItems) {
@@ -1450,6 +1482,7 @@
     els.archiveDeliveryCycleBtn.disabled = pending.length !== 0 || state.deliveryItems.length === 0;
     renderDeliveryRecipients();
     renderDeliveryRecipientHeader();
+    renderDeliverySelectionBar();
 
     if (!state.selectedDeliveryRecipient) {
       els.deliveryCount.textContent = '';
@@ -1487,8 +1520,11 @@
         <div class="delivery-allocations">${group.rows.map(row => {
           const amount = state.deliveryType === 'samples' ? Number(row.sample_quantity || 0) : Number(row.quantity || 0);
           const isReview = row.delivery_kind === 'admin_note_review';
-          return `<div class="delivery-allocation ${row.delivered ? 'is-delivered' : ''} ${isReview ? 'is-warning' : ''}" data-delivery-key="${esc(row.delivery_key)}" data-order-item="${esc(row.order_item_id)}">
-            <button class="delivery-check" type="button" data-delivery-toggle="${row.delivered ? 'pending' : 'delivered'}" aria-label="${row.delivered ? 'Marcar pendiente' : 'Marcar entregado'}">${row.delivered ? '✓' : ''}</button>
+          const isSelected = !row.delivered && state.deliverySelection.has(String(row.delivery_key || ''));
+          return `<div class="delivery-allocation ${row.delivered ? 'is-delivered' : ''} ${isSelected ? 'is-selected' : ''} ${isReview ? 'is-warning' : ''}" data-delivery-key="${esc(row.delivery_key)}" data-order-item="${esc(row.order_item_id)}" data-delivery-selectable="${row.delivered ? 'false' : 'true'}">
+            ${row.delivered
+              ? `<button class="delivery-check is-delivered-check" type="button" data-delivery-toggle="pending" aria-label="Regresar a pendientes">✓</button>`
+              : `<button class="delivery-check" type="button" data-delivery-select aria-pressed="${isSelected ? 'true' : 'false'}" aria-label="${isSelected ? 'Quitar de la selección' : 'Seleccionar para entregar'}">${isSelected ? '✓' : ''}</button>`}
             <div class="delivery-allocation-main">
               <div class="delivery-allocation-title"><strong>${esc(deliveryVisibleName(row))}</strong><span>${amount} ${state.deliveryType === 'samples' ? `muestra${amount===1?'':'s'}` : `perfume${amount===1?'':'s'}`}</span></div>
               ${row.delivery_kind === 'direct_client' ? '<p class="delivery-note"><span>Cliente directo</span>Entrega personal</p>' : ''}
@@ -1502,6 +1538,7 @@
   }
 
   function openDeliveryRecipient(recipientKey) {
+    state.deliverySelection.clear();
     state.selectedDeliveryRecipient = recipientKey;
     state.deliveryType = 'perfumes';
     state.deliveryFilter = 'pending';
@@ -1513,6 +1550,7 @@
   }
 
   function backToDeliveryRecipients() {
+    state.deliverySelection.clear();
     state.selectedDeliveryRecipient = null;
     state.deliverySearch = '';
     els.deliverySearchInput.value = '';
@@ -1540,6 +1578,7 @@
     setLoading(true, 'Cargando pendientes…');
     try {
       state.deliveryItems = await rpc('admin_get_delivery_items', { p_cycle_id: cycleId });
+      state.deliverySelection.clear();
       state.selectedDeliveryRecipient = null;
       state.deliveryType = 'perfumes';
       state.deliveryFilter = 'pending';
@@ -1584,6 +1623,47 @@
     } finally { setLoading(false); }
   }
 
+  async function setSelectedDeliveries() {
+    if (state.deliveryBatchBusy) return;
+    const rows = selectedDeliveryRows();
+    if (!rows.length) return;
+
+    state.deliveryBatchBusy = true;
+    renderDeliverySelectionBar();
+    setLoading(true, rows.length === 1 ? 'Marcando entrega…' : `Marcando ${rows.length} entregas…`);
+    try {
+      await rpc('admin_set_delivery_items', {
+        p_delivery_keys: rows.map(row => row.delivery_key),
+        p_order_item_ids: rows.map(row => row.order_item_id),
+        p_delivered: true
+      });
+
+      const deliveredAt = new Date().toISOString();
+      const deliveredKeys = new Set(rows.map(row => String(row.delivery_key)));
+      state.deliveryItems.forEach(row => {
+        if (deliveredKeys.has(String(row.delivery_key))) {
+          row.delivered = true;
+          row.delivered_at = deliveredAt;
+        }
+      });
+      state.deliverySelection.clear();
+      renderDeliveries();
+
+      const cycleId = state.selectedDeliveryCycle?.cycle_id;
+      if (cycleId) {
+        const fresh = await rpc('admin_get_delivery_cycles');
+        state.deliveryCycles = Array.isArray(fresh) ? fresh : [];
+        state.selectedDeliveryCycle = state.deliveryCycles.find(c => c.cycle_id === cycleId) || state.selectedDeliveryCycle;
+        renderDeliveryCyclePicker();
+      }
+      toast(rows.length === 1 ? 'Entrega marcada.' : `${rows.length} entregas marcadas al mismo tiempo.`);
+    } finally {
+      state.deliveryBatchBusy = false;
+      setLoading(false);
+      renderDeliverySelectionBar();
+    }
+  }
+
   async function archiveDeliveryCycle() {
     const cycleId = state.selectedDeliveryCycle?.cycle_id;
     if (!cycleId) return;
@@ -1593,6 +1673,7 @@
       await rpc('admin_archive_delivery_cycle', { p_cycle_id: cycleId });
       state.selectedDeliveryCycle = null;
       state.selectedDeliveryRecipient = null;
+      state.deliverySelection.clear();
       state.deliveryItems = [];
       state.deliveryCycles = [];
       els.deliveryWorkspace.hidden = true;
@@ -1965,25 +2046,45 @@
   els.deliveryTypeFilters.addEventListener('click', event => {
     const btn = event.target.closest('[data-delivery-type]');
     if (!btn) return;
+    state.deliverySelection.clear();
     state.deliveryType = btn.dataset.deliveryType;
     renderDeliveries();
   });
   els.deliveryStatusFilters.addEventListener('click', event => {
     const btn = event.target.closest('[data-delivery-filter]');
     if (!btn) return;
+    state.deliverySelection.clear();
     state.deliveryFilter = btn.dataset.deliveryFilter;
     els.deliveryStatusFilters.querySelectorAll('[data-delivery-filter]').forEach(node => node.classList.toggle('is-active', node === btn));
     renderDeliveries();
   });
-  els.deliverySearchInput.addEventListener('input', () => { state.deliverySearch = els.deliverySearchInput.value; renderDeliveries(); });
+  els.deliverySearchInput.addEventListener('input', () => {
+    state.deliverySelection.clear();
+    state.deliverySearch = els.deliverySearchInput.value;
+    renderDeliveries();
+  });
+  els.clearDeliverySelectionBtn.addEventListener('click', () => clearDeliverySelection());
+  els.markSelectedDeliveredBtn.addEventListener('click', () => {
+    setSelectedDeliveries().catch(error => toast(friendlyNetworkError(error).message, true));
+  });
   els.deliveryList.addEventListener('click', event => {
-    const btn = event.target.closest('[data-delivery-toggle]');
-    if (!btn) return;
-    const allocation = btn.closest('[data-delivery-key]');
-    const deliveryKey = allocation?.dataset.deliveryKey;
-    const orderItemId = allocation?.dataset.orderItem;
-    if (!deliveryKey || !orderItemId) return;
-    setDeliveryItem(deliveryKey, orderItemId, btn.dataset.deliveryToggle === 'delivered').catch(error => toast(friendlyNetworkError(error).message, true));
+    const toggleBtn = event.target.closest('[data-delivery-toggle]');
+    if (toggleBtn) {
+      const allocation = toggleBtn.closest('[data-delivery-key]');
+      const deliveryKey = allocation?.dataset.deliveryKey;
+      const orderItemId = allocation?.dataset.orderItem;
+      if (!deliveryKey || !orderItemId) return;
+      setDeliveryItem(deliveryKey, orderItemId, toggleBtn.dataset.deliveryToggle === 'delivered').catch(error => toast(friendlyNetworkError(error).message, true));
+      return;
+    }
+
+    const allocation = event.target.closest('[data-delivery-key][data-delivery-selectable="true"]');
+    if (!allocation || state.deliveryBatchBusy) return;
+    const deliveryKey = allocation.dataset.deliveryKey;
+    if (!deliveryKey) return;
+    if (state.deliverySelection.has(deliveryKey)) state.deliverySelection.delete(deliveryKey);
+    else state.deliverySelection.add(deliveryKey);
+    renderDeliveries();
   });
   els.archiveDeliveryCycleBtn.addEventListener('click', () => archiveDeliveryCycle().catch(error => toast(friendlyNetworkError(error).message, true)));
 

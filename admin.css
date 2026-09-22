@@ -170,3 +170,33 @@ body::before{
     linear-gradient(180deg,#05070b 0%,#090b10 18%,#0e1015 51%,#090b10 83%,#05070b 100%);
 }
 .admin-shell{min-height:100vh;min-height:100dvh;background:transparent!important}
+
+
+/* S19 V1 · Selección múltiple en Pendientes de entrega */
+.delivery-selection-bar{
+  position:sticky;top:12px;z-index:12;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  margin:12px 0 16px;padding:13px 14px;border:1px solid rgba(216,179,95,.45);border-radius:17px;
+  background:rgba(10,12,16,.96);box-shadow:0 14px 34px rgba(0,0,0,.34);backdrop-filter:blur(12px)
+}
+.delivery-selection-bar[hidden]{display:none!important}
+.delivery-selection-copy{display:grid;gap:3px;min-width:0}
+.delivery-selection-copy span{color:var(--gold);font-size:.6rem;font-weight:800;letter-spacing:.12em}
+.delivery-selection-copy strong{font-size:.88rem;color:#f2eee6}
+.delivery-selection-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.delivery-selection-actions .btn{min-height:40px;padding:9px 12px}
+.delivery-allocation[data-delivery-selectable="true"]{cursor:pointer;transition:background .14s ease,border-color .14s ease,box-shadow .14s ease}
+.delivery-allocation[data-delivery-selectable="true"]:hover{background:rgba(216,179,95,.035)}
+.delivery-allocation.is-selected{background:rgba(216,179,95,.105);box-shadow:inset 3px 0 0 var(--gold)}
+.delivery-allocation.is-selected .delivery-check{background:var(--gold);border-color:var(--gold);color:#111}
+.delivery-check{display:grid;place-items:center;transition:background .14s ease,border-color .14s ease,transform .14s ease}
+.delivery-check:active{transform:scale(.94)}
+.delivery-check.is-delivered-check{cursor:pointer}
+@media(max-width:720px){
+  .delivery-selection-bar{top:68px;display:grid;grid-template-columns:1fr;margin:10px 0 14px;padding:12px}
+  .delivery-selection-actions{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.35fr);width:100%}
+  .delivery-selection-actions .btn{width:100%;font-size:.7rem}
+  .delivery-allocation[data-delivery-selectable="true"]{touch-action:manipulation}
+}
+@media(max-width:390px){
+  .delivery-selection-actions{grid-template-columns:1fr}
+}

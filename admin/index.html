@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./admin.css?v=2.6">
+  <link rel="stylesheet" href="./admin.css?v=2.7">
 </head>
 <body>
   <main class="admin-shell">
@@ -174,7 +174,7 @@
           <div>
             <p class="eyebrow">LOGÍSTICA</p>
             <h2>Pendientes de entrega</h2>
-            <p class="muted">Activa un corte cuando ya tengas los perfumes. Marca cada asignación conforme la entregues; el avance queda guardado aunque cierres el panel.</p>
+            <p class="muted">Activa un corte cuando ya tengas los perfumes. Selecciona una o varias asignaciones y márcalas juntas como entregadas; el avance queda guardado aunque cierres el panel.</p>
           </div>
           <button id="deliveriesRefreshBtn" class="btn btn-ghost" type="button">Actualizar</button>
         </div>
@@ -231,6 +231,16 @@
               </label>
             </div>
             <p id="deliveryCount" class="results-count"></p>
+            <div id="deliverySelectionBar" class="delivery-selection-bar" hidden>
+              <div class="delivery-selection-copy">
+                <span>SELECCIÓN</span>
+                <strong id="deliverySelectionCount">0 seleccionados</strong>
+              </div>
+              <div class="delivery-selection-actions">
+                <button id="clearDeliverySelectionBtn" class="btn btn-ghost" type="button">Desmarcar</button>
+                <button id="markSelectedDeliveredBtn" class="btn btn-primary" type="button">Marcar como entregados</button>
+              </div>
+            </div>
             <div id="deliveryList" class="delivery-list"></div>
           </div>
         </div>
@@ -467,6 +477,6 @@
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
     <div id="loadingLayer" class="loading-layer" hidden><div class="spinner"></div><span>Procesando…</span></div>
   </main>
-  <script src="./admin.js?v=2.5" defer></script>
+  <script src="./admin.js?v=2.6" defer></script>
 </body>
 </html>
