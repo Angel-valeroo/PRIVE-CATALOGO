@@ -20,6 +20,22 @@ function presentationLabel(value: string | null | undefined) {
   return "";
 }
 
+// Mantiene todos los campos del pedido individual después de ordenar.
+type IndividualReportRow = {
+  perfume_code?: string | null;
+  category?: string | null;
+  perfume_name?: string | null;
+  presentation?: string | null;
+  quantity?: number | string | null;
+  sample_quantity?: number | string | null;
+  customer_note?: string | null;
+  folio?: string | null;
+  user_alias?: string | null;
+  user_name?: string | null;
+  cycle_name?: string | null;
+  confirmed_at?: string | null;
+};
+
 // S22: orden de surtido del almacén, igual en todos los PDF y Excel.
 // Primero CP, después DP y por último UP; dentro de cada grupo, clave numérica
 // ascendente (incluidos los segmentos de claves como CP025-15).
@@ -103,7 +119,7 @@ Deno.serve(async (req) => {
     const { data: rawRows, error } = await supabase.rpc("get_confirmed_order_report", { p_order_id: order_id });
     if (error) throw error;
     if (!rawRows?.length) return json({ error: "Pedido no encontrado, no confirmado o sin permiso" }, 404);
-    const rows = sortRowsByPerfumeCode(rawRows);
+    const rows = sortRowsByPerfumeCode<IndividualReportRow>(rawRows as IndividualReportRow[]);
 
     const first=rows[0];
     const pdf=await PDFDocument.create();

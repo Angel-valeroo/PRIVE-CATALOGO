@@ -20,6 +20,18 @@ function presentationLabel(value: string | null | undefined) {
   return "";
 }
 
+// Tipos explícitos para conservar los campos de cada renglón después de ordenar.
+// Evitan que TypeScript reduzca las filas a solo clave y categoría.
+type SupplierReportRow = {
+  perfume_code?: string | null;
+  category?: string | null;
+  perfume_name?: string | null;
+  presentation?: string | null;
+  total_quantity?: number | string | null;
+  total_samples?: number | string | null;
+  internal_breakdown?: string | null;
+};
+
 // S22: orden de surtido del almacén, igual en todos los PDF y Excel.
 // Primero CP, después DP y por último UP; dentro de cada grupo, clave numérica
 // ascendente (incluidos los segmentos de claves como CP025-15).
@@ -91,8 +103,8 @@ Deno.serve(async (req) => {
     if (internalResult.error) throw internalResult.error;
 
     const cycle = cycleResult.data;
-    const supplier = sortRowsByPerfumeCode(supplierResult.data ?? []);
-    const internal = sortRowsByPerfumeCode(internalResult.data ?? []);
+    const supplier = sortRowsByPerfumeCode<SupplierReportRow>((supplierResult.data ?? []) as SupplierReportRow[]);
+    const internal = sortRowsByPerfumeCode<SupplierReportRow>((internalResult.data ?? []) as SupplierReportRow[]);
     if (!cycle) throw new Error("Corte no encontrado");
 
     const generatedAt = new Intl.DateTimeFormat("es-MX", {
