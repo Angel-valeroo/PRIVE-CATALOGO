@@ -20,6 +20,29 @@ function presentationLabel(value: string | null | undefined) {
   return "";
 }
 
+// S22: orden de surtido del almacén, igual en todos los PDF y Excel.
+// Primero CP, después DP y por último UP; dentro de cada grupo, clave numérica
+// ascendente (incluidos los segmentos de claves como CP025-15).
+function sortRowsByPerfumeCode<T extends { perfume_code?: string | null; category?: string | null }>(rows: T[]): T[] {
+  const collator = new Intl.Collator("es", { numeric: true, sensitivity: "base" });
+  const rank: Record<string, number> = { CP: 0, DP: 1, UP: 2 };
+  const categoryRank: Record<string, number> = { caballero: 0, dama: 1, unisex: 2 };
+  const normalize = (row: T) => String(row.perfume_code ?? "").trim().toUpperCase();
+  const group = (row: T) => {
+    const prefix = normalize(row).match(/^(CP|DP|UP)/)?.[1];
+    return prefix ? rank[prefix] : (categoryRank[String(row.category ?? "").toLowerCase()] ?? 3);
+  };
+  const numberPart = (row: T) => normalize(row).replace(/^(CP|DP|UP)/, "").replace(/^[\s_-]+/, "");
+  return [...rows].sort((a, b) => {
+    const byGroup = group(a) - group(b);
+    if (byGroup) return byGroup;
+    const aCode = numberPart(a), bCode = numberPart(b);
+    if (!aCode) return bCode ? 1 : 0;
+    if (!bCode) return -1;
+    return collator.compare(aCode, bCode);
+  });
+}
+
 async function userClient(req: Request) {
   const authHeader = req.headers.get("Authorization");
   if (!authHeader?.startsWith("Bearer ")) throw new Error("Falta sesión de usuario");
@@ -85,7 +108,7 @@ Deno.serve(async (req) => {
     if (cycleResult.error) throw cycleResult.error;
     if (reportResult.error) throw reportResult.error;
     const cycle = cycleResult.data;
-    const rows = reportResult.data ?? [];
+    const rows = sortRowsByPerfumeCode(reportResult.data ?? []);
     if (!cycle) throw new Error("Corte no encontrado");
 
     const pdf = await PDFDocument.create();
