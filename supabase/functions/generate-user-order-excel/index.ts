@@ -126,7 +126,7 @@ Deno.serve(async (req) => {
     data.push([`Total de perfumes: ${totalPerfumes}`,"","",`Total de muestras: ${totalSamples}`,"",""]);
 
     const ws=XLSX.utils.aoa_to_sheet(data);
-    ws["!cols"]=[{wch:14},{wch:42},{wch:20},{wch:20},{wch:18},{wch:36}];
+    ws["!cols"]=[{wch:10},{wch:25},{wch:14},{wch:15},{wch:12},{wch:25}];
     ws["!merges"]=[
       XLSX.utils.decode_range("A1:F1"),XLSX.utils.decode_range("A2:F2"),
       XLSX.utils.decode_range("B4:F4"),XLSX.utils.decode_range("B5:F5"),
@@ -159,7 +159,9 @@ Deno.serve(async (req) => {
         fill:{fgColor:{rgb:r===range.e.r?light:"FFFFFF"}},alignment:centered,
         border:{bottom:{style:"thin",color:{rgb:border}}}};
     }
-    ws["!pageSetup"]={orientation:"landscape",fitToWidth:1,fitToHeight:0};
+    // Vista en Excel sin alterar datos. Impresión A4 vertical ajustada al ancho de una hoja.
+    ws["!pageSetup"]={paperSize:9,orientation:"portrait",fitToWidth:1,fitToHeight:0};
+    ws["!pageMargins"]={left:0.20,right:0.20,top:0.32,bottom:0.32,header:0.12,footer:0.12};
 
     const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,"Pedido");
     const buffer=XLSX.write(wb,{bookType:"xlsx",type:"array"});

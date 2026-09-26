@@ -91,7 +91,13 @@ function wrapText(text: string, font: any, size: number, maxWidth: number) {
     if (font.widthOfTextAtSize(candidate, size) <= maxWidth) current = candidate;
     else {
       if (current) lines.push(current);
-      current = word;
+      current = "";
+      for (const char of word) {
+        if (current && font.widthOfTextAtSize(current + char, size) > maxWidth) {
+          lines.push(current);
+          current = char;
+        } else current += char;
+      }
     }
   }
   if (current) lines.push(current);
@@ -127,10 +133,11 @@ Deno.serve(async (req) => {
     const font = await pdf.embedFont(StandardFonts.Helvetica);
     const bold = await pdf.embedFont(StandardFonts.HelveticaBold);
 
-    const W=792,H=612,margin=36;
+    // S22 V1.1: A4 vertical; márgenes reducidos, tipografía legible y filas compactas.
+    const W=595.28,H=841.89,margin=24;
     const dark=rgb(23/255,24/255,28/255), gold=rgb(201/255,164/255,88/255),
       white=rgb(1,1,1), light=rgb(244/255,241/255,234/255), border=rgb(217/255,212/255,202/255);
-    const widths=[70,250,110,120,100];
+    const widths=[50,238,87,96,66];
     const headers=["Cantidad","Perfume","Clave","Presentación","Muestras"];
     const tableW=widths.reduce((a,b)=>a+b,0), tableX=(W-tableW)/2;
     let page:any, y=0, pageNo=0;
@@ -142,14 +149,14 @@ Deno.serve(async (req) => {
     };
 
     const drawHeader=()=>{
-      const h=32; let x=tableX;
+      const h=29; let x=tableX;
       for(let i=0;i<headers.length;i++){
         page.drawRectangle({x,y:y-h,width:widths[i],height:h,color:dark,borderColor:white,borderWidth:.4});
-        const lines=wrapText(headers[i],bold,9,widths[i]-8);
-        let ty=y-h/2+(lines.length*11)/2-9;
+        const lines=wrapText(headers[i],bold,8.7,widths[i]-8);
+        let ty=y-h/2+(lines.length*10.5)/2-8.5;
         for(const line of lines){
-          page.drawText(line,{x:centerX(line,x,widths[i],bold,9),y:ty,size:9,font:bold,color:white});
-          ty-=11;
+          page.drawText(line,{x:centerX(line,x,widths[i],bold,8.7),y:ty,size:8.7,font:bold,color:white});
+          ty-=10.5;
         }
         x+=widths[i];
       }
@@ -159,13 +166,15 @@ Deno.serve(async (req) => {
     const addPage=()=>{
       if(page) drawFooter();
       page=pdf.addPage([W,H]); pageNo++;
-      page.drawRectangle({x:0,y:H-118,width:W,height:118,color:dark});
-      page.drawText("PRIVÉ",{x:margin,y:H-52,size:25,font:bold,color:gold});
-      page.drawText("PEDIDO CONSOLIDADO PARA PROVEEDOR",{x:margin,y:H-82,size:14,font:bold,color:white});
-      page.drawText(cycle.name??"",{x:margin,y:H-104,size:9,font,color:white});
-      const dateText=`Fecha de pedido: ${cycle.order_day??""}`;
-      page.drawText(dateText,{x:W-margin-font.widthOfTextAtSize(dateText,9),y:H-104,size:9,font,color:white});
-      y=H-145; drawHeader();
+      // Cabecera condensada para aprovechar A4 sin repetir un hero de 118 pt.
+      page.drawRectangle({x:0,y:H-76,width:W,height:76,color:dark});
+      page.drawText("PRIVÉ",{x:margin,y:H-29,size:19,font:bold,color:gold});
+      page.drawText("PEDIDO CONSOLIDADO PARA PROVEEDOR",{x:margin,y:H-48,size:11,font:bold,color:white});
+      const cycleText=String(cycle.name??"");
+      page.drawText(cycleText,{x:margin,y:H-65,size:9,font,color:white});
+      const dateText=`Fecha: ${cycle.order_day??""}`;
+      page.drawText(dateText,{x:W-margin-font.widthOfTextAtSize(dateText,9),y:H-65,size:9,font,color:white});
+      y=H-89; drawHeader();
     };
 
     addPage();
@@ -174,17 +183,17 @@ Deno.serve(async (req) => {
         String(Number(row.total_quantity??0)), String(row.perfume_name??""), String(row.perfume_code??""),
         presentationLabel(row.presentation)||"—", String(Number(row.total_samples??0))
       ];
-      const wrapped=vals.map((v,i)=>wrapText(v,font,10,widths[i]-10));
+      const wrapped=vals.map((v,i)=>wrapText(v,font,9.3,widths[i]-10));
       const maxLines=Math.max(...wrapped.map(x=>x.length));
-      const rowH=Math.max(34,maxLines*13+12);
-      if(y-rowH<62) addPage();
+      const rowH=Math.max(25,maxLines*11.5+8);
+      if(y-rowH<45) addPage();
       let x=tableX;
       for(let i=0;i<wrapped.length;i++){
         page.drawRectangle({x,y:y-rowH,width:widths[i],height:rowH,color:white,borderColor:border,borderWidth:.5});
-        let ty=y-rowH/2+(wrapped[i].length*13)/2-10;
+        let ty=y-rowH/2+(wrapped[i].length*11.5)/2-8.7;
         for(const line of wrapped[i]){
-          page.drawText(line,{x:centerX(line,x,widths[i],font,10),y:ty,size:10,font,color:dark});
-          ty-=13;
+          page.drawText(line,{x:i===1 ? x+5 : centerX(line,x,widths[i],font,9.3),y:ty,size:9.3,font,color:dark});
+          ty-=11.5;
         }
         x+=widths[i];
       }
@@ -193,11 +202,11 @@ Deno.serve(async (req) => {
 
     const totalPerfumes=rows.reduce((s:any,r:any)=>s+Number(r.total_quantity||0),0);
     const totalSamples=rows.reduce((s:any,r:any)=>s+Number(r.total_samples||0),0);
-    if(y<105) addPage();
-    y-=16;
-    page.drawRectangle({x:tableX,y:y-34,width:tableW,height:34,color:light,borderColor:border,borderWidth:.6});
+    if(y<89) addPage();
+    y-=10;
+    page.drawRectangle({x:tableX,y:y-29,width:tableW,height:29,color:light,borderColor:border,borderWidth:.6});
     const totalText=`Total de perfumes: ${totalPerfumes}     ·     Total de muestras: ${totalSamples}`;
-    page.drawText(totalText,{x:centerX(totalText,tableX,tableW,bold,11),y:y-21,size:11,font:bold,color:dark});
+    page.drawText(totalText,{x:centerX(totalText,tableX,tableW,bold,11),y:y-19,size:10,font:bold,color:dark});
     drawFooter();
 
     const pages=pdf.getPages();

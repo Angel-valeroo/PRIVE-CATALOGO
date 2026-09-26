@@ -95,7 +95,13 @@ function wrapText(text: string, font: any, size: number, maxWidth: number) {
     if (font.widthOfTextAtSize(candidate, size) <= maxWidth) current = candidate;
     else {
       if (current) lines.push(current);
-      current = word;
+      current = "";
+      for (const char of word) {
+        if (current && font.widthOfTextAtSize(current + char, size) > maxWidth) {
+          lines.push(current);
+          current = char;
+        } else current += char;
+      }
     }
   }
   if (current) lines.push(current);
@@ -125,11 +131,12 @@ Deno.serve(async (req) => {
     const pdf=await PDFDocument.create();
     const font=await pdf.embedFont(StandardFonts.Helvetica);
     const bold=await pdf.embedFont(StandardFonts.HelveticaBold);
-    const W=792,H=612,margin=34;
+    // S22 V1.1: A4 vertical; márgenes reducidos, tipografía legible y filas compactas.
+    const W=595.28,H=841.89,margin=22;
     const dark=rgb(23/255,24/255,28/255),gold=rgb(201/255,164/255,88/255),white=rgb(1,1,1),
       light=rgb(244/255,241/255,234/255),border=rgb(217/255,212/255,202/255);
 
-    const widths=[60,205,95,105,80,175];
+    const widths=[45,169,80,77,54,123];
     const headers=["Cantidad","Perfume","Clave","Presentación","Muestras","Nota / Cliente"];
     const tableW=widths.reduce((a,b)=>a+b,0),tableX=(W-tableW)/2;
     let page:any,y=0,pageNo=0;
@@ -142,13 +149,13 @@ Deno.serve(async (req) => {
     };
 
     const tableHeader=()=>{
-      const h=34;let x=tableX;
+      const h=30;let x=tableX;
       for(let i=0;i<headers.length;i++){
         page.drawRectangle({x,y:y-h,width:widths[i],height:h,color:dark,borderColor:white,borderWidth:.4});
-        const lines=wrapText(headers[i],bold,9,widths[i]-8);
-        let ty=y-h/2+(lines.length*11)/2-9;
+        const lines=wrapText(headers[i],bold,8.7,widths[i]-8);
+        let ty=y-h/2+(lines.length*10.5)/2-8.5;
         for(const line of lines){
-          page.drawText(line,{x:centerX(line,x,widths[i],bold,9),y:ty,size:9,font:bold,color:white}); ty-=11;
+          page.drawText(line,{x:centerX(line,x,widths[i],bold,8.7),y:ty,size:8.7,font:bold,color:white}); ty-=10.5;
         }
         x+=widths[i];
       }
@@ -158,13 +165,13 @@ Deno.serve(async (req) => {
     const addPage=(firstPage=false)=>{
       if(page) footer();
       page=pdf.addPage([W,H]);pageNo++;
-      page.drawRectangle({x:0,y:H-122,width:W,height:122,color:dark});
-      page.drawText("PRIVÉ",{x:margin,y:H-52,size:25,font:bold,color:gold});
-      page.drawText("PEDIDO INDIVIDUAL CONFIRMADO",{x:margin,y:H-82,size:14,font:bold,color:white});
-      page.drawText(`Folio: ${first.folio??""}`,{x:margin,y:H-104,size:9,font,color:white});
+      page.drawRectangle({x:0,y:H-76,width:W,height:76,color:dark});
+      page.drawText("PRIVÉ",{x:margin,y:H-29,size:19,font:bold,color:gold});
+      page.drawText("PEDIDO INDIVIDUAL CONFIRMADO",{x:margin,y:H-48,size:11,font:bold,color:white});
+      page.drawText(`Folio: ${first.folio??""}`,{x:margin,y:H-65,size:9,font,color:white});
       const date=`Generado: ${generatedAt}`;
-      page.drawText(date,{x:W-margin-font.widthOfTextAtSize(date,9),y:H-104,size:9,font,color:white});
-      y=H-145;
+      page.drawText(date,{x:W-margin-font.widthOfTextAtSize(date,9),y:H-65,size:9,font,color:white});
+      y=H-88;
 
       if(firstPage){
         const info=[
@@ -173,15 +180,15 @@ Deno.serve(async (req) => {
           ["Fecha de confirmación", first.confirmed_at ? new Intl.DateTimeFormat("es-MX",{timeZone:"America/Mexico_City",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"}).format(new Date(first.confirmed_at)) : ""]
         ];
         for(const [label,value] of info){
-          const h=27;
-          page.drawRectangle({x:tableX,y:y-h,width:135,height:h,color:dark,borderColor:border,borderWidth:.4});
-          page.drawRectangle({x:tableX+135,y:y-h,width:tableW-135,height:h,color:light,borderColor:border,borderWidth:.4});
-          page.drawText(label,{x:centerX(label,tableX,135,bold,9),y:y-17,size:9,font:bold,color:white});
-          const lines=wrapText(value,font,9,tableW-145);
-          page.drawText(lines[0]||"",{x:centerX(lines[0]||"",tableX+135,tableW-135,font,9),y:y-17,size:9,font,color:dark});
+          const h=23;
+          page.drawRectangle({x:tableX,y:y-h,width:105,height:h,color:dark,borderColor:border,borderWidth:.4});
+          page.drawRectangle({x:tableX+105,y:y-h,width:tableW-105,height:h,color:light,borderColor:border,borderWidth:.4});
+          page.drawText(label,{x:centerX(label,tableX,105,bold,8.4),y:y-15,size:8.4,font:bold,color:white});
+          const lines=wrapText(value,font,9,tableW-115);
+          page.drawText(lines[0]||"",{x:centerX(lines[0]||"",tableX+105,tableW-105,font,9),y:y-15,size:9,font,color:dark});
           y-=h;
         }
-        y-=14;
+        y-=8;
       }
       tableHeader();
     };
@@ -192,16 +199,16 @@ Deno.serve(async (req) => {
         String(Number(row.quantity||0)),String(row.perfume_name||""),String(row.perfume_code||""),
         presentationLabel(row.presentation)||"—",String(Number(row.sample_quantity||0)),String(row.customer_note||"")
       ];
-      const wrapped=vals.map((v,i)=>wrapText(v,font,9.5,widths[i]-10));
+      const wrapped=vals.map((v,i)=>wrapText(v,font,9,widths[i]-9));
       const maxLines=Math.max(...wrapped.map(a=>a.length));
-      const rowH=Math.max(34,maxLines*12+12);
-      if(y-rowH<62) addPage(false);
+      const rowH=Math.max(25,maxLines*11.2+8);
+      if(y-rowH<45) addPage(false);
       let x=tableX;
       for(let i=0;i<wrapped.length;i++){
         page.drawRectangle({x,y:y-rowH,width:widths[i],height:rowH,color:white,borderColor:border,borderWidth:.5});
-        let ty=y-rowH/2+(wrapped[i].length*12)/2-9;
+        let ty=y-rowH/2+(wrapped[i].length*11.2)/2-8.2;
         for(const line of wrapped[i]){
-          page.drawText(line,{x:centerX(line,x,widths[i],font,9.5),y:ty,size:9.5,font,color:dark});ty-=12;
+          page.drawText(line,{x:(i===1||i===5) ? x+4.5 : centerX(line,x,widths[i],font,9),y:ty,size:9,font,color:dark});ty-=11.2;
         }
         x+=widths[i];
       }
@@ -210,11 +217,11 @@ Deno.serve(async (req) => {
 
     const totalPerfumes=rows.reduce((s:any,r:any)=>s+Number(r.quantity||0),0);
     const totalSamples=rows.reduce((s:any,r:any)=>s+Number(r.sample_quantity||0),0);
-    if(y<105) addPage(false);
-    y-=16;
-    page.drawRectangle({x:tableX,y:y-34,width:tableW,height:34,color:light,borderColor:border,borderWidth:.6});
+    if(y<89) addPage(false);
+    y-=10;
+    page.drawRectangle({x:tableX,y:y-29,width:tableW,height:29,color:light,borderColor:border,borderWidth:.6});
     const total=`Total de perfumes: ${totalPerfumes}     ·     Total de muestras: ${totalSamples}`;
-    page.drawText(total,{x:centerX(total,tableX,tableW,bold,11),y:y-21,size:11,font:bold,color:dark});
+    page.drawText(total,{x:centerX(total,tableX,tableW,bold,11),y:y-19,size:10,font:bold,color:dark});
     footer();
 
     const pages=pdf.getPages();

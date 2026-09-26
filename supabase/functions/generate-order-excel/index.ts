@@ -138,7 +138,9 @@ Deno.serve(async (req) => {
           fill:{fgColor:{rgb:r%2===0?"FFFFFF":light}},alignment:centered,
           border:{bottom:{style:"thin",color:{rgb:border}}}};
       }
-      ws["!pageSetup"]={orientation:"landscape",fitToWidth:1,fitToHeight:0};
+      // Vista en Excel sin alterar datos. Impresión A4 vertical ajustada al ancho de una hoja.
+      ws["!pageSetup"]={paperSize:9,orientation:"portrait",fitToWidth:1,fitToHeight:0};
+      ws["!pageMargins"]={left:0.20,right:0.20,top:0.32,bottom:0.32,header:0.12,footer:0.12};
       return ws;
     };
 
@@ -171,8 +173,8 @@ Deno.serve(async (req) => {
     ]);
 
     const wb=XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, makeSheet(supplierRows,[14,42,20,20,18]), "Proveedor");
-    XLSX.utils.book_append_sheet(wb, makeSheet(internalRows,[14,38,20,20,18,48]), "Interno PRIVE");
+    XLSX.utils.book_append_sheet(wb, makeSheet(supplierRows,[10,29,15,16,13]), "Proveedor");
+    XLSX.utils.book_append_sheet(wb, makeSheet(internalRows,[10,23,14,15,12,26]), "Interno PRIVE");
     const buffer=XLSX.write(wb,{bookType:"xlsx",type:"array"});
     return new Response(buffer, {
       status:200,
